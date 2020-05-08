@@ -4,7 +4,7 @@
 import pandas as pd
 import os
 from datetime import datetime, timedelta
-import wget
+#import wget
 import numpy as np
 import datetime
 
