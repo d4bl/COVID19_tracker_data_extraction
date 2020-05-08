@@ -24,7 +24,10 @@ from IPython.display import display, HTML
 
 ######## Massachusetts
 
-def data_extract_massachusetts(validation=False):
+def data_extract_massachusetts(validation=False, home_dir=None):
+	if home_dir is None:
+		home_dir = os.getcwd()
+
     ## Navigate to Massachusetts data folder
     mass_dir = os.path.join(home_dir, 'data', 'mass')
     os.chdir(mass_dir)
