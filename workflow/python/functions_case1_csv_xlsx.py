@@ -18,11 +18,7 @@ from IPython.display import display, HTML
 
 
 
-# Create new data folders
-%mkdir data
-%mkdir data/mass
-%mkdir data/virginia
-%mkdir data/dc
+
 
 
 
@@ -48,7 +44,7 @@ def data_extract_massachusetts(validation=False):
         os.system("wget -O {} {}".format(mass_file, mass_url))
 
         print('Unzip the file')
-        ! unzip -o -qq massachusetts.zip
+        os.system('unzip -o -qq massachusetts.zip')
 
         print('Get the race/ethnicity breakdown')
         df_mass_raw = pd.read_csv('RaceEthnicity.csv')
@@ -118,7 +114,7 @@ def data_extract_virginia(validation=False):
     ## Thus, validation parameter setting has no effect
     try:
         ## Download the CSV for race
-        !wget -q --no-check-certificate https://www.vdh.virginia.gov/content/uploads/sites/182/2020/03/VDH-COVID-19-PublicUseDataset-Cases_By-Race.csv
+        os.system('wget -q --no-check-certificate https://www.vdh.virginia.gov/content/uploads/sites/182/2020/03/VDH-COVID-19-PublicUseDataset-Cases_By-Race.csv')
 
         ## Read in the file
         df_va_raw = pd.read_csv('VDH-COVID-19-PublicUseDataset-Cases_By-Race.csv')
