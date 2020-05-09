@@ -1,4 +1,5 @@
 
+
 ## Misc utilities
 import pandas as pd
 import os
@@ -14,6 +15,22 @@ import requests
 
 ## Display pandas dataframe
 from IPython.display import display, HTML
+
+from misc_helper_functions import find_all_links
+
+
+# Import packages needed to run GA code
+#import datetime
+import email.utils as eut
+from io import BytesIO
+import re
+import zipfile
+
+import urllib.request
+import requests
+import ssl
+import shutil
+ssl._create_default_https_context = ssl._create_unverified_context
 
 # Source: https://stackoverflow.com/questions/1080411/retrieve-links-from-web-page-using-python-and-beautifulsoup
 
@@ -33,6 +50,99 @@ def find_all_links(url, search_string=None):
         return [x for x in link_list if search_string in x]
     else:
         return link_list
+
+
+
+
+def download_file(file_url, new_file_name=None):
+    try:
+        try:
+            urllib.request.urlretrieve(file_url, new_file_name)
+            print('file download success!')
+        except:
+            r = requests.get(file_url)
+
+            with open(new_file_name, 'wb') as f:
+                f.write(r.content)
+                
+            print('file download success!')
+    except:
+        print('file download failed!')
+    
+    
+
+
+## Wrapper to unzip files
+def unzip(path_to_zip_file, directory_to_extract_to='.'):
+    with zipfile.ZipFile(path_to_zip_file, 'r') as zip_ref:
+        zip_ref.extractall(directory_to_extract_to)
+
+
+
+
+def url_to_soup(data_url):
+    """
+    Converts string into beautiful soup object for parsing
+    
+    Parameters
+    ----------
+    data_url: string
+        website link
+    
+    Returns
+    -------
+    data_soup: Beautifulsoup object
+        HMTL code from webpage
+    """
+    data_page = requests.get(data_url)
+    if (data_page.status_code) == 200:
+        print('request successful')
+    else:
+        print('request failed for')
+
+    # Create a Beautiful Soup object
+    data_text = data_page.text
+    data_soup = BeautifulSoup(data_text, "html.parser")
+
+    # check to see a familiar HTML code
+#     print(data_soup.prettify()[:])
+    
+    return data_soup
+
+
+
+def get_json(url):
+    """Simple function to return the parsed JSON from a web API."""
+    # The next two lines can raise a requests.RequestException
+    r = requests.get(url) 
+    r.raise_for_status()
+    # The next line can raise a ValueError
+    return r.json()
+
+
+
+
+def get_metadata_date(metadata_url):
+    """For states using ESRI web services, the field metadata includes a timestamp. 
+    This function fetches, extracts, and parses it, returning a datetime.date.
+    """
+    metadata = get_json(metadata_url)
+    last_edit_ms = metadata['editingInfo']['lastEditDate']
+    # The next line can raise OverflowError
+    return datetime.date.fromtimestamp(last_edit_ms / 1000)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
