@@ -32,6 +32,12 @@ import ssl
 import shutil
 ssl._create_default_https_context = ssl._create_unverified_context
 
+## Status code and error code
+success_code = 'Success!'
+error_code = 'An error occured.'
+
+
+
 
 ######## Massachusetts
 
@@ -93,7 +99,7 @@ def data_extract_massachusetts(validation=False, home_dir=None):
         mass_aa_deaths = df_mass[df_mass['Race/Ethnicity'] == 'Non-Hispanic Black/African American']['Deaths'].tolist()[0]
         mass_aa_deaths_pct = round(100 * mass_aa_deaths / mass_total_deaths, 2)
 
-        print('\nSuccess!\n')
+        print(success_code)
         
         return {
             'Location': 'Massachusetts',
@@ -101,13 +107,14 @@ def data_extract_massachusetts(validation=False, home_dir=None):
         'Total Cases': mass_total_cases,
         'Total Deaths': mass_total_deaths,
         'Pct Cases Black/AA': mass_aa_cases_pct,
-        'Pct Deaths Black/AA': mass_aa_deaths_pct
+        'Pct Deaths Black/AA': mass_aa_deaths_pct,
+        'Status code': success_code
         }
         
         
     
     except Exception as inst:
-        print('Execution error!')
+        print(error_code)
         print(inst)
         
         return {
@@ -116,7 +123,8 @@ def data_extract_massachusetts(validation=False, home_dir=None):
         'Total Cases': np.nan,
         'Total Deaths': np.nan,
         'Pct Cases Black/AA': np.nan,
-        'Pct Deaths Black/AA': np.nan
+        'Pct Deaths Black/AA': np.nan,
+        'Status code': "{} ... {}".format(error_code, repr(inst)) 
         }
 
 
@@ -166,7 +174,7 @@ def data_extract_virginia(validation=False, home_dir=None):
         va_aa_deaths = df_va.loc['Black or African American',:]['Number of Deaths']
         va_aa_deaths_pct = round(100 * va_aa_deaths / va_total_deaths, 2)
         
-        print('\nSuccess!\n')
+        print(success_code)
         
         return {
             'Location': 'Virginia',
@@ -174,11 +182,12 @@ def data_extract_virginia(validation=False, home_dir=None):
             'Total Cases': va_total_cases,
             'Total Deaths': va_total_deaths,
             'Pct Cases Black/AA': va_aa_cases_pct,
-            'Pct Deaths Black/AA': va_aa_deaths_pct
+            'Pct Deaths Black/AA': va_aa_deaths_pct,
+            'Status code': success_code
             }
     
     except Exception as inst:
-        print('Execution error!')
+        print(error_code)
         print(inst)
 
         return {
@@ -187,7 +196,8 @@ def data_extract_virginia(validation=False, home_dir=None):
             'Total Cases': pd.nan,
             'Total Deaths': pd.nan,
             'Pct Cases Black/AA': pd.nan,
-            'Pct Deaths Black/AA': pd.nan
+            'Pct Deaths Black/AA': pd.nan,
+            'Status code': "{} ... {}".format(error_code, repr(inst)) 
         }
 
 
@@ -290,7 +300,7 @@ def data_extract_washingtonDC(validation=False, home_dir=None):
         
         
         
-        print('\nSuccess!\n')
+        print(success_code)
         
         return {
             'Location': 'Washington, DC',
@@ -298,11 +308,12 @@ def data_extract_washingtonDC(validation=False, home_dir=None):
             'Total Cases': dc_total_cases,
             'Total Deaths': dc_total_deaths,
             'Pct Cases Black/AA': dc_aa_cases_pct,
-            'Pct Deaths Black/AA': dc_aa_deaths_pct
+            'Pct Deaths Black/AA': dc_aa_deaths_pct,
+            'Status code': success_code
             }
     
     except Exception as inst:
-        print('Execution error!')
+        print(error_code)
         print(inst)
 
         return {
@@ -311,7 +322,8 @@ def data_extract_washingtonDC(validation=False, home_dir=None):
             'Total Cases': np.nan,
             'Total Deaths': np.nan,
             'Pct Cases Black/AA': np.nan,
-            'Pct Deaths Black/AA': np.nan
+            'Pct Deaths Black/AA': np.nan,
+            'Status code': "{} ... {}".format(error_code, repr(inst)) 
         }
 
         
@@ -349,7 +361,7 @@ def data_extract_georgia(validation=False, home_dir=None):
         ga_aa_cases_pct = round(100 * by_race.loc['AFRICAN-AMERICAN', 'Confirmed_Cases'] / totals['Confirmed_Cases'], 2)
         ga_aa_deaths_pct = round(100 * by_race.loc['AFRICAN-AMERICAN', 'Deaths'] / totals['Deaths'], 2)
         
-        print('\nSuccess!\n')
+        print(success_code)
         
         return {
             'Location': location_name,
@@ -358,10 +370,11 @@ def data_extract_georgia(validation=False, home_dir=None):
             'Total Deaths': totals['Deaths'],
             'Pct Cases Black/AA': ga_aa_cases_pct,
             'Pct Deaths Black/AA': ga_aa_deaths_pct,
+            'Status code': success_code
         }
     
     except Exception as inst:
-        print('Execution error!')
+        print(error_code)
         print(inst)
 
         return {
@@ -370,7 +383,8 @@ def data_extract_georgia(validation=False, home_dir=None):
             'Total Cases': np.nan,
             'Total Deaths': np.nan,
             'Pct Cases Black/AA': np.nan,
-            'Pct Deaths Black/AA': np.nan
+            'Pct Deaths Black/AA': np.nan,
+            'Status code': "{} ... {}".format(error_code, repr(inst)) 
         }
 
 
