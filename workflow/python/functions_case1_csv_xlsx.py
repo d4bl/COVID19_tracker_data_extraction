@@ -16,7 +16,7 @@ import requests
 ## Display pandas dataframe
 from IPython.display import display, HTML
 
-from misc_helper_functions import find_all_links
+from misc_helper_functions import find_all_links, download_file, unzip
 
 
 # Import packages needed to run GA code
@@ -31,29 +31,6 @@ import requests
 import ssl
 import shutil
 ssl._create_default_https_context = ssl._create_unverified_context
-
-def download_file(file_url, new_file_name=None):
-    try:
-        try:
-            urllib.request.urlretrieve(file_url, new_file_name)
-            print('file download success!')
-        except:
-            r = requests.get(file_url)
-
-            with open(new_file_name, 'wb') as f:
-                f.write(r.content)
-                
-            print('file download success!')
-    except:
-        print('file download failed!')
-    
-    
-
-
-## Wrapper to unzip files
-def unzip(path_to_zip_file, directory_to_extract_to='.'):
-    with zipfile.ZipFile(path_to_zip_file, 'r') as zip_ref:
-        zip_ref.extractall(directory_to_extract_to)
 
 
 ######## Massachusetts
