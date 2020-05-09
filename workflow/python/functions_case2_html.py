@@ -66,12 +66,12 @@ def data_extract_michigan(validation=False, home_dir=None):
                 for tr in table.find('tbody').find_all('tr'):
                     tds = tr.find_all('td')
                     if tds[0].string == 'Black or African American':
-                        aa_cases = int(tds[1].string.strip('% '))
-                        aa_deaths = int(tds[2].string.strip('% '))
+                        pct_cases_aa = int(tds[1].string.strip('% '))
+                        pct_deaths_aa = int(tds[2].string.strip('% '))
         MI['Total Cases'] = total_cases
         MI['Total Deaths'] = total_deaths
-        MI['Pct Cases Black/AA'] = round(100 * aa_cases / total_cases, 2)
-        MI['Pct Deaths Black/AA'] = round(100 * aa_deaths / total_deaths, 2)
+        MI['Pct Cases Black/AA'] = pct_cases_aa
+        MI['Pct Deaths Black/AA'] = pct_deaths_aa
         
         print(success_code)
 
