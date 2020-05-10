@@ -66,12 +66,16 @@ def data_extract_michigan(validation=False, home_dir=None):
                 for tr in table.find('tbody').find_all('tr'):
                     tds = tr.find_all('td')
                     if tds[0].string == 'Black or African American':
-                        pct_cases_aa = int(tds[1].string.strip('% '))
-                        pct_deaths_aa = int(tds[2].string.strip('% '))
+                        aa_cases_pct = int(tds[1].string.strip('% '))
+                        aa_deaths_pct = int(tds[2].string.strip('% '))
+                        aa_cases = int(np.round(total_cases * (aa_cases_pct / 100)))
+                        aa_deaths = int(np.round(total_deaths * (aa_deaths_pct / 100)))
         MI['Total Cases'] = total_cases
         MI['Total Deaths'] = total_deaths
-        MI['Pct Cases Black/AA'] = pct_cases_aa
-        MI['Pct Deaths Black/AA'] = pct_deaths_aa
+        MI['Count Cases Black/AA'] = aa_cases
+        MI['Count Deaths Black/AA'] = aa_deaths
+        MI['Pct Cases Black/AA'] = aa_cases_pct
+        MI['Pct Deaths Black/AA'] = aa_deaths_pct
         
         print(success_code)
 
@@ -88,6 +92,8 @@ def data_extract_michigan(validation=False, home_dir=None):
         'Date Published': '',
         'Total Cases': np.nan,
         'Total Deaths': np.nan,
+        'Count Cases Black/AA': np.nan,
+        'Count Deaths Black/AA': np.nan,
         'Pct Cases Black/AA': np.nan,
         'Pct Deaths Black/AA': np.nan,
         'Status code': "{} ... {}".format(error_code, repr(inst)) 
@@ -116,8 +122,10 @@ def data_extract_minnesota(validation=False, home_dir=None):
                 date_text = strong_tag.text.strip('.')[11:]
             if this_heading == 'Total positive: ':
                 num_cases = strong_tag.next_sibling
+                num_cases = int(num_cases.replace(',', ''))
             if this_heading == 'Deaths: ':
                 num_deaths = strong_tag.next_sibling
+                num_deaths = int(num_deaths.replace(',', ''))
             counter += 1
             
         date_time_obj = datetime.datetime.strptime(date_text, "%B %d, %Y")
@@ -136,8 +144,13 @@ def data_extract_minnesota(validation=False, home_dir=None):
         #     print(th.next_sibling)
             if text == "Black":
         #         print(table.find_all('td'))
-                pct_cases = table.find_all('td')[counter-2].text.strip('%')
-                pct_deaths = table.find_all('td')[counter-1].text.strip('%')
+                pct_cases_txt = table.find_all('td')[counter-2].text.strip('%')
+                pct_deaths_txt = table.find_all('td')[counter-1].text.strip('%')
+                pct_aa_cases = int(pct_cases_txt)
+                pct_aa_deaths = int(pct_deaths_txt)
+                cnt_aa_cases = int(np.round(num_cases * (pct_aa_cases / 100)))
+                cnt_aa_deaths = int(np.round(num_deaths * (pct_aa_deaths / 100)))
+
             counter += 1
         
         print('Pct Cases Black/AA:', pct_cases)
@@ -148,10 +161,12 @@ def data_extract_minnesota(validation=False, home_dir=None):
         return {
             'Location': 'Minnesota',
             'Date Published': date_formatted,
-            'Total Cases': int(num_cases.replace(',', '')),
-            'Total Deaths': int(num_deaths.replace(',', '')),
-            'Pct Cases Black/AA': int(pct_cases),
-            'Pct Deaths Black/AA': int(pct_deaths),
+            'Total Cases': num_cases,
+            'Total Deaths': num_deaths,
+            'Count Cases Black/AA': cnt_aa_cases,
+            'Count Deaths Black/AA': cnt_aa_deaths,
+            'Pct Cases Black/AA': pct_aa_cases,
+            'Pct Deaths Black/AA': pct_aa_deaths,
             'Status code': success_code
         }
         
@@ -164,6 +179,8 @@ def data_extract_minnesota(validation=False, home_dir=None):
         'Date Published': '',
         'Total Cases': np.nan,
         'Total Deaths': np.nan,
+        'Count Cases Black/AA': np.nan,
+        'Count Deaths Black/AA': np.nan,
         'Pct Cases Black/AA': np.nan,
         'Pct Deaths Black/AA': np.nan,
         'Status code': "{} ... {}".format(error_code, repr(inst)) 
@@ -194,8 +211,8 @@ def data_extract_north_carolina(validation=False, home_dir=None):
         field_item = NC_soup.find("div", attrs={"class":"field-item"})
         # num_cases = field_item.findAll("tr")[1].td.text
         items = field_item.findAll("tr")[1]
-        num_cases = items.findAll("td")[1].text
-        num_deaths = items.findAll("td")[0].text
+        num_cases = int(items.findAll("td")[1].text.replace(',', ''))
+        num_deaths = int(items.findAll("td")[0].text.replace(',', ''))
         
         print('Date:', date_formatted)
         print('Number Cases:', num_cases)
@@ -206,21 +223,25 @@ def data_extract_north_carolina(validation=False, home_dir=None):
         race_data = tables[4]
         num_race_cases = race_data.findAll("td")[6]
         num_race_deaths = race_data.findAll("td")[8]
-        pct_cases = race_data.findAll("td")[22].text.strip('%')
-        pct_deaths = race_data.findAll("td")[24].text.strip('%')
+        pct_aa_cases = int(race_data.findAll("td")[22].text.strip('%'))
+        pct_aa_deaths = int(race_data.findAll("td")[24].text.strip('%'))
+        cnt_aa_cases = int(np.round(num_cases * (pct_aa_cases / 100)))
+        cnt_aa_deaths = int(np.round(num_deaths * (pct_aa_deaths / 100))) 
         
-        print('Pct Cases Black/AA:', pct_cases)
-        print('Pct Deaths Black/AA:', pct_deaths)
+        print('Pct Cases Black/AA:', pct_aa_cases)
+        print('Pct Deaths Black/AA:', pct_aa_deaths)
         
         print(success_code)
         
         return {
             'Location': 'North Carolina',
             'Date Published': date_formatted,
-            'Total Cases': int(num_cases.replace(',', '')),
-            'Total Deaths': int(num_deaths.replace(',', '')),
-            'Pct Cases Black/AA': int(pct_cases),
-            'Pct Deaths Black/AA': int(pct_deaths),
+            'Total Cases': num_cases,
+            'Total Deaths': num_deaths,
+            'Count Cases Black/AA': cnt_aa_cases,
+            'Count Deaths Black/AA': cnt_aa_deaths,
+            'Pct Cases Black/AA': int(pct_aa_cases),
+            'Pct Deaths Black/AA': int(pct_aa_deaths),
             'Status code': success_code
         }
         
@@ -233,6 +254,8 @@ def data_extract_north_carolina(validation=False, home_dir=None):
         'Date Published': '',
         'Total Cases': np.nan,
         'Total Deaths': np.nan,
+        'Count Cases Black/AA': np.nan,
+        'Count Deaths Black/AA': np.nan,
         'Pct Cases Black/AA': np.nan,
         'Pct Deaths Black/AA': np.nan,
         'Status code': "{} ... {}".format(error_code, repr(inst)) 
@@ -246,7 +269,7 @@ def data_extract_north_carolina(validation=False, home_dir=None):
 
 
 def data_extract_texas_bexar_county(validation=False, home_dir=None):
-    location_name = 'Texas - Bexar County'
+    location_name = 'Texas -- Bexar County'
         
     TX_Bexar = {
     'Location': location_name,
@@ -257,11 +280,13 @@ def data_extract_texas_bexar_county(validation=False, home_dir=None):
             'Date Published': '',
             'Total Cases': np.nan,
             'Total Deaths': np.nan,
+            'Count Cases Black/AA': np.nan,
+            'Count Deaths Black/AA': np.nan,
             'Pct Cases Black/AA': np.nan,
-            'Pct Deaths Black/AA': np.nan,
-            'Status code': "{} ... {}".format(error_code, repr(inst)) 
+            'Pct Deaths Black/AA': np.nan
             }
     
+
     try:
         # Start by fetching the metadata to get the likey timestamp
         md_date = get_metadata_date('https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/vRaceEthnicity/FeatureServer/0?f=json')
@@ -276,6 +301,8 @@ def data_extract_texas_bexar_county(validation=False, home_dir=None):
         data = get_json('https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/vRaceEthnicity/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=20&resultType=standard&cacheHint=true')
         for feature in data.get('features', []):
             if feature['attributes']['RaceEthnicity'] == 'Black':
+                TX_Bexar['Count Cases Black/AA'] = feature['attributes']['CasesConfirmed']
+                TX_Bexar['Count Deaths Black/AA'] = feature['attributes']['Deaths']
                 TX_Bexar['Pct Cases Black/AA'] = round(100 * feature['attributes']['CasesConfirmed'] / TX_Bexar['Total Cases'], 2)
                 TX_Bexar['Pct Deaths Black/AA'] = round(100 * feature['attributes']['Deaths'] / TX_Bexar['Total Deaths'], 2)
                 break
@@ -290,19 +317,22 @@ def data_extract_texas_bexar_county(validation=False, home_dir=None):
         
     except OverflowError as e:
         print("Error processing last update timstamp for TX_Bexar")
+        placeholder_output['Status code'] = "{} ... {}".format(error_code, repr(e)) 
         return placeholder_output
     except ValueError as e:
+        placeholder_output['Status code'] = "{} ... {}".format(error_code, repr(e)) 
         print("Error processing data for TX_Bexar", e)
         return placeholder_output
     except requests.RequestException as e:
         print("Error retrieving URL for TX_Bexar:", e.request.url)
+        placeholder_output['Status code'] = "{} ... {}".format(error_code, repr(e)) 
         return placeholder_output
     
 
 
 def data_extract_wisconsin_milwaukee(validation=False, home_dir=None):
     
-    location_name = 'Wisconsin - Milwaukee'
+    location_name = 'Wisconsin -- Milwaukee'
     
     WI_Milwaukee = {
         'Location': location_name,
@@ -313,9 +343,10 @@ def data_extract_wisconsin_milwaukee(validation=False, home_dir=None):
             'Date Published': '',
             'Total Cases': np.nan,
             'Total Deaths': np.nan,
+            'Count Cases Black/AA': np.nan,
+            'Count Deaths Black/AA': np.nan,
             'Pct Cases Black/AA': np.nan,
-            'Pct Deaths Black/AA': np.nan,
-            'Status code': "{} ... {}".format(error_code, repr(inst)) 
+            'Pct Deaths Black/AA': np.nan 
             }
     
     try:
@@ -334,12 +365,14 @@ def data_extract_wisconsin_milwaukee(validation=False, home_dir=None):
         cases_by_race = get_json('https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Cases_View/FeatureServer/0/query?f=json&where=Race_Eth%20NOT%20LIKE%20%27%25%23N%2FA%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Race_Eth&orderByFields=value%20desc&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22ObjectId%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true')
         for feature in cases_by_race['features']:
             if feature['attributes']['Race_Eth'] == 'Black Alone':
+                WI_Milwaukee['Count Cases Black/AA'] = feature['attributes']['value']
                 WI_Milwaukee['Pct Cases Black/AA'] = round(100 * feature['attributes']['value'] / WI_Milwaukee['Total Cases'], 2)
                 break
         
         deaths_by_race = get_json('https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Deaths_View1/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Race_Eth&orderByFields=value%20desc&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22ObjectId%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true')
         for feature in deaths_by_race['features']:
             if feature['attributes']['Race_Eth'] == 'Black Alone':
+                WI_Milwaukee['Count Deaths Black/AA'] = feature['attributes']['value']
                 WI_Milwaukee['Pct Deaths Black/AA'] = round(100 * feature['attributes']['value'] / WI_Milwaukee['Total Deaths'], 2)
                 break
         
@@ -349,14 +382,17 @@ def data_extract_wisconsin_milwaukee(validation=False, home_dir=None):
         
     except OverflowError as e:
         print("Error processing last update timstamp for WI_Milwaukee")
+        placeholder_output['Status code'] = "{} ... {}".format(error_code, repr(e)) 
         return placeholder_output
         
     except ValueError as e:
         print("Error processing data for WI_Milwaukee", e)
+        placeholder_output['Status code'] = "{} ... {}".format(error_code, repr(e)) 
         return placeholder_output
         
     except requests.RequestException as e:
         print("Error retrieving URL for WI_Milwaukee:", e.request.url)
+        placeholder_output['Status code'] = "{} ... {}".format(error_code, repr(e)) 
         return placeholder_output
 
 
