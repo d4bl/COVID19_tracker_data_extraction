@@ -5,3 +5,5 @@ covid19_data_test/*
 *checkpoint.ipynb
 workflow/python/data/*
 *_gh.py
+*~
+__pycache__
