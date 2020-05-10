@@ -106,6 +106,8 @@ def data_extract_massachusetts(validation=False, home_dir=None):
         'Date Published': mass_max_date,
         'Total Cases': mass_total_cases,
         'Total Deaths': mass_total_deaths,
+        'Count Cases Black/AA': mass_aa_cases,
+        'Count Deaths Black/AA': mass_aa_deaths,
         'Pct Cases Black/AA': mass_aa_cases_pct,
         'Pct Deaths Black/AA': mass_aa_deaths_pct,
         'Status code': success_code
@@ -122,6 +124,8 @@ def data_extract_massachusetts(validation=False, home_dir=None):
         'Date Published': '',
         'Total Cases': np.nan,
         'Total Deaths': np.nan,
+        'Count Cases Black/AA': np.nan,
+        'Count Deaths Black/AA': np.nan,
         'Pct Cases Black/AA': np.nan,
         'Pct Deaths Black/AA': np.nan,
         'Status code': "{} ... {}".format(error_code, repr(inst)) 
@@ -181,6 +185,8 @@ def data_extract_virginia(validation=False, home_dir=None):
             'Date Published': va_max_date,
             'Total Cases': va_total_cases,
             'Total Deaths': va_total_deaths,
+            'Count Cases Black/AA': va_aa_cases,
+            'Count Deaths Black/AA': va_aa_deaths,
             'Pct Cases Black/AA': va_aa_cases_pct,
             'Pct Deaths Black/AA': va_aa_deaths_pct,
             'Status code': success_code
@@ -195,6 +201,8 @@ def data_extract_virginia(validation=False, home_dir=None):
             'Date Published': '',
             'Total Cases': pd.nan,
             'Total Deaths': pd.nan,
+            'Count Cases Black/AA': np.nan,
+            'Count Deaths Black/AA': np.nan,
             'Pct Cases Black/AA': pd.nan,
             'Pct Deaths Black/AA': pd.nan,
             'Status code': "{} ... {}".format(error_code, repr(inst)) 
@@ -307,6 +315,8 @@ def data_extract_washingtonDC(validation=False, home_dir=None):
             'Date Published': dc_max_date,
             'Total Cases': dc_total_cases,
             'Total Deaths': dc_total_deaths,
+            'Count Cases Black/AA': dc_aa_cases,
+            'Count Deaths Black/AA': dc_aa_deaths,
             'Pct Cases Black/AA': dc_aa_cases_pct,
             'Pct Deaths Black/AA': dc_aa_deaths_pct,
             'Status code': success_code
@@ -321,6 +331,8 @@ def data_extract_washingtonDC(validation=False, home_dir=None):
             'Date Published': '',
             'Total Cases': np.nan,
             'Total Deaths': np.nan,
+            'Count Cases Black/AA': np.nan,
+            'Count Deaths Black/AA': np.nan,
             'Pct Cases Black/AA': np.nan,
             'Pct Deaths Black/AA': np.nan,
             'Status code': "{} ... {}".format(error_code, repr(inst)) 
@@ -368,6 +380,8 @@ def data_extract_georgia(validation=False, home_dir=None):
             'Date Published': zip_date_fmt,
             'Total Cases': totals['Confirmed_Cases'],
             'Total Deaths': totals['Deaths'],
+            'Count Cases Black/AA': by_race.loc['AFRICAN-AMERICAN', 'Confirmed_Cases'],
+            'Count Deaths Black/AA': by_race.loc['AFRICAN-AMERICAN', 'Deaths'],
             'Pct Cases Black/AA': ga_aa_cases_pct,
             'Pct Deaths Black/AA': ga_aa_deaths_pct,
             'Status code': success_code
@@ -382,6 +396,8 @@ def data_extract_georgia(validation=False, home_dir=None):
             'Date Published': '',
             'Total Cases': np.nan,
             'Total Deaths': np.nan,
+            'Count Cases Black/AA': np.nan,
+            'Count Deaths Black/AA': np.nan,
             'Pct Cases Black/AA': np.nan,
             'Pct Deaths Black/AA': np.nan,
             'Status code': "{} ... {}".format(error_code, repr(inst)) 
