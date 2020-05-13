@@ -207,7 +207,7 @@ def data_extract_north_carolina(validation=False, home_dir=None):
         # find date and total number of cases and deaths
         date_match = re.search(r'([A-Za-z]+\s[0-9]+,\s[0-9]+)', NC_soup.find("div", attrs={"class":"field-item"}).p.text)
         if date_match:
-            date_text = ' '.join(match.group(1).split())
+            date_text = ' '.join(date_match.group(1).split())
         else:
             raise ValueError('Unable to extract date from table header.')
         date_time_obj = datetime.datetime.strptime(date_text, "%B %d, %Y")
