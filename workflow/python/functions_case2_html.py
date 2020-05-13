@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 #import wget
 import numpy as np
 import datetime
+import re
 
 ## Read webpage
 from bs4 import BeautifulSoup
@@ -204,8 +205,12 @@ def data_extract_north_carolina(validation=False, home_dir=None):
         NC_soup = url_to_soup(NC_url)
         
         # find date and total number of cases and deaths
-        date_text = NC_soup.find("div", attrs={"class":"field-item"}).p.text[50:]
-        date_time_obj = datetime.datetime.strptime(date_text, "%B %d, %Y. ")
+        date_match = re.search(r'([A-Za-z]+\s[0-9]+,\s[0-9]+)', NC_soup.find("div", attrs={"class":"field-item"}).p.text)
+        if date_match:
+            date_text = ' '.join(match.group(1).split())
+        else:
+            raise ValueError('Unable to extract date from table header.')
+        date_time_obj = datetime.datetime.strptime(date_text, "%B %d, %Y")
         date_formatted = date_time_obj.strftime("%-m/%-d/%Y")
         
         field_item = NC_soup.find("div", attrs={"class":"field-item"})
