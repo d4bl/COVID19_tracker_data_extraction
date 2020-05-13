@@ -119,7 +119,17 @@ def get_json(url):
     return r.json()
 
 
-
+def get_bytes(url, force_remote=False):
+    """Get the content of a remote URL, caching in a local file."""
+    local_file = Path(Path(urlsplit(url).path).name)
+    if local_file.exists() and not force_remote:
+        with local_file.open('rb') as f:
+            return f.read()
+    r = requests.get(url)
+    r.raise_for_status()
+    with local_file.open('wb') as f:
+        f.write(r.content)
+    return r.content
 
 def get_metadata_date(metadata_url):
     """For states using ESRI web services, the field metadata includes a timestamp. 
