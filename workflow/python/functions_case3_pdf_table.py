@@ -71,7 +71,7 @@ def get_fl_daily_url():
 
 
 def get_fl_report_date(url):
-    return date.fromisoformat(re.search(r'-(2020-\d\d-\d\d)-', fl_daily_url).group(1))
+    return date.fromisoformat(re.search(r'-(2020-\d\d-\d\d)-', url).group(1))
 
 #column_number = -1
 
