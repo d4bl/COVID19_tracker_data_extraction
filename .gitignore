@@ -7,3 +7,4 @@ workflow/python/data/*
 *_gh.py
 *~
 __pycache__
+.ipynb_checkpoints
