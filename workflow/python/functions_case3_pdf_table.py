@@ -14,7 +14,7 @@ import requests
 ## Display pandas dataframe
 from IPython.display import display, HTML
 
-from misc_helper_functions import find_all_links, download_file, unzip, url_to_soup, get_json, get_metadata_date
+from misc_helper_functions import find_all_links, download_file, get_bytes, unzip, url_to_soup, get_json, get_metadata_date
 
 
 # Import packages needed to run GA code
@@ -41,6 +41,7 @@ error_code = 'An error occured.'
 
 ##################  extra modules needed for case 3: pdf table data extraction 
 
+import fitz
 from tabula import read_pdf
 from urllib.parse import urljoin
 
@@ -75,7 +76,26 @@ def get_fl_report_date(url):
 #column_number = -1
 
 
+def get_fl_table_area(pdf_data):
+    """This finds a bounding box for the Race, Ethnicity table by looking for bounding
+    boxes for the words "White" and "Total" (occuring below it) on page 3 of the PDF, 
+    and the page's right bound.
+    """
+    doc = fitz.Document(stream=pdf_data, filetype='pdf')
+    page3 = doc[2] # page indexes start at 0 
 
+    white_bbox = None
+    for (x0, y0, x1, y1, word, block_no, line_no, word_no) in page3.getText('words'):
+        if word == 'White':
+            white_bbox = fitz.Rect(x0, y0, x1, y1)
+
+    total_bbox = None
+    for (x0, y0, x1, y1, word, block_no, line_no, word_no) in page3.getText('words'):
+        if word == 'Total':
+            if round(x0) == round(white_bbox.x0) and round(y0) > round(white_bbox.y0):
+                total_bbox = fitz.Rect(x0, y0, x1, y1)
+
+    return fitz.Rect(white_bbox.x0, white_bbox.y0, page3.bound().x1, total_bbox.y1)
 
 ## Original parsers for Florida tables
 def parse_num(val):
@@ -115,10 +135,6 @@ column_names = [
     'Deaths', '% Deaths'
 ]
 
-table_area = [604, 77, 959, 561]
-
-
-
 converters = {
     'Cases': parse_num,
     'Hospitalizations': parse_num,
@@ -136,7 +152,7 @@ converters = {
 
 
 
-def data_extract_florida(validation=False, home_dir = None, refresh=True):
+def data_extract_florida(validation=False, home_dir=None, refresh=True):
     location_name = 'Florida'
     
     path_fl = os.path.join(home_dir, 'data', 'florida')
@@ -145,16 +161,17 @@ def data_extract_florida(validation=False, home_dir = None, refresh=True):
     try:
         print('Find daily Florida URL')
         fl_daily_url = get_fl_daily_url()
-
         print(fl_daily_url)
 
-        if refresh:
-            download_file(fl_daily_url, 'florida.pdf')
-
-        
+        print('Download the daily Florida URL')
+        fl_pdf_data = get_bytes(fl_daily_url, refresh)
+      
+        print('Find the table area coordinates')
+        table_bbox = get_fl_table_area(fl_pdf_data)
+        table_area = (table_bbox.y0, table_bfl_pdf_datax0, table_bbox.y1, table_bbox.x1)
         
         print('Parse the PDF')
-        table = read_pdf('florida.pdf',
+        table = read_pdf(BytesIO(fl_pdf_data),
                         pages='3',
                         stream=True,
                         multiple_tables=False,
