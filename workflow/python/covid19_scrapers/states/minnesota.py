@@ -23,8 +23,6 @@ class Minnesota(ScraperBase):
         
         # find total number of confirmed cases
         strong = MN_soup.find('strong', string=re.compile('Total positive:'))
-        _logger.debug(f'strong: {strong}')
-        _logger.debug(f'strong.next_sibling: {str(strong.next_sibling)}')
         num_cases = int(str(strong.next_sibling).strip().replace(',', ''))
         
         # find total number of deaths
