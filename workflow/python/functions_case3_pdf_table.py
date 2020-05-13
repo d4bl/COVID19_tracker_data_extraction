@@ -168,7 +168,7 @@ def data_extract_florida(validation=False, home_dir=None, refresh=True):
       
         print('Find the table area coordinates')
         table_bbox = get_fl_table_area(fl_pdf_data)
-        table_area = (table_bbox.y0, table_bfl_pdf_datax0, table_bbox.y1, table_bbox.x1)
+        table_area = (table_bbox.y0, table_bbox.x0, table_bbox.y1, table_bbox.x1)
         
         print('Parse the PDF')
         table = read_pdf(BytesIO(fl_pdf_data),
