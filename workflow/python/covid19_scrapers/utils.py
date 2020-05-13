@@ -5,6 +5,8 @@ import os
 from datetime import datetime, timedelta
 import numpy as np
 import datetime
+from pathlib import Path
+from urllib.parse import urlsplit
 
 ## Read webpage
 from bs4 import BeautifulSoup
@@ -30,6 +32,13 @@ ssl._create_default_https_context = ssl._create_unverified_context
 _logger = logging.getLogger('covid19_scrapers')
 
 
+def as_list(arg):
+    """If arg is a list, return it.  Otherwise, return a list containing it."""
+    if isinstance(arg, list):
+        return arg
+    return [arg]
+
+
 # Source: https://stackoverflow.com/questions/1080411/retrieve-links-from-web-page-using-python-and-beautifulsoup
 
 def find_all_links(url, search_string=None):
@@ -50,22 +59,70 @@ def find_all_links(url, search_string=None):
         return link_list
 
 
+def get_cached_url(url, local_file_name=None, force_remote=False):
+    """Retrieve a URL and cache the results in a local file, using that on subsequent calls if force_remote is false.
+    Returns a requests.Response object.
+    """
+    if local_file_name:
+        local_file = Path(local_file_name)
+    else:
+        url_parts = urlsplit(url)
+        if url_parts.query:
+            local_file = Path('.') / Path(url_parts.path + '_' + 
+                                          url_parts.query.replace('&', '_'))
+        else:
+            local_file = Path('.') / Path(url_parts.path)
+    r = None 
+    if force_remote:
+        r = requests.get(url)
+        # fall though to response handling code
+    elif not local_file.exists():
+        r = requests.get(url)
+        # fall though to response handling code
+    else:
+        # Setting the If-Modified-Since header on GET turns it into a Conditional GET
+        # See https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests
+        mtime = local_file.stat().st_mtime
+        local_file_update_time = eut.formatdate(mtime, usegmt=True)
+        r = requests.get(url, headers={
+            'If-Modified-Since': local_file_update_time
+        })
+        # A status of 304 means "Not modified"
+        if r.status_code != 304:
+            _logger.debug('Cached file is stale: ' +
+                          f'last-fetch: {local_file_update_time}, ' + 
+                          f'current-fetch: {r.headers.get("Last-Modified")}')
+            # fall though to response handling code
+        else:
+            _logger.info(f'File cache hit: {local_file.name}')
+            with local_file.open('rb') as f:
+                r = requests.Response()
+                r.url = url
+                r.status_code = 200
+                r._content = f.read()
+                r._content_consumed = True
+                if local_file.suffix == 'html' or local_file.suffix == 'xml':
+                    encoding = EncodingDetector.find_declared_encoding(
+                        r.content, is_html=local_file.suffix == 'html')
+                    r.encoding = encoding or 'utf-8'
+                return r
+        # response handling code
+        r.raise_for_status()
+        if local_file.parent and not local_file.parent.exists():
+            _logger.warn(f'Creating parent dir(s): {local_file.parent}')
+            os.makedirs(str(local_file.parent))
+        with local_file.open('wb') as f:
+            f.write(r.content)
+            _logger.debug(f'Saved download as: {local_file.name}')
+    return r
 
 
 def download_file(file_url, new_file_name=None):
     try:
-        try:
-            urllib.request.urlretrieve(file_url, new_file_name)
-            _logger.debug(f'File download success: {new_file_name}')
-        except:
-            r = requests.get(file_url)
-
-            with open(new_file_name, 'wb') as f:
-                f.write(r.content)
-                
-            _logger.debug(f'File download success: {new_file_name}')
-    except:
-        _logger.warn(f'File download failed: {new_file_name}')
+        get_cached_url(file_url, local_file_name=new_file_name)
+    except Exception as e:
+        _logger.warn(f'File download failed: {new_file_name}: {e}')
+        raise
     
     
 
@@ -76,8 +133,7 @@ def unzip(path_to_zip_file, directory_to_extract_to='.'):
         zip_ref.extractall(directory_to_extract_to)
 
 def get_zip(url):
-    r = requests.get(url)
-    r.raise_for_status()
+    r = get_cached_url(url)
     return ZipFile(BytesIO(r.content))
 
 def get_zip_member_as_file(zipfile, path, mode='r'):
@@ -101,11 +157,12 @@ def url_to_soup(data_url):
     data_soup: Beautifulsoup object
         HMTL code from webpage
     """
-    data_page = requests.get(data_url)
-    if (data_page.status_code) == 200:
-        _logger.debug(f'request successful: {data_url}')
-    else:
+    try:
+        data_page = get_cached_url(data_url)
+    except requests.RequestException:
         _logger.warn(f'request failed: {data_url}')
+        raise
+    _logger.debug(f'request successful: {data_url}')
 
     # Create a Beautiful Soup object
     data_text = data_page.text
@@ -117,13 +174,16 @@ def url_to_soup(data_url):
 
 def get_json(url):
     """Simple function to return the parsed JSON from a web API."""
-    # The next two lines can raise a requests.RequestException
-    r = requests.get(url) 
-    r.raise_for_status()
+    # The next line can raise a requests.RequestException
+    r = get_cached_url(url) 
     # The next line can raise a ValueError
     return r.json()
 
 
+def get_content(url, force_remote=False):
+    """Return the content of a remote URL, possibly caching in a local file."""
+    r = get_cached_url(url, force_remote=False)
+    return r.content
 
 
 def get_metadata_date(metadata_url):

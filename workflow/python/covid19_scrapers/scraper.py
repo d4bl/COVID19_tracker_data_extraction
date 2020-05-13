@@ -1,6 +1,11 @@
+from io import StringIO
 import logging
 import numpy as np
+import os
 import pandas as pd
+import traceback as tb
+
+from covid19_scrapers.dir_context import dir_context
 
 
 SUCCESS = 'Success!'
@@ -11,19 +16,24 @@ class ScraperBase(object):
     """Base class for the scrapers providing common functionality such as
     error handling.
     """
-    
+    def __init__(self, *, home_dir, **kwargs):
+        self.home_dir = home_dir
+        os.makedirs(str(home_dir), exist_ok=True)
+
     def name(self):
         return self.__class__.__name__
     
-    def run(self, *, validation=False, home_dir=None):
+    def run(self, *, validation=False):
         """Invoke the subclass's scrape method and return the result or an
-        error row. _scrape must return a list, possibly empty, of pandas Series objects, or a DataFrame.
+        error row. _scrape must return a list (possibly empty) of pandas Series
+        objects, or a DataFrame.
         """
-        try:
-            _logger.info(f'Scraping {self.name()}')
-            rows = self._scrape(validation, home_dir)
-        except Exception as e:
-            rows = self._handle_error(e)
+        with dir_context(self.home_dir):
+           try:
+               _logger.info(f'Scraping {self.name()}')
+               rows = self._scrape(validation)
+           except Exception as e:
+               rows = self._handle_error(e)
         return pd.DataFrame(rows)
 
     def _make_series(
@@ -56,6 +66,9 @@ class ScraperBase(object):
         """General error handler to return a failure row.
         Override in subclasses for specialized error handling.
         """
+        f = StringIO()
+        tb.print_exc(file=f)
+        _logger.warn(f.getvalue())
         return [self._make_series(status=self._format_error(e))]
         
     def _format_error(self, e):

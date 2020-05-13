@@ -1,6 +1,9 @@
 from functools import reduce
 import logging
+import os
 import pandas as pd
+
+from covid19_scrapers.dir_context import dir_context
 
 _logger = logging.getLogger('covid19_scrapers')
 
@@ -8,7 +11,9 @@ class Registry(object):
     """A registry for scrapers.
     """
 
-    def __init__(self):
+    def __init__(self, *, home_dir, **kwargs):
+        self.home_dir = home_dir
+        os.makedirs(str(self.home_dir), exist_ok=True)
         self._scrapers = {}
 
     def register_scraper(self, instance):

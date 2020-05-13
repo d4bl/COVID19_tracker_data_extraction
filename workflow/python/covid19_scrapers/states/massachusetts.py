@@ -11,10 +11,10 @@ class Massachusetts(ScraperBase):
     REPORTING_URL = 'https://www.mass.gov/info-details/covid-19-response-reporting'
     DOWNLOAD_URL_TEMPLATE = 'https://www.mass.gov/doc/{}/download'
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         
-    def _scrape(self, validation, home_dir):
+    def _scrape(self, validation):
         mass_urls = find_all_links(url=self.REPORTING_URL, search_string='covid-19-raw-data')
         _logger.debug(f'Fetching links from {mass_urls}')
 
