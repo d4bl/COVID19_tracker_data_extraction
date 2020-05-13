@@ -7,12 +7,12 @@ import argparse
 import datetime
 import logging
 import pandas as pd
+from pathlib import Path
+
 from covid19_scrapers import MakeScraperRegistry
 
 
-_SCRAPER_REGISTRY = MakeScraperRegistry()
-_KNOWN_SCRAPERS = set(_SCRAPER_REGISTRY.scraper_names())
-
+_KNOWN_SCRAPERS = set(MakeScraperRegistry(home_dir=Path('.')).scraper_names())
 
 def scraper(scraper_name):
     """Returns scraper is scraper is registered."""
@@ -34,6 +34,9 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Run some or all scrapers")
     parser.add_argument('scrapers', metavar='SCRAPER', type=scraper, nargs='*',
                         help='List of scrapers to run, or all if omitted')
+    parser.add_argument('--work_dir', metavar='DIR', default='work',
+                        action='store',
+                        help='Write working outputs to subdirectories of DIR.')
     parser.add_argument('--output', dest='outputs', metavar='FILE',
                         action='append', type=output_file,
                         help='Write output to FILE (must be -, or have csv or xlsx extension)')
@@ -68,12 +71,13 @@ def main():
         level=getattr(logging, opts.log_level.upper()))
 
     # Run scrapers
+    scraper_registry = MakeScraperRegistry(home_dir=Path(opts.work_dir))
     if not opts.scrapers:
         print("Running all scrapers")
-        df = _SCRAPER_REGISTRY.run_all_scrapers()
+        df = scraper_registry.run_all_scrapers()
     else:
         print("Running selected scrapers")
-        df = _SCRAPER_REGISTRY.run_scrapers(opts.scrapers)
+        df = scraper_registry.run_scrapers(opts.scrapers)
 
     today = datetime.date.today()
     default_outputs = [f'covid_disparities_{today}.xlsx',
