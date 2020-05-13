@@ -14,25 +14,29 @@ class NorthCarolina(ScraperBase):
         super().__init__(**kwargs)
         
     def name(self):
-        return "North Carolina"
+        return 'North Carolina'
     
     def _scrape(self, validation):
         NC_soup = url_to_soup(self.REPORTING_URL)
         
-        # find date and total number of cases and deaths
-        date_text = NC_soup.find("div", attrs={"class":"field-item"}).p.text[50:]
-        date_time_obj = datetime.datetime.strptime(date_text, "%B %d, %Y. ")
-        date_formatted = date_time_obj.strftime("%m/%d/%Y")
+        # find date
+        date_match = re.search(r'([A-Za-z]+\s[0-9]+,\s[0-9]+)', NC_soup.find("div", attrs={"class":"field-item"}).p.text)
+        if date_match:
+            date_text = ' '.join(date_match.group(1).split())
+        else:
+            raise ValueError('Unable to extract date from table header.')
+        date_time_obj = datetime.datetime.strptime(date_text, "%B %d, %Y")
+        date_formatted = date_time_obj.strftime('%m/%d/%Y')
         
-        field_item = NC_soup.find("div", attrs={"class":"field-item"})
-        # num_cases = field_item.findAll("tr")[1].td.text
-        thead = field_item.find("thead")
+        # find total number of cases and deaths
+        field_item = NC_soup.find('div', attrs={'class':'field-item'})
+        thead = field_item.find('thead')
         for idx, th in enumerate(thead.tr.find_all('th')):
             if th.text.find('Cases') >= 0:
                 cases_idx = idx
             elif th.text.find('Deaths') >= 0:
                 deaths_idx = idx
-        tbody = field_item.find("tbody")
+        tbody = field_item.find('tbody')
         tds = tbody.find_all('td')
         num_cases = int(tds[cases_idx].text.replace(',', ''))
         num_deaths = int(tds[deaths_idx].text.replace(',', ''))
@@ -43,9 +47,9 @@ class NorthCarolina(ScraperBase):
         
         # find number of Black/AA cases and deaths
         h2 = NC_soup.find('h2', string=re.compile('Race/Ethnicity'))
-        race_data = h2.find_next_sibling("table")
-        thead = race_data.find("thead")
-        ths = thead.find_all("th")
+        race_data = h2.find_next_sibling('table')
+        thead = race_data.find('thead')
+        ths = thead.find_all('th')
         _logger.debug(f'Found {len(ths)} THs')
         for idx, th in enumerate(ths):
             # Search for percentages first to avoid false matches

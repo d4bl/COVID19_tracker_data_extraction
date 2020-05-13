@@ -8,6 +8,7 @@ import traceback as tb
 from covid19_scrapers.dir_context import dir_context
 
 
+ERROR = 'An error occurred.'
 SUCCESS = 'Success!'
 _logger = logging.getLogger('covid19_scrapers')
 
@@ -29,11 +30,11 @@ class ScraperBase(object):
         objects, or a DataFrame.
         """
         with dir_context(self.home_dir):
-           try:
-               _logger.info(f'Scraping {self.name()}')
-               rows = self._scrape(validation)
-           except Exception as e:
-               rows = self._handle_error(e)
+            try:
+                _logger.info(f'Scraping {self.name()}')
+                rows = self._scrape(validation)
+            except Exception as e:
+                rows = self._handle_error(e)
         return pd.DataFrame(rows)
 
     def _make_series(
@@ -72,4 +73,4 @@ class ScraperBase(object):
         return [self._make_series(status=self._format_error(e))]
         
     def _format_error(self, e):
-        return f'ERROR: {repr(e)}'
+        return f'{ERROR} ... {repr(e)}'
