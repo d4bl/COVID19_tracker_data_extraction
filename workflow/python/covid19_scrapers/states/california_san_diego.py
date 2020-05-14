@@ -6,7 +6,7 @@ from tabula import read_pdf
 import logging
 
 
-_logger = logging.getLogger('covid19_scrapers')
+_logger = logging.getLogger(__name__)
 
 
 class CaliforniaSanDiego(ScraperBase):

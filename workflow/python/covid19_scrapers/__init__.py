@@ -5,14 +5,36 @@ from covid19_scrapers.states import *
 from pathlib import Path
 
 
-def MakeScraperRegistry(*, home_dir, registry_args={}, scraper_args={}):
-    """Makes a default registry with all the states' scrapers.
+def GetScraperClasses():
+    for scraper_class in ScraperBase.__subclasses__():
+        if scraper_class.__name__.find('Test') < 0:
+            yield scraper_class
+
+def GetScraperNames():
+    for scraper_class in GetScraperClasses():
+        yield scraper_class.__name__
+
+def MakeScraperRegistry(*, home_dir=Path('work'), registry_args={}, scraper_args={}):
+    """Returns a Registry instance with all the per-state scrapers
+    registered.
+
+    Keyword arguments:
+
+      home_dir: required, a Pathlike for the root of a working
+        directory.  Cached downloads will be saved in per-scraper
+        directories under this.  If it does not exist, it will be
+        created.
+
+      registry_args: optional, a dict of additional keyword arguments
+        for the Registry constructor.
+
+      scraper_args: optional, a dict of additional keyword arguments
+        for all scrapers' constructors.
+
     """
-    home_dir = Path(home_dir)
-    registry = Registry(home_dir=home_dir, **registry_args)
-    for subclass in ScraperBase.__subclasses__():
-        if subclass.__name__.find('Test') < 0:
-            registry.register_scraper(
-                subclass(home_dir=home_dir / subclass.__name__,
-                         **scraper_args))
+    registry = Registry(**registry_args)
+    for scraper_class in GetScraperClasses():
+        registry.register_scraper(
+            scraper_class(home_dir=home_dir / scraper_class.__name__,
+                          **scraper_args))
     return registry
