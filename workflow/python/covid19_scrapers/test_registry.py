@@ -1,14 +1,22 @@
 from covid19_scrapers.registry import Registry
 from covid19_scrapers.scraper import ScraperBase
 
+from pathlib import Path
+
 
 class MockScraperOneSeries(ScraperBase):
-    def _scrape(self, unused1, unused2):
+    def __init__(self):
+        super().__init__(home_dir=Path('test'))
+
+    def _scrape(self, unused1):
         return [self._make_series()]
 
 
 class MockScraperTwoSeries(ScraperBase):
-    def _scrape(self, unused1, unused2):
+    def __init__(self):
+        super().__init__(home_dir=Path('test'))
+
+    def _scrape(self, unused):
         return [self._make_series(), self._make_series()]
 
 
