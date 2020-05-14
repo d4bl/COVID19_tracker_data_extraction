@@ -1,17 +1,20 @@
 from covid19_scrapers.registry import Registry
 from covid19_scrapers.scraper import ScraperBase
 
+
 class MockScraperOneSeries(ScraperBase):
     def _scrape(self, unused1, unused2):
         return [self._make_series()]
 
+
 class MockScraperTwoSeries(ScraperBase):
     def _scrape(self, unused1, unused2):
         return [self._make_series(), self._make_series()]
-        
+
+
 class TestRegistry(object):
     def __init__(self):
-        self.registry=None
+        self.registry = None
 
     def setup(self):
         self.registry = Registry()
@@ -64,5 +67,3 @@ class TestRegistry(object):
 
         df = self.registry.run_all_scrapers()
         assert df.shape[0] == 3
-
-    

@@ -5,16 +5,19 @@ from covid19_scrapers.states import *
 from pathlib import Path
 
 
-def GetScraperClasses():
+def get_scraper_classes():
     for scraper_class in ScraperBase.__subclasses__():
         if scraper_class.__name__.find('Test') < 0:
             yield scraper_class
 
-def GetScraperNames():
-    for scraper_class in GetScraperClasses():
+
+def get_scraper_names():
+    for scraper_class in get_scraper_classes():
         yield scraper_class.__name__
 
-def MakeScraperRegistry(*, home_dir=Path('work'), registry_args={}, scraper_args={}):
+
+def make_scraper_registry(*, home_dir=Path('work'), registry_args={},
+                          scraper_args={}):
     """Returns a Registry instance with all the per-state scrapers
     registered.
 
@@ -33,7 +36,7 @@ def MakeScraperRegistry(*, home_dir=Path('work'), registry_args={}, scraper_args
 
     """
     registry = Registry(**registry_args)
-    for scraper_class in GetScraperClasses():
+    for scraper_class in get_scraper_classes():
         registry.register_scraper(
             scraper_class(home_dir=home_dir / scraper_class.__name__,
                           **scraper_args))

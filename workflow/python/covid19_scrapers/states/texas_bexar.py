@@ -1,4 +1,5 @@
-from covid19_scrapers.utils import *
+from covid19_scrapers.utils import (get_esri_feature_data,
+                                    get_esri_metadata_date)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -7,22 +8,22 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class Texas_Bexar(ScraperBase):
+class TexasBexar(ScraperBase):
     MD_URL = 'https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/vRaceEthnicity/FeatureServer/0?f=json'
     TOTALS_URL = 'https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/vDateCOVID19_Tracker_Public/FeatureServer/0/query?f=json&where=Date%20BETWEEN%20timestamp%20%272020-05-07%2005%3A00%3A00%27%20AND%20timestamp%20%272020-05-08%2004%3A59%3A59%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=50&resultType=standard&cacheHint=true'
     BY_RACE_URL = 'https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/vRaceEthnicity/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=20&resultType=standard&cacheHint=true'
-    
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def name(self):
         return 'Texas -- Bexar County'
-    
+
     def _scrape(self, validation):
         # Start by fetching the metadata to get the likey timestamp
         md_date = get_esri_metadata_date(self.MD_URL)
         date_published = str(md_date.strftime('%m/%d/%Y'))
-        
+
         # Next get the cumulative case and death counts
         total = get_esri_feature_data(self.TOTALS_URL,
                                       ['ReportedCum', 'DeathsCum'])
@@ -31,7 +32,7 @@ class Texas_Bexar(ScraperBase):
             cnt_deaths = total.loc[0, 'DeathsCum']
         except IndexError:
             raise ValueError('Total count data not found')
-        
+
         # And finally the race/ethnicity breakdowns
         data = get_esri_feature_data(
             self.BY_RACE_URL,
