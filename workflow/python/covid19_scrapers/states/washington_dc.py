@@ -34,7 +34,7 @@ class WashingtonDC(ScraperBase):
         dc_max_date_link = max(dc_links,
                                key=lambda url: datetime.datetime.strptime(
                                    date_extractor.search(url).group(1),
-                                   '%B-%d-%Y'))
+                                   '%B-%d-%Y').date)
         _logger.debug(f'Most recent dated link: {dc_max_date_link}')
 
         _logger.debug('Download the most recent data file')
@@ -86,10 +86,10 @@ class WashingtonDC(ScraperBase):
                                         == max_case_ts]
         df_dc_deaths
 
-        _logger.debug('Get report date, formatted for output')
+        _logger.debug('Get report date')
         dc_max_date = (
             max_case_ts + datetime.timedelta(days=1)
-        ).strftime('%m/%d/%Y')
+        )
 
         ##### Intermediate calculations #####
 

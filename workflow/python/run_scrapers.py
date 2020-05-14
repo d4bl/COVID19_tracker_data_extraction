@@ -102,7 +102,7 @@ def write_output(df, output):
         pd.set_option('display.max_colwidth', None)
         print(df)
     elif output.endswith('.csv'):
-        df.to_csv(output, index=False)
+        df.to_csv(output, index=False, date_format='%m/%d/%Y')
     elif output.endswith('.xlsx'):
         df.to_excel(output, index=False)
 

@@ -22,7 +22,6 @@ class Georgia(ScraperBase):
         _logger.debug(
             'Get the last update of the demographics.csv file in archive')
         zip_date = get_zip_member_update_date(z, 'demographics.csv')
-        zip_date_fmt = zip_date.strftime('%m/%d/%Y')
 
         _logger.debug('Load demographics CSV')
         data = pd.read_csv(get_zip_member_as_file(z, 'demographics.csv'))
@@ -38,7 +37,7 @@ class Georgia(ScraperBase):
         ga_aa_deaths_pct = round(100 * ga_aa_deaths / ga_deaths, 2)
 
         return [self._make_series(
-            date=zip_date_fmt,
+            date=zip_date,
             cases=ga_cases,
             deaths=ga_deaths,
             aa_cases=ga_aa_cases,

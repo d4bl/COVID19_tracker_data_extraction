@@ -3,6 +3,7 @@ from covid19_scrapers.utils import (get_esri_feature_data,
 from covid19_scrapers.scraper import ScraperBase, ERROR
 
 import logging
+import requests
 
 
 _logger = logging.getLogger(__name__)
@@ -29,7 +30,7 @@ class WisconsinMilwaukee(ScraperBase):
         if cases_date != deaths_date:
             _logger.debug(
                 'Unexpected mismatch between cases and deaths metadata dates:', cases_date, '!=', deaths_date)
-        date_published = cases_date.strftime('%m/%d/%Y')
+        date_published = cases_date
 
         cases_total = get_esri_feature_data(self.CASES_URL, ['value'])
         try:

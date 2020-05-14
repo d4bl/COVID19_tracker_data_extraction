@@ -29,8 +29,7 @@ class NorthCarolina(ScraperBase):
             date_text = ' '.join(date_match.group(1).split())
         else:
             raise ValueError('Unable to extract date from table header.')
-        date_time_obj = datetime.datetime.strptime(date_text, '%B %d, %Y')
-        date_formatted = date_time_obj.strftime('%m/%d/%Y')
+        date_obj = datetime.datetime.strptime(date_text, '%B %d, %Y').date
 
         # find total number of cases and deaths
         field_item = soup.find('div', attrs={'class': 'field-item'})
@@ -45,7 +44,7 @@ class NorthCarolina(ScraperBase):
         num_cases = int(tds[cases_idx].text.replace(',', ''))
         num_deaths = int(tds[deaths_idx].text.replace(',', ''))
 
-        _logger.debug(f'Date: {date_formatted}')
+        _logger.debug(f'Date: {date_obj}')
         _logger.debug(f'Number Cases:  {num_cases}')
         _logger.debug(f'Number Deaths: {num_deaths}')
 
@@ -79,7 +78,7 @@ class NorthCarolina(ScraperBase):
         _logger.debug(f'Pct Deaths Black/AA: {pct_aa_deaths}')
 
         return [self._make_series(
-            date=date_formatted,
+            date=date_obj,
             cases=num_cases,
             deaths=num_deaths,
             aa_cases=cnt_aa_cases,

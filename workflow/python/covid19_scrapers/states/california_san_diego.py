@@ -79,7 +79,7 @@ class CaliforniaSanDiego(ScraperBase):
         ).loc['Black or African American', 'Percent']
         sd_max_date = (
             datetime.datetime.now() - datetime.timedelta(days=1)
-        ).strftime('%m/%d/%Y')
+        )
 
         return [self._make_series(
             date=sd_max_date,

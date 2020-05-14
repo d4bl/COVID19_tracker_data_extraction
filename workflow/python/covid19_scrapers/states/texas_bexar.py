@@ -21,8 +21,7 @@ class TexasBexar(ScraperBase):
 
     def _scrape(self, validation):
         # Start by fetching the metadata to get the likey timestamp
-        md_date = get_esri_metadata_date(self.MD_URL)
-        date_published = str(md_date.strftime('%m/%d/%Y'))
+        date_published = get_esri_metadata_date(self.MD_URL)
 
         # Next get the cumulative case and death counts
         total = get_esri_feature_data(self.TOTALS_URL,

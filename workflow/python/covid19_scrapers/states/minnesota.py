@@ -30,9 +30,8 @@ class Minnesota(ScraperBase):
         strong = soup.find('strong', string=re.compile('Deaths:'))
         num_deaths = int(strong.next_sibling.strip().replace(',', ''))
 
-        date_obj = datetime.date.strptime(date_text, '%B %d, %Y')
-        date_formatted = date_obj.strftime('%m/%d/%Y')
-        _logger.debug(f'Date: {date_formatted}')
+        date_obj = datetime.datetime.strptime(date_text, '%B %d, %Y').date
+        _logger.debug(f'Date: {date_obj}')
         _logger.debug(f'Number Cases: {num_cases}')
         _logger.debug(f'Number Deaths: {num_deaths}')
 
@@ -48,7 +47,7 @@ class Minnesota(ScraperBase):
         pct_aa_deaths = round(100 * cnt_aa_deaths / num_deaths, 2)
 
         return [self._make_series(
-            date=date_formatted,
+            date=date_obj,
             cases=num_cases,
             deaths=num_deaths,
             aa_cases=cnt_aa_cases,
