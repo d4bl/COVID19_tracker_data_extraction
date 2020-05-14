@@ -8,29 +8,37 @@ import datetime
 import logging
 import pandas as pd
 from pathlib import Path
+import sys
 
-from covid19_scrapers import MakeScraperRegistry
+from covid19_scrapers import GetScraperNames, MakeScraperRegistry
 
-
-_KNOWN_SCRAPERS = set(MakeScraperRegistry(home_dir=Path('.')).scraper_names())
-
-def scraper(scraper_name):
-    """Returns scraper is scraper is registered."""
-    if scraper_name not in _KNOWN_SCRAPERS:
-        raise ValueError("Invalid scraper:", scraper_name)
-    return scraper_name
-
-def output_file(filename):
-    """Returns filename if we know how to write to it."""
-    if (not filename.endswith('.xlsx')
-        and not filename.endswith('.csv')
-        and filename != '-'
-    ):
-        raise ValueError('Invalid output files: ' + filename)
-    return filename
 
 def parse_args():
-    # Process command-line arguments
+    """Process command line arguments from sys.argv and returns an options object."""
+    known_scrapers = set(GetScraperNames())
+    
+    def scraper(scraper_name):
+        """Type function for argparse that returns the scraper name if it is
+        registered, and raises an error otherwise.
+        """
+        if scraper_name not in known_scrapers:
+            raise ValueError("Invalid scraper:", scraper_name)
+        return scraper_name
+    
+    def output_file(filename):
+        """Type function for argparse that returns the output file name if we
+        know how to write it, and raises an error otherwise.
+        Recognized filenames are - for printing to stdout, csv suffix,
+        and xlsx suffix.
+        """
+        if (not filename.endswith('.xlsx')
+            and not filename.endswith('.csv')
+            and filename != '-'
+        ):
+            raise ValueError('Invalid output files: ' + filename)
+        return filename
+
+    # Set up command-line arguments
     parser = argparse.ArgumentParser(description="Run some or all scrapers")
     parser.add_argument('scrapers', metavar='SCRAPER', type=scraper, nargs='*',
                         help='List of scrapers to run, or all if omitted')
@@ -40,53 +48,83 @@ def parse_args():
     parser.add_argument('--output', dest='outputs', metavar='FILE',
                         action='append', type=output_file,
                         help='Write output to FILE (must be -, or have csv or xlsx extension)')
+    parser.add_argument('--log_file', type=str, metavar='FILE',
+                        action='store', default='run_scrapers.log',
+                        help='Write logs to FILE')
     parser.add_argument('--log_level', type=str, metavar='LEVEL',
+                        action='store', default='DEBUG',
+                        choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO',
+                                 'DEBUG'],
+                        help='Set log level for the log_file to LEVEL')
+    parser.add_argument('--no_log_to_stderr', dest='log_to_stderr', 
+                        action='store_false',
+                        help='Disable logging to stderr.')
+    parser.add_argument('--log_to_stderr_level', type=str,
                         action='store', default='INFO',
                         choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO',
                                  'DEBUG'],
-                        help='Set log level to LEVEL')
+                        help='Set log level for stderr to LEVEL')
+    # Parse command-line arguments
     return parser.parse_args()
-    
+
+def setup_logging(log_file, log_level, log_to_stderr, log_to_stderr_level):
+    """Set up logging to file and/or stderr."""
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.NOTSET)
+    if log_file:
+        handler = logging.FileHandler(filename=log_file, mode='w')
+        handler.setLevel(getattr(logging, log_level.upper()))
+        handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s %(name)s:  %(message)s'))
+        root_logger.addHandler(handler)
+    if log_to_stderr:
+        handler = logging.StreamHandler(sys.stderr)        
+        handler.setLevel(getattr(logging, log_to_stderr_level.upper()))
+        handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s %(name)s:  %(message)s'))
+        root_logger.addHandler(handler)
+
 def write_output(df, output):
-        logging.info(f'Writing {output}')
-        if output == '-':
-            # Set pandas options for stdout 
-            pd.set_option('display.max_rows', None)
-            pd.set_option('display.max_columns', None)
-            pd.set_option('display.width', None)
-            pd.set_option('display.max_colwidth', None)
-            print(df)
-        elif output.endswith('.csv'):
-            df.to_csv(output)
-        elif output.endswith('.xlsx'):
-            df.to_excel(output)
+    """Given a dataframe, write it to one of the output files."""
+    logging.info(f'Writing {output}')
+    if output == '-':
+        # Set pandas options for stdout 
+        pd.set_option('display.max_rows', None)
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.width', None)
+        pd.set_option('display.max_colwidth', None)
+        print(df)
+    elif output.endswith('.csv'):
+        df.to_csv(output, index=False)
+    elif output.endswith('.xlsx'):
+        df.to_excel(output, index=False)
 
 def main():
-    # Process options
+    # Get command line options
     opts = parse_args()
-    
+
     # Set up logging
-    logging.basicConfig(
-        format='%(asctime)s %(message)s',
-        level=getattr(logging, opts.log_level.upper()))
+    setup_logging(opts.log_file, opts.log_level, opts.log_to_stderr,
+                  opts.log_to_stderr_level)
 
     # Run scrapers
     scraper_registry = MakeScraperRegistry(home_dir=Path(opts.work_dir))
     if not opts.scrapers:
-        print("Running all scrapers")
+        logging.info("Running all scrapers")
         df = scraper_registry.run_all_scrapers()
     else:
-        print("Running selected scrapers")
+        logging.info("Running selected scrapers")
         df = scraper_registry.run_scrapers(opts.scrapers)
 
+    # When run without outputs specified, we will write to today's
+    # default CSV and XLSX files
     today = datetime.date.today()
-    default_outputs = [f'covid_disparities_{today}.xlsx',
-                       f'covid_disparities_{today}.csv']
+    default_outputs = [f'output/xlsx/covid_disparities_{today}.xlsx',
+                       f'output/csv/covid_disparities_{today}.csv']
 
     # Write output files
     for output in opts.outputs or default_outputs:
         write_output(df, output)
-
 
 if __name__ == "__main__":
     main()

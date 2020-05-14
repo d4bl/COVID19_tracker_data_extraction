@@ -4,7 +4,7 @@ from covid19_scrapers.scraper import ScraperBase
 import logging
 import re
 
-_logger = logging.getLogger('covid19_scrapers')
+_logger = logging.getLogger(__name__)
 
 
 class Minnesota(ScraperBase):

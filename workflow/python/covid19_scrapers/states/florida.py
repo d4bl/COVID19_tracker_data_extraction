@@ -14,7 +14,7 @@ MonkeyPatch.patch_fromisoformat()
 import logging
 
 
-_logger = logging.getLogger('covid19_scrapers')
+_logger = logging.getLogger(__name__)
 
 
 def get_fl_daily_url():
@@ -80,7 +80,10 @@ class Florida(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-    def _scrape(self, validation, refresh=True):
+    def _scrape(self, validation, refresh=False):
+        """Set refresh to true to ignore the cache.  If false, we will still
+        use conditional GET to invalidate cached data.
+        """
         _logger.debug('Find daily Florida URL')
         fl_daily_url = get_fl_daily_url()
         _logger.debug(fl_daily_url)
@@ -122,7 +125,7 @@ class Florida(ScraperBase):
         table = table.drop('Race/ethnicity', axis=1)
         table = table.set_index(['Race','Ethnicity'])
         
-        _logger.debug('Fill NAs?')
+        _logger.debug('Fill NAs with 1')
         table.loc[('Total', 'All ethnicities')] = table.loc[('Total', 'All ethnicities')].fillna(1)
 
         att_names = ['Cases', 'Deaths']
