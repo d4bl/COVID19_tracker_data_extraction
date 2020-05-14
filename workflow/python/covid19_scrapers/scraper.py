@@ -1,9 +1,7 @@
-from io import StringIO
 import logging
 import numpy as np
 import os
 import pandas as pd
-import traceback as tb
 
 from covid19_scrapers.dir_context import dir_context
 
