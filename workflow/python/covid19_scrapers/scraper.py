@@ -33,11 +33,11 @@ class ScraperBase(object):
         subclass's name.
         """
         return self.__class__.__name__
-    
+
     def run(self, *, validation=False):
         """Invoke the subclass's _scrape method and return the result or an
-        error row. _scrape must return a list (possibly empty) of pandas Series
-        objects, or a DataFrame.
+        error row. _scrape must return a list (possibly empty) of
+        pandas Series objects, or a DataFrame.
 
         In case of exceptions, _handle_error is used to produce an error row.
         """
@@ -64,7 +64,7 @@ class ScraperBase(object):
         # Warn if there were errors.
         if status != SUCCESS:
             _logger.warning(status)
-        
+
         return pd.Series({
             'Location': self.name(),
             'Date Published': date,
@@ -76,7 +76,7 @@ class ScraperBase(object):
             'Pct Deaths Black/AA': pct_aa_deaths,
             'Status code': status,
         })
-        
+
     def _handle_error(self, e):
         """Returns a row indicating that an exception occurred, and log a
         traceback.
@@ -84,11 +84,9 @@ class ScraperBase(object):
         You can override this in subclasses if you need more
         specialized error handling.
         """
-        f = StringIO()
-        tb.print_exc(file=f)
-        _logger.warn(f.getvalue())
+        _logger.exception(e)
         return [self._make_series(status=self._format_error(e))]
-        
+
     def _format_error(self, e):
         """Generate a descriptive string for an exception.
 

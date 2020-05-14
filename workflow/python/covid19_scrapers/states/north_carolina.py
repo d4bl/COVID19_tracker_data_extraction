@@ -1,7 +1,9 @@
-from covid19_scrapers.utils import *
+from covid19_scrapers.utils import url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
+import datetime
 import logging
+import re
 
 
 _logger = logging.getLogger(__name__)
@@ -12,24 +14,26 @@ class NorthCarolina(ScraperBase):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        
+
     def name(self):
         return 'North Carolina'
-    
+
     def _scrape(self, validation):
-        NC_soup = url_to_soup(self.REPORTING_URL)
-        
+        soup = url_to_soup(self.REPORTING_URL)
+
         # find date
-        date_match = re.search(r'([A-Za-z]+\s[0-9]+,\s[0-9]+)', NC_soup.find("div", attrs={"class":"field-item"}).p.text)
+        date_match = re.search(r'([A-Za-z]+\s[0-9]+,\s[0-9]+)',
+                               soup.find('div', attrs={
+                                   'class': 'field-item'}).p.text)
         if date_match:
             date_text = ' '.join(date_match.group(1).split())
         else:
             raise ValueError('Unable to extract date from table header.')
-        date_time_obj = datetime.datetime.strptime(date_text, "%B %d, %Y")
+        date_time_obj = datetime.datetime.strptime(date_text, '%B %d, %Y')
         date_formatted = date_time_obj.strftime('%m/%d/%Y')
-        
+
         # find total number of cases and deaths
-        field_item = NC_soup.find('div', attrs={'class':'field-item'})
+        field_item = soup.find('div', attrs={'class': 'field-item'})
         thead = field_item.find('thead')
         for idx, th in enumerate(thead.tr.find_all('th')):
             if th.text.find('Cases') >= 0:
@@ -40,17 +44,16 @@ class NorthCarolina(ScraperBase):
         tds = tbody.find_all('td')
         num_cases = int(tds[cases_idx].text.replace(',', ''))
         num_deaths = int(tds[deaths_idx].text.replace(',', ''))
-        
+
         _logger.debug(f'Date: {date_formatted}')
         _logger.debug(f'Number Cases:  {num_cases}')
         _logger.debug(f'Number Deaths: {num_deaths}')
-        
+
         # find number of Black/AA cases and deaths
-        h2 = NC_soup.find('h2', string=re.compile('Race/Ethnicity'))
+        h2 = soup.find('h2', string=re.compile('Race/Ethnicity'))
         race_data = h2.find_next_sibling('table')
         thead = race_data.find('thead')
         ths = thead.find_all('th')
-        _logger.debug(f'Found {len(ths)} THs')
         for idx, th in enumerate(ths):
             # Search for percentages first to avoid false matches
             text = th.text.strip()
@@ -62,7 +65,7 @@ class NorthCarolina(ScraperBase):
                 aa_deaths_idx = idx
             elif text == '% Deaths from COVID-19':
                 pct_aa_deaths_idx = idx
-        _logger.debug(f'Processing body')
+
         tbody = race_data.find('tbody')
         for tr in tbody.find_all('tr'):
             tds = tr.find_all('td')

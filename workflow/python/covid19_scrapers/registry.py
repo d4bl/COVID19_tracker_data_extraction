@@ -1,11 +1,10 @@
 from functools import reduce
 import logging
-import os
 import pandas as pd
 
-from covid19_scrapers.dir_context import dir_context
 
 _logger = logging.getLogger(__name__)
+
 
 class Registry(object):
     """A registry for scrapers.
@@ -20,10 +19,11 @@ class Registry(object):
 
     def register_scraper(self, instance):
         """Add a scraper to this registry's dictionary using its
-        name()."""
-        _logger.debug(f'Registering scraper: {instance.name()}')
-        self._scrapers[instance.name()] = instance
-        
+        class name."""
+        name = instance.__class__.__name__
+        _logger.debug(f'Registering scraper: {name}: {instance.name()}')
+        self._scrapers[name] = instance
+
     def scraper_names(self):
         """Return an interable of the names of all the registered scrapers."""
         return self._scrapers.keys()
@@ -31,7 +31,7 @@ class Registry(object):
     def scrapers(self):
         """Return an interable of all the registered scrapers."""
         return self._scrapers.values()
-                
+
     def run_scraper(self, name, **kwargs):
         """Return the results of running the specified scraper, or None if no
         such scraper is registered.
@@ -39,7 +39,7 @@ class Registry(object):
         scraper = self._scrapers.get(name)
         if scraper:
             return scraper.run(**kwargs)
-        
+
     def run_scrapers(self, names, **kwargs):
         """Return the results of running the specified scrapers, or an empty
         Dataframe if no such scrapers are registered.
