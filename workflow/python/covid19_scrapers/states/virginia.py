@@ -15,7 +15,8 @@ class Virginia(ScraperBase):
 
     def _scrape(self, validation):
         _logger.debug('Read in the file')
-        df_va_raw = pd.read_csv(self.REPORTING_URL)
+        df_va_raw = pd.read_csv(self.REPORTING_URL,
+                                parse_dates=['Report Date'])
 
         _logger.debug('Get only the most recent data published')
         # TO DO: Convert date to string first before finding the max

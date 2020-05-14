@@ -130,7 +130,7 @@ class Florida(ScraperBase):
                          converters=converters)))[0]
 
         _logger.debug('Find the report date')
-        report_date = get_fl_report_date(fl_daily_url).strftime('%m/%d/%Y')
+        report_date = get_fl_report_date(fl_daily_url)
 
         _logger.debug('Set the race/ethnicity indices')
         races = ('White', 'Black', 'Other', 'Unknown race', 'Total')

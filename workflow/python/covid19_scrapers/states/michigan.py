@@ -24,8 +24,7 @@ class Michigan(ScraperBase):
             if caption.string.find('Confirmed COVID-19 Case') >= 0:
                 m = re.search(r'updated (\d+)/(\d+)/(\d+)', caption.string)
                 mon, day, year = tuple(map(int, m.groups()))
-                date_published = str(datetime.date(
-                    year, mon, day).strftime('%m/%d/%Y'))
+                date_published = datetime.date(year, mon, day)
                 trs = table.find('tbody').find_all('tr')
                 tds = trs[-1].find_all('td')
                 total_cases = int(tds[1].string)

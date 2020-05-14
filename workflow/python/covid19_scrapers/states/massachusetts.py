@@ -2,6 +2,7 @@ from covid19_scrapers.utils import (find_all_links, get_zip,
                                     get_zip_member_as_file)
 from covid19_scrapers.scraper import ScraperBase
 
+import datetime
 import logging
 import pandas as pd
 
@@ -38,9 +39,9 @@ class Massachusetts(ScraperBase):
         # of D4BL's last refresh match these calculations.
         # TO DO: Convert date to string first before finding the max
         if validation is True:
-            mass_max_date = '4/9/2020'
+            mass_max_date = datetime.date(2020, 4, 9)
         else:
-            mass_max_date = max(df_mass_raw.Date).strftime('%m/%d/%Y')
+            mass_max_date = max(df_mass_raw.Date)
 
         _logger.debug(f'Extracting data for {mass_max_date}')
         df_mass = df_mass_raw[df_mass_raw.Date == mass_max_date]
