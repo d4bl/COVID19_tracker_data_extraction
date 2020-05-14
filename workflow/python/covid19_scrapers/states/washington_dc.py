@@ -34,7 +34,7 @@ class WashingtonDC(ScraperBase):
         dc_max_date_link = max(dc_links,
                                key=lambda url: datetime.datetime.strptime(
                                    date_extractor.search(url).group(1),
-                                   '%B-%d-%Y').date)
+                                   '%B-%d-%Y').date())
         _logger.debug(f'Most recent dated link: {dc_max_date_link}')
 
         _logger.debug('Download the most recent data file')
