@@ -46,7 +46,28 @@ pip install backports-datetime-fromisoformat
 
 pip install fitz
 pip install PyMuPDF
-pip install Path
+pip install pathlib
+
+pip uninstall fitz
+pip install PyMuPDF
+
+
+## case 4: pdf
+
+pip install pytesseract 
+pip install Pillow 
+
+
+## Install tesseract-ocr utility
+## https://github.com/tesseract-ocr/tesseract/wiki#homebrew
+##   Follow instructions to install homebrew  @https://brew.sh
+brew install tesseract
+
+
+
+
+
+
 
 
 
