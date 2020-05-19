@@ -56,6 +56,7 @@ pip install PyMuPDF
 
 pip install pytesseract 
 pip install Pillow 
+pip install matplotlib
 
 
 ## Install tesseract-ocr utility
@@ -63,8 +64,9 @@ pip install Pillow
 ##   Follow instructions to install homebrew  @https://brew.sh
 brew install tesseract
 
-
-
+## Install selenium and  chromedriver
+brew cask install chromedriver
+pip install selenium
 
 
 
