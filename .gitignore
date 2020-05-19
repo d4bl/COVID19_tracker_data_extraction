@@ -8,3 +8,6 @@ workflow/python/data/*
 *~
 __pycache__
 .ipynb_checkpoints
+*/query_
+workflow/python/work/*
+work/*
