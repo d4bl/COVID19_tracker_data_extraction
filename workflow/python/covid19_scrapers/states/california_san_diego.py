@@ -57,7 +57,16 @@ class CaliforniaSanDiego(ScraperBase):
         sd_deaths = sd_deaths_raw.loc[19:, :].copy().reset_index().drop(
             columns=['index']
         ).dropna(how='all')
-        sd_deaths['Count'] = [int(str(x).split()[0])
+
+        def check_cvt(x):
+            """Helper to log but skip conversion errors for counts.
+            """
+            try:
+                return int(str(x).split()[0])
+            except ValueError as e:
+                _logger.warning(f'X is "{x}": {e}')
+                return 0
+        sd_deaths['Count'] = [check_cvt(x)
                               for x in sd_deaths['San Diego County Residents']
                               if x]
         del sd_deaths['San Diego County Residents']

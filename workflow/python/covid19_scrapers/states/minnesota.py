@@ -23,14 +23,15 @@ class Minnesota(ScraperBase):
                               strong.text).group()
 
         # find total number of confirmed cases
-        strong = soup.find('strong', string=re.compile('Total positive:'))
+        strong = soup.find('strong',
+                           string=re.compile('Total positive( cases)?:'))
         num_cases = int(str(strong.next_sibling).strip().replace(',', ''))
 
         # find total number of deaths
         strong = soup.find('strong', string=re.compile('Deaths:'))
         num_deaths = int(strong.next_sibling.strip().replace(',', ''))
 
-        date_obj = datetime.datetime.strptime(date_text, '%B %d, %Y').date
+        date_obj = datetime.datetime.strptime(date_text, '%B %d, %Y').date()
         _logger.debug(f'Date: {date_obj}')
         _logger.debug(f'Number Cases: {num_cases}')
         _logger.debug(f'Number Deaths: {num_deaths}')
