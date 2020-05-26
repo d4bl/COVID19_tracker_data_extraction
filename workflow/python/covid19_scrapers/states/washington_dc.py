@@ -63,7 +63,6 @@ class WashingtonDC(ScraperBase):
             max_case_ts = pd.Timestamp('2020-04-08 00:00:00')
         else:
             max_case_ts = max(pd.to_datetime(df_dc_cases_raw['index']))
-            _logger.debug(df_dc_cases_raw['index'])
             _logger.debug(f'Max case timestamp: {max_case_ts}')
 
         _logger.debug(
