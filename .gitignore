@@ -14,3 +14,4 @@ __pycache__
 workflow/python/work/*
 work/*
 workflow/python/screenshots/*
+*/scratch/*
