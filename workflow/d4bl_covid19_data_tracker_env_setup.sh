@@ -8,7 +8,7 @@
 # MD5:   e947884fafc78860e75e43579fa3c270
 # https://docs.conda.io/en/latest/miniconda.html
 
-export project_folder=~/Documents/GitHub/d4bl_covid_tracker
+export project_folder=~/Documents/GitHub/COVID19_tracker_data_extraction
 
 pip install --upgrade pip
 pip install pipenv
@@ -16,9 +16,11 @@ pip install pipenv
 pip install virtualenv
 
 cd $project_folder
-export env_name=covid19_data_test
+export env_name=covid19_data_test_003
 virtualenv $env_name
 source $env_name/bin/activate
+
+pip install --upgrade pip
 
 ## Install Jupyter utils.
 ## Note: The version number for tornado is extremely important here. 
@@ -27,6 +29,8 @@ pip install jupyter
 pip install ipykernel
 pip install tornado==5.1.1
 ipython kernel install --user --name=$envname
+pip install jupyter_contrib_nbextensions
+jupyter contrib nbextension install --user
 
 pip install numpy
 pip install pandas
@@ -44,12 +48,10 @@ pip install openpyxl
 pip install tabula-py
 pip install backports-datetime-fromisoformat
 
-pip install fitz
+#pip install fitz
 pip install PyMuPDF
 pip install pathlib
 
-pip uninstall fitz
-pip install PyMuPDF
 
 
 ## case 4: pdf
