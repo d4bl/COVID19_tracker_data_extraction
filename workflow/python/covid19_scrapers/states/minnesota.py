@@ -19,7 +19,7 @@ class Minnesota(ScraperBase):
 
         # find date
         strong = soup.find('strong', string=re.compile('Updated '))
-        date_text = re.search(r'[A-Z][a-z][a-z] \d\d, 20\d\d',
+        date_text = re.search(r'[A-Z][a-z][a-z]+ \d(\d)?, 20\d\d',
                               strong.text).group()
 
         # find total number of confirmed cases
