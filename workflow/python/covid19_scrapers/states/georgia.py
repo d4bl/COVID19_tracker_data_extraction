@@ -31,7 +31,7 @@ class Georgia(ScraperBase):
         ga_cases = totals['Confirmed_Cases']
         ga_deaths = totals['Deaths']
         _logger.debug('African American cases and deaths')
-        aa_key = next(filter(lambda x: x.startswith('AFRICAN-AMERICAN'), by_race.index))
+        aa_key = next(filter(lambda x: x.startswith('African-American'), by_race.index))
         ga_aa_cases = by_race.loc[aa_key, 'Confirmed_Cases']
         ga_aa_cases_pct = round(100 * ga_aa_cases / ga_cases, 2)
         ga_aa_deaths = by_race.loc[aa_key, 'Deaths']
