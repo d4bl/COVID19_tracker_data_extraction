@@ -20,20 +20,25 @@ MonkeyPatch.patch_fromisoformat()
 _logger = logging.getLogger(__name__)
 
 
+
 def get_fl_daily_url():
     fl_disaster_covid_url = 'https://floridadisaster.org/covid19/'
     fl_disaster_covid_soup = url_to_soup(fl_disaster_covid_url)
-    daily_url = fl_disaster_covid_soup.find('a', {
-        'title': 'COVID-19 Data - Daily Report Archive'}
-    ).get('href')
+    find_txt = 'COVID-19 Data - Daily Report'
+    daily_url = fl_disaster_covid_soup. \
+    find(lambda tag: tag.has_attr('href') and re.search(find_txt, tag.text)). \
+    get('href')
+
     if not daily_url:
         raise ValueError('Unable to find Daily Report Archive link')
     return urljoin(fl_disaster_covid_url, daily_url)
 
 
 def get_fl_report_date(url):
-    return datetime.date.fromisoformat(
-        re.search(r'-(2020-\d\d-\d\d)-', url).group(1))
+    #return datetime.date.fromisoformat(
+    #   re.search(r'(2020\d\d\d\d)', url).group(1), '')
+    dt_string = re.search(r'(2020\d\d\d\d)', url).group(1)
+    return datetime.date.strftime(datetime.datetime.strptime(dt_string, '%Y%m%d'), '%m/%d/%Y')
 
 
 def get_fl_table_area(pdf_data):
@@ -107,6 +112,7 @@ class Florida(ScraperBase):
         """
         _logger.debug('Find daily Florida URL')
         fl_daily_url = get_fl_daily_url()
+        print(fl_daily_url)
         _logger.debug(fl_daily_url)
 
         _logger.debug('Download the daily Florida URL')
