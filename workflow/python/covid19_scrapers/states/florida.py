@@ -38,7 +38,7 @@ def get_fl_report_date(url):
     #return datetime.date.fromisoformat(
     #   re.search(r'(2020\d\d\d\d)', url).group(1), '')
     dt_string = re.search(r'(2020\d\d\d\d)', url).group(1)
-    return datetime.date.strftime(datetime.datetime.strptime(dt_string, '%Y%m%d'), '%m/%d/%Y')
+    return datetime.date.strftime(datetime.datetime.strptime(dt_string, '%Y%m%d'), '%Y-%m-%d')
 
 
 def get_fl_table_area(pdf_data):
