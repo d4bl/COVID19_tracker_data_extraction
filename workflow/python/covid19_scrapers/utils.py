@@ -207,12 +207,16 @@ def get_cached_url(url, local_file_name=None, force_remote=False):
                 return r
     # response handling code
     r.raise_for_status()
-    if local_file.parent and not local_file.parent.exists():
-        _logger.debug(f'Making {local_file.parent}')
-        os.makedirs(str(local_file.parent), exist_ok=True)
-    with local_file.open('wb') as f:
-        f.write(r.content)
-        _logger.debug(f'Saved download as: {local_file}')
+    try:
+        if local_file.parent and not local_file.parent.exists():
+            _logger.debug(f'Making {local_file.parent}')
+            os.makedirs(str(local_file.parent), exist_ok=True)
+        with local_file.open('wb') as f:
+            f.write(r.content)
+            _logger.debug(f'Saved download as: {local_file}')
+    except OSError as e:
+        _logger.warn(f'Saving to cache failed: {local_file}: {e}')
+
     return r
 
 

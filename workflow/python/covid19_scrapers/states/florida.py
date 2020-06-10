@@ -112,8 +112,7 @@ class Florida(ScraperBase):
         """
         _logger.debug('Find daily Florida URL')
         fl_daily_url = get_fl_daily_url()
-        print(fl_daily_url)
-        _logger.debug(fl_daily_url)
+        _logger.debug(f'URL: is {fl_daily_url}')
 
         _logger.debug('Download the daily Florida URL')
         fl_pdf_data = get_content(fl_daily_url, refresh)
