@@ -1,7 +1,6 @@
 from covid19_scrapers.utils import get_esri_metadata_date, get_json
 from covid19_scrapers.scraper import ScraperBase
 
-import datetime
 import logging
 import pandas as pd
 
@@ -15,9 +14,6 @@ class Arkansas(ScraperBase):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-    def name(self):
-        return 'Arkansas'
 
     def _scrape(self, validation):
         # Download the metadata

@@ -17,9 +17,6 @@ class Alabama(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def name(self):
-        return 'Alabama'
-
     def _scrape(self, validation):
         # Download the metadata
         al_date = get_esri_metadata_date(self.AL_METADATA_URL)
