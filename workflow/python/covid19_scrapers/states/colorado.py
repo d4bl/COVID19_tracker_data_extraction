@@ -55,10 +55,10 @@ class Colorado(ScraperBase):
         ].set_index('metric')
 
         co_aa_cases_pct = aa_data.loc['Percent of Cases', 'value']
-        co_aa_cases = round(co_total_cases * co_aa_cases_pct / 100)
+        co_aa_cases = round(co_total_cases * co_aa_cases_pct / 100, 2)
 
         co_aa_deaths_pct = aa_data.loc['Percent of Deaths', 'value']
-        co_aa_deaths = round(co_total_deaths * co_aa_deaths_pct / 100)
+        co_aa_deaths = round(co_total_deaths * co_aa_deaths_pct / 100, 2)
 
         return [self._make_series(
             date=co_date,
