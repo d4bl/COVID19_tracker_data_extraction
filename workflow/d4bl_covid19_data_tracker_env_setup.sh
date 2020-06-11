@@ -70,7 +70,11 @@ brew install tesseract
 brew cask install chromedriver
 pip install selenium
 
-
+## Install google APIs and oauthlib for Colorodo shared drive
+pip install google-api-python-client
+pip install google-auth-httplib2
+pip install google-auth-oauthlib
+pip install oauthlib2
 
 
 
