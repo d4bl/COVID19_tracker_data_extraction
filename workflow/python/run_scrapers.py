@@ -69,6 +69,9 @@ def parse_args():
                         choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO',
                                  'DEBUG'],
                         help='Set log level for stderr to LEVEL')
+    parser.add_argument('--google_api_key', type=str, metavar='KEY',
+                        action='store',
+                        help='Provide a key for accessing Google APIs.')
     # Parse command-line arguments
     return parser.parse_args()
 
@@ -122,7 +125,9 @@ def main():
                   opts.log_to_stderr_level)
 
     # Run scrapers
-    scraper_registry = make_scraper_registry(home_dir=Path(opts.work_dir))
+    scraper_registry = make_scraper_registry(
+        home_dir=Path(opts.work_dir),
+        scraper_args=dict(google_api_key=opts.google_api_key))
     if not opts.scrapers:
         logging.info('Running all scrapers')
         df = scraper_registry.run_all_scrapers()
