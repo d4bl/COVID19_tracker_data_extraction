@@ -50,6 +50,7 @@ class ScraperBase(object):
 
     def _make_series(
             self, *,
+            location='',
             date='',
             cases=np.nan, deaths=np.nan,
             aa_cases=np.nan, aa_deaths=np.nan,
@@ -64,7 +65,7 @@ class ScraperBase(object):
             _logger.warning(status)
 
         return pd.Series({
-            'Location': self.name(),
+            'Location': location or self.name(),
             'Date Published': date,
             'Total Cases': cases,
             'Total Deaths': deaths,
