@@ -1,4 +1,3 @@
-from covid19_scrapers.utils import download_file, as_list
 from covid19_scrapers.scraper import ScraperBase
 
 import fitz
