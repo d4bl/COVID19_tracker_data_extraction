@@ -94,6 +94,13 @@ def find_all_links(url, search_string=None):
         return link_list
 
 
+def get_http_date(url):
+    r = requests.head(url)
+    r.raise_for_status()
+    date = r.headers.get('last-modified')
+    if date:
+        return eut.parsedate_to_datetime(date).date()
+
 def get_esri_metadata_date(metadata_url, force_remote=False):
     """For states using ESRI web services, the field metadata includes a
     timestamp.  This function fetches, extracts, and parses it,
