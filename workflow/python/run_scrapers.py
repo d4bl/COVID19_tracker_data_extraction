@@ -72,6 +72,8 @@ def parse_args():
     parser.add_argument('--google_api_key', type=str, metavar='KEY',
                         action='store',
                         help='Provide a key for accessing Google APIs.')
+    parser.add_argument('--use_beta_scrapers', action='store_true',
+                        help='Include beta scrapers when not specifying scrapers manually.')
     # Parse command-line arguments
     return parser.parse_args()
 
@@ -127,7 +129,9 @@ def main():
     # Run scrapers
     scraper_registry = make_scraper_registry(
         home_dir=Path(opts.work_dir),
-        scraper_args=dict(google_api_key=opts.google_api_key))
+        scraper_args=dict(google_api_key=opts.google_api_key),
+        use_beta_scrapers=opts.use_beta_scrapers,
+    )
     if not opts.scrapers:
         logging.info('Running all scrapers')
         df = scraper_registry.run_all_scrapers()

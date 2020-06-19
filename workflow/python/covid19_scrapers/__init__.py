@@ -16,8 +16,10 @@ def get_scraper_names():
         yield scraper_class.__name__
 
 
-def make_scraper_registry(*, home_dir=Path('work'), registry_args={},
-                          scraper_args={}):
+def make_scraper_registry(*, home_dir=Path('work'),
+                          registry_args={},
+                          scraper_args={},
+                          use_beta_scrapers=False):
     """Returns a Registry instance with all the per-state scrapers
     registered.
 
@@ -34,9 +36,14 @@ def make_scraper_registry(*, home_dir=Path('work'), registry_args={},
       scraper_args: optional, a dict of additional keyword arguments
         for all scrapers' constructors.
 
+      use_beta_scrapers: optional, a bool indicating whether to include
+        scrapers with the BETA_SCRAPER class variable set.
+
     """
     registry = Registry(**registry_args)
     for scraper_class in get_scraper_classes():
+        if getattr(scraper_class, 'BETA_SCRAPER', False) and not use_beta_scrapers:
+            continue
         registry.register_scraper(
             scraper_class(home_dir=home_dir / scraper_class.__name__,
                           **scraper_args))
