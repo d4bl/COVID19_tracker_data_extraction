@@ -18,9 +18,9 @@ class Indiana(ScraperBase):
 
     def _scrape(self, validation):
         _logger.debug('Find the update date')
-        in_metadata = get_json(self.METADATA_URL)
-        in_date = datetime.datetime.fromisoformat(
-            in_metadata['result']['last_modified']).date()
+        metadata = get_json(self.METADATA_URL)
+        date = datetime.datetime.fromisoformat(
+            metadata['result']['last_modified']).date()
 
         _logger.debug('Read in the file')
         df_in = pd.read_excel(
@@ -29,22 +29,24 @@ class Indiana(ScraperBase):
         ).set_index(
             'RACE'
         )
-        
-        in_total_cases = df_in['COVID_COUNT'].sum()
-        in_total_deaths = df_in['COVID_DEATHS'].sum()
-        in_aa_cases = df_in.loc['Black or African American', 'COVID_COUNT']
-        in_aa_deaths = df_in.loc['Black or African American', 'COVID_DEATHS']
-        in_aa_cases_pct = df_in.loc['Black or African American',
-                                    'COVID_COUNT_PCT']
-        in_aa_deaths_pct = df_in.loc['Black or African American',
-                                     'COVID_DEATHS_PCT']
+
+        total_cases = df_in['COVID_COUNT'].sum()
+        total_deaths = df_in['COVID_DEATHS'].sum()
+        aa_cases = df_in.loc['Black or African American', 'COVID_COUNT']
+        aa_deaths = df_in.loc['Black or African American', 'COVID_DEATHS']
+        aa_cases_pct = df_in.loc['Black or African American',
+                                 'COVID_COUNT_PCT']
+        aa_deaths_pct = df_in.loc['Black or African American',
+                                  'COVID_DEATHS_PCT']
 
         return [self._make_series(
-            date=in_date,
-            cases=in_total_cases,
-            deaths=in_total_deaths,
-            aa_cases=in_aa_cases,
-            aa_deaths=in_aa_deaths,
-            pct_aa_cases=in_aa_cases_pct,
-            pct_aa_deaths=in_aa_deaths_pct,
+            date=date,
+            cases=total_cases,
+            deaths=total_deaths,
+            aa_cases=aa_cases,
+            aa_deaths=aa_deaths,
+            pct_aa_cases=aa_cases_pct,
+            pct_aa_deaths=aa_deaths_pct,
+            pct_includes_unknown_race=True,
+            pct_includes_hispanic_black=True,
         )]

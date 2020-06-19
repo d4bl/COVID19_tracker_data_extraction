@@ -3,8 +3,9 @@ from covid19_scrapers.scraper import ScraperBase
 
 import datetime
 import logging
-import numpy as np
+import pandas as pd
 import re
+from urllib.parse import urljoin
 
 
 _logger = logging.getLogger(__name__)
@@ -17,28 +18,39 @@ class Michigan(ScraperBase):
         super().__init__(**kwargs)
 
     def _scrape(self, validation):
+        # Find latest report
         soup = url_to_soup(self.REPORTING_URL)
-        tables = soup.find_all('table')
-        for table in tables:
-            caption = table.find('caption')
-            if caption.string.find('Confirmed COVID-19 Case') >= 0:
-                m = re.search(r'updated (\d+)/(\d+)/(\d+)', caption.string)
-                mon, day, year = tuple(map(int, m.groups()))
-                date_published = datetime.date(year, mon, day)
-                trs = table.find('tbody').find_all('tr')
-                tds = trs[-1].find_all('td')
-                total_cases = int(tds[1].string)
-                total_deaths = int(tds[2].string)
-            elif caption.string == 'Cases by Race':
-                for tr in table.find('tbody').find_all('tr'):
-                    tds = tr.find_all('td')
-                    if tds[0].string == 'Black or African American':
-                        aa_cases_pct = int(tds[1].string.strip('% '))
-                        aa_deaths_pct = int(tds[2].string.strip('% '))
-                        aa_cases = int(
-                            np.round(total_cases * (aa_cases_pct / 100)))
-                        aa_deaths = int(
-                            np.round(total_deaths * (aa_deaths_pct / 100)))
+        by_dem_path = soup.find(
+            'a',
+            text='Cases by Demographics Statewide')['href']
+
+        # Extract the report date
+        (year, month, day) = map(int, re.search(
+            r'(\d{4})-(\d{2})-(\d{2})', by_dem_path).groups())
+
+        date_published = datetime.date(year, month, day)
+        _logger.info(f'Processing MI data for {date_published}')
+
+        # Load the data
+        by_dem_url = urljoin(self.REPORTING_URL, by_dem_path)
+        by_dem = pd.read_excel(by_dem_url)
+
+        # Drop probable cases
+        by_dem = by_dem[by_dem['CASE_STATUS'] == 'Confirmed']
+        by_dem['Cases'] = by_dem['Cases'].str.replace(
+            'Suppressed', '0').astype(int)
+        by_dem['Deaths'] = by_dem['Deaths'].str.replace(
+            'Suppressed', '0').astype(int)
+        by_race = by_dem[['RaceCat', 'Cases', 'Deaths']].groupby(
+            'RaceCat').sum()
+
+        total = by_race.sum(axis=0)
+        total_cases = total['Cases']
+        total_deaths = total['Deaths']
+        aa_cases = by_race.loc['Black/African American', 'Cases']
+        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
+        aa_deaths = by_race.loc['Black/African American', 'Deaths']
+        aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
 
         return [self._make_series(
             date=date_published,
@@ -48,4 +60,6 @@ class Michigan(ScraperBase):
             aa_deaths=aa_deaths,
             pct_aa_cases=aa_cases_pct,
             pct_aa_deaths=aa_deaths_pct,
+            pct_includes_unknown_race=True,
+            pct_includes_hispanic_black=False,
         )]

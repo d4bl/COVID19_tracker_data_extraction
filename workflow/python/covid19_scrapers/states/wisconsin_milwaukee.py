@@ -70,6 +70,8 @@ class WisconsinMilwaukee(ScraperBase):
             aa_deaths=cnt_deaths_aa,
             pct_aa_cases=pct_cases_aa,
             pct_aa_deaths=pct_deaths_aa,
+            pct_includes_unknown_race=True,
+            pct_includes_hispanic_black=False,
         )]
 
     def _format_error(self, e):

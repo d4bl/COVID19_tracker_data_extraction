@@ -11,8 +11,8 @@ _logger = logging.getLogger(__name__)
 
 
 class CaliforniaLosAngeles(ScraperBase):
-    CA_LA_JS_URL = 'http://publichealth.lacounty.gov/media/Coronavirus/js/casecounter.js'
-    CA_LA_DATA_URL = 'http://publichealth.lacounty.gov/media/Coronavirus/locations.htm'
+    JS_URL = 'http://publichealth.lacounty.gov/media/Coronavirus/js/casecounter.js'
+    DATA_URL = 'http://publichealth.lacounty.gov/media/Coronavirus/locations.htm'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -21,52 +21,54 @@ class CaliforniaLosAngeles(ScraperBase):
         return 'California - Los Angeles'
 
     def _scrape(self, validation):
-        r = get_cached_url(self.CA_LA_JS_URL)
-        ca_json = re.search(r'data = ((.|\n)*?);',
-                            r.text, re.MULTILINE).group(1).strip()
-        ca_data = json.loads(ca_json)['content']
+        r = get_cached_url(self.JS_URL)
+        json_str = re.search(r'data = ((.|\n)*?);',
+                             r.text, re.MULTILINE).group(1).strip()
+        data = json.loads(json_str)['content']
 
         # Find the update date
         month, day, year = map(int, re.search(
             r'(\d{2})/(\d{2})/(\d{4})',
-            ca_data['info']).groups())
+            data['info']).groups())
 
-        ca_date = datetime.date(year, month, day)
-        _logger.debug(f'Processing data for {ca_date}')
+        date = datetime.date(year, month, day)
+        _logger.debug(f'Processing data for {date}')
 
         # Extract the total counts
-        ca_total_cases = int(ca_data['count'].replace(',', ''))
-        ca_total_deaths = int(ca_data['death'].replace(',', ''))
+        total_cases = int(data['count'].replace(',', ''))
+        total_deaths = int(data['death'].replace(',', ''))
 
         # Fetch the HTML page
-        ca_soup = url_to_soup(self.CA_LA_DATA_URL)
+        soup = url_to_soup(self.DATA_URL)
 
         # Extract the Black/AA counts
-        race = ca_soup.find(id='race')
+        race = soup.find(id='race')
         for tr in race.find_next_siblings('tr'):
             td = tr.find('td')
             if td and td.text.find('Black') >= 0:
-                ca_aa_cases = int(
+                aa_cases = int(
                     td.next_sibling.text.strip().replace(',', ''))
                 break
 
-        race_d = ca_soup.find(id='race-d')
+        race_d = soup.find(id='race-d')
         for tr in race_d.find_next_siblings('tr'):
             td = tr.find('td')
             if td.text.find('Black') >= 0:
-                ca_aa_deaths = int(
+                aa_deaths = int(
                     td.next_sibling.text.strip().replace(',', ''))
                 break
 
-        ca_aa_cases_pct = round(ca_aa_cases / ca_total_cases * 100, 2)
-        ca_aa_deaths_pct = round(ca_aa_deaths / ca_total_deaths * 100, 2)
+        aa_cases_pct = round(aa_cases / total_cases * 100, 2)
+        aa_deaths_pct = round(aa_deaths / total_deaths * 100, 2)
 
         return [self._make_series(
-            date=ca_date,
-            cases=ca_total_cases,
-            deaths=ca_total_deaths,
-            aa_cases=ca_aa_cases,
-            aa_deaths=ca_aa_deaths,
-            pct_aa_cases=ca_aa_cases_pct,
-            pct_aa_deaths=ca_aa_deaths_pct,
+            date=date,
+            cases=total_cases,
+            deaths=total_deaths,
+            aa_cases=aa_cases,
+            aa_deaths=aa_deaths,
+            pct_aa_cases=aa_cases_pct,
+            pct_aa_deaths=aa_deaths_pct,
+            pct_includes_unknown_race=True,
+            pct_includes_hispanic_black=False,
         )]
