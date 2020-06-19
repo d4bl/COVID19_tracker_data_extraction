@@ -56,6 +56,8 @@ class ScraperBase(object):
             aa_cases=np.nan, aa_deaths=np.nan,
             pct_aa_cases=np.nan,
             pct_aa_deaths=np.nan,
+            pct_includes_unknown_race=False,
+            pct_includes_hispanic_black=False,
             status=SUCCESS):
         """Returns a pandas.Series with the common scraping fields set to the
         specified values.
@@ -73,6 +75,8 @@ class ScraperBase(object):
             'Count Deaths Black/AA': aa_deaths,
             'Pct Cases Black/AA': pct_aa_cases,
             'Pct Deaths Black/AA': pct_aa_deaths,
+            'Pct Includes Unknown Race': pct_includes_unknown_race,
+            'Pct Includes Hispanic Black': pct_includes_hispanic_black,
             'Status code': status,
         })
 
