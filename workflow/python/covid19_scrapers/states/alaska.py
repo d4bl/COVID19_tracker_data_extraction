@@ -9,37 +9,39 @@ _logger = logging.getLogger(__name__)
 
 
 class Arkansas(ScraperBase):
-    AR_DATA_URL = 'https://opendata.arcgis.com/datasets/ebf62bbdba59497a9dba00aed0c17078_0.geojson'
-    AR_METADATA_URL = 'https://services1.arcgis.com/WzFsmainVTuD5KML/arcgis/rest/services/Demographic_Distribution_of_Confirmed_Cases/FeatureServer/0?f=json'
+    DATA_URL = 'https://opendata.arcgis.com/datasets/ebf62bbdba59497a9dba00aed0c17078_0.geojson'
+    METADATA_URL = 'https://services1.arcgis.com/WzFsmainVTuD5KML/arcgis/rest/services/Demographic_Distribution_of_Confirmed_Cases/FeatureServer/0?f=json'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def _scrape(self, validation):
         # Download the metadata
-        ar_date = get_esri_metadata_date(self.AR_METADATA_URL)
-        
+        date = get_esri_metadata_date(self.METADATA_URL)
+
         # Download the case data
-        ar_data = get_json(self.AR_DATA_URL)
+        data = get_json(self.DATA_URL)
         # Populate a DataFrame
-        ar_cases = pd.DataFrame(
-            [feature['properties'] for feature in ar_data['features']]
+        cases = pd.DataFrame(
+            [feature['properties'] for feature in data['features']]
         ).set_index('Demographic')
 
         # Extract cells
-        ar_total_cases = ar_cases.loc['Grand Total', 'All_Cases']
-        ar_aa_cases_cnt = ar_cases.loc['Black', 'All_Cases']
-        ar_aa_cases_pct = ar_cases.loc['Black', 'All_Cases_Percentage'][:-1]
-        ar_total_deaths = ar_cases.loc['Grand Total', 'Deaths']
-        ar_aa_deaths_cnt = ar_cases.loc['Black', 'Deaths']                
-        ar_aa_deaths_pct = ar_cases.loc['Black', 'Deaths_Percentage'][:-1]
+        total_cases = cases.loc['Grand Total', 'All_Cases']
+        aa_cases_cnt = cases.loc['Black', 'All_Cases']
+        aa_cases_pct = cases.loc['Black', 'All_Cases_Percentage'][:-1]
+        total_deaths = cases.loc['Grand Total', 'Deaths']
+        aa_deaths_cnt = cases.loc['Black', 'Deaths']
+        aa_deaths_pct = cases.loc['Black', 'Deaths_Percentage'][:-1]
 
         return [self._make_series(
-            date=ar_date,
-            cases=ar_total_cases,
-            deaths=ar_total_deaths,
-            aa_cases=ar_aa_cases_cnt,
-            aa_deaths=ar_aa_deaths_cnt,
-            pct_aa_cases=ar_aa_cases_pct,
-            pct_aa_deaths=ar_aa_deaths_pct,
+            date=date,
+            cases=total_cases,
+            deaths=total_deaths,
+            aa_cases=aa_cases_cnt,
+            aa_deaths=aa_deaths_cnt,
+            pct_aa_cases=aa_cases_pct,
+            pct_aa_deaths=aa_deaths_pct,
+            pct_includes_unknown_race=True,
+            pct_includes_hispanic_black=True,
         )]

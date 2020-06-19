@@ -10,39 +10,42 @@ _logger = logging.getLogger(__name__)
 
 
 class Georgia(ScraperBase):
-    GA_ZIP_URL = 'https://ga-covid19.ondemand.sas.com/docs/ga_covid_data.zip'
+    ZIP_URL = 'https://ga-covid19.ondemand.sas.com/docs/ga_covid_data.zip'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def _scrape(self, validation):
         _logger.debug('Download covid data zip file')
-        z = get_zip(self.GA_ZIP_URL)
+        z = get_zip(self.ZIP_URL)
 
         _logger.debug(
             'Get the last update of the demographics.csv file in archive')
-        zip_date = get_zip_member_update_date(z, 'demographics.csv')
+        date = get_zip_member_update_date(z, 'demographics.csv')
 
         _logger.debug('Load demographics CSV')
         data = pd.read_csv(get_zip_member_as_file(z, 'demographics.csv'))
         by_race = data[['race', 'Confirmed_Cases', 'Deaths']
                        ].groupby('race').sum()
         totals = by_race.sum(axis=0)
-        ga_cases = totals['Confirmed_Cases']
-        ga_deaths = totals['Deaths']
+        total_cases = totals['Confirmed_Cases']
+        total_deaths = totals['Deaths']
         _logger.debug('African American cases and deaths')
-        aa_key = next(filter(lambda x: x.startswith('African-American'), by_race.index))
-        ga_aa_cases = by_race.loc[aa_key, 'Confirmed_Cases']
-        ga_aa_cases_pct = round(100 * ga_aa_cases / ga_cases, 2)
-        ga_aa_deaths = by_race.loc[aa_key, 'Deaths']
-        ga_aa_deaths_pct = round(100 * ga_aa_deaths / ga_deaths, 2)
+        aa_key = next(filter(lambda x: x.startswith('African-American'),
+                             by_race.index))
+        aa_cases = by_race.loc[aa_key, 'Confirmed_Cases']
+        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
+        aa_deaths = by_race.loc[aa_key, 'Deaths']
+        aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
 
         return [self._make_series(
-            date=zip_date,
-            cases=ga_cases,
-            deaths=ga_deaths,
-            aa_cases=ga_aa_cases,
-            aa_deaths=ga_aa_deaths,
-            pct_aa_cases=ga_aa_cases_pct,
-            pct_aa_deaths=ga_aa_deaths_pct,
+            date=date,
+            cases=total_cases,
+            deaths=total_deaths,
+            aa_cases=aa_cases,
+            aa_deaths=aa_deaths,
+            pct_aa_cases=aa_cases_pct,
+            pct_aa_deaths=aa_deaths_pct,
+            pct_includes_unknown_race=True,
+            pct_includes_hispanic_black=True,
         )]

@@ -1,18 +1,20 @@
 from covid19_scrapers.utils import download_file, as_list
 from covid19_scrapers.scraper import ScraperBase
 
+import fitz
 from tabula import read_pdf
 
 import datetime
 import logging
+import re
 
 
 _logger = logging.getLogger(__name__)
 
 
 class CaliforniaSanDiego(ScraperBase):
-    SD_CASES_URL = 'https://www.sandiegocounty.gov/content/dam/sdc/hhsa/programs/phs/Epidemiology/COVID-19%20Race%20and%20Ethnicity%20Summary.pdf'
-    SD_DEATHS_URL = 'https://www.sandiegocounty.gov/content/dam/sdc/hhsa/programs/phs/Epidemiology/COVID-19%20Deaths%20by%20Demographics.pdf'
+    CASES_URL = 'https://www.sandiegocounty.gov/content/dam/sdc/hhsa/programs/phs/Epidemiology/COVID-19%20Race%20and%20Ethnicity%20Summary.pdf'
+    DEATHS_URL = 'https://www.sandiegocounty.gov/content/dam/sdc/hhsa/programs/phs/Epidemiology/COVID-19%20Deaths%20by%20Demographics.pdf'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -22,39 +24,53 @@ class CaliforniaSanDiego(ScraperBase):
 
     def _scrape(self, validation):
         # Download the files
-        download_file(self.SD_CASES_URL, 'sd_cases.pdf')
-        download_file(self.SD_DEATHS_URL, 'sd_deaths.pdf')
+        download_file(self.CASES_URL, 'cases.pdf')
+        download_file(self.DEATHS_URL, 'deaths.pdf')
+
+        # Extract the date
+        pdf = fitz.Document(filename='cases.pdf', filetype='pdf')
+        date = None
+        for (
+                x0, y0, x1, y1, block, block_type, block_no
+        ) in pdf[0].getText('blocks'):
+            match = re.search(r'updated +(\d\d?)/(\d\d?)/(\d{4})', block)
+            if match:
+                month, day, year = map(int, match.groups())
+                date = datetime.date(year, month, day)
+                break
+        if not date:
+            raise ValueError('Unable to find date in cases PDF')
+        _logger.info(f'Processing data for {date}')
 
         # Load the cases
-        sd_cases_raw = as_list(read_pdf('sd_cases.pdf'))[0]
+        cases_raw = as_list(read_pdf('cases.pdf'))[0]
 
         # Format the cases
-        sd_cases = sd_cases_raw.drop(
+        cases = cases_raw.drop(
             index=[0, 1]
         ).reset_index(
         ).drop(columns=['index'])
-        sd_cases.columns = sd_cases.loc[0]
-        sd_cases = sd_cases.drop(index=[0])
-        sd_cases['Count'] = [int(x.replace(',', ''))
-                             for x in sd_cases['Count']]
-        sd_cases = sd_cases[['Race and Ethnicity', 'Count']]
+        cases.columns = cases.loc[0]
+        cases = cases.drop(index=[0])
+        cases['Count'] = [int(x.replace(',', ''))
+                          for x in cases['Count']]
+        cases = cases[['Race and Ethnicity', 'Count']]
 
         #
-        sd_total_cases = sd_cases.Count.sum()
-        _logger.debug(f'Total cases: {sd_total_cases}')
-        sd_cases['Percent'] = round(100 * sd_cases['Count'] / sd_total_cases,
-                                    2)
+        total_cases = cases.Count.sum()
+        _logger.debug(f'Total cases: {total_cases}')
+        cases['Percent'] = round(100 * cases['Count'] / total_cases, 2)
 
         #
-        sd_cases = sd_cases.set_index('Race and Ethnicity')
-        sd_aa_cases_cnt = sd_cases.loc['Black or African American', 'Count']
-        sd_aa_cases_pct = sd_cases.loc['Black or African American', 'Percent']
+        cases = cases.set_index('Race and Ethnicity')
+        aa_cases_cnt = cases.loc['Black or African American', 'Count']
+        aa_cases_pct = cases.loc['Black or African American', 'Percent']
 
         #
-        sd_deaths_raw = as_list(read_pdf('sd_deaths.pdf'))[0]
+        deaths_raw = as_list(read_pdf('deaths.pdf'))[0]
 
         #
-        sd_deaths = sd_deaths_raw.loc[19:, :].copy().reset_index().drop(
+        deaths = deaths_raw.loc[19:, :].copy().reset_index().drop(
             columns=['index']
         ).dropna(how='all')
 
@@ -66,36 +82,35 @@ class CaliforniaSanDiego(ScraperBase):
             except ValueError as e:
                 _logger.warning(f'X is "{x}": {e}')
                 return 0
-        sd_deaths['Count'] = [check_cvt(x)
-                              for x in sd_deaths['San Diego County Residents']
-                              if x]
-        del sd_deaths['San Diego County Residents']
-        sd_deaths.columns = ['Race/Ethnicity', 'Count']
+        deaths['Count'] = [check_cvt(x)
+                           for x in deaths['San Diego County Residents']
+                           if x]
+        del deaths['San Diego County Residents']
+        deaths.columns = ['Race/Ethnicity', 'Count']
 
         #
-        sd_total_deaths = sd_deaths.Count.sum()
-        _logger.debug(sd_total_deaths)
-        sd_deaths['Percent'] = round(
-            100 * sd_deaths['Count'] / sd_total_deaths, 2
+        total_deaths = deaths.Count.sum()
+        _logger.debug(total_deaths)
+        deaths['Percent'] = round(
+            100 * deaths['Count'] / total_deaths, 2
         )
 
         #
-        sd_aa_deaths_cnt = sd_deaths.set_index(
+        aa_deaths_cnt = deaths.set_index(
             'Race/Ethnicity'
         ).loc['Black or African American', 'Count']
-        sd_aa_deaths_pct = sd_deaths.set_index(
+        aa_deaths_pct = deaths.set_index(
             'Race/Ethnicity'
         ).loc['Black or African American', 'Percent']
-        sd_max_date = (
-            datetime.datetime.now() - datetime.timedelta(days=1)
-        )
 
         return [self._make_series(
-            date=sd_max_date,
-            cases=sd_total_cases,
-            deaths=sd_total_deaths,
-            aa_cases=sd_aa_cases_cnt,
-            aa_deaths=sd_aa_deaths_cnt,
-            pct_aa_cases=sd_aa_cases_pct,
-            pct_aa_deaths=sd_aa_deaths_pct,
+            date=date,
+            cases=total_cases,
+            deaths=total_deaths,
+            aa_cases=aa_cases_cnt,
+            aa_deaths=aa_deaths_cnt,
+            pct_aa_cases=aa_cases_pct,
+            pct_aa_deaths=aa_deaths_pct,
+            pct_includes_unknown_race=False,
+            pct_includes_hispanic_black=False,
         )]

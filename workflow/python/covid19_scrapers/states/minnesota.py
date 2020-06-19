@@ -55,4 +55,6 @@ class Minnesota(ScraperBase):
             aa_deaths=cnt_aa_deaths,
             pct_aa_cases=pct_aa_cases,
             pct_aa_deaths=pct_aa_deaths,
+            pct_includes_unknown_race=True,
+            pct_includes_hispanic_black=True,
         )]

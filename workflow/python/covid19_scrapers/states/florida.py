@@ -20,14 +20,13 @@ MonkeyPatch.patch_fromisoformat()
 _logger = logging.getLogger(__name__)
 
 
-
 def get_fl_daily_url():
     fl_disaster_covid_url = 'https://floridadisaster.org/covid19/'
     fl_disaster_covid_soup = url_to_soup(fl_disaster_covid_url)
     find_txt = 'COVID-19 Data - Daily Report'
-    daily_url = fl_disaster_covid_soup. \
-    find(lambda tag: tag.has_attr('href') and re.search(find_txt, tag.text)). \
-    get('href')
+    daily_url = fl_disaster_covid_soup.find(
+        lambda tag: tag.has_attr('href') and re.search(find_txt, tag.text)
+    ).get('href')
 
     if not daily_url:
         raise ValueError('Unable to find Daily Report Archive link')
@@ -38,7 +37,8 @@ def get_fl_report_date(url):
     #return datetime.date.fromisoformat(
     #   re.search(r'(2020\d\d\d\d)', url).group(1), '')
     dt_string = re.search(r'(2020\d\d\d\d)', url).group(1)
-    return datetime.date.strftime(datetime.datetime.strptime(dt_string, '%Y%m%d'), '%Y-%m-%d')
+    return datetime.date.strftime(
+        datetime.datetime.strptime(dt_string, '%Y%m%d'), '%Y-%m-%d')
 
 
 def get_fl_table_area(pdf_data):
@@ -177,4 +177,6 @@ class Florida(ScraperBase):
             aa_deaths=fl_aa_cases_and_deaths['Deaths'],
             pct_aa_cases=fl_aa_cases_and_deaths_pct['Cases'],
             pct_aa_deaths=fl_aa_cases_and_deaths_pct['Deaths'],
+            pct_includes_unknown_race=True,
+            pct_includes_hispanic_black=False,
         )]
