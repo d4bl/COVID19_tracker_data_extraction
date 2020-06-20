@@ -94,12 +94,24 @@ def find_all_links(url, search_string=None):
         return link_list
 
 
+def table_to_dataframe(table):
+    """Given a bs4 Table element, make a DataFrame using the `th` items as
+    columns and `td` items as float data.
+    """
+    columns = [th.text.strip() for th in table.find_all('th')]
+    data = [[float(td.text.strip().replace(',', '').replace('%', ''))
+             for td in tr.find_all('td')]
+            for tr in table.find_all('tr')]
+    return pd.DataFrame(data, columns=columns)
+
+
 def get_http_date(url):
     r = requests.head(url)
     r.raise_for_status()
     date = r.headers.get('last-modified')
     if date:
         return eut.parsedate_to_datetime(date).date()
+
 
 def get_esri_metadata_date(metadata_url, force_remote=False):
     """For states using ESRI web services, the field metadata includes a
@@ -253,6 +265,12 @@ def get_content(url, force_remote=False):
     """Return the url's reponse contents as bytes."""
     r = get_cached_url(url, force_remote=force_remote)
     return r.content
+
+
+def get_content_as_file(url, force_remote=False):
+    """Return the url's reponse contents as a BytesIO."""
+    r = get_cached_url(url, force_remote=force_remote)
+    return BytesIO(r.content)
 
 
 # Wrappers to handle zip files
