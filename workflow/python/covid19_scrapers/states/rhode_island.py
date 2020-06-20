@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import (get_content,
+from covid19_scrapers.utils import (get_content_as_file,
                                     get_esri_feature_data,
                                     get_esri_metadata_date)
 from covid19_scrapers.scraper import ScraperBase
@@ -38,7 +38,7 @@ class RhodeIsland(ScraperBase):
 
         # Download the by-race percentage data
         race_pct = pd.read_csv(
-            BytesIO(get_content(self.RACE_PCT_URL))
+            get_content_as_file(self.RACE_PCT_URL)
         ).set_index(
             'Race/ethnicity'
         )
