@@ -1,8 +1,8 @@
 from covid19_scrapers.utils import get_esri_feature_data
 from covid19_scrapers.scraper import ScraperBase
 
+import datetime
 import logging
-import pandas as pd
 
 
 _logger = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ class Wisconsin(ScraperBase):
     def _scrape(self, **kwargs):
         data = get_esri_feature_data(self.DATA_URL)
 
-        date = pd.to_datetime(data.loc[0, 'DATE']).date()
+        date = datetime.datetime.fromtimestamp(data.loc[0, 'DATE']/1000).date()
 
         total_cases = data.loc[0, 'POSITIVE']
         total_deaths = data.loc[0, 'DEATHS']
