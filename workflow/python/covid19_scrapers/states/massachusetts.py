@@ -60,7 +60,7 @@ class Massachusetts(ScraperBase):
         ]['Deaths'].tolist()[0]
         aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
         return [self._make_series(
-            date=max_date,
+            date=max_date.date(),
             cases=total_cases,
             deaths=total_deaths,
             aa_cases=aa_cases,

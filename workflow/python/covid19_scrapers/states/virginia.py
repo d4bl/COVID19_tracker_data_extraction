@@ -16,7 +16,7 @@ class Virginia(ScraperBase):
     def _scrape(self, **kwargs):
         _logger.debug('Read in the file')
         df_raw = pd.read_csv(self.REPORTING_URL,
-                                parse_dates=['Report Date'])
+                             parse_dates=['Report Date'])
 
         _logger.debug('Get only the most recent data published')
         # TO DO: Convert date to string first before finding the max
@@ -44,7 +44,7 @@ class Virginia(ScraperBase):
         aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
 
         return [self._make_series(
-            date=max_date,
+            date=max_date.date(),
             cases=total_cases,
             deaths=total_deaths,
             aa_cases=aa_cases,
