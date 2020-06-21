@@ -83,10 +83,10 @@ class WashingtonDC(ScraperBase):
             'Get deaths associated with desired timestamp (most recent or 4/9/2020 validation date)')
         df_deaths = df_deaths_raw[df_deaths_raw['index'] == max_case_ts]
 
-        _logger.debug('Get report date')
         max_date = (
             max_case_ts + datetime.timedelta(days=1)
-        )
+        ).date()
+        _logger.info('Processing report for {date}')
 
         # Intermediate calculations
 
