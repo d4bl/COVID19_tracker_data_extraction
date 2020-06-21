@@ -6,6 +6,7 @@ import pandas as pd
 from pathlib import Path
 import os
 import re
+import time
 from urllib.parse import urlsplit
 
 # Read webpage
@@ -40,7 +41,7 @@ def as_list(arg):
 
 # Content helpers.
 
-def url_to_soup(data_url, force_remote=False):
+def url_to_soup(data_url, **kwargs):
     """
     Converts string into beautiful soup object for parsing
 
@@ -55,7 +56,7 @@ def url_to_soup(data_url, force_remote=False):
         HMTL code from webpage
     """
     try:
-        data_page = get_cached_url(data_url, force_remote=force_remote)
+        data_page = get_cached_url(data_url, **kwargs)
     except requests.RequestException:
         _logger.warn(f'request failed: {data_url}')
         raise
@@ -94,26 +95,40 @@ def find_all_links(url, search_string=None):
         return link_list
 
 
+def _maybe_convert(val):
+    val = val.replace(',', '').replace('%', '').replace('NA', 'nan').strip()
+    try:
+        return float(val)
+    except ValueError:
+        return val
+
+
 def table_to_dataframe(table):
     """Given a bs4 Table element, make a DataFrame using the `th` items as
     columns and `td` items as float data.
     """
     columns = [th.text.strip() for th in table.find_all('th')]
-    data = [[float(td.text.strip().replace(',', '').replace('%', ''))
-             for td in tr.find_all('td')]
+    _logger.debug(f'Creating DataFrame with columns {columns}')
+    data = [[_maybe_convert(td.text) for td in tr.find_all('td')]
             for tr in table.find_all('tr')]
     return pd.DataFrame(data, columns=columns)
 
 
-def get_http_date(url):
+def get_http_datetime(url):
     r = requests.head(url)
     r.raise_for_status()
     date = r.headers.get('last-modified')
     if date:
-        return eut.parsedate_to_datetime(date).date()
+        return eut.parsedate_to_datetime(date)
 
 
-def get_esri_metadata_date(metadata_url, force_remote=False):
+def get_http_date(url):
+    date = get_http_datetime(url)
+    if date:
+        return date.date()
+
+
+def get_esri_metadata_date(metadata_url, **kwargs):
     """For states using ESRI web services, the field metadata includes a
     timestamp.  This function fetches, extracts, and parses it,
     returning a datetime.date.
@@ -122,13 +137,13 @@ def get_esri_metadata_date(metadata_url, force_remote=False):
     is not a valid date.
 
     """
-    metadata = get_json(metadata_url, force_remote=force_remote)
+    metadata = get_json(metadata_url, **kwargs)
     last_edit_ms = metadata['editingInfo']['lastEditDate']
     return datetime.date.fromtimestamp(last_edit_ms / 1000)
 
 
 def get_esri_feature_data(data_url, fields=None, index=None,
-                          force_remote=False):
+                          **kwargs):
     """For states using ESRI web services, the feature data includes a
     list of fields and their values.
 
@@ -142,7 +157,7 @@ def get_esri_feature_data(data_url, fields=None, index=None,
     returned by the API.
 
     """
-    data = get_json(data_url, force_remote=force_remote)
+    data = get_json(data_url, **kwargs)
     # Validate fields
     if fields:
         valid_fields = set(field['name'] for field in data['fields'])
@@ -159,7 +174,19 @@ def get_esri_feature_data(data_url, fields=None, index=None,
 
 
 # Helpers for HTTP data retrieval.
-def get_cached_url(url, local_file_name=None, force_remote=False):
+def _send_request(*, session, method, url, headers, cookies, params,
+                  data, files):
+    req = requests.Request(method, url=url, headers=headers,
+                           cookies=cookies, params=params, data=data,
+                           files=files)
+    preq = session.prepare_request(req)
+    return session.send(preq)
+
+
+def get_cached_url(url, local_file_name=None, force_remote=False,
+                   method='GET', headers={}, params={}, data={},
+                   files={}, cookies={}, session=None,
+                   session_args={}, **kwargs):
     """Retrieve a URL and cache the results in a local file.
 
     force_remote: inhibits checking the cached file.
@@ -174,6 +201,9 @@ def get_cached_url(url, local_file_name=None, force_remote=False):
 
     Returns a requests.Response object.
     """
+    if session is None:
+        session = requests.Session(**session_args)
+
     if local_file_name:
         local_file = Path(local_file_name)
     else:
@@ -189,11 +219,12 @@ def get_cached_url(url, local_file_name=None, force_remote=False):
     r = None
     if force_remote:
         _logger.debug(f'force_remote is set; requesting url')
-        r = requests.get(url)
+        # fall though to response handling code
+    elif method != 'GET':
+        _logger.debug(f'Cache requires conditional GET, but requested method is {method}; requesting url')
         # fall though to response handling code
     elif not local_file.exists():
         _logger.debug(f'cache file does not exist; requesting url')
-        r = requests.get(url)
         # fall though to response handling code
     else:
         _logger.debug(f'Trying conditional GET')
@@ -202,9 +233,12 @@ def get_cached_url(url, local_file_name=None, force_remote=False):
         # https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests
         mtime = local_file.stat().st_mtime
         local_file_update_time = eut.formatdate(mtime, usegmt=True)
-        r = requests.get(url, headers={
-            'If-Modified-Since': local_file_update_time
-        })
+        cond_headers = {'If-Modified-Since': local_file_update_time}
+        cond_headers.update(headers)
+        r = _send_request(session=session, method=method, url=url,
+                          params=params, data=data,
+                          files=files,headers=cond_headers,
+                          cookies=cookies)
         # A status of 304 means "Not modified"
         if r.status_code != 304:
             _logger.debug('Cached file is stale: ' +
@@ -219,13 +253,24 @@ def get_cached_url(url, local_file_name=None, force_remote=False):
                 r.status_code = 200
                 r._content = f.read()
                 r._content_consumed = True
+                r.headers['last-modified'] = eut.format_datetime(mtime)
                 if local_file.suffix == 'html' or local_file.suffix == 'xml':
                     encoding = EncodingDetector.find_declared_encoding(
                         r.content, is_html=local_file.suffix == 'html')
                     r.encoding = encoding or 'utf-8'
                 return r
+    # non-cache retrieval cases
+    if r is None:
+        r = _send_request(session=session, method=method, url=url,
+                          params=params, data=data, files=files,
+                          headers=headers, cookies=cookies)
     # response handling code
     r.raise_for_status()
+    last_modified = r.headers.get('last-modified')
+    if last_modified:
+        mtime = eut.parsedate_to_datetime(last_modified).timestamp()
+    else:
+        mtime = time.time()
     try:
         if local_file.parent and not local_file.parent.exists():
             _logger.debug(f'Making {local_file.parent}')
@@ -233,44 +278,44 @@ def get_cached_url(url, local_file_name=None, force_remote=False):
         with local_file.open('wb') as f:
             f.write(r.content)
             _logger.debug(f'Saved download as: {local_file}')
+        os.utime(local_file, (mtime, mtime))
     except OSError as e:
         _logger.warn(f'Saving to cache failed: {local_file}: {e}')
 
     return r
 
 
-def download_file(file_url, new_file_name=None, force_remote=False):
+def download_file(file_url, new_file_name=None, **kwargs):
     """Save the url contents in the specified file."""
     try:
         get_cached_url(file_url, local_file_name=new_file_name,
-                       force_remote=force_remote)
+                       **kwargs)
     except Exception as e:
         _logger.warn(f'File download failed: {new_file_name}: {e}')
         raise
 
 
-def get_json(url, force_remote=False):
+def get_json(url, **kwargs):
     """Return the url's reponse contents as parsed JSON.
 
     This can raise a requests.RequestException if retrieval fails, or
     a ValueError if the JSON cannot be decoded.
     """
     # The next line can raise a requests.RequestException
-    r = get_cached_url(url, force_remote=force_remote)
+    r = get_cached_url(url, **kwargs)
     # The next line can raise a ValueError
     return r.json()
 
 
-def get_content(url, force_remote=False):
+def get_content(url, **kwargs):
     """Return the url's reponse contents as bytes."""
-    r = get_cached_url(url, force_remote=force_remote)
+    r = get_cached_url(url, **kwargs)
     return r.content
 
 
-def get_content_as_file(url, force_remote=False):
+def get_content_as_file(url, **kwargs):
     """Return the url's reponse contents as a BytesIO."""
-    r = get_cached_url(url, force_remote=force_remote)
-    return BytesIO(r.content)
+    return BytesIO(get_content(url, **kwargs))
 
 
 # Wrappers to handle zip files
