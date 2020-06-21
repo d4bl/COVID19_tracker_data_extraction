@@ -17,7 +17,7 @@ class Missouri(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # Download and extract the case and death totals
         cases = get_esri_feature_data(self.TOTAL_CASE_URL)
         deaths = get_esri_feature_data(self.TOTAL_DEATH_URL)

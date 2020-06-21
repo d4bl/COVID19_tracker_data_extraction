@@ -15,7 +15,7 @@ class Georgia(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         _logger.debug('Download covid data zip file')
         z = get_zip(self.ZIP_URL)
 

@@ -13,7 +13,7 @@ class Virginia(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         _logger.debug('Read in the file')
         df_raw = pd.read_csv(self.REPORTING_URL,
                                 parse_dates=['Report Date'])

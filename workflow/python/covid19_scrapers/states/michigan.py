@@ -17,7 +17,7 @@ class Michigan(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # Find latest report
         soup = url_to_soup(self.REPORTING_URL)
         by_dem_path = soup.find(

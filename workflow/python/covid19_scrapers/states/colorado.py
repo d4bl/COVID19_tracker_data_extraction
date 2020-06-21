@@ -17,7 +17,7 @@ class Colorado(ScraperBase):
         self.api_key = kwargs.get('google_api_key')
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         if self.api_key is None:
             raise ValueError('Colorado scraper requires a Google API key')
         service = build('drive', 'v3', developerKey=self.api_key)

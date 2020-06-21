@@ -237,7 +237,7 @@ def get_cached_url(url, local_file_name=None, force_remote=False,
         cond_headers.update(headers)
         r = _send_request(session=session, method=method, url=url,
                           params=params, data=data,
-                          files=files,headers=cond_headers,
+                          files=files, headers=cond_headers,
                           cookies=cookies)
         # A status of 304 means "Not modified"
         if r.status_code != 304:
@@ -253,7 +253,8 @@ def get_cached_url(url, local_file_name=None, force_remote=False,
                 r.status_code = 200
                 r._content = f.read()
                 r._content_consumed = True
-                r.headers['last-modified'] = eut.format_datetime(mtime)
+                r.headers['last-modified'] = eut.format_datetime(
+                    datetime.datetime.fromtimestamp(mtime))
                 if local_file.suffix == 'html' or local_file.suffix == 'xml':
                     encoding = EncodingDetector.find_declared_encoding(
                         r.content, is_html=local_file.suffix == 'html')

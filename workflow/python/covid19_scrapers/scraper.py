@@ -32,7 +32,7 @@ class ScraperBase(object):
         """
         return self.__class__.__name__
 
-    def run(self, *, validation=False):
+    def run(self, **kwargs):
         """Invoke the subclass's _scrape method and return the result or an
         error row. _scrape must return a list (possibly empty) of
         pandas Series objects, or a DataFrame.
@@ -43,7 +43,7 @@ class ScraperBase(object):
         with dir_context(self.home_dir):
             try:
                 _logger.info(f'Scraping {self.name()}')
-                rows = self._scrape(validation)
+                rows = self._scrape(**kwargs)
             except Exception as e:
                 rows = self._handle_error(e)
         return pd.DataFrame(rows)

@@ -25,7 +25,7 @@ class NewJersey(ScraperBase):
     def name(self):
         return 'New Jersey'
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # Get totals date
         date = get_esri_metadata_date(self.TOTALS_METADATA_URL)
         _logger.info(f'Processing data for {date}')

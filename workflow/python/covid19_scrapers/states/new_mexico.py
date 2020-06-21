@@ -20,7 +20,7 @@ class NewMexico(ScraperBase):
     def name(self):
         return 'New Mexico'
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         content = get_content(self.UTILS_URL).decode('utf-8')
         match = re.search(r'serviceUrl(.|\n)*?"prod": "(.*?)"', content, re.M)
         if not match:

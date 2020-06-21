@@ -19,7 +19,7 @@ class WashingtonDC(ScraperBase):
     def name(self):
         return 'Washington, DC'
 
-    def _scrape(self, validation):
+    def _scrape(self, *, validation=False, **kwargs):
         _logger.debug('Find links to all Washington, DC COVID data files')
 
         prefix = re.compile(r'/sites/default/' +

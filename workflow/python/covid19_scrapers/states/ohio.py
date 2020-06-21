@@ -18,7 +18,7 @@ class Ohio(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         raise ValueError('Unable to scrape Ohio site')
         # Get date
 

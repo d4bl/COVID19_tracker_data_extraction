@@ -18,7 +18,7 @@ class Utah(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         soup = url_to_soup(self.DATA_URL)
         soup.find()(id='demographics')
 

@@ -23,7 +23,7 @@ class Washington(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # HACK ALERT:
         # The main page dynamically adds JavaScript to insert and
         # submit (POST) a form with the field "_pd" set. The POST body
