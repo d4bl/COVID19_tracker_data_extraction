@@ -19,7 +19,7 @@ class TexasBexar(ScraperBase):
     def name(self):
         return 'Texas -- Bexar County'
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # Start by fetching the metadata to get the likey timestamp
         date_published = get_esri_metadata_date(self.METADATA_URL)
 

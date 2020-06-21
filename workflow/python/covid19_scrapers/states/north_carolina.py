@@ -21,7 +21,7 @@ class NorthCarolina(ScraperBase):
     def name(self):
         return 'North Carolina'
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         raise ValueError('Unable to scrape North Carolina')
         # find date
 

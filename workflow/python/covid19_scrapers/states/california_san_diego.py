@@ -22,7 +22,7 @@ class CaliforniaSanDiego(ScraperBase):
     def name(self):
         return 'California - San Diego'
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # Download the files
         download_file(self.CASES_URL, 'cases.pdf')
         download_file(self.DEATHS_URL, 'deaths.pdf')

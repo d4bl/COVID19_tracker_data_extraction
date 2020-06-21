@@ -15,7 +15,7 @@ class Arkansas(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # Download the metadata
         date = get_esri_metadata_date(self.METADATA_URL)
 

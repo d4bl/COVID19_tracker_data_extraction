@@ -17,7 +17,7 @@ class Texas(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         data = get_content(self.DATA_URL)
         cases_df = pd.read_excel(BytesIO(data),
                                  sheet_name='Cases by RaceEthnicity',

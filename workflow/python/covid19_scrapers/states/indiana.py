@@ -16,7 +16,7 @@ class Indiana(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         _logger.debug('Find the update date')
         metadata = get_json(self.METADATA_URL)
         date = datetime.datetime.fromisoformat(

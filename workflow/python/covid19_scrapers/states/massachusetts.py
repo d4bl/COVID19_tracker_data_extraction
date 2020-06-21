@@ -16,7 +16,7 @@ class Massachusetts(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, *, validation=False, **kwargs):
         urls = find_all_links(url=self.REPORTING_URL,
                               search_string='covid-19-raw-data')
         _logger.debug(f'Fetching links from {urls}')

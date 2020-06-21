@@ -106,7 +106,7 @@ class Florida(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation, refresh=False):
+    def _scrape(self, refresh=False, **kwargs):
         """Set refresh to true to ignore the cache.  If false, we will still
         use conditional GET to invalidate cached data.
         """
@@ -115,7 +115,7 @@ class Florida(ScraperBase):
         _logger.debug(f'URL: is {fl_daily_url}')
 
         _logger.debug('Download the daily Florida URL')
-        fl_pdf_data = get_content(fl_daily_url, refresh)
+        fl_pdf_data = get_content(fl_daily_url, force_remote=refresh)
 
         _logger.debug('Find the table area coordinates')
         table_bbox = get_fl_table_area(fl_pdf_data)

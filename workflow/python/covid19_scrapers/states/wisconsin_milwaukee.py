@@ -23,7 +23,7 @@ class WisconsinMilwaukee(ScraperBase):
     def name(self):
         return 'Wisconsin -- Milwaukee'
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # Get the timestamp
         cases_date = get_esri_metadata_date(self.CASES_MD_URL)
         deaths_date = get_esri_metadata_date(self.DEATHS_MD_URL)

@@ -24,7 +24,7 @@ class Maine(ScraperBase):
             if table.find(text=title_re):
                 return table
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # Download the data
         soup = url_to_soup(self.REPORT_URL)
 

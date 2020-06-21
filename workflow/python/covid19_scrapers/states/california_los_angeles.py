@@ -20,7 +20,7 @@ class CaliforniaLosAngeles(ScraperBase):
     def name(self):
         return 'California - Los Angeles'
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         r = get_cached_url(self.JS_URL)
         json_str = re.search(r'data = ((.|\n)*?);',
                              r.text, re.MULTILINE).group(1).strip()

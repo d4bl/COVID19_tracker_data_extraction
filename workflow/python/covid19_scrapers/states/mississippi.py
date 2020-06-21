@@ -19,7 +19,7 @@ class Mississippi(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # Find the PDF links
         soup = url_to_soup(self.REPORTING_URL)
         race_table = soup.find(id='raceTable').find_next_sibling('ul')

@@ -19,7 +19,7 @@ class Kentucky(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, validation):
+    def _scrape(self, **kwargs):
         # Download the files
         download_file(self.REPORT_URL, 'report.pdf')
 
