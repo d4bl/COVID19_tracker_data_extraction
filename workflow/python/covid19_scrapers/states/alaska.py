@@ -8,7 +8,7 @@ import pandas as pd
 _logger = logging.getLogger(__name__)
 
 
-class Arkansas(ScraperBase):
+class Alaska(ScraperBase):
     DATA_URL = 'https://opendata.arcgis.com/datasets/ebf62bbdba59497a9dba00aed0c17078_0.geojson'
     METADATA_URL = 'https://services1.arcgis.com/WzFsmainVTuD5KML/arcgis/rest/services/Demographic_Distribution_of_Confirmed_Cases/FeatureServer/0?f=json'
 
@@ -25,13 +25,17 @@ class Arkansas(ScraperBase):
         cases = pd.DataFrame(
             [feature['properties'] for feature in data['features']]
         ).set_index('Demographic')
-
+        # Discard non-race rows
+        cases = cases.reindex(['White', 'Black', 'AI/AN', 'Asian',
+                               'NHOPI', 'Multiple', 'Other', 'Unknown Race'])
+        # Add a Grand Total row
+        cases.loc['Grand Total', :] = cases.sum()
         # Extract cells
         total_cases = cases.loc['Grand Total', 'All_Cases']
         aa_cases_cnt = cases.loc['Black', 'All_Cases']
         aa_cases_pct = cases.loc['Black', 'All_Cases_Percentage'][:-1]
-        total_deaths = cases.loc['Grand Total', 'Deaths']
-        aa_deaths_cnt = cases.loc['Black', 'Deaths']
+        total_deaths = cases.loc['Grand Total', 'Deceased_Cases']
+        aa_deaths_cnt = cases.loc['Black', 'Deceased_Cases']
         aa_deaths_pct = cases.loc['Black', 'Deaths_Percentage'][:-1]
 
         return [self._make_series(
