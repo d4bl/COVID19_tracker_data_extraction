@@ -1,8 +1,8 @@
 from covid19_scrapers.utils import url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
-import datetime
 import logging
+import pandas as pd
 import re
 
 
@@ -10,8 +10,7 @@ _logger = logging.getLogger(__name__)
 
 
 class Maine(ScraperBase):
-    BETA_SCRAPER = True
-    REPORT_URL = 'https://www.maine.gov/dhhs/mecdc/infectious-disease/epi/airborne/coronavirus.shtml'
+    REPORT_URL = 'https://www.maine.gov/dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -28,35 +27,19 @@ class Maine(ScraperBase):
         # Download the data
         soup = url_to_soup(self.REPORT_URL)
 
-        # Find the summary table
-        tables = soup.find_all('table', class_='travelAdvisories')
-        table = self.__find_table(tables, 'Cumulative Case Data')
+        # Find the Google sheet
+        url = soup.find('a', string=re.compile('Google Sheet', re.I))['href']
+        url = re.sub(r'(.*)/edit.*?', r'\1/export?format=xlsx', url)
+        print(f'Sheets URL is {url}')
+        counties = pd.read_excel(url, sheet_name='cases_by_county')
+        total_deaths = counties['DEATHS'].sum()
 
-        # Extract the date
-        date_str = re.search(
-            r'[A-Z][a-z]+ \d+, \d+',
-            table.find('th', class_='advisoryDt').text).group(0)
-        date = datetime.datetime.strptime(date_str, '%B %d, %Y').date()
-        _logger.info(f'Processing data for {date}')
-
-        # Extract the case and death totals
-        tbody = table.find('tbody')
-        tr = tbody.find_all('tr')[1]
-        vals = list(map(int,
-                        [td.text.replace(',', '').strip()
-                         for td in tr.find_all('td')]))
-        total_cases = vals[0]
-        total_deaths = vals[-1]
-
-        # Extract the AA data
-        table = self.__find_table(tables, 'Cases by Race')
-        for tr in table.find_all('tr')[1:]:
-            if tr.find('td').text.find('Black') >= 0:
-                tds = tr.find_all('td')
-                td = tds[1]
-                aa_cases_cnt = int(td.text.replace(',', '').strip())
-                aa_cases_pct = round(100 * aa_cases_cnt / total_cases, 2)
-                break
+        table = pd.read_excel(url, sheet_name='cases_by_race', index_col=0)
+        total_cases = table['CASES'].sum()
+        total_cases_ex_unknown = table['CASES'].drop('Not disclosed').sum()
+        date = table['DATA_REFRESH_DT'].max()
+        aa_cases_cnt = table.loc['Black or African American', 'CASES']
+        aa_cases_pct = round(100 * aa_cases_cnt / total_cases_ex_unknown, 2)
 
         # No race breakdowns for deaths
         aa_deaths_cnt = float('nan')
@@ -70,6 +53,6 @@ class Maine(ScraperBase):
             aa_deaths=aa_deaths_cnt,
             pct_aa_cases=aa_cases_pct,
             pct_aa_deaths=aa_deaths_pct,
-            pct_includes_unknown_race=True,
-            pct_includes_hispanic_black=False,
+            pct_includes_unknown_race=False,
+            pct_includes_hispanic_black=True,
         )]
