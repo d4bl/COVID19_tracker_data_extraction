@@ -58,7 +58,9 @@ class Utah(ScraperBase):
         cnt_deaths = race_df.loc['Statewide', 'Deaths']
         cnt_cases_aa = race_df.loc['Black/African American', 'Cases']
         cnt_deaths_aa = race_df.loc['Black/African American', 'Deaths']
-        pct_cases_aa = race_df.loc['Black/African American', '% of Cases']
+        pct_cases_aa = float(str(
+            race_df.loc['Black/African American', '% of Cases']).replace(
+                '%', ''))
         try:
             pct_deaths_aa = round(100 * int(cnt_deaths_aa) / int(cnt_deaths),
                                   2)
