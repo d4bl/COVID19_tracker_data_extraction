@@ -20,20 +20,23 @@ MonkeyPatch.patch_fromisoformat()
 _logger = logging.getLogger(__name__)
 
 
-def get_fl_daily_url():
-    fl_disaster_covid_url = 'https://floridadisaster.org/covid19/'
-    fl_disaster_covid_soup = url_to_soup(fl_disaster_covid_url)
+def get_daily_url(reporting_url):
+    """Fetch the main reporting URL and search for the latest PDF.
+
+    """
+    disaster_covid_soup = url_to_soup(reporting_url)
     find_txt = 'COVID-19 Data - Daily Report'
-    daily_url = fl_disaster_covid_soup.find(
+    daily_url = disaster_covid_soup.find(
         lambda tag: tag.has_attr('href') and re.search(find_txt, tag.text)
     ).get('href')
 
     if not daily_url:
         raise ValueError('Unable to find Daily Report Archive link')
-    return urljoin(fl_disaster_covid_url, daily_url)
+    # daily report URL is often relative. urljoin fixes this.
+    return urljoin(reporting_url, daily_url)
 
 
-def get_fl_report_date(url):
+def get_report_date(url):
     match = re.search(r'(202\d)(\d\d)(\d\d)', url)
     if match:
         year, month, day = map(int, match.groups())
@@ -45,7 +48,7 @@ def get_fl_report_date(url):
     return datetime.date(year, month, day)
 
 
-def get_fl_table_area(pdf_data):
+def get_table_area(pdf_data):
     """This finds a bounding box for the Race, Ethnicity table by looking
     for bounding boxes for the words "White" and "Total" (occuring
     below it) on page 3 of the PDF, and the page's right bound.
@@ -89,14 +92,14 @@ def parse_pct(val):
     return float('nan')
 
 
-column_names = [
+COLUMN_NAMES = [
     'Race/ethnicity',
     'Cases', '% Cases',
     'Hospitalizations', '% Hospitalizations',
     'Deaths', '% Deaths'
 ]
 
-converters = {
+CONVERTERS = {
     'Cases': parse_num,
     'Hospitalizations': parse_num,
     'Deaths': parse_num,
@@ -118,6 +121,8 @@ class Florida(ScraperBase):
     streaming parser for linearized PDFs in python.
     """
 
+    REPORTING_URL = 'https://floridadisaster.org/covid19/'
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -126,31 +131,31 @@ class Florida(ScraperBase):
         use conditional GET to invalidate cached data.
         """
         _logger.debug('Find daily Florida URL')
-        fl_daily_url = get_fl_daily_url()
-        _logger.debug(f'URL: is {fl_daily_url}')
+        daily_url = get_daily_url(self.REPORTING_URL)
+        _logger.debug(f'URL: is {daily_url}')
 
-        report_date = get_fl_report_date(fl_daily_url)
+        report_date = get_report_date(daily_url)
         _logger.info(f'Processing data for {report_date}')
 
         _logger.debug('Download the daily Florida URL')
-        fl_pdf_data = get_content(fl_daily_url, force_remote=refresh)
+        pdf_data = get_content(daily_url, force_remote=refresh)
 
         _logger.debug('Find the table area coordinates')
-        table_bbox = get_fl_table_area(fl_pdf_data)
+        table_bbox = get_table_area(pdf_data)
         table_area = (table_bbox.y0, table_bbox.x0,
                       table_bbox.y1, table_bbox.x1)
 
         _logger.debug('Parse the PDF')
         table = as_list(
-            read_pdf(BytesIO(fl_pdf_data),
+            read_pdf(BytesIO(pdf_data),
                      pages='3',
                      stream=True,
                      multiple_tables=False,
                      area=table_area,
                      pandas_options=dict(
                          header=None,
-                         names=column_names,
-                         converters=converters)))[0]
+                         names=COLUMN_NAMES,
+                         converters=CONVERTERS)))[0]
 
         _logger.debug('Set the race/ethnicity indices')
         races = ('White', 'Black', 'Other', 'Unknown race', 'Total')
@@ -172,26 +177,26 @@ class Florida(ScraperBase):
         ].fillna(1)
 
         att_names = ['Cases', 'Deaths']
-        fl_all_cases_and_deaths = {nm: int(table.query(
+        all_cases_and_deaths = {nm: int(table.query(
             "Race == 'Total' and Ethnicity == 'All ethnicities'"
         )[nm].to_list()[0]) for nm in att_names}
-        fl_aa_cases_and_deaths = {nm: int(table.query(
+        aa_cases_and_deaths = {nm: int(table.query(
             "Race == 'Black' and Ethnicity == 'Non-Hispanic'"
         )[nm].to_list()[0]) for nm in att_names}
-        fl_aa_cases_and_deaths_pct = {
-            nm: round(100 * fl_aa_cases_and_deaths[nm] /
-                      fl_all_cases_and_deaths[nm], 2)
+        aa_cases_and_deaths_pct = {
+            nm: round(100 * aa_cases_and_deaths[nm] /
+                      all_cases_and_deaths[nm], 2)
             for nm in att_names
         }
 
         return [self._make_series(
             date=report_date,
-            cases=fl_all_cases_and_deaths['Cases'],
-            deaths=fl_all_cases_and_deaths['Deaths'],
-            aa_cases=fl_aa_cases_and_deaths['Cases'],
-            aa_deaths=fl_aa_cases_and_deaths['Deaths'],
-            pct_aa_cases=fl_aa_cases_and_deaths_pct['Cases'],
-            pct_aa_deaths=fl_aa_cases_and_deaths_pct['Deaths'],
+            cases=all_cases_and_deaths['Cases'],
+            deaths=all_cases_and_deaths['Deaths'],
+            aa_cases=aa_cases_and_deaths['Cases'],
+            aa_deaths=aa_cases_and_deaths['Deaths'],
+            pct_aa_cases=aa_cases_and_deaths_pct['Cases'],
+            pct_aa_deaths=aa_cases_and_deaths_pct['Deaths'],
             pct_includes_unknown_race=True,
             pct_includes_hispanic_black=False,
         )]
