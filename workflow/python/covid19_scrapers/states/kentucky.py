@@ -14,6 +14,13 @@ _logger = logging.getLogger(__name__)
 
 
 class Kentucky(ScraperBase):
+    """Kentucky updates a PDF report daily containing total cases and
+    deaths, percent of cases and deaths with race known, and percent
+    of cases and deaths by race where race is known.
+
+    We use these to compute approximate Black/AA case/death counts.
+    """
+
     REPORT_URL = 'https://chfs.ky.gov/agencies/dph/covid19/COVID19DailyReport.pdf'
 
     def __init__(self, **kwargs):
@@ -35,52 +42,64 @@ class Kentucky(ScraperBase):
                 break
         _logger.info(f'Report date is {date}')
 
-        # Extract the tables
+        # Extract multiple tables
         table_list = read_pdf(
             'report.pdf',
             multiple_tables=True, pages=[1, 2])
 
-        # Extract the data
+        # Extract the data from each
         pct_re = re.compile(r'([0-9.]+)%?')
         seen = set()
         for table in table_list:
+            # Identify the table by upper left cell, since we can see
+            # duplicates in some cases.
             cell_0_0 = table.iloc[0, :].astype(str)[0].replace('\r', ' ')
             if cell_0_0 in seen:
                 continue
             seen.add(cell_0_0)
 
             if cell_0_0.startswith('Total Cases'):
+                # Summary table has total cases in row 0, and total
+                # deaths somewhere below.
                 total_cases = int(table.iloc[0, 1].replace(',', ''))
-                for row in range(1, table.shape[0]):
-                    cell = table.iloc[row, 0]
-                    if cell.startswith('Total Deaths'):
-                        total_deaths = int(
-                            table.iloc[row, 1].replace(',', ''))
+                for idx in range(1, table.shape[0]):
+                    row = table.iloc[idx].astype(str)
+                    if row[0].startswith('Total Deaths'):
+                        total_deaths = int(row[1].replace(',', ''))
                         break
             elif cell_0_0.startswith('Race of Cases'):
-                for row in range(0, table.shape[0]):
-                    cell = table.iloc[row, 0]
-                    if not pd.isnull(cell):
-                        if cell.find('Total Known') >= 0:
-                            cases_known_pct = float(
-                                pct_re.search(cell).group(1))
-                        elif cell.startswith('Black'):
-                            aa_cases_pct = float(
-                                pct_re.search(cell).group(1))
-                            break
+                for idx in range(0, table.shape[0]):
+                    row = table.iloc[idx].astype(str)
+                    if row[0].find('Total Known') >= 0:
+                        # % cases with race known is in col 0.
+                        # Sometimes it is in row 0, other times row 1,
+                        # hence checking in the loop.
+                        cases_known_pct = float(
+                            pct_re.search(row[0]).group(1))
+                    elif row[0].startswith('Black'):
+                        # % AA cases is in col 1.
+                        aa_cases_pct = float(
+                            pct_re.search(row[1]).group(1))
+                        break
             elif cell_0_0.startswith('Race of Deaths'):
-                for row in range(0, table.shape[0]):
-                    cell = table.iloc[row, 0]
-                    if not pd.isnull(cell):
-                        if cell.find('Total Known') >= 0:
-                            deaths_known_pct = float(
-                                pct_re.search(cell).group(1))
-                        elif cell.startswith('Black'):
-                            aa_deaths_pct = float(
-                                pct_re.search(cell).group(1))
-                            break
+                for idx in range(0, table.shape[0]):
+                    row = table.iloc[idx].astype(str)
+                    if row[0].find('Total Known') >= 0:
+                        # % deaths with race known is in col 0.
+                        # Sometimes it is in row 0, other times row 1,
+                        # hence checking in the loop.
+                        deaths_known_pct = float(
+                            pct_re.search(row[0]).group(1))
+                    elif row[0].startswith('Black'):
+                        # % AA deaths is in col 1.
+                        aa_deaths_pct = float(
+                            pct_re.search(row[1]).group(1))
+                        break
 
-        # Compute the approximate counts
+        # Compute the approximate counts:
+        # Since the AA% values do NOT include unknown race counts, we
+        # need to omit these when backing out AA case/death counts
+        # from the total.
         aa_cases = round(total_cases *
                          aa_cases_pct / 100 *
                          cases_known_pct / 100)
