@@ -13,6 +13,12 @@ _logger = logging.getLogger(__name__)
 
 
 class CaliforniaSanDiego(ScraperBase):
+    """San Diego updates two PDFs daily, with demographic summaries of
+    COVID-19 cases and deaths. These include a disaggregation by
+    combined race and ethnicity, with "Hispanic" as well as OMB race
+    categories (which appear to only include non-Hispanic counts).
+    """
+
     CASES_URL = 'https://www.sandiegocounty.gov/content/dam/sdc/hhsa/programs/phs/Epidemiology/COVID-19%20Race%20and%20Ethnicity%20Summary.pdf'
     DEATHS_URL = 'https://www.sandiegocounty.gov/content/dam/sdc/hhsa/programs/phs/Epidemiology/COVID-19%20Deaths%20by%20Demographics.pdf'
 
@@ -21,6 +27,16 @@ class CaliforniaSanDiego(ScraperBase):
 
     def name(self):
         return 'California - San Diego'
+
+    @staticmethod
+    def check_cvt(x):
+        """Helper to log but skip conversion errors for counts.
+        """
+        try:
+            return int(str(x).split()[0])
+        except ValueError as e:
+            _logger.warning(f'X is "{x}": {e}')
+            return 0
 
     def _scrape(self, **kwargs):
         # Download the files
@@ -42,66 +58,69 @@ class CaliforniaSanDiego(ScraperBase):
             raise ValueError('Unable to find date in cases PDF')
         _logger.info(f'Processing data for {date}')
 
-        # Load the cases
+        _logger.debug(f'Loading cases')
         cases_raw = as_list(read_pdf('cases.pdf'))[0]
 
-        # Format the cases
-        cases = cases_raw.drop(
-            index=[0, 1]
-        ).reset_index(
-        ).drop(columns=['index'])
-        cases.columns = cases.loc[0]
-        cases = cases.drop(index=[0])
-        cases['Count'] = [int(x.replace(',', ''))
-                          for x in cases['Count']]
-        cases = cases[['Race and Ethnicity', 'Count']]
+        # Scan the rows to find where the header ends.
+        for idx in cases_raw.index:
+            if cases_raw.iloc[idx, 0] == 'Race and Ethnicity':
+                cases = cases_raw.iloc[idx+1:].copy()
+                cases.columns = cases_raw.iloc[idx]
+                break
 
-        #
-        total_cases = cases.Count.sum()
-        _logger.debug(f'Total cases: {total_cases}')
-        cases['Percent'] = round(100 * cases['Count'] / total_cases, 2)
-
-        #
+        # Format the cases and calculate/extract data.
+        cases['Count'] = cases['Count'].str.replace(',', '').astype(int)
         cases = cases.set_index('Race and Ethnicity')
+
+        total_cases = cases['Count'].sum()
+        total_known_cases = cases['Count'].drop(
+            'Race/Ethnicity Other/Unknown').sum()
+        cases['Percent'] = round(100 * cases['Count'] / total_known_cases, 2)
+
         aa_cases_cnt = cases.loc['Black or African American', 'Count']
         aa_cases_pct = cases.loc['Black or African American', 'Percent']
 
-        #
+        _logger.debug(f'Total cases: {total_cases}')
+        _logger.debug(f'Total cases with known race: {total_known_cases}')
+        _logger.debug(f'Total AA cases: {aa_cases_cnt}')
+        _logger.debug(f'Pct AA cases: {aa_cases_pct}')
+
+        _logger.debug(f'Loading deaths')
         deaths_raw = as_list(read_pdf('deaths.pdf'))[0]
 
-        #
-        deaths = deaths_raw.loc[19:, :].copy().reset_index().drop(
-            columns=['index']
-        ).dropna(how='all')
+        # Scan the rows to find where the header ends.
+        for idx in deaths_raw.index:
+            if deaths_raw.iloc[idx, 0] == 'Total Deaths':
+                # Pick out the total deaths en passant
+                total_deaths = self.check_cvt(deaths_raw.iloc[idx, 1])
+            elif deaths_raw.iloc[idx, 0] == 'Race/Ethnicity':
+                deaths = deaths_raw.iloc[idx+1:]
+                # The table is read with two columns, and centering
+                # makes some entries in the left column get included
+                # in the right instead. dropna removes these.
+                deaths = deaths.dropna().copy()
+                deaths.columns = ['Race/Ethnicity', 'Count']
+                break
+        deaths = deaths.set_index('Race/Ethnicity')
 
-        def check_cvt(x):
-            """Helper to log but skip conversion errors for counts.
-            """
-            try:
-                return int(str(x).split()[0])
-            except ValueError as e:
-                _logger.warning(f'X is "{x}": {e}')
-                return 0
-        deaths['Count'] = [check_cvt(x)
-                           for x in deaths['San Diego County Residents']
-                           if x]
-        del deaths['San Diego County Residents']
-        deaths.columns = ['Race/Ethnicity', 'Count']
+        deaths['Count'] = deaths['Count'].apply(self.check_cvt)
+        # Some reports have a discrepancy between sum of known
+        # race/ethnicity counts, and total reported ex unknown
+        # count. SD appears to use the latter, so we do the same.
+        total_known_deaths = (
+            total_deaths - deaths.loc['Race/Ethnicity Other/Unknown', 'Count'])
 
-        #
-        total_deaths = deaths.Count.sum()
-        _logger.debug(total_deaths)
         deaths['Percent'] = round(
-            100 * deaths['Count'] / total_deaths, 2
+            100 * deaths['Count'] / total_known_deaths, 2
         )
 
-        #
-        aa_deaths_cnt = deaths.set_index(
-            'Race/Ethnicity'
-        ).loc['Black or African American', 'Count']
-        aa_deaths_pct = deaths.set_index(
-            'Race/Ethnicity'
-        ).loc['Black or African American', 'Percent']
+        aa_deaths_cnt = deaths.loc['Black or African American', 'Count']
+        aa_deaths_pct = deaths.loc['Black or African American', 'Percent']
+
+        _logger.debug(f'Total deaths: {total_deaths}')
+        _logger.debug(f'Total deaths with known race: {total_known_deaths}')
+        _logger.debug(f'Total AA deaths: {aa_deaths_cnt}')
+        _logger.debug(f'Pct AA deaths: {aa_deaths_pct}')
 
         return [self._make_series(
             date=date,
