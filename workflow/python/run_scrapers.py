@@ -95,6 +95,9 @@ def setup_logging(log_file, log_level, log_to_stderr, stderr_log_level):
         handler.setFormatter(logging.Formatter(
             '%(asctime)s %(levelname)s %(name)s:  %(message)s'))
         root_logger.addHandler(handler)
+    # Quiet some harmless warnings
+    gdc_logger = logging.getLogger('googleapiclient.discovery_cache')
+    gdc_logger.setLevel(logging.ERROR)
 
 
 def write_output(df, output):

@@ -1,4 +1,5 @@
 # Misc utilities
+from arcgis.gis import GIS
 import datetime
 import hashlib
 import logging
@@ -150,6 +151,88 @@ def get_http_date(url):
     date = get_http_datetime(url)
     if date:
         return date.date()
+
+
+def make_geoservice_stat(agg, in_field, out_name):
+    return {
+        'statisticType': agg,
+        'onStatisticField': in_field,
+        'outStatisticFieldName': out_name or in_field,
+    }
+
+
+def make_geoservice_args(
+        *, flc_id, layer_name,
+        where=None, out_fields=None,
+        group_by=None, stats=None,
+        order_by=None, limit=None):
+    ret = {
+        'flc_id': flc_id,
+        'layer_name': layer_name,
+    }
+    if where is not None:
+        ret['where'] = where
+    if out_fields is not None:
+        ret['out_fields'] = out_fields
+    if group_by is not None:
+        ret['group_by'] = group_by
+    if stats is not None:
+        ret['stats'] = stats
+    if order_by is not None:
+        ret['order_by'] = order_by
+    if limit is not None:
+        ret['limit'] = limit
+    return ret
+
+
+def query_geoservice(flc_id, layer_name, *,
+                     where='1=1', out_fields=['*'],
+                     group_by=None, stats=None,
+                     order_by=None, limit=None):
+    """Queries the specified ESRI GeoService.
+
+    Positional arguments:
+      flc_id: FeatureLayerCollection ID to search for.
+      layer_name: the name of the desired layer in the FeatureLayerCollection.
+
+    Keyword arguments:
+      where: the feature filtering query.
+      out_fields: the fields to retrieve, defaults to all.
+      group_by: the field by which to group for statistical operations.
+      stats: a list of dicts specifying the desired statistical operations.
+      order_by: field and direction to order by.
+      limit: max number of records to retrieve.
+
+    Returns: a pair consisting of the update date and data frame
+      containing the features.
+    """
+
+    gis = GIS()
+    flc = gis.content.search(f'id:{flc_id}')[0]
+    layers = [layer
+              for layer in flc.layers
+              if layer.properties.name == layer_name]
+    if layers:
+        layer = layers[0]
+    else:
+        tables = [table
+                  for table in flc.tables
+                  if table.properties.name == layer_name]
+        if tables:
+            layer = tables[0]
+    features = layer.query(
+        spatialRel='esriSpatialRelIntersects',
+        where=where,
+        outFields=','.join(out_fields),
+        return_geometry=False,
+        groupByFieldsForStatistics=group_by,
+        outStatistics=stats,
+        orderByFields=order_by,
+        resultRecordCount=limit,
+        resultType='standard')
+    update_date = datetime.datetime.fromtimestamp(
+        layer.properties.editingInfo.lastEditDate/1000).date()
+    return update_date, features.sdf
 
 
 def get_esri_metadata_date(metadata_url, **kwargs):
