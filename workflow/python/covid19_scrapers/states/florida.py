@@ -34,11 +34,15 @@ def get_fl_daily_url():
 
 
 def get_fl_report_date(url):
-    #return datetime.date.fromisoformat(
-    #   re.search(r'(2020\d\d\d\d)', url).group(1), '')
-    dt_string = re.search(r'(2020\d\d\d\d)', url).group(1)
-    return datetime.date.strftime(
-        datetime.datetime.strptime(dt_string, '%Y%m%d'), '%Y-%m-%d')
+    match = re.search(r'(202\d)(\d\d)(\d\d)', url)
+    if match:
+        year, month, day = map(int, match.groups())
+    else:
+        match = re.search(r'latest_(\d\d)_(\d\d)', url)
+        if match:
+            year = datetime.datetime.now().date().year
+            month, day = map(int, match.groups())
+    return datetime.date(year, month, day)
 
 
 def get_fl_table_area(pdf_data):
@@ -114,6 +118,9 @@ class Florida(ScraperBase):
         fl_daily_url = get_fl_daily_url()
         _logger.debug(f'URL: is {fl_daily_url}')
 
+        report_date = get_fl_report_date(fl_daily_url)
+        _logger.info(f'Processing data for {report_date}')
+
         _logger.debug('Download the daily Florida URL')
         fl_pdf_data = get_content(fl_daily_url, force_remote=refresh)
 
@@ -133,9 +140,6 @@ class Florida(ScraperBase):
                          header=None,
                          names=column_names,
                          converters=converters)))[0]
-
-        _logger.debug('Find the report date')
-        report_date = get_fl_report_date(fl_daily_url)
 
         _logger.debug('Set the race/ethnicity indices')
         races = ('White', 'Black', 'Other', 'Unknown race', 'Total')
