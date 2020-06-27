@@ -1,6 +1,5 @@
-from covid19_scrapers.utils import (get_esri_feature_data,
-                                    get_esri_metadata_date,
-                                    to_percentage)
+from covid19_scrapers.utils import (
+    make_geoservice_args, query_geoservice, to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -11,38 +10,51 @@ _logger = logging.getLogger(__name__)
 
 class Alabama(ScraperBase):
     """Alabama has an ArcGIS dashboard that includes demographic
-    breakdowns of confirmed cases and deaths.  We identified the
-    underlying FeatureServer calls to populate this, and invoke those
-    directly.
+    breakdowns of confirmed cases and deaths.  We retrieve the data
+    using the underlying FeatureServer API calls used to populate the
+    dashboard.
 
     The dashboard is at:
     https://alpublichealth.maps.arcgis.com/apps/opsdashboard/index.html#/6d2771faa9da4a2786a509d82c8cf0f7
+
     """
 
-    METADATA_URL = 'https://services7.arcgis.com/4RQmZZ0yaZkGR1zy/arcgis/rest/services/Statewide_COVID19_CONFIRMED_DEMOG_PUBLIC/FeatureServer/3?f=json'
-    CASE_URL = 'https://services7.arcgis.com/4RQmZZ0yaZkGR1zy/arcgis/rest/services/Statewide_COVID19_CONFIRMED_DEMOG_PUBLIC/FeatureServer/3/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Racecat&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Race_Counts%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'
-    DEATH_URL = 'https://services7.arcgis.com/4RQmZZ0yaZkGR1zy/arcgis/rest/services/DIED_FROM_COVID19_STWD_DEMO_PUBLIC/FeatureServer/1/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Racecat&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22DiedFromCovid19%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'
+    # Services are under https://services7.arcgis.com/4RQmZZ0yaZkGR1zy
+    CASES = make_geoservice_args(
+        flc_id='0c2185b8174646979f4abb5a45ef05c3',
+        layer_name='Statewide Race',
+        out_fields=['Racecat', 'Race_Counts as value'],
+    )
+
+    DEATHS = make_geoservice_args(
+        flc_id='015fd1e0d8074840ab624243a74c54c9',
+        layer_name='Race',
+        out_fields=['Racecat', 'DiedFromCovid19 as value'],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def _scrape(self, **kwargs):
-        # Download the metadata
-        date = get_esri_metadata_date(self.METADATA_URL)
+        # Download the case data
+        date, cases = query_geoservice(**self.CASES)
+        cases = cases.set_index('Racecat')
 
-        # Download the case and death data as DataFrames
-        cases = get_esri_feature_data(self.CASE_URL).set_index('Racecat')
-        deaths = get_esri_feature_data(
-            self.DEATH_URL
-        ).set_index('Racecat')
-
-        # Extract cells
-        total_cases = cases.loc[:, 'value'].drop('Unknown').sum()
+        # Extract/calculate case info
+        total_cases = cases.loc[:, 'value'].sum()
+        total_known_cases = cases.loc[:, 'value'].drop('Unknown').sum()
         aa_cases_cnt = cases.loc['Black', 'value']
-        aa_cases_pct = to_percentage(aa_cases_cnt, total_cases)
-        total_deaths = deaths.loc[:, 'value'].drop('Unknown').sum()
+        aa_cases_pct = to_percentage(aa_cases_cnt, total_known_cases)
+
+        # Download the deaths data
+        _, deaths = query_geoservice(**self.DEATHS)
+        deaths = deaths.set_index('Racecat')
+
+        # Extract/calculate deaths info
+        total_deaths = deaths.loc[:, 'value'].sum()
+        total_known_deaths = deaths.loc[:, 'value'].drop('Unknown').sum()
         aa_deaths_cnt = deaths.loc['Black', 'value']
-        aa_deaths_pct = to_percentage(aa_deaths_cnt, total_deaths)
+        aa_deaths_pct = to_percentage(aa_deaths_cnt, total_known_deaths)
 
         return [self._make_series(
             date=date,

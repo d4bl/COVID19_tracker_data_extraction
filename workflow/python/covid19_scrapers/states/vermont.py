@@ -1,6 +1,6 @@
-from covid19_scrapers.utils import (get_esri_feature_data,
-                                    get_esri_metadata_date,
-                                    to_percentage)
+from covid19_scrapers.utils import (
+    make_geoservice_args, make_geoservice_stat, query_geoservice,
+    to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -15,33 +15,61 @@ class Vermont(ScraperBase):
     https://experience.arcgis.com/experience/85f43bd849e743cb957993a545d17170
     """
 
-    METADATA_URL = 'https://services1.arcgis.com/BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_PositiveCases_PUBLIC/FeatureServer/0?f=json'
-    TOTAL_URL = 'https://services1.arcgis.com/BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_DailyCount_PUBLIC/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=date%20desc&resultOffset=0&resultRecordCount=1&resultType=standard&cacheHint=true'
-    RACE_CASE_URL = 'https://services1.arcgis.com/BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_PositiveCases_PUBLIC/FeatureServer/0/query?f=json&where=Race%3C%3E%27%27%20AND%20Race%20NOT%20IN(%27Unknown%27)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Race&orderByFields=Race%20desc&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22OBJECTID_2%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'
-    RACE_DEATH_URL = 'https://services1.arcgis.com/BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_PositiveCases_PUBLIC/FeatureServer/0/query?f=json&where=Death%3D%27Yes%27%20AND%20Race%20NOT%20IN(%27Unknown%27)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Race&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22OBJECTID_2%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'
+    # Services are under https://services1.arcgis.com/BkFxaEFNwHqX3tAw
+    TOTALS = make_geoservice_args(
+        flc_id='94479a6d67fc406999c9b66dec7d4adb',
+        layer_name='V_EPI_DailyCount_PUBLIC',
+        out_fields=[
+            'date',
+            'cumulative_positives as Cases',
+            'total_deaths as Deaths',
+        ],
+        limit=1,
+    )
+
+    RACE_CASE = make_geoservice_args(
+        flc_id='0e6f8a6aeb084acaa5f7973e556cf708',
+        layer_name='V_EPI_PositiveCases_PUBLIC',
+        group_by='Race',
+        stats=[
+            make_geoservice_stat('count', 'OBJECTID_2', 'Cases'),
+        ]
+    )
+    RACE_DEATH = make_geoservice_args(
+        flc_id='0e6f8a6aeb084acaa5f7973e556cf708',
+        layer_name='V_EPI_PositiveCases_PUBLIC',
+        where="Death='Yes'",
+        group_by='Race',
+        stats=[
+            make_geoservice_stat('count', 'OBJECTID_2', 'Deaths'),
+        ]
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def _scrape(self, **kwargs):
         # Download the metadata
-        date = get_esri_metadata_date(self.METADATA_URL)
+        date, totals = query_geoservice(**self.TOTALS)
         _logger.info(f'Processing data for {date}')
 
         # Download and extract total case and death data
-        totals = get_esri_feature_data(self.TOTAL_URL)
-        total_cases = totals.loc[0, 'cumulative_positives']
-        total_deaths = totals.loc[0, 'total_deaths']
+        total_cases = totals.loc[0, 'Cases']
+        total_deaths = totals.loc[0, 'Deaths']
 
         # Download and extract AA case and death data
-        cases = get_esri_feature_data(self.RACE_CASE_URL).set_index('Race')
-        aa_cases_cnt = cases.loc['Black or African American', 'value']
-        aa_cases_pct = to_percentage(aa_cases_cnt, total_cases)
+        _, cases = query_geoservice(**self.RACE_CASE)
+        cases = cases.set_index('Race')
+        aa_cases_cnt = cases.loc['Black or African American', 'Cases']
+        known_cases = cases.drop('Unknown').sum()['Cases']
+        aa_cases_pct = to_percentage(aa_cases_cnt, known_cases)
 
-        deaths = get_esri_feature_data(self.RACE_DEATH_URL).set_index('Race')
+        _, deaths = query_geoservice(**self.RACE_DEATH)
+        deaths = deaths.set_index('Race')
         try:
             aa_deaths_cnt = deaths.loc['Black or African American', 'value']
-            aa_deaths_pct = to_percentage(aa_deaths_cnt, total_deaths)
+            known_deaths = deaths.drop('Unknown').sum()['Deaths']
+            aa_deaths_pct = to_percentage(aa_deaths_cnt, known_deaths)
         except KeyError:
             aa_deaths_cnt = 0
             aa_deaths_pct = 0
@@ -54,6 +82,6 @@ class Vermont(ScraperBase):
             aa_deaths=aa_deaths_cnt,
             pct_aa_cases=aa_cases_pct,
             pct_aa_deaths=aa_deaths_pct,
-            pct_includes_unknown_race=True,
+            pct_includes_unknown_race=False,
             pct_includes_hispanic_black=True,
         )]
