@@ -1,5 +1,4 @@
-from covid19_scrapers.utils import (get_esri_feature_data,
-                                    get_esri_metadata_date)
+from covid19_scrapers.utils import (make_geoservice_args, query_geoservice)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -16,9 +15,20 @@ class TexasBexar(ScraperBase):
     https://cosagis.maps.arcgis.com/apps/opsdashboard/index.html#/d2c7584fe9fd4da1b30cb9d6cc311163
     """
 
-    METADATA_URL = 'https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/vRaceEthnicity/FeatureServer/0?f=json'
-    TOTALS_URL = 'https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/vDateCOVID19_Tracker_Public/FeatureServer/0/query?f=json&where=Date%20BETWEEN%20timestamp%20%272020-05-07%2005%3A00%3A00%27%20AND%20timestamp%20%272020-05-08%2004%3A59%3A59%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=50&resultType=standard&cacheHint=true'
-    BY_RACE_URL = 'https://services.arcgis.com/g1fRTDLeMgspWrYp/arcgis/rest/services/vRaceEthnicity/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=20&resultType=standard&cacheHint=true'
+    # Services are at https://services.arcgis.com/g1fRTDLeMgspWrYp
+    TOTALS = make_geoservice_args(
+        flc_id='94576453349c462598b2569e9d05d84c',
+        layer_name='DateCOVID_Tracker',
+        out_fields=['Date', 'ReportedCum as Cases', 'DeathsCum as Deaths'],
+        order_by='Date desc',
+        limit=1,
+    )
+
+    RACE = make_geoservice_args(
+        flc_id='9ab036f1be9b401d88971e773e6d166f',
+        layer_name='RaceEthnicity',
+        out_fields=['RaceEthnicity', 'CasesConfirmed as Cases', 'Deaths'],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -27,29 +37,26 @@ class TexasBexar(ScraperBase):
         return 'Texas -- Bexar County'
 
     def _scrape(self, **kwargs):
-        # Start by fetching the metadata to get the likey timestamp
-        date_published = get_esri_metadata_date(self.METADATA_URL)
 
         # Next get the cumulative case and death counts
-        total = get_esri_feature_data(self.TOTALS_URL,
-                                      ['ReportedCum', 'DeathsCum'])
+        date_published, total = query_geoservice(**self.TOTALS)
+
         try:
-            cnt_cases = total.loc[0, 'ReportedCum']
-            cnt_deaths = total.loc[0, 'DeathsCum']
+            cnt_cases = total.loc[0, 'Cases']
+            cnt_deaths = total.loc[0, 'Deaths']
         except IndexError:
             raise ValueError('Total count data not found')
 
         # And finally the race/ethnicity breakdowns
-        data = get_esri_feature_data(
-            self.BY_RACE_URL,
-            ['RaceEthnicity', 'CasesConfirmed', 'Deaths'],
-            ['RaceEthnicity'])
+        _, data = query_geoservice(**self.RACE)
+        data = data.set_index('RaceEthnicity')
 
         try:
-            cnt_cases_aa = data.loc['Black', 'CasesConfirmed']
+            known = data.sum()
+            cnt_cases_aa = data.loc['Black', 'Cases']
             cnt_deaths_aa = data.loc['Black', 'Deaths']
-            pct_cases_aa = round(100 * cnt_cases_aa / cnt_cases, 2)
-            pct_deaths_aa = round(100 * cnt_deaths_aa / cnt_deaths, 2)
+            pct_cases_aa = round(100 * cnt_cases_aa / known['Cases'], 2)
+            pct_deaths_aa = round(100 * cnt_deaths_aa / known['Deaths'], 2)
         except IndexError:
             raise ValueError('No data found for Black RaceEthnicity category')
 
@@ -61,6 +68,6 @@ class TexasBexar(ScraperBase):
             aa_deaths=cnt_deaths_aa,
             pct_aa_cases=pct_cases_aa,
             pct_aa_deaths=pct_deaths_aa,
-            pct_includes_unknown_race=True,
+            pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
         )]
