@@ -9,6 +9,11 @@ _logger = logging.getLogger(__name__)
 
 
 class Vermont(ScraperBase):
+    """Vermont reports COVID-19 demographic breakdowns of cases and deaths
+    on their ArcGIS dashboard. The dashboard is at
+    https://experience.arcgis.com/experience/85f43bd849e743cb957993a545d17170
+    """
+
     METADATA_URL = 'https://services1.arcgis.com/BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_PositiveCases_PUBLIC/FeatureServer/0?f=json'
     TOTAL_URL = 'https://services1.arcgis.com/BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_DailyCount_PUBLIC/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=date%20desc&resultOffset=0&resultRecordCount=1&resultType=standard&cacheHint=true'
     RACE_CASE_URL = 'https://services1.arcgis.com/BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_PositiveCases_PUBLIC/FeatureServer/0/query?f=json&where=Race%3C%3E%27%27%20AND%20Race%20NOT%20IN(%27Unknown%27)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Race&orderByFields=Race%20desc&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22OBJECTID_2%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'

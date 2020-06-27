@@ -9,6 +9,15 @@ _logger = logging.getLogger(__name__)
 
 
 class Missouri(ScraperBase):
+    """Missouri has an ArcGIS dashboard that includes demographic
+    breakdowns of confirmed cases and deaths.  We identified the
+    underlying FeatureServer calls to populate this, and invoke those
+    directly.
+
+    The dashboard is at:
+    http://mophep.maps.arcgis.com/apps/MapSeries/index.html?appid=8e01a5d8d8bd4b4f85add006f9e14a9d
+    """
+
     TOTAL_CASE_URL = 'https://services6.arcgis.com/Bd4MACzvEukoZ9mR/arcgis/rest/services/lpha_boundry/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Cases%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'
     TOTAL_DEATH_URL = 'https://services6.arcgis.com/Bd4MACzvEukoZ9mR/arcgis/rest/services/deaths_(1)/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=32000&resultType=standard&cacheHint=true'
     RACE_CASE_URL = 'https://services6.arcgis.com/Bd4MACzvEukoZ9mR/arcgis/rest/services/COVID19_by_Race/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=20&resultType=standard&cacheHint=true'

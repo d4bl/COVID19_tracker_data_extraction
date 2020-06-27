@@ -11,6 +11,14 @@ _logger = logging.getLogger(__name__)
 
 
 class Montana(ScraperBase):
+    """Montana updates a reporting page daily with demographic breakdowns
+    of COVID-19 cases (not deaths yet).
+
+    Neither the main page nor the HTTP headers include an update
+    timestamp, so we guess based on the documentation that the page is
+    updated "by" 10AM Mountain time.
+    """
+
     DATA_URL = 'https://dphhs.mt.gov/publichealth/cdepi/diseases/coronavirusmt/demographics'
 
     def __init__(self, **kwargs):

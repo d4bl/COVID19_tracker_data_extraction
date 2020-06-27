@@ -9,6 +9,15 @@ _logger = logging.getLogger(__name__)
 
 
 class Alabama(ScraperBase):
+    """Alabama has an ArcGIS dashboard that includes demographic
+    breakdowns of confirmed cases and deaths.  We identified the
+    underlying FeatureServer calls to populate this, and invoke those
+    directly.
+
+    The dashboard is at:
+    https://alpublichealth.maps.arcgis.com/apps/opsdashboard/index.html#/6d2771faa9da4a2786a509d82c8cf0f7
+    """
+
     METADATA_URL = 'https://services7.arcgis.com/4RQmZZ0yaZkGR1zy/arcgis/rest/services/Statewide_COVID19_CONFIRMED_DEMOG_PUBLIC/FeatureServer/3?f=json'
     CASE_URL = 'https://services7.arcgis.com/4RQmZZ0yaZkGR1zy/arcgis/rest/services/Statewide_COVID19_CONFIRMED_DEMOG_PUBLIC/FeatureServer/3/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Racecat&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Race_Counts%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'
     DEATH_URL = 'https://services7.arcgis.com/4RQmZZ0yaZkGR1zy/arcgis/rest/services/DIED_FROM_COVID19_STWD_DEMO_PUBLIC/FeatureServer/1/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Racecat&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22DiedFromCovid19%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'

@@ -11,6 +11,12 @@ _logger = logging.getLogger(__name__)
 
 
 class WashingtonDC(ScraperBase):
+    """Washington, DC, publishes separate spreadsheets (CSV or Excel
+    depending on the date) for each day's COVID-19 demographic
+    disaggregations.  We find the latest URL from their main reporting
+    page, and retrieve the contents as a DataFrame.
+    """
+
     MAIN_URL = 'https://coronavirus.dc.gov/page/coronavirus-data'
 
     def __init__(self, **kwargs):

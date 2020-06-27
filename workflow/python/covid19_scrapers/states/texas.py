@@ -12,6 +12,10 @@ _logger = logging.getLogger(__name__)
 
 
 class Texas(ScraperBase):
+    """Texas provides demographic breakdowns of COVID-19 case and death
+    counts as an Excel spreadsheet, updated daily.
+    """
+
     DATA_URL = 'https://dshs.texas.gov/coronavirus/TexasCOVID19CaseCountData.xlsx'
 
     def __init__(self, **kwargs):

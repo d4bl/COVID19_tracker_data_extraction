@@ -14,6 +14,11 @@ _logger = logging.getLogger(__name__)
 
 
 class Mississippi(ScraperBase):
+    """Mississippi updates PDF files with demographic breakdowns of
+    COVID-19 cases and deaths daily. We scrape the reporting page for
+    the latest URLs, and extract the tables from them.
+    """
+
     REPORTING_URL = 'https://msdh.ms.gov/msdhsite/_static/14,0,420.html'
 
     def __init__(self, **kwargs):

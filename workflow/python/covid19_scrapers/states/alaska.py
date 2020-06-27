@@ -9,6 +9,11 @@ _logger = logging.getLogger(__name__)
 
 
 class Alaska(ScraperBase):
+    """Alaska publishes demographic breakdows of COVID-19 cases and deaths
+    in their ArcGIS dashboard at
+    https://coronavirus-response-alaska-dhss.hub.arcgis.com/
+    """
+
     DATA_URL = 'https://opendata.arcgis.com/datasets/ebf62bbdba59497a9dba00aed0c17078_0.geojson'
     METADATA_URL = 'https://services1.arcgis.com/WzFsmainVTuD5KML/arcgis/rest/services/Demographic_Distribution_of_Confirmed_Cases/FeatureServer/0?f=json'
 

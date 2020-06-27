@@ -10,6 +10,10 @@ _logger = logging.getLogger(__name__)
 
 
 class RhodeIsland(ScraperBase):
+    """Rhode Island publishes demographic breakdowns of COVID-19 case and
+    death counts as a Google sheet.
+    """
+
     DATA_URL = 'https://docs.google.com/spreadsheets/d/1n-zMS9Al94CPj_Tc3K7Adin-tN9x1RSjjx2UzJ4SV7Q/export?format=xlsx'
 
     def __init__(self, **kwargs):
