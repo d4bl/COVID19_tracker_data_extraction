@@ -17,7 +17,8 @@ def parse_args():
     """Process command line arguments from sys.argv and returns an options
     object.
     """
-    known_scrapers = set(get_scraper_names())
+    known_scrapers = set(name for name, _ in get_scraper_names(
+        enable_beta_scrapers=True))
 
     def scraper(scraper_name):
         """Type function for argparse that returns the scraper name if it is
@@ -64,21 +65,21 @@ def parse_args():
     parser.add_argument('--no_log_to_stderr', dest='log_to_stderr',
                         action='store_false',
                         help='Disable logging to stderr.')
-    parser.add_argument('--log_to_stderr_level', type=str,
-                        action='store', default='INFO',
+    parser.add_argument('--stderr_log_level', type=str, action='store',
+                        default='INFO',
                         choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO',
                                  'DEBUG'],
                         help='Set log level for stderr to LEVEL')
     parser.add_argument('--google_api_key', type=str, metavar='KEY',
                         action='store',
                         help='Provide a key for accessing Google APIs.')
-    parser.add_argument('--use_beta_scrapers', action='store_true',
+    parser.add_argument('--enable_beta_scrapers', action='store_true',
                         help='Include beta scrapers when not specifying scrapers manually.')
     # Parse command-line arguments
     return parser.parse_args()
 
 
-def setup_logging(log_file, log_level, log_to_stderr, log_to_stderr_level):
+def setup_logging(log_file, log_level, log_to_stderr, stderr_log_level):
     """Set up logging to file and/or stderr."""
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.NOTSET)
@@ -90,7 +91,7 @@ def setup_logging(log_file, log_level, log_to_stderr, log_to_stderr_level):
         root_logger.addHandler(handler)
     if log_to_stderr:
         handler = logging.StreamHandler(sys.stderr)
-        handler.setLevel(getattr(logging, log_to_stderr_level.upper()))
+        handler.setLevel(getattr(logging, stderr_log_level.upper()))
         handler.setFormatter(logging.Formatter(
             '%(asctime)s %(levelname)s %(name)s:  %(message)s'))
         root_logger.addHandler(handler)
@@ -117,26 +118,30 @@ def main():
     opts = parse_args()
 
     if opts.list_scrapers:
-        print('Known scrapers: ', end='')
-        for scraper_name in get_scraper_names():
-            print(f'{scraper_name} ', end='')
+        print('Known scrapers: ')
+        for scraper_name, is_beta in get_scraper_names(
+                enable_beta_scrapers=opts.enable_beta_scrapers):
+            print(f'  {scraper_name}', end='')
+            if is_beta:
+                print(f' (BETA)', end='')
+            print()
         exit(0)
 
     # Set up logging
     setup_logging(opts.log_file, opts.log_level, opts.log_to_stderr,
-                  opts.log_to_stderr_level)
+                  opts.stderr_log_level)
 
     # Run scrapers
     scraper_registry = make_scraper_registry(
         home_dir=Path(opts.work_dir),
         scraper_args=dict(google_api_key=opts.google_api_key),
-        use_beta_scrapers=opts.use_beta_scrapers,
+        registry_args=dict(enable_beta_scrapers=opts.enable_beta_scrapers),
     )
     if not opts.scrapers:
         logging.info('Running all scrapers')
         df = scraper_registry.run_all_scrapers()
     else:
-        logging.info('Running selected scrapers')
+        logging.info(f'Running selected scrapers: {opts.scrapers}')
         df = scraper_registry.run_scrapers(opts.scrapers)
 
     # When run without outputs specified, we will write to today's
