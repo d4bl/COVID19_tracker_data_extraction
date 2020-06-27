@@ -11,6 +11,35 @@ _logger = logging.getLogger(__name__)
 
 
 class Colorado(ScraperBase):
+    """Colorado publishes each day's summary data as a Google Sheet, and
+    adds the file to a Google Drive folder.
+
+    This scraper uses the Google Drive API to retrieve the file name
+    and contents (link).  This requires an API key to be passed in to
+    run_scraper.py as an argument to the --google_api_key option.
+
+    Note: Don't put your key in GitHub!
+
+    To create an API key:
+       1. Go to https://console.developers.google.com
+       2. Click on the project selector on the top row right of
+          "Google APIs"
+       3. Click on NEW PROJECT on the top right of the popup, and
+          choose a name, etc. (I chose "D4BL Drive Access")
+       4. Click on the project selector and select your new project
+       5. Click on "+ ENABLE APIS AND SERVICES" in the top center
+       6. Search for and click on "Google Drive API", then click
+          "ENABLE"
+       7. Select on "Credentials" on the left=
+       8. Click on "+ CREATE CREDENTIALS" in the top center, and
+          choose "API key"
+       9. Copy the key, then click on "Restrict Key"
+      10. Under Application Restrictions, choose "IP addresses", and
+          add your IP address to the allowed list.
+      11. Under API Restrictions, choose "Restrict key" and select
+          "Google Drive API".
+    """
+
     CASE_DATA_ID = '1bBAC7H-pdEDgPxRuU_eR36ghzc0HWNf1'
 
     def __init__(self, **kwargs):
@@ -64,9 +93,9 @@ class Colorado(ScraperBase):
 
         return [self._make_series(
             date=date,
-            cases=total_cases,
-            deaths=total_deaths,
-            aa_cases=aa_cases,
+            cases=int(total_cases),
+            deaths=int(total_deaths),
+            aa_cases=int(aa_cases),
             aa_deaths=aa_deaths,
             pct_aa_cases=aa_cases_pct,
             pct_aa_deaths=aa_deaths_pct,
