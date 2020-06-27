@@ -10,15 +10,15 @@ _logger = logging.getLogger(__name__)
 
 
 class NewMexico(ScraperBase):
-    """NOT DONE: New Mexico has a reporting page with demographic
-    breakdowns of COVID-19 case counts (not deaths yet). This is
-    updated daily, but the update timestamp and data is retrieved
-    dynamically from an API endpoint, whose URL is dynamically
-    retrieved from a JavaScript file.  We extract the service URL from
-    the JavaScript, and retrieve the data from the endpoint.
+    """New Mexico has a reporting page with demographic breakdowns of
+    COVID-19 case counts (not deaths yet). This is updated daily, but
+    the update timestamp and data is retrieved dynamically from an API
+    endpoint, whose URL is dynamically retrieved from a JavaScript
+    file.  We extract the service URL from the JavaScript, and
+    retrieve the data from the endpoint.
+
     """
 
-    BETA_SCRAPER = True
     UTILS_URL = 'https://cvprovider.nmhealth.org/js/utils.js'
     DATA_URL_TEMPLATE = '{service}/GetPublicStatewideData'
 
