@@ -65,7 +65,7 @@ class WisconsinMilwaukee(ScraperBase):
                                                ['Race_Eth'])
         try:
             cnt_deaths_aa = deaths_by_race.loc['Black Alone', 'value']
-            pct_deaths_aa = round(100 * cnt_deaths_aa / cnt_cases, 2)
+            pct_deaths_aa = round(100 * cnt_deaths_aa / cnt_deaths, 2)
         except IndexError:
             raise ValueError('Death counts for Black Alone not found')
 
