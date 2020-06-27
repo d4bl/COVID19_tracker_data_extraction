@@ -11,6 +11,13 @@ _logger = logging.getLogger(__name__)
 
 
 class California(ScraperBase):
+    """California provides demographic breakdowns as tables in a web page
+    updated daily.
+
+    The table entries contain some unusual Unicode whitespace
+    characters we have to handle specially.
+    """
+
     DATA_URL = 'https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx'
     WHITESPACE = '\u200b\u00a0' + string.whitespace
 

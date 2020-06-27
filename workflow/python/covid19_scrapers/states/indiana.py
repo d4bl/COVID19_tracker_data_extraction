@@ -10,6 +10,13 @@ _logger = logging.getLogger(__name__)
 
 
 class Indiana(ScraperBase):
+    """Indiana lists their COVID-19 case demographics dataset on their
+    state health department's open data portal:
+    https://hub.mph.in.gov/dataset/62ddcb15-bbe8-477b-bb2e-175ee5af8629
+
+    This includes both the data as an Excel file and a data dictionary.
+    """
+
     DATA_URL = 'https://hub.mph.in.gov/dataset/62ddcb15-bbe8-477b-bb2e-175ee5af8629/resource/2538d7f1-391b-4733-90b3-9e95cd5f3ea6/download/covid_report_demographics.xlsx'
     METADATA_URL = 'https://hub.mph.in.gov/api/3/action/resource_show?id=2538d7f1-391b-4733-90b3-9e95cd5f3ea6'
 

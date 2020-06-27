@@ -13,6 +13,11 @@ _logger = logging.getLogger(__name__)
 
 
 class NewJersey(ScraperBase):
+    """NOT DONE: New Jersey publishes total COVID-19 case and death counts
+    via an ArcGIS, but the demographic breakdowns appear only to be
+    available in a Tableau dashboard.
+    """
+
     BETA_SCRAPER = True
     TOTALS_METADATA_URL = 'https://services7.arcgis.com/Z0rixLlManVefxqY/arcgis/rest/services/DailyCaseCounts/FeatureServer/0?f=json'
     TOTALS_DATA_URL = 'https://services7.arcgis.com/Z0rixLlManVefxqY/arcgis/rest/services/DailyCaseCounts/FeatureServer/0//query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&resultType=none&distance=0.0&units=esriSRUnit_Meter&returnGeodetic=false&outFields=sum%28TOTAL_CASES%29+as+TOTAL_CASES%2C+sum%28TOTAL_DEATHS%29+as+TOTAL_DEATHS&returnGeometry=false&returnCentroid=false&featureEncoding=esriDefault&multipatchOption=xyFootprint&maxAllowableOffset=&geometryPrecision=&outSR=&datumTransformation=&applyVCSProjection=false&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&f=json'

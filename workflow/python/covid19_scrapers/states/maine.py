@@ -10,6 +10,11 @@ _logger = logging.getLogger(__name__)
 
 
 class Maine(ScraperBase):
+    """Maine publishes demographic breakdowns of COVID cases (not yet
+    deaths) in a Google Sheet. We scrape their main reporting page to
+    find the link in case it changes.
+    """
+
     REPORT_URL = 'https://www.maine.gov/dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml'
 
     def __init__(self, **kwargs):

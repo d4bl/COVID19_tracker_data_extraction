@@ -10,6 +10,10 @@ _logger = logging.getLogger(__name__)
 
 
 class Georgia(ScraperBase):
+    """Georgia publishes a zip file containing CSV files of COVID-19
+    statistics, updated daily.
+    """
+
     ZIP_URL = 'https://ga-covid19.ondemand.sas.com/docs/ga_covid_data.zip'
 
     def __init__(self, **kwargs):

@@ -12,6 +12,10 @@ _logger = logging.getLogger(__name__)
 
 
 class Michigan(ScraperBase):
+    """Michigan updates a reporting page daily with demographic breakdowns
+    of cases and deaths. We scrape the page for update date and data.
+    """
+
     REPORTING_URL = 'https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173---,00.html'
 
     def __init__(self, **kwargs):

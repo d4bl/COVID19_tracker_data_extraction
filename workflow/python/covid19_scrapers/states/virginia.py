@@ -8,6 +8,11 @@ _logger = logging.getLogger(__name__)
 
 
 class Virginia(ScraperBase):
+    """Virginia updates a CSV file with per-county demographic breakdowns
+    of COVID-19 case and death counts.  We extract the data for the
+    latest date and aggregate to the state level.
+    """
+
     REPORTING_URL = 'https://www.vdh.virginia.gov/content/uploads/sites/182/2020/03/VDH-COVID-19-PublicUseDataset-Cases_By-Race.csv'
 
     def __init__(self, **kwargs):
@@ -35,12 +40,12 @@ class Virginia(ScraperBase):
 
         _logger.debug('AA cases')
         aa_cases = df_va.loc['Black or African American',
-                                :]['Number of Cases']
+                             :]['Number of Cases']
         aa_cases_pct = round(100 * aa_cases / total_cases, 2)
 
         _logger.debug('AA deaths')
         aa_deaths = df_va.loc['Black or African American',
-                                 :]['Number of Deaths']
+                              :]['Number of Deaths']
         aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
 
         return [self._make_series(

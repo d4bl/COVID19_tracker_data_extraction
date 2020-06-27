@@ -9,6 +9,14 @@ _logger = logging.getLogger(__name__)
 
 
 class Wisconsin(ScraperBase):
+    """Wisconsin publishes COVID-19 demographic breakdowns of case and
+    death counts on their ArcGIS dashboard at
+    https://www.dhs.wisconsin.gov/covid-19/index.htm
+
+    We retrieve the desired data with a custom call to their
+    FeatureServer.
+    """
+
     DATA_URL = 'https://services1.arcgis.com/ISZ89Z51ft1G16OK/ArcGIS/rest/services/COVID19_WI/FeatureServer/10/query?where=geo%3D%27STATE%27&objectIds=&time=&resultType=none&outFields=date%2C+positive%2C+deaths%2C+pos_blk%2C+dth_blk&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=date+desc&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=1&sqlFormat=none&f=json&token='
 
     def __init__(self, **kwargs):

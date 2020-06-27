@@ -9,6 +9,11 @@ _logger = logging.getLogger(__name__)
 
 
 class Minnesota(ScraperBase):
+    """Minnesota publishes demographic breakdowns of COVID-19 cases and
+    deaths on a reporting website.  We scrape the tables for totals
+    and AA counts, and compute percentages.
+    """
+
     REPORTING_URL = 'https://www.health.state.mn.us/diseases/coronavirus/situation.html#raceeth1'
 
     def __init__(self, **kwargs):

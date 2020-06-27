@@ -10,6 +10,11 @@ _logger = logging.getLogger(__name__)
 
 
 class NorthCarolina(ScraperBase):
+    """NOT DONE: North Carolina changed from a custom reporting website to
+    a Tableau dashboard. We need to update the scraper to retrieve the
+    data once we have a workflow for Tableau.
+    """
+
     BETA_SCRAPER = True
     # TODO figure out how to download the crosstab from
     # https://covid19.ncdhhs.gov/dashboard/about-data

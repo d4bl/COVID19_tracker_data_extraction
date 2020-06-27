@@ -10,6 +10,11 @@ _logger = logging.getLogger(__name__)
 
 
 class Massachusetts(ScraperBase):
+    """Massachusetts publishes ZIP files containing CSV files of COVID-19
+    statistics. A new file is uploaded daily. We scrape the main
+    reporting page to find the latest ZIP file link.
+    """
+
     REPORTING_URL = 'https://www.mass.gov/info-details/covid-19-response-reporting'
     DOWNLOAD_URL_TEMPLATE = 'https://www.mass.gov/doc/{}/download'
 

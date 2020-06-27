@@ -18,6 +18,11 @@ def _maybe_int(val):
 
 
 class Washington(ScraperBase):
+    """Washington (state) has a reporting page that does some odd tricks
+    (see HACK ALERT comment below). We replicate those tricks to get
+    the report HTML source, and extract the desired data from that.
+    """
+
     DATA_URL = 'https://www.doh.wa.gov/Emergencies/Coronavirus'
 
     def __init__(self, **kwargs):

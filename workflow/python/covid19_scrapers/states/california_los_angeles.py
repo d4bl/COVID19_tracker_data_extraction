@@ -11,6 +11,14 @@ _logger = logging.getLogger(__name__)
 
 
 class CaliforniaLosAngeles(ScraperBase):
+    """Los Angeles publishes demographic breakdowns of COVID-19 cases and
+    deaths on a county web page, but the summary data and update date
+    are loaded dynamically in a script.
+
+    We scrape this data from the script, and the demographic
+    breakdowns from the main page's HTML.
+    """
+
     JS_URL = 'http://publichealth.lacounty.gov/media/Coronavirus/js/casecounter.js'
     DATA_URL = 'http://publichealth.lacounty.gov/media/Coronavirus/locations.htm'
 

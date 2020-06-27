@@ -10,6 +10,13 @@ _logger = logging.getLogger(__name__)
 
 
 class WisconsinMilwaukee(ScraperBase):
+    """Milwaukee publishes COVID-19 demographic disaggregations on their
+    ArcGIS dashboard at:
+    https://www.arcgis.com/apps/opsdashboard/index.html#/018eedbe075046779b8062b5fe1055bf
+
+    We retrieve the data from their FeatureServers.
+    """
+
     CASES_MD_URL = 'https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Cases_View/FeatureServer/0?f=json'
     DEATHS_MD_URL = 'https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Deaths_View1/FeatureServer/0?f=json'
     CASES_URL = 'https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Cases_View/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22ObjectId%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'

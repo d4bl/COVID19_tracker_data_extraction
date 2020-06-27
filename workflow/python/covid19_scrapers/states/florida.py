@@ -107,6 +107,17 @@ converters = {
 
 
 class Florida(ScraperBase):
+    """Florida publishes a new PDF file every day containing updated
+    COVID-19 statistics. We find its URL by scraping the main page.
+    The file name contains the update date, and the PDF contains the
+    table on page 3.
+
+    TODO: the PDF contains cumulative case-level data, so it has
+    gotten extremely large (92MB as of 26 June). We should investigate
+    whether we can load it in a streaming fashion, eg if there is a
+    streaming parser for linearized PDFs in python.
+    """
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 

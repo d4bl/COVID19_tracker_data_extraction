@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import table_to_dataframe, url_to_soup
+from covid19_scrapers.utils import url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
 from bs4 import BeautifulSoup
@@ -13,6 +13,11 @@ _logger = logging.getLogger(__name__)
 
 
 class Utah(ScraperBase):
+    """Utah provides COVID-19 demographic breakdowns of COVID-19 cases and
+    deaths on a reporting web page. When the number of AA deaths is
+    below a reporting threshold, it is reported as a string (e.g.,
+    "<5"). In this case we omit the percentage calculation.
+    """
     DATA_URL = 'https://coronavirus-dashboard.utah.gov/index.html'
 
     def __init__(self, **kwargs):
