@@ -48,6 +48,10 @@ class ScraperBase(object):
                 rows = self._handle_error(e)
         return pd.DataFrame(rows)
 
+    @classmethod
+    def is_beta(cls):
+        return getattr(cls, 'BETA_SCRAPER', False)
+
     def _make_series(
             self, *,
             location='',

@@ -14,12 +14,21 @@ class Registry(object):
     scrapers, and collecting their results.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, *, enable_beta_scrapers=False, **kwargs):
+        """Returns a Registry instance with all the per-state scrapers
+        registered.
+
+        Keyword arguments:
+          enable_beta_scrapers: optional, a bool indicating whether to include
+            scrapers with the BETA_SCRAPER class variable set.
+        """
+        self.enable_beta_scrapers = enable_beta_scrapers
         self._scrapers = {}
 
     def register_scraper(self, instance):
         """Add a scraper to this registry's dictionary using its
-        class name."""
+        class name.
+        """
         name = instance.__class__.__name__
         _logger.debug(f'Registering scraper: {name}: {instance.name()}')
         self._scrapers[name] = instance
@@ -38,6 +47,8 @@ class Registry(object):
         """
         scraper = self._scrapers.get(name)
         if scraper:
+            if scraper.is_beta() and not self.enable_beta_scrapers:
+                _logger.warn(f'Running beta scraper: {scraper.name()}')
             return scraper.run(**kwargs)
 
     def run_scrapers(self, names, **kwargs):
@@ -61,6 +72,9 @@ class Registry(object):
         """
         ret = []
         for scraper in self._scrapers.values():
+            if scraper.is_beta() and not self.enable_beta_scrapers:
+                _logger.debug(f'Skipping beta scraper: {scraper.name()}')
+                continue
             ret.append(scraper.run(**kwargs))
         if ret:
             # Append the DFs in the list together, going from left
