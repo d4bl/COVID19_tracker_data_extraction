@@ -53,7 +53,12 @@ class Kentucky(ScraperBase):
         for table in table_list:
             # Identify the table by upper left cell, since we can see
             # duplicates in some cases.
-            cell_0_0 = table.iloc[0, :].astype(str)[0].replace('\r', ' ')
+            cell_0_0 = table.iloc[0, 0]
+            if pd.isnull(cell_0_0):
+                table = table.iloc[1:]
+                cell_0_0 = table.iloc[0, 0]
+
+            cell_0_0 = str(cell_0_0).replace('\r', ' ')
             if cell_0_0 in seen:
                 continue
             seen.add(cell_0_0)
