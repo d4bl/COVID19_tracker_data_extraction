@@ -37,7 +37,7 @@ class Maine(ScraperBase):
         table = pd.read_excel(url, sheet_name='cases_by_race', index_col=0)
         total_cases = table['CASES'].sum()
         total_cases_ex_unknown = table['CASES'].drop('Not disclosed').sum()
-        date = table['DATA_REFRESH_DT'].max()
+        date = table['DATA_REFRESH_DT'].max().date()
         aa_cases_cnt = table.loc['Black or African American', 'CASES']
         aa_cases_pct = round(100 * aa_cases_cnt / total_cases_ex_unknown, 2)
 
