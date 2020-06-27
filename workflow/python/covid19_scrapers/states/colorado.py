@@ -96,7 +96,7 @@ class Colorado(ScraperBase):
             cases=int(total_cases),
             deaths=int(total_deaths),
             aa_cases=int(aa_cases),
-            aa_deaths=aa_deaths,
+            aa_deaths=int(aa_deaths),
             pct_aa_cases=aa_cases_pct,
             pct_aa_deaths=aa_deaths_pct,
             pct_includes_unknown_race=True,
