@@ -1,6 +1,5 @@
 from covid19_scrapers.utils import (
-    make_geoservice_args, make_geoservice_stat, query_geoservice,
-    to_percentage)
+    make_geoservice_stat, query_geoservice, to_percentage)
 from covid19_scrapers.scraper import ScraperBase, ERROR
 
 import logging
@@ -19,14 +18,14 @@ class WisconsinMilwaukee(ScraperBase):
     """
 
     # The services are at https://services5.arcgis.com/8Q02ELWlq5TYUASS
-    CASES = make_geoservice_args(
+    CASES = dict(
         flc_id='73e2e7131f954bb6a1b0fbbd9dd53f5b',
         layer_name='Cases',
         group_by='Race_Eth',
         stats=[make_geoservice_stat('count', 'ObjectId', 'value')],
     )
 
-    DEATHS = make_geoservice_args(
+    DEATHS = dict(
         flc_id='02f3b03e877e480ca5c2eb750dcbbc8c',
         layer_name='Deaths',
         group_by='Race_Eth',
