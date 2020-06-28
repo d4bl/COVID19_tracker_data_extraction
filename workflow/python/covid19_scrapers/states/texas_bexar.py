@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import (make_geoservice_args, query_geoservice)
+from covid19_scrapers.utils import query_geoservice
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -16,7 +16,7 @@ class TexasBexar(ScraperBase):
     """
 
     # Services are at https://services.arcgis.com/g1fRTDLeMgspWrYp
-    TOTALS = make_geoservice_args(
+    TOTALS = dict(
         flc_id='94576453349c462598b2569e9d05d84c',
         layer_name='DateCOVID_Tracker',
         out_fields=['Date', 'ReportedCum as Cases', 'DeathsCum as Deaths'],
@@ -24,7 +24,7 @@ class TexasBexar(ScraperBase):
         limit=1,
     )
 
-    RACE = make_geoservice_args(
+    RACE = dict(
         flc_id='9ab036f1be9b401d88971e773e6d166f',
         layer_name='RaceEthnicity',
         out_fields=['RaceEthnicity', 'CasesConfirmed as Cases', 'Deaths'],

@@ -1,5 +1,4 @@
-from covid19_scrapers.utils import (
-    make_geoservice_stat, make_geoservice_args, query_geoservice)
+from covid19_scrapers.utils import make_geoservice_stat, query_geoservice
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -19,7 +18,7 @@ class Missouri(ScraperBase):
     """
 
     # Services are at https://services6.arcgis.com/Bd4MACzvEukoZ9mR
-    TOTAL = make_geoservice_args(
+    TOTAL = dict(
         flc_id='6f2a47a25872470a815bcd95f52c2872',
         layer_name='county_MOHSIS',
         stats=[
@@ -28,13 +27,13 @@ class Missouri(ScraperBase):
         ],
     )
 
-    RACE_CASE = make_geoservice_args(
+    RACE_CASE = dict(
         flc_id='6cc7aa6446fe40ac8c7cf4bac8e90d9f',
         layer_name='207bd9dd6cc54a018f5b1c26e967ec1',
         out_fields=['RACE', 'Frequency as Cases'],
     )
 
-    RACE_DEATH = make_geoservice_args(
+    RACE_DEATH = dict(
         flc_id='554ada3bc8b147abad21ae23d4a7ba3a',
         layer_name='198404abd4eb43e6a0c51c0d08f7efe',
         out_fields=['RACE', 'Frequency as Deaths'],

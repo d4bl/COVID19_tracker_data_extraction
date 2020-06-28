@@ -129,36 +129,24 @@ def get_http_date(url):
         return date.date()
 
 
+# Helpers for ESRI/ArcGIS web services (geoservices)
+#
+# The big idea is that the query parameters can be declared as a
+# single class variable, and applied to the query_geoservice call.
+#
+# See, eg, states/missouri.py for examples.
+
 def make_geoservice_stat(agg, in_field, out_name):
+    """This makes a single entry for the `stats` field of a
+    query_geoservice request (a.k.a. the `outStatistics` field of a
+    geoservice request).
+
+    """
     return {
         'statisticType': agg,
         'onStatisticField': in_field,
-        'outStatisticFieldName': out_name or in_field,
+        'outStatisticFieldName': out_name,
     }
-
-
-def make_geoservice_args(
-        *, flc_id, layer_name,
-        where=None, out_fields=None,
-        group_by=None, stats=None,
-        order_by=None, limit=None):
-    ret = {
-        'flc_id': flc_id,
-        'layer_name': layer_name,
-    }
-    if where is not None:
-        ret['where'] = where
-    if out_fields is not None:
-        ret['out_fields'] = out_fields
-    if group_by is not None:
-        ret['group_by'] = group_by
-    if stats is not None:
-        ret['stats'] = stats
-    if order_by is not None:
-        ret['order_by'] = order_by
-    if limit is not None:
-        ret['limit'] = limit
-    return ret
 
 
 def query_geoservice(flc_id, layer_name, *,
@@ -167,11 +155,11 @@ def query_geoservice(flc_id, layer_name, *,
                      order_by=None, limit=None):
     """Queries the specified ESRI GeoService.
 
-    Positional arguments:
+    Positional arguments (mandatory):
       flc_id: FeatureLayerCollection ID to search for.
       layer_name: the name of the desired layer in the FeatureLayerCollection.
 
-    Keyword arguments:
+    Keyword arguments (all optional):
       where: the feature filtering query.
       out_fields: the fields to retrieve, defaults to all.
       group_by: the field by which to group for statistical operations.
@@ -209,51 +197,6 @@ def query_geoservice(flc_id, layer_name, *,
     update_date = datetime.datetime.fromtimestamp(
         layer.properties.editingInfo.lastEditDate/1000).date()
     return update_date, features.sdf
-
-
-def get_esri_metadata_date(metadata_url, **kwargs):
-    """For states using ESRI web services, the field metadata includes a
-    timestamp.  This function fetches, extracts, and parses it,
-    returning a datetime.date.
-
-    It can raise get_json's exceptions, or OverflowError if the timestamp
-    is not a valid date.
-
-    """
-    metadata = get_json(metadata_url, **kwargs)
-    last_edit_ms = metadata['editingInfo']['lastEditDate']
-    return datetime.date.fromtimestamp(last_edit_ms / 1000)
-
-
-def get_esri_feature_data(data_url, fields=None, index=None,
-                          **kwargs):
-    """For states using ESRI web services, the feature data includes a
-    list of fields and their values.
-
-    This function
-    * fetches, extracts, and parses the feature response,
-    * ensures that any requested fields are present,
-    * finally returns a DataFrame of the features' attribute objects.
-
-    It can raise any of get_json's exceptions, KeyError if a required
-    JSON field is missing, and ValueError if requested fields are not
-    returned by the API.
-
-    """
-    data = get_json(data_url, **kwargs)
-    # Validate fields
-    if fields:
-        valid_fields = set(field['name'] for field in data['fields'])
-        extra_fields = list(set(fields) - valid_fields)
-        if extra_fields:
-            raise ValueError('Requested fields not present in API ' +
-                             f'response: {extra_fields}')
-
-    ret = pd.DataFrame(
-        [feature['attributes'] for feature in data['features']])
-    if index:
-        ret = ret.set_index(index)
-    return ret
 
 
 # Helpers for HTTP data retrieval.
