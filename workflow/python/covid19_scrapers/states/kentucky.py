@@ -45,7 +45,8 @@ class Kentucky(ScraperBase):
         # Extract multiple tables
         table_list = read_pdf(
             'report.pdf',
-            multiple_tables=True, pages=[1, 2])
+            multiple_tables=True, pages=[1, 2], pandas_options={'header': None})
+        print(table_list[0])
 
         # Extract the data from each
         pct_re = re.compile(r'([0-9.]+)%?')
@@ -54,6 +55,8 @@ class Kentucky(ScraperBase):
             # Identify the table by upper left cell, since we can see
             # duplicates in some cases.
             cell_0_0 = table.iloc[0, 0]
+            #print('cell_0_0:')
+            #print(cell_0_0)
             if pd.isnull(cell_0_0):
                 table = table.iloc[1:]
                 cell_0_0 = table.iloc[0, 0]
@@ -66,6 +69,7 @@ class Kentucky(ScraperBase):
             if cell_0_0.startswith('Total Cases'):
                 # Summary table has total cases in row 0, and total
                 # deaths somewhere below.
+                print('1')
                 total_cases = int(table.iloc[0, 1].replace(',', ''))
                 for idx in range(1, table.shape[0]):
                     row = table.iloc[idx].astype(str)
@@ -73,6 +77,7 @@ class Kentucky(ScraperBase):
                         total_deaths = int(row[1].replace(',', ''))
                         break
             elif cell_0_0.startswith('Race of Cases'):
+                print('2')
                 for idx in range(0, table.shape[0]):
                     row = table.iloc[idx].astype(str)
                     if row[0].find('Total Known') >= 0:
@@ -87,6 +92,7 @@ class Kentucky(ScraperBase):
                             pct_re.search(row[1]).group(1))
                         break
             elif cell_0_0.startswith('Race of Deaths'):
+                print('3')
                 for idx in range(0, table.shape[0]):
                     row = table.iloc[idx].astype(str)
                     if row[0].find('Total Known') >= 0:
