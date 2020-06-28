@@ -1,0 +1,29 @@
+Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Status code
+Washington,2020-06-27,31404.0,1310.0,1300.0,40.0,6.0,3.0,False,False,Success!
+Wisconsin,2020-06-27,27286.0,777.0,4807.0,183.0,17.62,23.55,True,True,Success!
+Wisconsin -- Milwaukee,2020-06-28,11064.0,352.0,3092.0,141.0,27.95,40.06,True,False,Success!
+Rhode Island,2020-06-22,15948.0,903.0,1535.0,46.0,12.31,6.18,False,False,Success!
+Maine,2020-06-28,3191.0,104.0,761.0,,27.1,,False,True,Success!
+Alabama,2020-06-28,27833.0,871.0,13351.0,413.0,47.97,47.42,False,False,Success!
+Michigan,2020-06-27,62935.0,5829.0,19463.0,2340.0,30.93,40.14,True,False,Success!
+Montana,2020-06-27,863.0,22.0,4.0,,0.46,,True,True,Success!
+Alaska,2020-06-27,854.0,14.0,22.0,0.0,2.6,0.0,True,True,Success!
+Massachusetts,2020-06-27,108443.0,8041.0,10150.0,664.0,9.36,8.26,True,False,Success!
+Missouri,2020-06-22,20261.0,929.0,3760.0,246.0,28.26,35.31,True,True,Success!
+Utah,2020-06-27,20628,167,577,<5,2.8,,True,False,Success!
+Mississippi,2020-06-27,25531,504,12729,1051,49.86,208.53,True,True,Success!
+Texas -- Bexar County,2020-06-27,1805,54,408,17.0,22.6,31.48,True,False,Success!
+Minnesota,2020-06-27,35033,1417,7387,110,21.09,7.76,True,True,Success!
+Texas,2020-06-27,21120,662,2515,85,11.91,12.84,True,False,Success!
+California,2020-06-26,140701,5691,6215,534,4.4,9.4,False,True,Success!
+Vermont,2020-06-28,1202,56,113,0,9.4,0,True,True,Success!
+New Mexico,2020-06-27,11619,491,221,,1.9,,True,False,Success!
+Florida,2020-06-28,138567,3419,20042,685,14.46,20.04,True,False,Success!
+"Washington, DC",2020-06-28,10248,550,5117,404,49.93,73.45,True,True,Success!
+Colorado,2020-06-27,32022,1674,1742,108,5.44,6.51,True,False,Success!
+California - San Diego,2020-06-27,12837,360,437,11,4.18,3.08,False,False,Success!
+Georgia,2020-06-27,74985,2776,21884,1319,29.18,47.51,True,True,Success!
+Virginia,2020-06-28,61736,1732,8771,379,14.21,21.88,True,True,Success!
+Indiana,2020-06-28,44930,2427,5513,355,12.27,14.63,True,True,Success!
+Kentucky,2020-06-27,15167,554,1825,21,17.3,4.02,False,True,Success!
+California - Los Angeles,2020-06-26,95371,3285,2744,342,2.88,10.41,True,False,Success!
