@@ -15,22 +15,20 @@ from bs4.dammit import EncodingDetector
 import requests
 from zipfile import ZipFile
 
-
-# Import packages needed to run GA code
-import email.utils as eut
-from io import BytesIO
-import zipfile
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
-
-
 # Import selenium dependencies
 import selenium
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 
+# Import packages needed to run GA code
+import email.utils as eut
+from io import BytesIO
+import zipfile
+import ssl
 
+
+ssl._create_default_https_context = ssl._create_unverified_context
 _logger = logging.getLogger(__name__)
 
 
@@ -46,7 +44,7 @@ def as_list(arg):
     return [arg]
 
 
-# Content helpers.
+# Content retrieval and parsing helpers.
 
 def url_to_soup(data_url, **kwargs):
     """
@@ -76,6 +74,23 @@ def url_to_soup(data_url, **kwargs):
     return data_soup
 
 
+def raw_string_to_int(s):
+    """Some parsed strings have additional elements attached to them such
+    as `\n` or `,`.  This function filters those elements out and
+    casts the string to an int.
+
+    It throws ValueError if the string is empty.
+
+    """
+    return int(''.join([c for c in s if c.isnumeric()]))
+
+
+def to_percentage(numerator, denominator, round_num_digits=2):
+    """Copies of this code are used in almost all the scrapers to
+    calculate Black/AA death and case percentages.
+
+    """
+    return round((numerator / denominator) * 100, round_num_digits)
 
 
 # Source: https://stackoverflow.com/questions/1080411/retrieve-links-from-web-page-using-python-and-beautifulsoup
@@ -357,20 +372,23 @@ def get_zip_member_update_date(zipfile, path, mode='r'):
     (year, month, date, h, m, s) = zipfile.getinfo(path).date_time
     return datetime.date(year, month, date)
 
+
 # src: https://stackoverflow.com/questions/45448994/wait-page-to-load-before-getting-data-with-requests-get-in-python-3
 def url_to_soup_with_selenium(url, wait_conditions=None, timeout=10):
-    # TODO, make this work with get_cached_url
-    # 
-    # some site makes multiple requests to load the data
-    # calling the url alone doesn't return the rendered page
-    # as a result, selenium is being used to allow for the multiple requests to finish
+    """Some site makes multiple requests to load the data.  Calling the
+    url alone doesn't return the rendered page.  As a result, selenium
+    is being used to allow for the multiple requests to finish.
+
+    """
+    # TODO: make this work with get_cached_url?
     options = selenium.webdriver.ChromeOptions()
     options.add_argument('headless')
     driver = selenium.webdriver.Chrome(chrome_options=options)
     driver.get(url)
     if wait_conditions:
         try:
-            conditions = [expected_conditions.presence_of_element_located(wc) for wc in wait_conditions]
+            conditions = [expected_conditions.presence_of_element_located(wc)
+                          for wc in wait_conditions]
             for c in conditions:
                 WebDriverWait(driver, timeout).until(c)
         except TimeoutException:

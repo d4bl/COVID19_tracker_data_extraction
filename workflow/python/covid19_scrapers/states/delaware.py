@@ -2,18 +2,10 @@ import logging
 from datetime import datetime
 
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import table_to_dataframe, url_to_soup
+from covid19_scrapers.utils import (
+    raw_string_to_int, table_to_dataframe, to_percentage, url_to_soup)
 
 _logger = logging.getLogger(__name__)
-
-def raw_string_to_int(s):
-    # some parsed strings have additional elements attached to them such as `\n` or `,`
-    # this function filters those elements out and casts the string to an int
-    return int(''.join([c for c in s if c.isnumeric()]))
-
-
-def to_percentage(numerator, denominator, round_num_digits=2):
-    return round((numerator / denominator) * 100, round_num_digits) 
 
 
 class Delaware(ScraperBase):
@@ -23,26 +15,35 @@ class Delaware(ScraperBase):
         super().__init__(**kwargs)
 
     def get_last_updated_date(self, soup):
-        # there are many places on the page that show the last updated date
-        # choosing the updated date from the dashboard that will be parsed for a more probable accurate date.
-        total_cases_by_race = soup.find('div', {'id': 'total-cases-by-race-ethnicity'})
-        updated_card = total_cases_by_race.find_previous('div', {'class': 'c-dashboard-card__updated'})
+        # There are many places on the page that show the last updated
+        # date.  Choosing the updated date from the dashboard that
+        # will be parsed for a more probable accurate date.
+        total_cases_by_race = soup.find(
+            'div', {'id': 'total-cases-by-race-ethnicity'})
+        updated_card = total_cases_by_race.find_previous(
+            'div', {'class': 'c-dashboard-card__updated'})
 
-        # there are two span elements under the updated_card. one is a text that simply says "Updated", the second is the date.
+        # There are two span elements under the updated_card. One is a
+        # text that simply says "Updated", the second is the date.
         spans = updated_card.find_all('span')
-        assert len(spans) == 2, "Unable to parse date for Delaware"
+        assert len(spans) == 2, 'Unable to parse date for Delaware'
         return datetime.strptime(spans[1].text.strip(), '%m/%d/%Y').date()
 
     def get_total_cases(self, soup):
-        # There are multiple places on the page that display the `total cases`, all of which have the same value
-        # this just randomly chooses one and parses it.
+        # There are multiple places on the page that display the
+        # `total cases`, all of which have the same value.  This just
+        # randomly chooses one and parses it.
         total_cases_text = soup.find('div', text='Total Cases')
-        total_cases_value = total_cases_text.find_next('span', {'class': "c-summary-metric__value c-summary-metric__value--lg d-block"})
+        total_cases_value = total_cases_text.find_next(
+            'span',
+            {'class':
+             'c-summary-metric__value c-summary-metric__value--lg d-block'})
         return raw_string_to_int(total_cases_value.text)
-    
+
     def get_total_deaths(self, soup):
         total_deaths_text = soup.find('div', text='Total deaths')
-        total_deaths_value = total_deaths_text.find_previous('div', {'class': 'c-summary-metric__value'})
+        total_deaths_value = total_deaths_text.find_previous(
+            'div', {'class': 'c-summary-metric__value'})
         return raw_string_to_int(total_deaths_value.text)
 
     def _parse_aa_df(self, soup, div_filters):
@@ -53,15 +54,16 @@ class Delaware(ScraperBase):
 
     def get_aa_cases(self, soup):
         df = self._parse_aa_df(soup, {'id': 'total-cases-by-race-ethnicity'})
-        assert 'State of Delaware' in df.columns, "Unable to parse Total AA cases for Delaware"
+        assert 'State of Delaware' in df.columns, 'Unable to parse Total AA cases for Delaware'
         raw_value = df.loc['Non-Hispanic Black', 'State of Delaware']
         # the raw value consists of total and pct seperated by a \n
         total, _ = raw_value.split('\n')
         return int(total)
 
     def get_aa_deaths(self, soup):
-        df = self._parse_aa_df(soup, {'id': 'total-deaths-by-race-ethnicity'})
-        assert 'State of Delaware' in df.columns, "Unable to parse Total AA deaths for Delaware"
+        df = self._parse_aa_df(
+            soup, {'id': 'total-deaths-by-race-ethnicity'})
+        assert 'State of Delaware' in df.columns, 'Unable to parse Total AA deaths for Delaware'
         raw_value = df.loc['Non-Hispanic Black', 'State of Delaware']
         # the raw value consists of total and pct seperated by a \n
         total, _ = raw_value.split('\n')
