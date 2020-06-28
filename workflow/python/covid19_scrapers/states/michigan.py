@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import url_to_soup
+from covid19_scrapers.utils import to_percentage, url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
 import datetime
@@ -52,9 +52,9 @@ class Michigan(ScraperBase):
         total_cases = total['Cases']
         total_deaths = total['Deaths']
         aa_cases = by_race.loc['Black/African American', 'Cases']
-        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_cases)
         aa_deaths = by_race.loc['Black/African American', 'Deaths']
-        aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
+        aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
 
         return [self._make_series(
             date=date_published,

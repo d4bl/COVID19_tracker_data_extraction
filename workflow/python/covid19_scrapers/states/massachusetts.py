@@ -1,5 +1,6 @@
 from covid19_scrapers.utils import (find_all_links, get_zip,
-                                    get_zip_member_as_file)
+                                    get_zip_member_as_file,
+                                    to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import datetime
@@ -58,12 +59,12 @@ class Massachusetts(ScraperBase):
             df_mass['Race/Ethnicity'] ==
             'Non-Hispanic Black/African American'
         ]['All Cases'].tolist()[0]
-        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_cases)
         aa_deaths = df_mass[
             df_mass['Race/Ethnicity'] ==
             'Non-Hispanic Black/African American'
         ]['Deaths'].tolist()[0]
-        aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
+        aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
         return [self._make_series(
             date=max_date.date(),
             cases=total_cases,

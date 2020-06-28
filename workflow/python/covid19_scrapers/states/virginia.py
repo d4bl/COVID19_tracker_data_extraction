@@ -1,4 +1,5 @@
 from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils import to_percentage
 
 import logging
 import pandas as pd
@@ -41,12 +42,12 @@ class Virginia(ScraperBase):
         _logger.debug('AA cases')
         aa_cases = df_va.loc['Black or African American',
                              :]['Number of Cases']
-        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_cases)
 
         _logger.debug('AA deaths')
         aa_deaths = df_va.loc['Black or African American',
                               :]['Number of Deaths']
-        aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
+        aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
 
         return [self._make_series(
             date=max_date.date(),

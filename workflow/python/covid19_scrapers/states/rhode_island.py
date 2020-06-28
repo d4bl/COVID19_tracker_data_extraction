@@ -1,4 +1,5 @@
 from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils import to_percentage
 
 import datetime
 import logging
@@ -55,8 +56,8 @@ class RhodeIsland(ScraperBase):
                 total_known_deaths = total_deaths - int(data.loc[idx,
                                                                  'Deaths'])
         # Compute the percentages as the provided ones are excessively rounded.
-        aa_cases_pct = round(100*aa_cases/total_known_cases, 2)
-        aa_deaths_pct = round(100*aa_deaths/total_known_deaths, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_known_cases)
+        aa_deaths_pct = to_percentage(aa_deaths, total_known_deaths)
 
         return [self._make_series(
             date=date,

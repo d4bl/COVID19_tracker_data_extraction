@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import url_to_soup
+from covid19_scrapers.utils import to_percentage, url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
 import datetime
@@ -49,8 +49,8 @@ class Minnesota(ScraperBase):
         tds = th.find_next_siblings('td')
         cnt_aa_cases = int(tds[0].text.strip().replace(',', ''))
         cnt_aa_deaths = int(tds[1].text.strip().replace(',', ''))
-        pct_aa_cases = round(100 * cnt_aa_cases / num_cases, 2)
-        pct_aa_deaths = round(100 * cnt_aa_deaths / num_deaths, 2)
+        pct_aa_cases = to_percentage(cnt_aa_cases, num_cases)
+        pct_aa_deaths = to_percentage(cnt_aa_deaths, num_deaths)
 
         return [self._make_series(
             date=date_obj,

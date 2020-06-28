@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import url_to_soup
+from covid19_scrapers.utils import to_percentage, url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
 import datetime
@@ -54,7 +54,7 @@ class Montana(ScraperBase):
         total_cases = int(table.find(
             'td', string=re.compile('Total')
         ).find_next_sibling('td').text.strip().split(' ')[0])
-        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_cases)
 
         # Missing data
         nan = float('nan')
