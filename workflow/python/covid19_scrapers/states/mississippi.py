@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import url_to_soup, download_file
+from covid19_scrapers.utils import as_list, url_to_soup, download_file
 from covid19_scrapers.scraper import ScraperBase
 
 import fitz
@@ -56,12 +56,12 @@ class Mississippi(ScraperBase):
         _logger.info(f'Report date is {date}')
 
         # Extract the tables
-        cases = read_pdf('ms_cases.pdf', pages=[1, 2])
-        deaths = read_pdf('ms_deaths.pdf', pages=[1, 2])
+        cases = as_list(read_pdf('ms_cases.pdf', pages=[1, 2]))
+        deaths = as_list(read_pdf('ms_deaths.pdf', pages=[1, 2]))
 
         # Tables span across multiple pages, so concatenate them row-wise
-        cases = pd.concat([cases[0], cases[1]])
-        deaths = pd.concat([deaths[0], deaths[1]])
+        cases = pd.concat(cases)
+        deaths = pd.concat(deaths)
 
         # Fix headers
         cases.columns = cases.iloc[1, :].str.replace(r'\r', ' ').str.strip()
