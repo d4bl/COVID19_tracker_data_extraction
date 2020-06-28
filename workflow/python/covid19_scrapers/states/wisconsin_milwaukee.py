@@ -1,5 +1,6 @@
 from covid19_scrapers.utils import (get_esri_feature_data,
-                                    get_esri_metadata_date)
+                                    get_esri_metadata_date,
+                                    to_percentage)
 from covid19_scrapers.scraper import ScraperBase, ERROR
 
 import logging
@@ -56,7 +57,7 @@ class WisconsinMilwaukee(ScraperBase):
                                               ['Race_Eth'])
         try:
             cnt_cases_aa = cases_by_race.loc['Black Alone', 'value']
-            pct_cases_aa = round(100 * cnt_cases_aa / cnt_cases, 2)
+            pct_cases_aa = to_percentage(cnt_cases_aa, cnt_cases)
         except IndexError:
             raise ValueError('Case counts for Black Alone not found')
 
@@ -65,7 +66,7 @@ class WisconsinMilwaukee(ScraperBase):
                                                ['Race_Eth'])
         try:
             cnt_deaths_aa = deaths_by_race.loc['Black Alone', 'value']
-            pct_deaths_aa = round(100 * cnt_deaths_aa / cnt_deaths, 2)
+            pct_deaths_aa = to_percentage(cnt_deaths_aa, cnt_deaths)
         except IndexError:
             raise ValueError('Death counts for Black Alone not found')
 

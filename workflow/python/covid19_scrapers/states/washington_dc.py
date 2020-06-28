@@ -1,4 +1,5 @@
-from covid19_scrapers.utils import download_file, find_all_links
+from covid19_scrapers.utils import (
+    download_file, find_all_links, to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import datetime
@@ -105,13 +106,13 @@ class WashingtonDC(ScraperBase):
         _logger.debug('AA cases')
         aa_cases = df_cases['Black/African American'].astype('int').tolist()[
             0]
-        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_cases)
 
         _logger.debug('AA deaths')
         aa_deaths = df_deaths[
             'Black/African American'
         ].astype('int').tolist()[0]
-        aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
+        aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
 
         return [self._make_series(
             date=max_date,

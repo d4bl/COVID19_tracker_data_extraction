@@ -1,5 +1,6 @@
 from covid19_scrapers.utils import (get_esri_feature_data,
-                                    get_esri_metadata_date)
+                                    get_esri_metadata_date,
+                                    to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -48,8 +49,8 @@ class TexasBexar(ScraperBase):
         try:
             cnt_cases_aa = data.loc['Black', 'CasesConfirmed']
             cnt_deaths_aa = data.loc['Black', 'Deaths']
-            pct_cases_aa = round(100 * cnt_cases_aa / cnt_cases, 2)
-            pct_deaths_aa = round(100 * cnt_deaths_aa / cnt_deaths, 2)
+            pct_cases_aa = to_percentage(cnt_cases_aa, cnt_cases)
+            pct_deaths_aa = to_percentage(cnt_deaths_aa, cnt_deaths)
         except IndexError:
             raise ValueError('No data found for Black RaceEthnicity category')
 

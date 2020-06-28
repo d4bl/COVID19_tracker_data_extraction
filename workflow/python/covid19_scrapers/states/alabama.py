@@ -1,5 +1,6 @@
 from covid19_scrapers.utils import (get_esri_feature_data,
-                                    get_esri_metadata_date)
+                                    get_esri_metadata_date,
+                                    to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -38,10 +39,10 @@ class Alabama(ScraperBase):
         # Extract cells
         total_cases = cases.loc[:, 'value'].drop('Unknown').sum()
         aa_cases_cnt = cases.loc['Black', 'value']
-        aa_cases_pct = round(100 * aa_cases_cnt / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases_cnt, total_cases)
         total_deaths = deaths.loc[:, 'value'].drop('Unknown').sum()
         aa_deaths_cnt = deaths.loc['Black', 'value']
-        aa_deaths_pct = round(100 * aa_deaths_cnt / total_deaths, 2)
+        aa_deaths_pct = to_percentage(aa_deaths_cnt, total_deaths)
 
         return [self._make_series(
             date=date,
