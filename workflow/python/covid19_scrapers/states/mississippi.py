@@ -8,6 +8,7 @@ import datetime
 import logging
 import re
 from urllib.parse import urljoin
+import pandas as pd
 
 
 _logger = logging.getLogger(__name__)
@@ -32,6 +33,7 @@ class Mississippi(ScraperBase):
             self.REPORTING_URL,
             race_table.find(
                 'a', text=re.compile('cases'))['href'])
+
         deaths_url = urljoin(
             self.REPORTING_URL,
             race_table.find(
@@ -56,6 +58,10 @@ class Mississippi(ScraperBase):
         # Extract the tables
         cases = read_pdf('ms_cases.pdf', pages=[1, 2])
         deaths = read_pdf('ms_deaths.pdf', pages=[1, 2])
+
+        # Tables span across multiple pages, so concatenate them row-wise
+        cases = pd.concat([cases[0], cases[1]])
+        deaths = pd.concat([deaths[0], deaths[1]])
 
         # Fix headers
         cases.columns = cases.iloc[1, :].str.replace(r'\r', ' ').str.strip()
