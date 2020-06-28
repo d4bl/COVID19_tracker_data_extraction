@@ -1,23 +1,14 @@
-import logging
-from datetime import datetime, timedelta
-
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import (table_to_dataframe,
-                                    url_to_soup_with_selenium)
+from covid19_scrapers.utils import (
+    raw_string_to_int, to_percentage, url_to_soup_with_selenium)
+
+from datetime import datetime, timedelta
+import logging
 from pytz import timezone
+import re
 from selenium.webdriver.common.by import By
 
 _logger = logging.getLogger(__name__)
-
-
-def raw_string_to_int(s):
-    # some parsed strings have additional elements attached to them such as `\n` or `,`
-    # this function filters those elements out and casts the string to an int
-    return int(''.join([c for c in s if c.isnumeric()]))
-
-
-def to_percentage(numerator, denominator, round_num_digits=2):
-    return round((numerator / denominator) * 100, round_num_digits) 
 
 
 class Maryland(ScraperBase):
@@ -27,10 +18,14 @@ class Maryland(ScraperBase):
         super().__init__(**kwargs)
 
     def get_date(self):
-        # HACK: No reliable date could be found. However, the site states that the dataset is updated at 10am everyday.
-        # So check for current US/Eastern time. If it is past 10, use the current date, otherwise use yesterdays date.
+        # HACK: No reliable date could be found. However, the site
+        # states that the dataset is updated at 10am everyday.  So
+        # check for current US/Eastern time. If it is past 10, use the
+        # current date, otherwise use yesterday's date.
         now = datetime.now(timezone('US/Eastern'))
-        return now.date() - timedelta(days=1) if now.hour < 10 else now.date()        
+        return (now.date() - timedelta(days=1)
+                if now.hour < 10
+                else now.date())
 
     def get_total_cases(self, soup):
         total_cases_text = soup.find(text='Number of confirmed cases : ')
@@ -43,28 +38,30 @@ class Maryland(ScraperBase):
         return raw_string_to_int(death_count_string)
 
     def _get_race_and_ethnicity_table(self, soup):
-        race_and_ethnicity_text = soup.find('strong', text='By Race and Ethnicity')
+        race_and_ethnicity_text = soup.find(
+            'strong', text='By Race and Ethnicity')
         return race_and_ethnicity_text.find_next('table')
 
     def get_aa_cases(self, soup):
         table = self._get_race_and_ethnicity_table(soup)
-        aa_text = table.find_next('td', text='African-American (NH)  ')
-        
-        # next td is total cases for AA, and after that is total deaths for AA
+        aa_text = table.find_next('td', text=re.compile('African-American'))
+        # Next td is total cases for AA, and after that is total
+        # deaths for AA.
         return raw_string_to_int(aa_text.find_next('td').text)
 
     def get_aa_deaths(self, soup):
         table = self._get_race_and_ethnicity_table(soup)
-        aa_text = table.find_next('td', text='African-American (NH)  ')
+        aa_text = table.find_next('td', text=re.compile('African-American'))
 
         total_aa_count = aa_text.find_next('td')
-        
-        # next td is total cases for AA, and after that is total deaths for AA
+
+        # Next td is total cases for AA, and after that is total
+        # deaths for AA
         return raw_string_to_int(total_aa_count.find_next('td').text)
 
     def _scrape(self, **kwargs):
         soup = url_to_soup_with_selenium(
-            self.DATA_URL, 
+            self.DATA_URL,
             wait_conditions=[
                 (By.CLASS_NAME, 'markdown-card'),
                 (By.CLASS_NAME, 'ember-view')
