@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import (make_geoservice_args, query_geoservice)
+from covid19_scrapers.utils import query_geoservice
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -14,7 +14,7 @@ class Alaska(ScraperBase):
     """
 
     # Service is under https://services1.arcgis.com/WzFsmainVTuD5KML
-    DATA = make_geoservice_args(
+    DATA = dict(
         flc_id='ebf62bbdba59497a9dba00aed0c17078',
         layer_name='Demographic_Distribution_of_Confirmed_Cases',
         out_fields=[

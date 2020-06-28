@@ -1,6 +1,5 @@
 from covid19_scrapers.utils import (
-    make_geoservice_args, make_geoservice_stat, query_geoservice,
-    to_percentage)
+    make_geoservice_stat, query_geoservice, to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -16,7 +15,7 @@ class Vermont(ScraperBase):
     """
 
     # Services are under https://services1.arcgis.com/BkFxaEFNwHqX3tAw
-    TOTALS = make_geoservice_args(
+    TOTALS = dict(
         flc_id='94479a6d67fc406999c9b66dec7d4adb',
         layer_name='V_EPI_DailyCount_PUBLIC',
         out_fields=[
@@ -27,7 +26,7 @@ class Vermont(ScraperBase):
         limit=1,
     )
 
-    RACE_CASE = make_geoservice_args(
+    RACE_CASE = dict(
         flc_id='0e6f8a6aeb084acaa5f7973e556cf708',
         layer_name='V_EPI_PositiveCases_PUBLIC',
         group_by='Race',
@@ -35,7 +34,7 @@ class Vermont(ScraperBase):
             make_geoservice_stat('count', 'OBJECTID_2', 'Cases'),
         ]
     )
-    RACE_DEATH = make_geoservice_args(
+    RACE_DEATH = dict(
         flc_id='0e6f8a6aeb084acaa5f7973e556cf708',
         layer_name='V_EPI_PositiveCases_PUBLIC',
         where="Death='Yes'",

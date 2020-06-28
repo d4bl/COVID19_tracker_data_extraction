@@ -1,5 +1,4 @@
-from covid19_scrapers.utils import (
-    make_geoservice_args, query_geoservice, to_percentage)
+from covid19_scrapers.utils import (query_geoservice, to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -18,7 +17,7 @@ class Wisconsin(ScraperBase):
     """
 
     # Service is at https://services1.arcgis.com/ISZ89Z51ft1G16OK
-    DATA = make_geoservice_args(
+    DATA = dict(
         flc_id='c38e9379b1c240bdaafa6195719c037d',
         layer_name='COVID19_WI_HIST',
         where="GEO='State'",

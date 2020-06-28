@@ -1,5 +1,4 @@
-from covid19_scrapers.utils import (
-    make_geoservice_args, query_geoservice, to_percentage)
+from covid19_scrapers.utils import (query_geoservice, to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -20,13 +19,13 @@ class Alabama(ScraperBase):
     """
 
     # Services are under https://services7.arcgis.com/4RQmZZ0yaZkGR1zy
-    CASES = make_geoservice_args(
+    CASES = dict(
         flc_id='0c2185b8174646979f4abb5a45ef05c3',
         layer_name='Statewide Race',
         out_fields=['Racecat', 'Race_Counts as value'],
     )
 
-    DEATHS = make_geoservice_args(
+    DEATHS = dict(
         flc_id='015fd1e0d8074840ab624243a74c54c9',
         layer_name='Race',
         out_fields=['Racecat', 'DiedFromCovid19 as value'],
