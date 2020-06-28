@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import get_esri_feature_data
+from covid19_scrapers.utils import get_esri_feature_data, to_percentage
 from covid19_scrapers.scraper import ScraperBase
 
 import datetime
@@ -32,8 +32,8 @@ class Wisconsin(ScraperBase):
         aa_cases = data.loc[0, 'POS_BLK']
         aa_deaths = data.loc[0, 'DTH_BLK']
 
-        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
-        aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_cases)
+        aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
 
         return [self._make_series(
             date=date,

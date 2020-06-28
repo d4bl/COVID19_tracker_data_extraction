@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import (get_content, get_json)
+from covid19_scrapers.utils import (get_content, get_json, to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import datetime
@@ -83,7 +83,7 @@ class NewMexico(ScraperBase):
 
         # Get AA case data
         aa_cases = data['data']['black']
-        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_cases)
 
         # No AA death data
         # TODO: find AA death data

@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import url_to_soup
+from covid19_scrapers.utils import to_percentage, url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
 from bs4 import BeautifulSoup
@@ -62,8 +62,7 @@ class Utah(ScraperBase):
             race_df.loc['Black/African American', '% of Cases']).replace(
                 '%', ''))
         try:
-            pct_deaths_aa = round(100 * int(cnt_deaths_aa) / int(cnt_deaths),
-                                  2)
+            pct_deaths_aa = to_percentage(int(cnt_deaths_aa), int(cnt_deaths))
         except ValueError:
             pct_deaths_aa = float('nan')
 

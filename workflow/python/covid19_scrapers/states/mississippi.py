@@ -1,4 +1,5 @@
-from covid19_scrapers.utils import as_list, url_to_soup, download_file
+from covid19_scrapers.utils import (
+    as_list, download_file, to_percentage, url_to_soup)
 from covid19_scrapers.scraper import ScraperBase
 
 import fitz
@@ -91,10 +92,10 @@ class Mississippi(ScraperBase):
         # Extract counts and compute percentages
         total_cases = cases_agg.loc['Total', 'Total']
         aa_cases = cases_agg.loc['Total', 'Black or African American']
-        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_cases)
         total_deaths = deaths_agg.loc['Total', 'Total']
         aa_deaths = deaths_agg.loc['Total', 'Black or African American']
-        aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
+        aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
 
         return [self._make_series(
             date=date,

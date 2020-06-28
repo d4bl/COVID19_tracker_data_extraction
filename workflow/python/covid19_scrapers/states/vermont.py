@@ -1,5 +1,6 @@
 from covid19_scrapers.utils import (get_esri_feature_data,
-                                    get_esri_metadata_date)
+                                    get_esri_metadata_date,
+                                    to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -35,12 +36,12 @@ class Vermont(ScraperBase):
         # Download and extract AA case and death data
         cases = get_esri_feature_data(self.RACE_CASE_URL).set_index('Race')
         aa_cases_cnt = cases.loc['Black or African American', 'value']
-        aa_cases_pct = round(100 * aa_cases_cnt / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases_cnt, total_cases)
 
         deaths = get_esri_feature_data(self.RACE_DEATH_URL).set_index('Race')
         try:
             aa_deaths_cnt = deaths.loc['Black or African American', 'value']
-            aa_deaths_pct = round(100 * aa_deaths_cnt / total_deaths, 2)
+            aa_deaths_pct = to_percentage(aa_deaths_cnt, total_deaths)
         except KeyError:
             aa_deaths_cnt = 0
             aa_deaths_pct = 0

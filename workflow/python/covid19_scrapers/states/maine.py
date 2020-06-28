@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import url_to_soup
+from covid19_scrapers.utils import to_percentage, url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -44,7 +44,7 @@ class Maine(ScraperBase):
         total_cases_ex_unknown = table['CASES'].drop('Not disclosed').sum()
         date = table['DATA_REFRESH_DT'].max().date()
         aa_cases_cnt = table.loc['Black or African American', 'CASES']
-        aa_cases_pct = round(100 * aa_cases_cnt / total_cases_ex_unknown, 2)
+        aa_cases_pct = to_percentage(aa_cases_cnt, total_cases_ex_unknown)
 
         # No race breakdowns for deaths
         aa_deaths_cnt = float('nan')
