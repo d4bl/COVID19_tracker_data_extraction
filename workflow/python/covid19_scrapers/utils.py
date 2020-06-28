@@ -24,6 +24,13 @@ import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
 
+# Import selenium dependencies
+import selenium
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+
+
 _logger = logging.getLogger(__name__)
 
 
@@ -67,6 +74,8 @@ def url_to_soup(data_url, **kwargs):
     data_soup = BeautifulSoup(data_text, 'html.parser')
 
     return data_soup
+
+
 
 
 # Source: https://stackoverflow.com/questions/1080411/retrieve-links-from-web-page-using-python-and-beautifulsoup
@@ -347,3 +356,24 @@ def get_zip_member_update_date(zipfile, path, mode='r'):
     """
     (year, month, date, h, m, s) = zipfile.getinfo(path).date_time
     return datetime.date(year, month, date)
+
+# src: https://stackoverflow.com/questions/45448994/wait-page-to-load-before-getting-data-with-requests-get-in-python-3
+def url_to_soup_with_selenium(url, wait_conditions=None, timeout=10):
+    # TODO, make this work with get_cached_url
+    # 
+    # some site makes multiple requests to load the data
+    # calling the url alone doesn't return the rendered page
+    # as a result, selenium is being used to allow for the multiple requests to finish
+    options = selenium.webdriver.ChromeOptions()
+    options.add_argument('headless')
+    driver = selenium.webdriver.Chrome(chrome_options=options)
+    driver.get(url)
+    if wait_conditions:
+        try:
+            conditions = [expected_conditions.presence_of_element_located(wc) for wc in wait_conditions]
+            for c in conditions:
+                WebDriverWait(driver, timeout).until(c)
+        except TimeoutException:
+            _logger.error('Waiting for element to load timed out in %s seconds for url: %s' % (timeout, url))
+            raise
+    return BeautifulSoup(driver.page_source, 'lxml')
