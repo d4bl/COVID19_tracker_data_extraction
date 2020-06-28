@@ -1,5 +1,6 @@
 from covid19_scrapers.utils import (get_zip, get_zip_member_as_file,
-                                    get_zip_member_update_date)
+                                    get_zip_member_update_date,
+                                    to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -38,9 +39,9 @@ class Georgia(ScraperBase):
         aa_key = next(filter(lambda x: x.startswith('African-American'),
                              by_race.index))
         aa_cases = by_race.loc[aa_key, 'Confirmed_Cases']
-        aa_cases_pct = round(100 * aa_cases / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_cases)
         aa_deaths = by_race.loc[aa_key, 'Deaths']
-        aa_deaths_pct = round(100 * aa_deaths / total_deaths, 2)
+        aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
 
         return [self._make_series(
             date=date,

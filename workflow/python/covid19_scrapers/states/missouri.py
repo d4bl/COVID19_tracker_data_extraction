@@ -50,8 +50,7 @@ class Missouri(ScraperBase):
         aa_cases_cnt = cases_race.loc['BLACK', 'Frequency']
         aa_cases_pct = round(100 * cases_race.loc['BLACK', 'Percent'], 2)
         aa_deaths_cnt = deaths_race.loc['BLACK', 'Frequency']
-        aa_deaths_pct = round(100 * deaths_race.loc['BLACK', 'Percent'],
-                                 2)
+        aa_deaths_pct = round(100 * deaths_race.loc['BLACK', 'Percent'], 2)
 
         return [self._make_series(
             date=date,

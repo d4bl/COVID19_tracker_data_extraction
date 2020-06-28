@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import get_cached_url, url_to_soup
+from covid19_scrapers.utils import get_cached_url, to_percentage, url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
 import datetime
@@ -66,8 +66,8 @@ class CaliforniaLosAngeles(ScraperBase):
                     td.next_sibling.text.strip().replace(',', ''))
                 break
 
-        aa_cases_pct = round(aa_cases / total_cases * 100, 2)
-        aa_deaths_pct = round(aa_deaths / total_deaths * 100, 2)
+        aa_cases_pct = to_percentage(aa_cases, total_cases)
+        aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
 
         return [self._make_series(
             date=date,
