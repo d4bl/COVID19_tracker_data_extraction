@@ -14,4 +14,6 @@ __pycache__
 workflow/python/work/*
 work/*
 workflow/python/screenshots/*
+workflow/python/images/*
 workflow/python/scratch/*
+*xlsx#
