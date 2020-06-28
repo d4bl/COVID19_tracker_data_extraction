@@ -1,2 +1,2 @@
 Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Status code
-Maryland,,,,,,,,False,False,An error occurred. ... WebDriverException('Can not connect to the Service chromedriver')
+Colorado,2020-06-27,32022,1674,1742,108,5.44,6.51,True,False,Success!
