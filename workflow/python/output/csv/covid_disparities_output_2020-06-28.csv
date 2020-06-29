@@ -1,2 +1,31 @@
 Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Status code
-Maryland,,,,,,,,False,False,An error occurred. ... WebDriverException('Can not connect to the Service chromedriver')
+Washington,2020-06-28,31752.0,1310.0,1311.0,40.0,6.0,3.0,False,False,Success!
+Wisconsin,2020-06-28,27743.0,777.0,4866.0,183.0,19.6,23.92,False,True,Success!
+Wisconsin -- Milwaukee,2020-06-28,11064.0,352.0,3092.0,141.0,30.26,40.06,False,False,Success!
+Rhode Island,2020-06-22,15948.0,903.0,1535.0,46.0,12.31,6.18,False,False,Success!
+Maine,2020-06-28,3191.0,104.0,761.0,,27.1,,False,True,Success!
+Maryland,2020-06-28,66777.0,3042.0,19122.0,1238.0,28.64,40.7,False,False,Success!
+Alabama,2020-06-28,34964.0,898.0,13430.0,413.0,47.85,47.42,False,False,Success!
+Michigan,2020-06-28,63187.0,5833.0,19505.0,2341.0,30.87,40.13,True,False,Success!
+Montana,2020-06-28,863.0,22.0,4.0,,0.46,,True,True,Success!
+Alaska,2020-06-28,883.0,14.0,23.0,0.0,2.6,0.0,True,True,Success!
+Massachusetts,2020-06-28,108667.0,8060.0,10162.0,665.0,9.35,8.25,True,False,Success!
+Missouri,2020-06-27,20261.0,996.0,3760.0,246.0,40.16,38.56,False,True,Success!
+Utah,2020-06-28,21100,167,584,<5,2.8,,True,False,Success!
+Mississippi,2020-06-28,11766,506,27144,1056,230.7,208.7,True,True,Success!
+Texas -- Bexar County,2020-06-28,10147,109,430,17.0,7.32,15.6,False,False,Success!
+Minnesota,2020-06-28,35549,1425,7457,115,20.98,8.07,True,True,Success!
+Texas,2020-06-28,21262,662,2535,85,11.92,12.84,True,False,Success!
+Delaware,2020-06-28,11226,507,2970,130,26.46,25.64,True,False,Success!
+California,2020-06-27,142819,5711,6309,533,4.4,9.3,False,True,Success!
+Vermont,2020-06-28,1,0,113,0,9.65,0,False,True,Success!
+New Mexico,2020-06-28,11809,492,227,,1.92,,True,False,Success!
+Florida,2020-06-28,138567,3419,20042,685,14.46,20.04,True,False,Success!
+"Washington, DC",2020-06-28,10248,550,5117,404,49.93,73.45,True,True,Success!
+Colorado,2020-06-28,32307,1676,1747,108,5.41,6.5,True,False,Success!
+California - San Diego,2020-06-28,13334,361,457,11,4.24,3.07,False,False,Success!
+Georgia,2020-06-28,77210,2778,22192,1319,28.74,47.48,True,True,Success!
+Virginia,2020-06-28,61736,1732,8771,379,14.21,21.88,True,True,Success!
+Indiana,2020-06-28,44930,2427,5513,355,12.27,14.63,True,True,Success!
+Kentucky,2020-06-28,15232,558,1821,22,17.24,4.19,False,True,Success!
+California - Los Angeles,2020-06-27,97894,3305,2791,351,2.85,10.62,True,False,Success!
