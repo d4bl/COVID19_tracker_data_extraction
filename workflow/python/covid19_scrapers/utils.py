@@ -1,4 +1,5 @@
 # Misc utilities
+from arcgis.gis import GIS
 import datetime
 import hashlib
 import logging
@@ -152,49 +153,74 @@ def get_http_date(url):
         return date.date()
 
 
-def get_esri_metadata_date(metadata_url, **kwargs):
-    """For states using ESRI web services, the field metadata includes a
-    timestamp.  This function fetches, extracts, and parses it,
-    returning a datetime.date.
+# Helpers for ESRI/ArcGIS web services (geoservices)
+#
+# The big idea is that the query parameters can be declared as a
+# single class variable, and applied to the query_geoservice call.
+#
+# See, eg, states/missouri.py for examples.
 
-    It can raise get_json's exceptions, or OverflowError if the timestamp
-    is not a valid date.
-
-    """
-    metadata = get_json(metadata_url, **kwargs)
-    last_edit_ms = metadata['editingInfo']['lastEditDate']
-    return datetime.date.fromtimestamp(last_edit_ms / 1000)
-
-
-def get_esri_feature_data(data_url, fields=None, index=None,
-                          **kwargs):
-    """For states using ESRI web services, the feature data includes a
-    list of fields and their values.
-
-    This function
-    * fetches, extracts, and parses the feature response,
-    * ensures that any requested fields are present,
-    * finally returns a DataFrame of the features' attribute objects.
-
-    It can raise any of get_json's exceptions, KeyError if a required
-    JSON field is missing, and ValueError if requested fields are not
-    returned by the API.
+def make_geoservice_stat(agg, in_field, out_name):
+    """This makes a single entry for the `stats` field of a
+    query_geoservice request (a.k.a. the `outStatistics` field of a
+    geoservice request).
 
     """
-    data = get_json(data_url, **kwargs)
-    # Validate fields
-    if fields:
-        valid_fields = set(field['name'] for field in data['fields'])
-        extra_fields = list(set(fields) - valid_fields)
-        if extra_fields:
-            raise ValueError('Requested fields not present in API ' +
-                             f'response: {extra_fields}')
+    return {
+        'statisticType': agg,
+        'onStatisticField': in_field,
+        'outStatisticFieldName': out_name,
+    }
 
-    ret = pd.DataFrame(
-        [feature['attributes'] for feature in data['features']])
-    if index:
-        ret = ret.set_index(index)
-    return ret
+
+def query_geoservice(flc_id, layer_name, *,
+                     where='1=1', out_fields=['*'],
+                     group_by=None, stats=None,
+                     order_by=None, limit=None):
+    """Queries the specified ESRI GeoService.
+
+    Positional arguments (mandatory):
+      flc_id: FeatureLayerCollection ID to search for.
+      layer_name: the name of the desired layer in the FeatureLayerCollection.
+
+    Keyword arguments (all optional):
+      where: the feature filtering query.
+      out_fields: the fields to retrieve, defaults to all.
+      group_by: the field by which to group for statistical operations.
+      stats: a list of dicts specifying the desired statistical operations.
+      order_by: field and direction to order by.
+      limit: max number of records to retrieve.
+
+    Returns: a pair consisting of the update date and data frame
+      containing the features.
+    """
+
+    gis = GIS()
+    flc = gis.content.search(f'id:{flc_id}')[0]
+    layers = [layer
+              for layer in flc.layers
+              if layer.properties.name == layer_name]
+    if layers:
+        layer = layers[0]
+    else:
+        tables = [table
+                  for table in flc.tables
+                  if table.properties.name == layer_name]
+        if tables:
+            layer = tables[0]
+    features = layer.query(
+        spatialRel='esriSpatialRelIntersects',
+        where=where,
+        outFields=','.join(out_fields),
+        return_geometry=False,
+        groupByFieldsForStatistics=group_by,
+        outStatistics=stats,
+        orderByFields=order_by,
+        resultRecordCount=limit,
+        resultType='standard')
+    update_date = datetime.datetime.fromtimestamp(
+        layer.properties.editingInfo.lastEditDate/1000).date()
+    return update_date, features.sdf
 
 
 # Helpers for HTTP data retrieval.

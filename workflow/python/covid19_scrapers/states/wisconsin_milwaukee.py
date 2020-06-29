@@ -1,6 +1,5 @@
-from covid19_scrapers.utils import (get_esri_feature_data,
-                                    get_esri_metadata_date,
-                                    to_percentage)
+from covid19_scrapers.utils import (
+    make_geoservice_stat, query_geoservice, to_percentage)
 from covid19_scrapers.scraper import ScraperBase, ERROR
 
 import logging
@@ -18,12 +17,20 @@ class WisconsinMilwaukee(ScraperBase):
     We retrieve the data from their FeatureServers.
     """
 
-    CASES_MD_URL = 'https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Cases_View/FeatureServer/0?f=json'
-    DEATHS_MD_URL = 'https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Deaths_View1/FeatureServer/0?f=json'
-    CASES_URL = 'https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Cases_View/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22ObjectId%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'
-    DEATHS_URL = 'https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Deaths_View1/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22ObjectId%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'
-    CASES_BY_RACE_URL = 'https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Cases_View/FeatureServer/0/query?f=json&where=Race_Eth%20NOT%20LIKE%20%27%25%23N%2FA%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Race_Eth&orderByFields=value%20desc&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22ObjectId%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'
-    DEATHS_BY_RACE_URL = 'https://services5.arcgis.com/8Q02ELWlq5TYUASS/arcgis/rest/services/Deaths_View1/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&groupByFieldsForStatistics=Race_Eth&orderByFields=value%20desc&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22ObjectId%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&resultType=standard&cacheHint=true'
+    # The services are at https://services5.arcgis.com/8Q02ELWlq5TYUASS
+    CASES = dict(
+        flc_id='73e2e7131f954bb6a1b0fbbd9dd53f5b',
+        layer_name='Cases',
+        group_by='Race_Eth',
+        stats=[make_geoservice_stat('count', 'ObjectId', 'value')],
+    )
+
+    DEATHS = dict(
+        flc_id='02f3b03e877e480ca5c2eb750dcbbc8c',
+        layer_name='Deaths',
+        group_by='Race_Eth',
+        stats=[make_geoservice_stat('count', 'ObjectId', 'value')],
+    )
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -33,40 +40,33 @@ class WisconsinMilwaukee(ScraperBase):
 
     def _scrape(self, **kwargs):
         # Get the timestamp
-        cases_date = get_esri_metadata_date(self.CASES_MD_URL)
-        deaths_date = get_esri_metadata_date(self.DEATHS_MD_URL)
-        if cases_date != deaths_date:
-            _logger.debug(
-                'Unexpected mismatch between cases and deaths metadata dates:', cases_date, '!=', deaths_date)
-        date_published = cases_date
+        date_published, cases = query_geoservice(**self.CASES)
+        cases = cases.set_index('Race_Eth')
+        cnt_cases = cases['value'].sum()
+        cnt_cases_unknown = cases.loc['Not Reported', 'value']
+        cnt_cases_known = cnt_cases - cnt_cases_unknown
 
-        cases_total = get_esri_feature_data(self.CASES_URL, ['value'])
-        try:
-            cnt_cases = cases_total.loc[0, 'value']
-        except IndexError:
-            raise ValueError('Total case count data not found')
+        _, deaths = query_geoservice(**self.DEATHS)
+        deaths = deaths.set_index('Race_Eth')
+        cnt_deaths = deaths['value'].sum()
+        if 'Not Reported' in deaths.index:
+            cnt_deaths_unknown = deaths.loc['Not Reported', 'value']
+        else:
+            cnt_deaths_unknown = 0
+        cnt_deaths_known = cnt_deaths - cnt_deaths_unknown
 
-        deaths_total = get_esri_feature_data(self.DEATHS_URL, ['value'])
         try:
-            cnt_deaths = deaths_total.loc[0, 'value']
-        except IndexError:
-            raise ValueError('Total death count data not found')
-
-        cases_by_race = get_esri_feature_data(self.CASES_BY_RACE_URL,
-                                              ['Race_Eth', 'value'],
-                                              ['Race_Eth'])
-        try:
-            cnt_cases_aa = cases_by_race.loc['Black Alone', 'value']
-            pct_cases_aa = to_percentage(cnt_cases_aa, cnt_cases)
+            cnt_cases_aa = cases.loc['Black Alone', 'value']
+            pct_cases_aa = to_percentage(cnt_cases_aa, cnt_cases_known)
         except IndexError:
             raise ValueError('Case counts for Black Alone not found')
 
-        deaths_by_race = get_esri_feature_data(self.DEATHS_BY_RACE_URL,
-                                               ['Race_Eth', 'value'],
-                                               ['Race_Eth'])
         try:
-            cnt_deaths_aa = deaths_by_race.loc['Black Alone', 'value']
-            pct_deaths_aa = to_percentage(cnt_deaths_aa, cnt_deaths)
+            if 'Black Alone' in deaths.index:
+                cnt_deaths_aa = deaths.loc['Black Alone', 'value']
+            else:
+                cnt_deaths_aa = 0
+            pct_deaths_aa = to_percentage(cnt_deaths_aa, cnt_deaths_known)
         except IndexError:
             raise ValueError('Death counts for Black Alone not found')
 
@@ -78,7 +78,7 @@ class WisconsinMilwaukee(ScraperBase):
             aa_deaths=cnt_deaths_aa,
             pct_aa_cases=pct_cases_aa,
             pct_aa_deaths=pct_deaths_aa,
-            pct_includes_unknown_race=True,
+            pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
         )]
 

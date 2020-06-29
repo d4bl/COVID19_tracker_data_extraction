@@ -76,7 +76,8 @@ pip install google-auth-httplib2
 pip install google-auth-oauthlib
 pip install oauthlib2
 
-
+## Install ESRI web service API client
+pip install arcgis
 
 
 

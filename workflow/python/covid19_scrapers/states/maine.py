@@ -34,8 +34,8 @@ class Maine(ScraperBase):
 
         # Find the Google sheet
         url = soup.find('a', string=re.compile('Google Sheet', re.I))['href']
-        url = re.sub(r'(.*)/edit.*?', r'\1/export?format=xlsx', url)
-        print(f'Sheets URL is {url}')
+        url = re.sub(r'(.*)/edit\b.*', r'\1/export?format=xlsx', url)
+        _logger.debug(f'Sheets URL is {url}')
         counties = pd.read_excel(url, sheet_name='cases_by_county')
         total_deaths = counties['DEATHS'].sum()
 
