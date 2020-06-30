@@ -1,6 +1,6 @@
 Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Status code
 Massachusetts,2020-06-30,108882.0,8054.0,10209.0,663.0,9.38,8.23,True,False,Success!
-Washington,2020-06-29,32824.0,1332.0,1343.0,42.0,6.0,3.0,False,False,Success!
+Washington,2020-06-30,32824.0,1332.0,1343.0,42.0,6.0,3.0,False,False,Success!
 Colorado,2020-06-30,32715.0,1690.0,1769.0,110.0,5.41,6.51,True,False,Success!
 Florida,2020-06-30,149781.0,3505.0,21268.0,697.0,14.2,19.89,True,False,Success!
 Maine,2020-06-30,3253.0,105.0,771.0,,26.87,,False,True,Success!
