@@ -1,0 +1,31 @@
+Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Status code
+Massachusetts,2020-06-29,108768,8095,10190,666.0,9.37,8.23,True,False,Success!
+Washington,2020-06-29,32253,1320,1331,42.0,6.0,3.0,False,False,Success!
+Colorado,2020-06-29,32511,1682,1762,108.0,5.42,6.48,True,False,Success!
+Florida,2020-06-29,143805,3447,20484,689.0,14.24,19.99,True,False,Success!
+Maine,2020-06-29,3219,105,768,,27.07,,False,True,Success!
+Georgia,2020-06-29,79417,2784,22417,1320.0,28.23,47.41,True,True,Success!
+Mississippi,2020-06-29,26567,517,13261,1076.0,49.92,208.12,True,True,Success!
+California - Los Angeles,2020-06-28,100772,3326,2818,353.0,2.8,10.61,True,False,Success!
+Utah,2020-06-29,21664,168,593,<5,2.7,,True,False,Success!
+Wisconsin -- Milwaukee,2020-06-29,11232,354,3163,142,30.45,40.11,False,False,Success!
+Texas,2020-06-29,21290,662,2537,85,11.92,12.84,True,False,Success!
+Missouri,2020-06-27,20261,996,5758,246,49.66,38.56,False,True,Success!
+Virginia,2020-06-29,62189,1740,8838,381,14.21,21.9,True,True,Success!
+Rhode Island,2020-06-29,16226,946,1573,47,12.33,6.11,False,False,Success!
+"Washington, DC",2020-06-28,10248,550,5117,404,49.93,73.45,True,True,Success!
+Delaware,2020-06-29,11376,507,3007,130,26.43,25.64,True,False,Success!
+Alabama,2020-06-29,36682,905,13740,417,47.78,47.49,False,False,Success!
+New Mexico,2020-06-29,11982,493,230,,1.92,,True,False,Success!
+Vermont,2020-06-29,1,0,113,0,9.62,0.0,False,True,Success!
+Michigan,2020-06-29,63424,5838,19541,2341,30.81,40.1,True,False,Success!
+Alaska,2020-06-29,904.0,14.0,23.0,0.0,2.54,0.0,True,True,Success!
+California,2020-06-28,146393,5751,6445,544,4.4,9.5,False,True,Success!
+Maryland,,,,,,,,False,False,"An error occurred. ... OSError(8, 'Exec format error')"
+California - San Diego,2020-06-29,13832,361,478,11,4.32,3.07,False,False,Success!
+Minnesota,2020-06-29,35861,1435,7503,118,20.92,8.22,True,True,Success!
+Kentucky,2020-06-29,15347,560,1816,22,17.19,4.18,False,True,Success!
+Indiana,2020-06-29,45228,2432,5595,355,12.37,14.6,True,True,Success!
+Texas -- Bexar County,2020-06-29,10797,109,436,17.0,6.98,15.6,False,False,Success!
+Montana,,,,,,,,False,False,"An error occurred. ... SSLError(MaxRetryError(""HTTPSConnectionPool(host='dphhs.mt.gov', port=443): Max retries exceeded with url: /publichealth/cdepi/diseases/coronavirusmt/demographics (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1108)')))""))"
+Wisconsin,2020-06-30,28058,777,4934,183,19.65,23.92,False,True,Success!
