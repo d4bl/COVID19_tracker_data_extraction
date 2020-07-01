@@ -17,3 +17,4 @@ workflow/python/screenshots/*
 workflow/python/images/*
 workflow/python/scratch/*
 *xlsx#
+*.log
