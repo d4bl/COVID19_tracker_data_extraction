@@ -6,12 +6,13 @@ from datetime import datetime
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+from selenium.webdriver.common.by import By
+from seleniumwire import webdriver
+
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import (raw_string_to_int, to_percentage,
                                     url_to_soup, url_to_soup_with_selenium,
                                     wait_for_conditions_on_webdriver)
-from selenium.webdriver.common.by import By
-from seleniumwire import webdriver
 
 _logger = logging.getLogger(__name__)
 
