@@ -10,8 +10,9 @@ from selenium.webdriver.common.by import By
 from seleniumwire import webdriver
 
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import (raw_string_to_int, to_percentage,
-                                    url_to_soup, url_to_soup_with_selenium,
+from covid19_scrapers.utils import (get_content_as_file, raw_string_to_int,
+                                    to_percentage, url_to_soup,
+                                    url_to_soup_with_selenium,
                                     wait_for_conditions_on_webdriver)
 
 _logger = logging.getLogger(__name__)
@@ -60,19 +61,9 @@ def get_demographic_dataframe():
     csv_href = link.get('href')
     assert csv_href, 'No CSV link found'
 
-    # Download CSV info and convert/format it into a DataFrame and return
-    data = requests.get(csv_href)
-    decoded = data.content.decode('utf-8-sig')
-    cr = csv.reader(decoded.split('\n'), delimiter=',')
-    df = pd.DataFrame(list(cr))
-    
-    # first row as dataframe header
-    new_header = df.iloc[0]
-    df = df[1:]
-    df.columns = new_header
-
-    # Multiindex Race and Category
-    df = df.set_index(['Race', 'Name'])
+    # Read CSV, set first row as header, and the first two columns (Race and Name) as indices.
+    content = get_content_as_file(csv_href)
+    df = pd.read_csv(content, header=0, index_col=[0, 1])
 
     # Remaining column is the `value`; rename accordingly
     assert len(df.columns) == 1
