@@ -8,6 +8,7 @@ from pathlib import Path
 import os
 import re
 from urllib.parse import urlsplit
+from contextlib import contextmanager
 
 # Read webpage
 from bs4 import BeautifulSoup
