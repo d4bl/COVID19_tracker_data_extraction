@@ -1,159 +1,159 @@
-2020-06-30 23:01:23,495 DEBUG covid19_scrapers.registry:  Registering scraper: Massachusetts: Massachusetts
-2020-06-30 23:01:23,496 DEBUG covid19_scrapers.registry:  Registering scraper: Washington: Washington
-2020-06-30 23:01:23,496 DEBUG covid19_scrapers.registry:  Registering scraper: Colorado: Colorado
-2020-06-30 23:01:23,496 DEBUG covid19_scrapers.registry:  Registering scraper: Florida: Florida
-2020-06-30 23:01:23,496 DEBUG covid19_scrapers.registry:  Registering scraper: Maine: Maine
-2020-06-30 23:01:23,496 DEBUG covid19_scrapers.registry:  Registering scraper: NewJersey: New Jersey
-2020-06-30 23:01:23,496 DEBUG covid19_scrapers.registry:  Registering scraper: Georgia: Georgia
-2020-06-30 23:01:23,496 DEBUG covid19_scrapers.registry:  Registering scraper: Mississippi: Mississippi
-2020-06-30 23:01:23,496 DEBUG covid19_scrapers.registry:  Registering scraper: CaliforniaLosAngeles: California - Los Angeles
-2020-06-30 23:01:23,497 DEBUG covid19_scrapers.registry:  Registering scraper: Utah: Utah
-2020-06-30 23:01:23,498 DEBUG covid19_scrapers.registry:  Registering scraper: WisconsinMilwaukee: Wisconsin -- Milwaukee
-2020-06-30 23:01:23,498 DEBUG covid19_scrapers.registry:  Registering scraper: Texas: Texas
-2020-06-30 23:01:23,498 DEBUG covid19_scrapers.registry:  Registering scraper: Missouri: Missouri
-2020-06-30 23:01:23,498 DEBUG covid19_scrapers.registry:  Registering scraper: Virginia: Virginia
-2020-06-30 23:01:23,499 DEBUG covid19_scrapers.registry:  Registering scraper: RhodeIsland: Rhode Island
-2020-06-30 23:01:23,499 DEBUG covid19_scrapers.registry:  Registering scraper: WashingtonDC: Washington, DC
-2020-06-30 23:01:23,499 DEBUG covid19_scrapers.registry:  Registering scraper: Ohio: Ohio
-2020-06-30 23:01:23,499 DEBUG covid19_scrapers.registry:  Registering scraper: Delaware: Delaware
-2020-06-30 23:01:23,499 DEBUG covid19_scrapers.registry:  Registering scraper: Alabama: Alabama
-2020-06-30 23:01:23,499 DEBUG covid19_scrapers.registry:  Registering scraper: NewMexico: New Mexico
-2020-06-30 23:01:23,499 DEBUG covid19_scrapers.registry:  Registering scraper: Vermont: Vermont
-2020-06-30 23:01:23,500 DEBUG covid19_scrapers.registry:  Registering scraper: Michigan: Michigan
-2020-06-30 23:01:23,500 DEBUG covid19_scrapers.registry:  Registering scraper: Alaska: Alaska
-2020-06-30 23:01:23,500 DEBUG covid19_scrapers.registry:  Registering scraper: California: California
-2020-06-30 23:01:23,500 DEBUG covid19_scrapers.registry:  Registering scraper: Maryland: Maryland
-2020-06-30 23:01:23,500 DEBUG covid19_scrapers.registry:  Registering scraper: CaliforniaSanDiego: California - San Diego
-2020-06-30 23:01:23,500 DEBUG covid19_scrapers.registry:  Registering scraper: Minnesota: Minnesota
-2020-06-30 23:01:23,500 DEBUG covid19_scrapers.registry:  Registering scraper: Kentucky: Kentucky
-2020-06-30 23:01:23,500 DEBUG covid19_scrapers.registry:  Registering scraper: NorthCarolina: North Carolina
-2020-06-30 23:01:23,501 DEBUG covid19_scrapers.registry:  Registering scraper: Indiana: Indiana
-2020-06-30 23:01:23,501 DEBUG covid19_scrapers.registry:  Registering scraper: TexasBexar: Texas -- Bexar County
-2020-06-30 23:01:23,501 DEBUG covid19_scrapers.registry:  Registering scraper: Montana: Montana
-2020-06-30 23:01:23,501 DEBUG covid19_scrapers.registry:  Registering scraper: Wisconsin: Wisconsin
-2020-06-30 23:01:23,501 INFO root:  Running all scrapers
-2020-06-30 23:01:23,501 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Massachusetts
-2020-06-30 23:01:23,501 INFO covid19_scrapers.scraper:  Scraping Massachusetts
-2020-06-30 23:01:23,504 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.mass.gov:443
-2020-06-30 23:01:23,882 DEBUG urllib3.connectionpool:  https://www.mass.gov:443 "GET /info-details/covid-19-response-reporting HTTP/1.1" 200 20901
-2020-06-30 23:01:23,935 DEBUG covid19_scrapers.states.massachusetts:  Fetching links from ['/doc/covid-19-raw-data-june-30-2020/download']
-2020-06-30 23:01:23,935 DEBUG covid19_scrapers.states.massachusetts:  Current COVID-19 data: https://www.mass.gov/doc/covid-19-raw-data-june-30-2020/download
-2020-06-30 23:01:23,936 DEBUG covid19_scrapers.utils:  Using local file doc/covid-19-raw-data-june-30-2020/download
-2020-06-30 23:01:23,936 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:23,936 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.mass.gov:443
-2020-06-30 23:01:24,081 DEBUG urllib3.connectionpool:  https://www.mass.gov:443 "GET /doc/covid-19-raw-data-june-30-2020/download HTTP/1.1" 200 127993
-2020-06-30 23:01:24,089 DEBUG covid19_scrapers.utils:  Making doc/covid-19-raw-data-june-30-2020
-2020-06-30 23:01:24,090 DEBUG covid19_scrapers.utils:  Saved download as: doc/covid-19-raw-data-june-30-2020/download
-2020-06-30 23:01:24,093 DEBUG covid19_scrapers.states.massachusetts:  Get the race/ethnicity breakdown
-2020-06-30 23:01:24,103 DEBUG covid19_scrapers.states.massachusetts:  Get date of most recent data published
-2020-06-30 23:01:24,104 DEBUG covid19_scrapers.states.massachusetts:  Extracting data for 2020-06-30 00:00:00
-2020-06-30 23:01:24,108 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Massachusetts -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:24,110 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Washington
-2020-06-30 23:01:24,110 INFO covid19_scrapers.scraper:  Scraping Washington
-2020-06-30 23:01:24,111 DEBUG covid19_scrapers.utils:  Using local file Emergencies/Coronavirus
-2020-06-30 23:01:24,112 DEBUG covid19_scrapers.utils:  Cache requires conditional GET, but requested method is POST; requesting url
-2020-06-30 23:01:24,113 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.doh.wa.gov:443
-2020-06-30 23:01:26,587 DEBUG urllib3.connectionpool:  https://www.doh.wa.gov:443 "POST /Emergencies/Coronavirus HTTP/1.1" 200 171619
-2020-06-30 23:01:26,847 DEBUG covid19_scrapers.utils:  Making Emergencies
-2020-06-30 23:01:26,848 DEBUG covid19_scrapers.utils:  Saved download as: Emergencies/Coronavirus
-2020-06-30 23:01:26,848 DEBUG covid19_scrapers.utils:  request successful: https://www.doh.wa.gov/Emergencies/Coronavirus
-2020-06-30 23:01:27,016 INFO covid19_scrapers.states.washington:  Processing data for 2020-06-30
-2020-06-30 23:01:27,025 DEBUG covid19_scrapers.utils:  Creating DataFrame with columns ['Race/Ethnicity', 'Confirmed Cases', 'Percent of Cases\xa0*Out of total with reported race/ethnicity', 'Percent of Total WA Population']
-2020-06-30 23:01:27,037 DEBUG covid19_scrapers.utils:  Creating DataFrame with columns ['Race/Ethnicity', 'Deaths', 'Percent of Deaths\xa0*Out of total with reported race/ethnicity', 'Percent of Total WA Population']
-2020-06-30 23:01:27,041 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Washington -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:27,042 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Colorado
-2020-06-30 23:01:27,042 INFO covid19_scrapers.scraper:  Scraping Colorado
-2020-06-30 23:01:27,044 DEBUG googleapiclient.discovery:  URL being requested: GET https://www.googleapis.com/discovery/v1/apis/drive/v3/rest?key=AIzaSyBGfsrWm4MG_CKDosYLCmz6JjeYMUOjbFU
-2020-06-30 23:01:27,538 DEBUG googleapiclient.discovery:  URL being requested: GET https://www.googleapis.com/drive/v3/files?q=mimeType%3D%22text%2Fcsv%22+and+%221bBAC7H-pdEDgPxRuU_eR36ghzc0HWNf1%22+in+parents+and+name+contains+%22covid19_case_summary%22&fields=files%28name%2CwebContentLink%29&key=AIzaSyBGfsrWm4MG_CKDosYLCmz6JjeYMUOjbFU&alt=json
-2020-06-30 23:01:28,125 INFO covid19_scrapers.states.colorado:  Processing data for 2020-06-30
-2020-06-30 23:01:28,768 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Colorado -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:28,770 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Florida
-2020-06-30 23:01:28,771 INFO covid19_scrapers.scraper:  Scraping Florida
-2020-06-30 23:01:28,771 DEBUG covid19_scrapers.states.florida:  Find daily Florida URL
-2020-06-30 23:01:28,772 DEBUG covid19_scrapers.utils:  Using local file covid19
-2020-06-30 23:01:28,772 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:28,773 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): floridadisaster.org:443
-2020-06-30 23:01:29,143 DEBUG urllib3.connectionpool:  https://floridadisaster.org:443 "GET /covid19/ HTTP/1.1" 200 15913
-2020-06-30 23:01:29,145 DEBUG covid19_scrapers.utils:  Saved download as: covid19
-2020-06-30 23:01:29,146 DEBUG covid19_scrapers.utils:  request successful: https://floridadisaster.org/covid19/
-2020-06-30 23:01:29,190 DEBUG covid19_scrapers.states.florida:  URL: is https://floridadisaster.org/globalassets/covid19/dailies/state_reports_20200630.pdf
-2020-06-30 23:01:29,190 INFO covid19_scrapers.states.florida:  Processing data for 2020-06-30
-2020-06-30 23:01:29,191 DEBUG covid19_scrapers.states.florida:  Download the daily Florida URL
-2020-06-30 23:01:29,191 DEBUG covid19_scrapers.utils:  Using local file globalassets/covid19/dailies/state_reports_20200630.pdf
-2020-06-30 23:01:29,191 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:29,192 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): floridadisaster.org:443
-2020-06-30 23:01:29,426 DEBUG urllib3.connectionpool:  https://floridadisaster.org:443 "GET /globalassets/covid19/dailies/state_reports_20200630.pdf HTTP/1.1" 200 1045216
-2020-06-30 23:01:29,902 DEBUG covid19_scrapers.utils:  Making globalassets/covid19/dailies
-2020-06-30 23:01:29,904 DEBUG covid19_scrapers.utils:  Saved download as: globalassets/covid19/dailies/state_reports_20200630.pdf
-2020-06-30 23:01:29,907 DEBUG covid19_scrapers.states.florida:  Find the table area coordinates
-2020-06-30 23:01:29,924 DEBUG covid19_scrapers.states.florida:  Parse the PDF
-2020-06-30 23:01:31,805 WARNING tabula.io:  Got stderr: Jun 30, 2020 11:01:31 PM org.apache.pdfbox.pdmodel.font.FileSystemFontProvider loadDiskCache
+2020-07-01 16:12:54,054 DEBUG covid19_scrapers.registry:  Registering scraper: Massachusetts: Massachusetts
+2020-07-01 16:12:54,055 DEBUG covid19_scrapers.registry:  Registering scraper: Washington: Washington
+2020-07-01 16:12:54,055 DEBUG covid19_scrapers.registry:  Registering scraper: Colorado: Colorado
+2020-07-01 16:12:54,055 DEBUG covid19_scrapers.registry:  Registering scraper: Florida: Florida
+2020-07-01 16:12:54,055 DEBUG covid19_scrapers.registry:  Registering scraper: Maine: Maine
+2020-07-01 16:12:54,055 DEBUG covid19_scrapers.registry:  Registering scraper: NewJersey: New Jersey
+2020-07-01 16:12:54,055 DEBUG covid19_scrapers.registry:  Registering scraper: Georgia: Georgia
+2020-07-01 16:12:54,055 DEBUG covid19_scrapers.registry:  Registering scraper: Mississippi: Mississippi
+2020-07-01 16:12:54,055 DEBUG covid19_scrapers.registry:  Registering scraper: CaliforniaLosAngeles: California - Los Angeles
+2020-07-01 16:12:54,055 DEBUG covid19_scrapers.registry:  Registering scraper: Utah: Utah
+2020-07-01 16:12:54,055 DEBUG covid19_scrapers.registry:  Registering scraper: WisconsinMilwaukee: Wisconsin -- Milwaukee
+2020-07-01 16:12:54,056 DEBUG covid19_scrapers.registry:  Registering scraper: Texas: Texas
+2020-07-01 16:12:54,056 DEBUG covid19_scrapers.registry:  Registering scraper: Missouri: Missouri
+2020-07-01 16:12:54,056 DEBUG covid19_scrapers.registry:  Registering scraper: Virginia: Virginia
+2020-07-01 16:12:54,056 DEBUG covid19_scrapers.registry:  Registering scraper: RhodeIsland: Rhode Island
+2020-07-01 16:12:54,056 DEBUG covid19_scrapers.registry:  Registering scraper: WashingtonDC: Washington, DC
+2020-07-01 16:12:54,056 DEBUG covid19_scrapers.registry:  Registering scraper: Ohio: Ohio
+2020-07-01 16:12:54,056 DEBUG covid19_scrapers.registry:  Registering scraper: Delaware: Delaware
+2020-07-01 16:12:54,056 DEBUG covid19_scrapers.registry:  Registering scraper: Alabama: Alabama
+2020-07-01 16:12:54,056 DEBUG covid19_scrapers.registry:  Registering scraper: NewMexico: New Mexico
+2020-07-01 16:12:54,057 DEBUG covid19_scrapers.registry:  Registering scraper: Vermont: Vermont
+2020-07-01 16:12:54,057 DEBUG covid19_scrapers.registry:  Registering scraper: Michigan: Michigan
+2020-07-01 16:12:54,057 DEBUG covid19_scrapers.registry:  Registering scraper: Alaska: Alaska
+2020-07-01 16:12:54,057 DEBUG covid19_scrapers.registry:  Registering scraper: California: California
+2020-07-01 16:12:54,057 DEBUG covid19_scrapers.registry:  Registering scraper: Maryland: Maryland
+2020-07-01 16:12:54,057 DEBUG covid19_scrapers.registry:  Registering scraper: CaliforniaSanDiego: California - San Diego
+2020-07-01 16:12:54,057 DEBUG covid19_scrapers.registry:  Registering scraper: Minnesota: Minnesota
+2020-07-01 16:12:54,057 DEBUG covid19_scrapers.registry:  Registering scraper: Kentucky: Kentucky
+2020-07-01 16:12:54,057 DEBUG covid19_scrapers.registry:  Registering scraper: NorthCarolina: North Carolina
+2020-07-01 16:12:54,058 DEBUG covid19_scrapers.registry:  Registering scraper: Indiana: Indiana
+2020-07-01 16:12:54,058 DEBUG covid19_scrapers.registry:  Registering scraper: TexasBexar: Texas -- Bexar County
+2020-07-01 16:12:54,058 DEBUG covid19_scrapers.registry:  Registering scraper: Montana: Montana
+2020-07-01 16:12:54,058 DEBUG covid19_scrapers.registry:  Registering scraper: Wisconsin: Wisconsin
+2020-07-01 16:12:54,058 INFO root:  Running all scrapers
+2020-07-01 16:12:54,058 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Massachusetts
+2020-07-01 16:12:54,058 INFO covid19_scrapers.scraper:  Scraping Massachusetts
+2020-07-01 16:12:54,061 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.mass.gov:443
+2020-07-01 16:12:55,592 DEBUG urllib3.connectionpool:  https://www.mass.gov:443 "GET /info-details/covid-19-response-reporting HTTP/1.1" 200 20899
+2020-07-01 16:12:55,655 DEBUG covid19_scrapers.states.massachusetts:  Fetching links from ['/doc/covid-19-raw-data-june-30-2020/download']
+2020-07-01 16:12:55,655 DEBUG covid19_scrapers.states.massachusetts:  Current COVID-19 data: https://www.mass.gov/doc/covid-19-raw-data-june-30-2020/download
+2020-07-01 16:12:55,655 DEBUG covid19_scrapers.utils:  Using local file doc/covid-19-raw-data-june-30-2020/download
+2020-07-01 16:12:55,656 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:12:55,657 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.mass.gov:443
+2020-07-01 16:12:55,964 DEBUG urllib3.connectionpool:  https://www.mass.gov:443 "GET /doc/covid-19-raw-data-june-30-2020/download HTTP/1.1" 200 127993
+2020-07-01 16:12:55,975 DEBUG covid19_scrapers.utils:  Making doc/covid-19-raw-data-june-30-2020
+2020-07-01 16:12:55,976 DEBUG covid19_scrapers.utils:  Saved download as: doc/covid-19-raw-data-june-30-2020/download
+2020-07-01 16:12:55,978 DEBUG covid19_scrapers.states.massachusetts:  Get the race/ethnicity breakdown
+2020-07-01 16:12:55,995 DEBUG covid19_scrapers.states.massachusetts:  Get date of most recent data published
+2020-07-01 16:12:55,996 DEBUG covid19_scrapers.states.massachusetts:  Extracting data for 2020-06-30 00:00:00
+2020-07-01 16:12:56,001 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Massachusetts -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:12:56,003 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Washington
+2020-07-01 16:12:56,003 INFO covid19_scrapers.scraper:  Scraping Washington
+2020-07-01 16:12:56,004 DEBUG covid19_scrapers.utils:  Using local file Emergencies/Coronavirus
+2020-07-01 16:12:56,004 DEBUG covid19_scrapers.utils:  Cache requires conditional GET, but requested method is POST; requesting url
+2020-07-01 16:12:56,005 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.doh.wa.gov:443
+2020-07-01 16:12:58,866 DEBUG urllib3.connectionpool:  https://www.doh.wa.gov:443 "POST /Emergencies/Coronavirus HTTP/1.1" 200 171843
+2020-07-01 16:12:59,209 DEBUG covid19_scrapers.utils:  Making Emergencies
+2020-07-01 16:12:59,211 DEBUG covid19_scrapers.utils:  Saved download as: Emergencies/Coronavirus
+2020-07-01 16:12:59,211 DEBUG covid19_scrapers.utils:  request successful: https://www.doh.wa.gov/Emergencies/Coronavirus
+2020-07-01 16:12:59,380 INFO covid19_scrapers.states.washington:  Processing data for 2020-06-30
+2020-07-01 16:12:59,388 DEBUG covid19_scrapers.utils:  Creating DataFrame with columns ['Race/Ethnicity', 'Confirmed Cases', 'Percent of Cases\xa0*Out of total with reported race/ethnicity', 'Percent of Total WA Population']
+2020-07-01 16:12:59,404 DEBUG covid19_scrapers.utils:  Creating DataFrame with columns ['Race/Ethnicity', 'Deaths', 'Percent of Deaths\xa0*Out of total with reported race/ethnicity', 'Percent of Total WA Population']
+2020-07-01 16:12:59,407 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Washington -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:12:59,409 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Colorado
+2020-07-01 16:12:59,409 INFO covid19_scrapers.scraper:  Scraping Colorado
+2020-07-01 16:12:59,411 DEBUG googleapiclient.discovery:  URL being requested: GET https://www.googleapis.com/discovery/v1/apis/drive/v3/rest?key=AIzaSyBGfsrWm4MG_CKDosYLCmz6JjeYMUOjbFU
+2020-07-01 16:12:59,640 DEBUG googleapiclient.discovery:  URL being requested: GET https://www.googleapis.com/drive/v3/files?q=mimeType%3D%22text%2Fcsv%22+and+%221bBAC7H-pdEDgPxRuU_eR36ghzc0HWNf1%22+in+parents+and+name+contains+%22covid19_case_summary%22&fields=files%28name%2CwebContentLink%29&key=AIzaSyBGfsrWm4MG_CKDosYLCmz6JjeYMUOjbFU&alt=json
+2020-07-01 16:13:00,208 INFO covid19_scrapers.states.colorado:  Processing data for 2020-06-30
+2020-07-01 16:13:04,063 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Colorado -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:04,065 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Florida
+2020-07-01 16:13:04,065 INFO covid19_scrapers.scraper:  Scraping Florida
+2020-07-01 16:13:04,065 DEBUG covid19_scrapers.states.florida:  Find daily Florida URL
+2020-07-01 16:13:04,066 DEBUG covid19_scrapers.utils:  Using local file covid19
+2020-07-01 16:13:04,066 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:04,067 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): floridadisaster.org:443
+2020-07-01 16:13:04,542 DEBUG urllib3.connectionpool:  https://floridadisaster.org:443 "GET /covid19/ HTTP/1.1" 200 15980
+2020-07-01 16:13:04,545 DEBUG covid19_scrapers.utils:  Saved download as: covid19
+2020-07-01 16:13:04,545 DEBUG covid19_scrapers.utils:  request successful: https://floridadisaster.org/covid19/
+2020-07-01 16:13:04,591 DEBUG covid19_scrapers.states.florida:  URL: is https://floridadisaster.org/globalassets/covid19/dailies/state_reports_20200701.pdf
+2020-07-01 16:13:04,591 INFO covid19_scrapers.states.florida:  Processing data for 2020-07-01
+2020-07-01 16:13:04,591 DEBUG covid19_scrapers.states.florida:  Download the daily Florida URL
+2020-07-01 16:13:04,591 DEBUG covid19_scrapers.utils:  Using local file globalassets/covid19/dailies/state_reports_20200701.pdf
+2020-07-01 16:13:04,592 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:04,593 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): floridadisaster.org:443
+2020-07-01 16:13:04,829 DEBUG urllib3.connectionpool:  https://floridadisaster.org:443 "GET /globalassets/covid19/dailies/state_reports_20200701.pdf HTTP/1.1" 200 1047847
+2020-07-01 16:13:05,590 DEBUG covid19_scrapers.utils:  Making globalassets/covid19/dailies
+2020-07-01 16:13:05,598 DEBUG covid19_scrapers.utils:  Saved download as: globalassets/covid19/dailies/state_reports_20200701.pdf
+2020-07-01 16:13:05,599 DEBUG covid19_scrapers.states.florida:  Find the table area coordinates
+2020-07-01 16:13:05,629 DEBUG covid19_scrapers.states.florida:  Parse the PDF
+2020-07-01 16:13:07,931 WARNING tabula.io:  Got stderr: Jul 01, 2020 4:13:07 PM org.apache.pdfbox.pdmodel.font.FileSystemFontProvider loadDiskCache
 WARNING: New fonts found, font cache will be re-built
-Jun 30, 2020 11:01:31 PM org.apache.pdfbox.pdmodel.font.FileSystemFontProvider <init>
+Jul 01, 2020 4:13:07 PM org.apache.pdfbox.pdmodel.font.FileSystemFontProvider <init>
 WARNING: Building on-disk font cache, this may take a while
-Jun 30, 2020 11:01:31 PM org.apache.pdfbox.pdmodel.font.FileSystemFontProvider <init>
+Jul 01, 2020 4:13:07 PM org.apache.pdfbox.pdmodel.font.FileSystemFontProvider <init>
 WARNING: Finished building on-disk font cache, found 22 fonts
-Jun 30, 2020 11:01:31 PM org.apache.pdfbox.pdmodel.font.PDTrueTypeFont <init>
+Jul 01, 2020 4:13:07 PM org.apache.pdfbox.pdmodel.font.PDTrueTypeFont <init>
 WARNING: Using fallback font 'LiberationSans' for 'Arial-BoldMT'
 
-2020-06-30 23:01:31,809 DEBUG covid19_scrapers.states.florida:  Set the race/ethnicity indices
-2020-06-30 23:01:31,829 DEBUG covid19_scrapers.states.florida:  Fill NAs with 1
-2020-06-30 23:01:31,849 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Florida -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:31,851 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Maine
-2020-06-30 23:01:31,851 INFO covid19_scrapers.scraper:  Scraping Maine
-2020-06-30 23:01:31,852 DEBUG covid19_scrapers.utils:  Using local file dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml
-2020-06-30 23:01:31,852 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:31,853 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.maine.gov:443
-2020-06-30 23:01:32,290 DEBUG urllib3.connectionpool:  https://www.maine.gov:443 "GET /dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml HTTP/1.1" 200 None
-2020-06-30 23:01:32,371 DEBUG covid19_scrapers.utils:  Making dhhs/mecdc/infectious-disease/epi/airborne/coronavirus
-2020-06-30 23:01:32,373 DEBUG covid19_scrapers.utils:  Saved download as: dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml
-2020-06-30 23:01:32,373 DEBUG covid19_scrapers.utils:  request successful: https://www.maine.gov/dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml
-2020-06-30 23:01:32,404 DEBUG covid19_scrapers.states.maine:  Sheets URL is https://docs.google.com/spreadsheets/d/13Rbm5zKKLTFNyLZ2Z9YYHc5v6YpO_erMz1pZwiUtfiQ/export?format=xlsx
-2020-06-30 23:01:34,120 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Maine -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:34,122 DEBUG covid19_scrapers.registry:  Skipping beta scraper: New Jersey
-2020-06-30 23:01:34,122 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Georgia
-2020-06-30 23:01:34,122 INFO covid19_scrapers.scraper:  Scraping Georgia
-2020-06-30 23:01:34,122 DEBUG covid19_scrapers.states.georgia:  Download covid data zip file
-2020-06-30 23:01:34,123 DEBUG covid19_scrapers.utils:  Using local file docs/ga_covid_data.zip
-2020-06-30 23:01:34,123 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:34,124 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): ga-covid19.ondemand.sas.com:443
-2020-06-30 23:01:34,457 DEBUG urllib3.connectionpool:  https://ga-covid19.ondemand.sas.com:443 "GET /docs/ga_covid_data.zip HTTP/1.1" 200 13742
-2020-06-30 23:01:34,458 DEBUG covid19_scrapers.utils:  Making docs
-2020-06-30 23:01:34,459 DEBUG covid19_scrapers.utils:  Saved download as: docs/ga_covid_data.zip
-2020-06-30 23:01:34,461 DEBUG covid19_scrapers.states.georgia:  Get the last update of the demographics.csv file in archive
-2020-06-30 23:01:34,462 DEBUG covid19_scrapers.states.georgia:  Load demographics CSV
-2020-06-30 23:01:34,471 DEBUG covid19_scrapers.states.georgia:  African American cases and deaths
-2020-06-30 23:01:34,472 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Georgia -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:34,474 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Mississippi
-2020-06-30 23:01:34,474 INFO covid19_scrapers.scraper:  Scraping Mississippi
-2020-06-30 23:01:34,474 DEBUG covid19_scrapers.utils:  Using local file msdhsite/_static/14,0,420.html
-2020-06-30 23:01:34,475 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:34,476 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): msdh.ms.gov:443
-2020-06-30 23:01:34,694 DEBUG urllib3.connectionpool:  https://msdh.ms.gov:443 "GET /msdhsite/_static/14,0,420.html HTTP/1.1" 200 16783
-2020-06-30 23:01:34,697 DEBUG covid19_scrapers.utils:  Making msdhsite/_static
-2020-06-30 23:01:34,698 DEBUG covid19_scrapers.utils:  Saved download as: msdhsite/_static/14,0,420.html
-2020-06-30 23:01:34,698 DEBUG covid19_scrapers.utils:  request successful: https://msdh.ms.gov/msdhsite/_static/14,0,420.html
-2020-06-30 23:01:34,759 DEBUG covid19_scrapers.utils:  Using local file ms_cases.pdf
-2020-06-30 23:01:34,760 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:34,760 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): msdh.ms.gov:443
-2020-06-30 23:01:34,979 DEBUG urllib3.connectionpool:  https://msdh.ms.gov:443 "GET /msdhsite/_static/resources/8573.pdf HTTP/1.1" 200 70034
-2020-06-30 23:01:35,022 DEBUG covid19_scrapers.utils:  Saved download as: ms_cases.pdf
-2020-06-30 23:01:35,025 DEBUG covid19_scrapers.utils:  Using local file ms_deaths.pdf
-2020-06-30 23:01:35,026 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:35,027 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): msdh.ms.gov:443
-2020-06-30 23:01:35,270 DEBUG urllib3.connectionpool:  https://msdh.ms.gov:443 "GET /msdhsite/_static/resources/8629.pdf HTTP/1.1" 200 67946
-2020-06-30 23:01:35,342 DEBUG covid19_scrapers.utils:  Saved download as: ms_deaths.pdf
-2020-06-30 23:01:35,355 INFO covid19_scrapers.states.mississippi:  Report date is 2020-06-30
-2020-06-30 23:01:38,638 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Mississippi -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:38,640 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/CaliforniaLosAngeles
-2020-06-30 23:01:38,640 INFO covid19_scrapers.scraper:  Scraping California - Los Angeles
-2020-06-30 23:01:38,641 DEBUG covid19_scrapers.utils:  Using local file media/Coronavirus/js/casecounter.js
-2020-06-30 23:01:38,641 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:38,642 DEBUG urllib3.connectionpool:  Starting new HTTP connection (1): publichealth.lacounty.gov:80
-2020-06-30 23:01:38,779 DEBUG urllib3.connectionpool:  http://publichealth.lacounty.gov:80 "GET /media/Coronavirus/js/casecounter.js HTTP/1.1" 200 264
-2020-06-30 23:01:38,782 DEBUG covid19_scrapers.utils:  Making media/Coronavirus/js
-2020-06-30 23:01:38,783 DEBUG covid19_scrapers.utils:  Saved download as: media/Coronavirus/js/casecounter.js
-2020-06-30 23:01:38,784 ERROR covid19_scrapers.scraper:  Expecting property name enclosed in double quotes: line 9 column 13 (char 313)
+2020-07-01 16:13:07,936 DEBUG covid19_scrapers.states.florida:  Set the race/ethnicity indices
+2020-07-01 16:13:07,955 DEBUG covid19_scrapers.states.florida:  Fill NAs with 1
+2020-07-01 16:13:07,980 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Florida -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:07,982 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Maine
+2020-07-01 16:13:07,982 INFO covid19_scrapers.scraper:  Scraping Maine
+2020-07-01 16:13:07,982 DEBUG covid19_scrapers.utils:  Using local file dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml
+2020-07-01 16:13:07,983 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:07,984 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.maine.gov:443
+2020-07-01 16:13:08,341 DEBUG urllib3.connectionpool:  https://www.maine.gov:443 "GET /dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml HTTP/1.1" 200 None
+2020-07-01 16:13:08,425 DEBUG covid19_scrapers.utils:  Making dhhs/mecdc/infectious-disease/epi/airborne/coronavirus
+2020-07-01 16:13:08,428 DEBUG covid19_scrapers.utils:  Saved download as: dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml
+2020-07-01 16:13:08,428 DEBUG covid19_scrapers.utils:  request successful: https://www.maine.gov/dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml
+2020-07-01 16:13:08,459 DEBUG covid19_scrapers.states.maine:  Sheets URL is https://docs.google.com/spreadsheets/d/13Rbm5zKKLTFNyLZ2Z9YYHc5v6YpO_erMz1pZwiUtfiQ/export?format=xlsx
+2020-07-01 16:13:10,268 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Maine -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:10,273 DEBUG covid19_scrapers.registry:  Skipping beta scraper: New Jersey
+2020-07-01 16:13:10,273 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Georgia
+2020-07-01 16:13:10,274 INFO covid19_scrapers.scraper:  Scraping Georgia
+2020-07-01 16:13:10,274 DEBUG covid19_scrapers.states.georgia:  Download covid data zip file
+2020-07-01 16:13:10,274 DEBUG covid19_scrapers.utils:  Using local file docs/ga_covid_data.zip
+2020-07-01 16:13:10,274 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:10,276 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): ga-covid19.ondemand.sas.com:443
+2020-07-01 16:13:10,584 DEBUG urllib3.connectionpool:  https://ga-covid19.ondemand.sas.com:443 "GET /docs/ga_covid_data.zip HTTP/1.1" 200 13742
+2020-07-01 16:13:10,585 DEBUG covid19_scrapers.utils:  Making docs
+2020-07-01 16:13:10,586 DEBUG covid19_scrapers.utils:  Saved download as: docs/ga_covid_data.zip
+2020-07-01 16:13:10,588 DEBUG covid19_scrapers.states.georgia:  Get the last update of the demographics.csv file in archive
+2020-07-01 16:13:10,589 DEBUG covid19_scrapers.states.georgia:  Load demographics CSV
+2020-07-01 16:13:10,599 DEBUG covid19_scrapers.states.georgia:  African American cases and deaths
+2020-07-01 16:13:10,600 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Georgia -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:10,602 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Mississippi
+2020-07-01 16:13:10,602 INFO covid19_scrapers.scraper:  Scraping Mississippi
+2020-07-01 16:13:10,603 DEBUG covid19_scrapers.utils:  Using local file msdhsite/_static/14,0,420.html
+2020-07-01 16:13:10,603 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:10,604 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): msdh.ms.gov:443
+2020-07-01 16:13:10,899 DEBUG urllib3.connectionpool:  https://msdh.ms.gov:443 "GET /msdhsite/_static/14,0,420.html HTTP/1.1" 200 16662
+2020-07-01 16:13:10,944 DEBUG covid19_scrapers.utils:  Making msdhsite/_static
+2020-07-01 16:13:10,945 DEBUG covid19_scrapers.utils:  Saved download as: msdhsite/_static/14,0,420.html
+2020-07-01 16:13:10,946 DEBUG covid19_scrapers.utils:  request successful: https://msdh.ms.gov/msdhsite/_static/14,0,420.html
+2020-07-01 16:13:11,009 DEBUG covid19_scrapers.utils:  Using local file ms_cases.pdf
+2020-07-01 16:13:11,009 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:11,010 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): msdh.ms.gov:443
+2020-07-01 16:13:11,247 DEBUG urllib3.connectionpool:  https://msdh.ms.gov:443 "GET /msdhsite/_static/resources/8573.pdf HTTP/1.1" 200 70055
+2020-07-01 16:13:11,259 DEBUG covid19_scrapers.utils:  Saved download as: ms_cases.pdf
+2020-07-01 16:13:11,262 DEBUG covid19_scrapers.utils:  Using local file ms_deaths.pdf
+2020-07-01 16:13:11,263 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:11,265 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): msdh.ms.gov:443
+2020-07-01 16:13:11,496 DEBUG urllib3.connectionpool:  https://msdh.ms.gov:443 "GET /msdhsite/_static/resources/8629.pdf HTTP/1.1" 200 67955
+2020-07-01 16:13:11,542 DEBUG covid19_scrapers.utils:  Saved download as: ms_deaths.pdf
+2020-07-01 16:13:11,552 INFO covid19_scrapers.states.mississippi:  Report date is 2020-07-01
+2020-07-01 16:13:14,865 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Mississippi -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:14,866 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/CaliforniaLosAngeles
+2020-07-01 16:13:14,866 INFO covid19_scrapers.scraper:  Scraping California - Los Angeles
+2020-07-01 16:13:14,867 DEBUG covid19_scrapers.utils:  Using local file media/Coronavirus/js/casecounter.js
+2020-07-01 16:13:14,867 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:14,868 DEBUG urllib3.connectionpool:  Starting new HTTP connection (1): publichealth.lacounty.gov:80
+2020-07-01 16:13:15,018 DEBUG urllib3.connectionpool:  http://publichealth.lacounty.gov:80 "GET /media/Coronavirus/js/casecounter.js HTTP/1.1" 200 264
+2020-07-01 16:13:15,022 DEBUG covid19_scrapers.utils:  Making media/Coronavirus/js
+2020-07-01 16:13:15,022 DEBUG covid19_scrapers.utils:  Saved download as: media/Coronavirus/js/casecounter.js
+2020-07-01 16:13:15,023 ERROR covid19_scrapers.scraper:  Expecting property name enclosed in double quotes: line 9 column 13 (char 313)
 Traceback (most recent call last):
   File "/COVID19_tracker_data_extraction/workflow/python/covid19_scrapers/scraper.py", line 46, in run
     rows = self._scrape(**kwargs)
@@ -166,205 +166,205 @@ Traceback (most recent call last):
   File "/usr/lib/python3.8/json/decoder.py", line 353, in raw_decode
     obj, end = self.scan_once(s, idx)
 json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 9 column 13 (char 313)
-2020-06-30 23:01:38,785 WARNING covid19_scrapers.scraper:  An error occurred. ... JSONDecodeError('Expecting property name enclosed in double quotes: line 9 column 13 (char 313)')
-2020-06-30 23:01:38,787 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/CaliforniaLosAngeles -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:38,789 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Utah
-2020-06-30 23:01:38,790 INFO covid19_scrapers.scraper:  Scraping Utah
-2020-06-30 23:01:38,790 DEBUG covid19_scrapers.utils:  Using local file index.html
-2020-06-30 23:01:38,790 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:38,791 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): coronavirus-dashboard.utah.gov:443
-2020-06-30 23:01:39,030 DEBUG urllib3.connectionpool:  https://coronavirus-dashboard.utah.gov:443 "GET /index.html HTTP/1.1" 200 11350943
-2020-06-30 23:01:39,768 DEBUG covid19_scrapers.utils:  Saved download as: index.html
-2020-06-30 23:01:39,768 DEBUG covid19_scrapers.utils:  request successful: https://coronavirus-dashboard.utah.gov/index.html
-2020-06-30 23:01:39,832 INFO covid19_scrapers.states.utah:  Processing data for 2020-06-30
-2020-06-30 23:01:39,841 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Utah -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:39,842 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/WisconsinMilwaukee
-2020-06-30 23:01:39,843 INFO covid19_scrapers.scraper:  Scraping Wisconsin -- Milwaukee
-2020-06-30 23:01:39,846 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:01:39,848 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:01:40,227 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:01:40,301 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:01:40,369 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:01:40,989 DEBUG urllib3.connectionpool:  https://services5.arcgis.com:443 "POST /8Q02ELWlq5TYUASS/arcgis/rest/services/Cases_View/FeatureServer/0/query HTTP/1.1" 200 None
-2020-06-30 23:01:40,996 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:01:40,999 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:01:41,220 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:01:41,288 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:01:41,351 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:01:41,939 DEBUG urllib3.connectionpool:  https://services5.arcgis.com:443 "POST /8Q02ELWlq5TYUASS/arcgis/rest/services/Deaths_View1/FeatureServer/0/query HTTP/1.1" 200 None
-2020-06-30 23:01:41,945 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/WisconsinMilwaukee -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:41,947 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Texas
-2020-06-30 23:01:41,947 INFO covid19_scrapers.scraper:  Scraping Texas
-2020-06-30 23:01:41,948 DEBUG covid19_scrapers.utils:  Using local file coronavirus/TexasCOVID19CaseCountData.xlsx
-2020-06-30 23:01:41,948 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:41,950 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): dshs.texas.gov:443
-2020-06-30 23:01:43,605 DEBUG urllib3.connectionpool:  https://dshs.texas.gov:443 "GET /coronavirus/TexasCOVID19CaseCountData.xlsx HTTP/1.1" 200 46717
-2020-06-30 23:01:43,683 DEBUG covid19_scrapers.utils:  Making coronavirus
-2020-06-30 23:01:43,684 DEBUG covid19_scrapers.utils:  Saved download as: coronavirus/TexasCOVID19CaseCountData.xlsx
-2020-06-30 23:01:43,791 INFO covid19_scrapers.states.texas:  Processing data for 2020-06-30
-2020-06-30 23:01:43,795 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Texas -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:43,797 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Missouri
-2020-06-30 23:01:43,797 INFO covid19_scrapers.scraper:  Scraping Missouri
-2020-06-30 23:01:43,797 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:01:43,800 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:01:44,157 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:01:44,235 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:01:44,307 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:01:46,259 DEBUG urllib3.connectionpool:  https://services6.arcgis.com:443 "POST /Bd4MACzvEukoZ9mR/arcgis/rest/services/lpha_boundry/FeatureServer/0/query HTTP/1.1" 200 None
-2020-06-30 23:01:46,263 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:01:46,267 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:01:46,460 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:01:46,521 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:01:46,582 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:01:47,247 DEBUG urllib3.connectionpool:  https://services6.arcgis.com:443 "POST /Bd4MACzvEukoZ9mR/arcgis/rest/services/COVID19_by_Race/FeatureServer/0/query HTTP/1.1" 200 319
-2020-06-30 23:01:47,253 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:01:47,256 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:01:47,493 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:01:47,552 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:01:47,619 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:01:48,325 DEBUG urllib3.connectionpool:  https://services6.arcgis.com:443 "POST /Bd4MACzvEukoZ9mR/arcgis/rest/services/COVID19_Deaths_by_Race/FeatureServer/0/query HTTP/1.1" 200 315
-2020-06-30 23:01:48,332 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Missouri -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:48,335 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Virginia
-2020-06-30 23:01:48,335 INFO covid19_scrapers.scraper:  Scraping Virginia
-2020-06-30 23:01:48,335 DEBUG covid19_scrapers.states.virginia:  Read in the file
-2020-06-30 23:01:48,598 DEBUG covid19_scrapers.states.virginia:  Get only the most recent data published
-2020-06-30 23:01:48,599 DEBUG covid19_scrapers.states.virginia:  Roll up counts to race
-2020-06-30 23:01:48,603 DEBUG covid19_scrapers.states.virginia:  Total cases
-2020-06-30 23:01:48,603 DEBUG covid19_scrapers.states.virginia:  Total deaths
-2020-06-30 23:01:48,604 DEBUG covid19_scrapers.states.virginia:  AA cases
-2020-06-30 23:01:48,604 DEBUG covid19_scrapers.states.virginia:  AA deaths
-2020-06-30 23:01:48,605 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Virginia -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:48,607 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/RhodeIsland
-2020-06-30 23:01:48,607 INFO covid19_scrapers.scraper:  Scraping Rhode Island
-2020-06-30 23:01:49,504 INFO covid19_scrapers.states.rhode_island:  Processing data for 2020-06-29
-2020-06-30 23:01:49,507 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/RhodeIsland -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:49,509 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/WashingtonDC
-2020-06-30 23:01:49,509 INFO covid19_scrapers.scraper:  Scraping Washington, DC
-2020-06-30 23:01:49,509 DEBUG covid19_scrapers.states.washington_dc:  Find links to all Washington, DC COVID data files
-2020-06-30 23:01:49,510 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): coronavirus.dc.gov:443
-2020-06-30 23:01:50,076 DEBUG urllib3.connectionpool:  https://coronavirus.dc.gov:443 "GET /page/coronavirus-data HTTP/1.1" 200 None
-2020-06-30 23:01:50,226 DEBUG covid19_scrapers.states.washington_dc:  Find date strings in data files
-2020-06-30 23:01:50,228 DEBUG covid19_scrapers.states.washington_dc:  Most recent dated link: /sites/default/files/dc/sites/coronavirus/page_content/attachments/DC-COVID-19-Data-for-June-29-2020.xlsx
-2020-06-30 23:01:50,228 DEBUG covid19_scrapers.states.washington_dc:  Download the most recent data file
-2020-06-30 23:01:50,228 DEBUG covid19_scrapers.utils:  Using local file data.xlsx
-2020-06-30 23:01:50,228 DEBUG covid19_scrapers.utils:  force_remote is set; requesting url
-2020-06-30 23:01:50,229 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): coronavirus.dc.gov:443
-2020-06-30 23:01:50,389 DEBUG urllib3.connectionpool:  https://coronavirus.dc.gov:443 "GET /sites/default/files/dc/sites/coronavirus/page_content/attachments/DC-COVID-19-Data-for-June-29-2020.xlsx HTTP/1.1" 200 107452
-2020-06-30 23:01:50,396 DEBUG covid19_scrapers.utils:  Saved download as: data.xlsx
-2020-06-30 23:01:50,398 DEBUG covid19_scrapers.states.washington_dc:  Load the race/ethnicity breakdown of cases
-2020-06-30 23:01:50,552 DEBUG covid19_scrapers.states.washington_dc:  Set column names
-2020-06-30 23:01:50,554 DEBUG covid19_scrapers.states.washington_dc:  Get date of most recent data published
-2020-06-30 23:01:50,555 DEBUG covid19_scrapers.states.washington_dc:  Max case timestamp: 2020-06-29 00:00:00
-2020-06-30 23:01:50,555 DEBUG covid19_scrapers.states.washington_dc:  Get cases associated with desired timestamp (most recent or 4/9/2020 validation date)
-2020-06-30 23:01:50,556 DEBUG covid19_scrapers.states.washington_dc:  Load the race/ethnicity breakdown of deaths
-2020-06-30 23:01:50,703 DEBUG covid19_scrapers.states.washington_dc:  Set column names
-2020-06-30 23:01:50,705 DEBUG covid19_scrapers.states.washington_dc:  Get deaths associated with desired timestamp (most recent or 4/9/2020 validation date)
-2020-06-30 23:01:50,706 INFO covid19_scrapers.states.washington_dc:  Processing report for {date}
-2020-06-30 23:01:50,707 DEBUG covid19_scrapers.states.washington_dc:  Total cases
-2020-06-30 23:01:50,708 DEBUG covid19_scrapers.states.washington_dc:  Total deaths
-2020-06-30 23:01:50,708 DEBUG covid19_scrapers.states.washington_dc:  AA cases
-2020-06-30 23:01:50,709 DEBUG covid19_scrapers.states.washington_dc:  AA deaths
-2020-06-30 23:01:50,710 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/WashingtonDC -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:01:50,711 DEBUG covid19_scrapers.registry:  Skipping beta scraper: Ohio
-2020-06-30 23:01:50,711 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Delaware
-2020-06-30 23:01:50,711 INFO covid19_scrapers.scraper:  Scraping Delaware
-2020-06-30 23:01:50,712 DEBUG covid19_scrapers.utils:  Using local file locations/state
-2020-06-30 23:01:50,712 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:01:50,712 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): myhealthycommunity.dhss.delaware.gov:443
-2020-06-30 23:02:00,366 DEBUG urllib3.connectionpool:  https://myhealthycommunity.dhss.delaware.gov:443 "GET /locations/state/ HTTP/1.1" 200 None
-2020-06-30 23:02:00,614 DEBUG covid19_scrapers.utils:  Making locations
-2020-06-30 23:02:00,615 DEBUG covid19_scrapers.utils:  Saved download as: locations/state
-2020-06-30 23:02:00,615 DEBUG covid19_scrapers.utils:  request successful: https://myhealthycommunity.dhss.delaware.gov/locations/state/
-2020-06-30 23:02:00,755 INFO covid19_scrapers.states.delaware:  Processing data for 2020-06-30
-2020-06-30 23:02:00,770 DEBUG covid19_scrapers.utils:  Creating DataFrame with columns ['Race/Ethnicity', 'State of Delaware', 'New Castle', 'Kent', 'Sussex']
-2020-06-30 23:02:00,783 DEBUG covid19_scrapers.utils:  Creating DataFrame with columns ['Race/Ethnicity', 'State of Delaware', 'New Castle', 'Kent', 'Sussex']
-2020-06-30 23:02:00,795 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Delaware -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:00,797 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Alabama
-2020-06-30 23:02:00,797 INFO covid19_scrapers.scraper:  Scraping Alabama
-2020-06-30 23:02:00,798 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:02:00,800 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:02:01,033 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:02:01,095 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:02:01,155 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:02:02,480 DEBUG urllib3.connectionpool:  https://services7.arcgis.com:443 "POST /4RQmZZ0yaZkGR1zy/arcgis/rest/services/Statewide_COVID19_CONFIRMED_DEMOG_PUBLIC/FeatureServer/3/query HTTP/1.1" 200 345
-2020-06-30 23:02:02,486 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:02:02,490 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:02:02,759 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:02:02,816 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:02:02,880 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:02:03,915 DEBUG urllib3.connectionpool:  https://services7.arcgis.com:443 "POST /4RQmZZ0yaZkGR1zy/arcgis/rest/services/DIED_FROM_COVID19_STWD_DEMO_PUBLIC/FeatureServer/1/query HTTP/1.1" 200 331
-2020-06-30 23:02:03,920 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Alabama -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:03,922 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/NewMexico
-2020-06-30 23:02:03,922 INFO covid19_scrapers.scraper:  Scraping New Mexico
-2020-06-30 23:02:03,923 DEBUG covid19_scrapers.utils:  Using local file js/utils.js
-2020-06-30 23:02:03,923 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:02:03,924 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): cvprovider.nmhealth.org:443
-2020-06-30 23:02:04,181 DEBUG urllib3.connectionpool:  https://cvprovider.nmhealth.org:443 "GET /js/utils.js HTTP/1.1" 200 None
-2020-06-30 23:02:04,183 DEBUG covid19_scrapers.utils:  Making js
-2020-06-30 23:02:04,183 DEBUG covid19_scrapers.utils:  Saved download as: js/utils.js
-2020-06-30 23:02:04,186 DEBUG covid19_scrapers.utils:  Using local file prod/GetPublicStatewideData
-2020-06-30 23:02:04,187 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:02:04,188 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): e7p503ngy5.execute-api.us-west-2.amazonaws.com:443
-2020-06-30 23:02:04,776 DEBUG urllib3.connectionpool:  https://e7p503ngy5.execute-api.us-west-2.amazonaws.com:443 "GET /prod/GetPublicStatewideData HTTP/1.1" 200 511
-2020-06-30 23:02:04,778 DEBUG covid19_scrapers.utils:  Making prod
-2020-06-30 23:02:04,778 DEBUG covid19_scrapers.utils:  Saved download as: prod/GetPublicStatewideData
-2020-06-30 23:02:04,781 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/NewMexico -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:04,785 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Vermont
-2020-06-30 23:02:04,785 INFO covid19_scrapers.scraper:  Scraping Vermont
-2020-06-30 23:02:04,785 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:02:04,789 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:02:05,033 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:02:05,100 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:02:05,160 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:02:05,944 DEBUG urllib3.connectionpool:  https://services1.arcgis.com:443 "POST /BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_DailyCount_PUBLIC/FeatureServer/0/query HTTP/1.1" 200 279
-2020-06-30 23:02:05,950 INFO covid19_scrapers.states.vermont:  Processing data for 2020-06-30
-2020-06-30 23:02:05,951 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:02:05,954 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:02:06,176 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:02:06,239 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:02:06,304 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:02:06,888 DEBUG urllib3.connectionpool:  https://services1.arcgis.com:443 "POST /BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_PositiveCases_PUBLIC/FeatureServer/0/query HTTP/1.1" 200 None
-2020-06-30 23:02:06,894 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:02:06,897 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:02:07,139 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:02:07,201 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:02:07,270 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:02:07,757 DEBUG urllib3.connectionpool:  https://services1.arcgis.com:443 "POST /BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_PositiveCases_PUBLIC/FeatureServer/0/query HTTP/1.1" 200 None
-2020-06-30 23:02:07,763 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Vermont -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:07,766 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Michigan
-2020-06-30 23:02:07,766 INFO covid19_scrapers.scraper:  Scraping Michigan
-2020-06-30 23:02:07,766 DEBUG covid19_scrapers.utils:  Using local file coronavirus/0,9753,7-406-98163_98173---,00.html
-2020-06-30 23:02:07,767 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:02:07,768 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.michigan.gov:443
-2020-06-30 23:02:08,071 DEBUG urllib3.connectionpool:  https://www.michigan.gov:443 "GET /coronavirus/0,9753,7-406-98163_98173---,00.html HTTP/1.1" 200 7655
-2020-06-30 23:02:08,073 DEBUG covid19_scrapers.utils:  Making coronavirus
-2020-06-30 23:02:08,074 DEBUG covid19_scrapers.utils:  Saved download as: coronavirus/0,9753,7-406-98163_98173---,00.html
-2020-06-30 23:02:08,074 DEBUG covid19_scrapers.utils:  request successful: https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173---,00.html
-2020-06-30 23:02:08,105 INFO covid19_scrapers.states.michigan:  Processing MI data for 2020-06-30
-2020-06-30 23:02:08,755 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Michigan -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:08,757 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Alaska
-2020-06-30 23:02:08,757 INFO covid19_scrapers.scraper:  Scraping Alaska
-2020-06-30 23:02:08,758 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:02:08,760 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:02:08,977 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:02:09,035 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:02:09,098 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:02:09,571 DEBUG urllib3.connectionpool:  https://services1.arcgis.com:443 "POST /WzFsmainVTuD5KML/arcgis/rest/services/Demographic_Distribution_of_Confirmed_Cases/FeatureServer/0/query HTTP/1.1" 200 684
-2020-06-30 23:02:09,585 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Alaska -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:09,587 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/California
-2020-06-30 23:02:09,587 INFO covid19_scrapers.scraper:  Scraping California
-2020-06-30 23:02:09,588 DEBUG covid19_scrapers.utils:  Using local file Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx
-2020-06-30 23:02:09,588 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:02:09,589 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.cdph.ca.gov:443
-2020-06-30 23:02:12,274 DEBUG urllib3.connectionpool:  https://www.cdph.ca.gov:443 "GET /Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx HTTP/1.1" 200 58525
-2020-06-30 23:02:12,460 DEBUG covid19_scrapers.utils:  Making Programs/CID/DCDC/Pages/COVID-19
-2020-06-30 23:02:12,461 DEBUG covid19_scrapers.utils:  Saved download as: Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx
-2020-06-30 23:02:12,461 DEBUG covid19_scrapers.utils:  request successful: https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx
-2020-06-30 23:02:12,561 DEBUG covid19_scrapers.states.california:  Processing data for June 29, 2020
-2020-06-30 23:02:12,568 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/California -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:12,570 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Maryland
-2020-06-30 23:02:12,570 INFO covid19_scrapers.scraper:  Scraping Maryland
-2020-06-30 23:02:12,579 ERROR covid19_scrapers.scraper:  [Errno 8] Exec format error: 'chromedriver'
+2020-07-01 16:13:15,025 WARNING covid19_scrapers.scraper:  An error occurred. ... JSONDecodeError('Expecting property name enclosed in double quotes: line 9 column 13 (char 313)')
+2020-07-01 16:13:15,027 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/CaliforniaLosAngeles -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:15,029 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Utah
+2020-07-01 16:13:15,029 INFO covid19_scrapers.scraper:  Scraping Utah
+2020-07-01 16:13:15,030 DEBUG covid19_scrapers.utils:  Using local file index.html
+2020-07-01 16:13:15,030 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:15,031 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): coronavirus-dashboard.utah.gov:443
+2020-07-01 16:13:15,306 DEBUG urllib3.connectionpool:  https://coronavirus-dashboard.utah.gov:443 "GET /index.html HTTP/1.1" 200 11350943
+2020-07-01 16:13:15,897 DEBUG covid19_scrapers.utils:  Saved download as: index.html
+2020-07-01 16:13:15,897 DEBUG covid19_scrapers.utils:  request successful: https://coronavirus-dashboard.utah.gov/index.html
+2020-07-01 16:13:15,963 INFO covid19_scrapers.states.utah:  Processing data for 2020-06-30
+2020-07-01 16:13:15,972 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Utah -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:15,974 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/WisconsinMilwaukee
+2020-07-01 16:13:15,974 INFO covid19_scrapers.scraper:  Scraping Wisconsin -- Milwaukee
+2020-07-01 16:13:15,982 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:15,984 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:16,465 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:16,528 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:16,592 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:17,220 DEBUG urllib3.connectionpool:  https://services5.arcgis.com:443 "POST /8Q02ELWlq5TYUASS/arcgis/rest/services/Cases_View/FeatureServer/0/query HTTP/1.1" 200 None
+2020-07-01 16:13:17,226 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:17,230 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:17,445 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:17,505 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:17,565 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:18,312 DEBUG urllib3.connectionpool:  https://services5.arcgis.com:443 "POST /8Q02ELWlq5TYUASS/arcgis/rest/services/Deaths_View1/FeatureServer/0/query HTTP/1.1" 200 None
+2020-07-01 16:13:18,319 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/WisconsinMilwaukee -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:18,321 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Texas
+2020-07-01 16:13:18,321 INFO covid19_scrapers.scraper:  Scraping Texas
+2020-07-01 16:13:18,322 DEBUG covid19_scrapers.utils:  Using local file coronavirus/TexasCOVID19CaseCountData.xlsx
+2020-07-01 16:13:18,323 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:18,324 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): dshs.texas.gov:443
+2020-07-01 16:13:20,687 DEBUG urllib3.connectionpool:  https://dshs.texas.gov:443 "GET /coronavirus/TexasCOVID19CaseCountData.xlsx HTTP/1.1" 200 46717
+2020-07-01 16:13:20,808 DEBUG covid19_scrapers.utils:  Making coronavirus
+2020-07-01 16:13:20,811 DEBUG covid19_scrapers.utils:  Saved download as: coronavirus/TexasCOVID19CaseCountData.xlsx
+2020-07-01 16:13:20,928 INFO covid19_scrapers.states.texas:  Processing data for 2020-06-30
+2020-07-01 16:13:20,933 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Texas -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:20,934 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Missouri
+2020-07-01 16:13:20,935 INFO covid19_scrapers.scraper:  Scraping Missouri
+2020-07-01 16:13:20,935 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:20,937 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:21,295 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:21,360 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:21,457 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:22,370 DEBUG urllib3.connectionpool:  https://services6.arcgis.com:443 "POST /Bd4MACzvEukoZ9mR/arcgis/rest/services/lpha_boundry/FeatureServer/0/query HTTP/1.1" 200 None
+2020-07-01 16:13:22,373 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:22,376 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:22,623 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:22,680 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:22,747 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:23,492 DEBUG urllib3.connectionpool:  https://services6.arcgis.com:443 "POST /Bd4MACzvEukoZ9mR/arcgis/rest/services/COVID19_by_Race/FeatureServer/0/query HTTP/1.1" 200 319
+2020-07-01 16:13:23,496 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:23,499 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:23,725 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:23,792 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:23,865 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:24,670 DEBUG urllib3.connectionpool:  https://services6.arcgis.com:443 "POST /Bd4MACzvEukoZ9mR/arcgis/rest/services/COVID19_Deaths_by_Race/FeatureServer/0/query HTTP/1.1" 200 315
+2020-07-01 16:13:24,676 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Missouri -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:24,677 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Virginia
+2020-07-01 16:13:24,678 INFO covid19_scrapers.scraper:  Scraping Virginia
+2020-07-01 16:13:24,678 DEBUG covid19_scrapers.states.virginia:  Read in the file
+2020-07-01 16:13:25,218 DEBUG covid19_scrapers.states.virginia:  Get only the most recent data published
+2020-07-01 16:13:25,219 DEBUG covid19_scrapers.states.virginia:  Roll up counts to race
+2020-07-01 16:13:25,223 DEBUG covid19_scrapers.states.virginia:  Total cases
+2020-07-01 16:13:25,223 DEBUG covid19_scrapers.states.virginia:  Total deaths
+2020-07-01 16:13:25,224 DEBUG covid19_scrapers.states.virginia:  AA cases
+2020-07-01 16:13:25,225 DEBUG covid19_scrapers.states.virginia:  AA deaths
+2020-07-01 16:13:25,227 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Virginia -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:25,229 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/RhodeIsland
+2020-07-01 16:13:25,230 INFO covid19_scrapers.scraper:  Scraping Rhode Island
+2020-07-01 16:13:26,323 INFO covid19_scrapers.states.rhode_island:  Processing data for 2020-06-29
+2020-07-01 16:13:26,327 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/RhodeIsland -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:26,328 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/WashingtonDC
+2020-07-01 16:13:26,329 INFO covid19_scrapers.scraper:  Scraping Washington, DC
+2020-07-01 16:13:26,329 DEBUG covid19_scrapers.states.washington_dc:  Find links to all Washington, DC COVID data files
+2020-07-01 16:13:26,330 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): coronavirus.dc.gov:443
+2020-07-01 16:13:26,834 DEBUG urllib3.connectionpool:  https://coronavirus.dc.gov:443 "GET /page/coronavirus-data HTTP/1.1" 200 None
+2020-07-01 16:13:26,977 DEBUG covid19_scrapers.states.washington_dc:  Find date strings in data files
+2020-07-01 16:13:26,979 DEBUG covid19_scrapers.states.washington_dc:  Most recent dated link: /sites/default/files/dc/sites/coronavirus/page_content/attachments/DC-COVID-19-Data-for-June-29-2020.xlsx
+2020-07-01 16:13:26,979 DEBUG covid19_scrapers.states.washington_dc:  Download the most recent data file
+2020-07-01 16:13:26,979 DEBUG covid19_scrapers.utils:  Using local file data.xlsx
+2020-07-01 16:13:26,979 DEBUG covid19_scrapers.utils:  force_remote is set; requesting url
+2020-07-01 16:13:26,980 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): coronavirus.dc.gov:443
+2020-07-01 16:13:27,616 DEBUG urllib3.connectionpool:  https://coronavirus.dc.gov:443 "GET /sites/default/files/dc/sites/coronavirus/page_content/attachments/DC-COVID-19-Data-for-June-29-2020.xlsx HTTP/1.1" 200 107452
+2020-07-01 16:13:27,622 DEBUG covid19_scrapers.utils:  Saved download as: data.xlsx
+2020-07-01 16:13:27,624 DEBUG covid19_scrapers.states.washington_dc:  Load the race/ethnicity breakdown of cases
+2020-07-01 16:13:27,800 DEBUG covid19_scrapers.states.washington_dc:  Set column names
+2020-07-01 16:13:27,801 DEBUG covid19_scrapers.states.washington_dc:  Get date of most recent data published
+2020-07-01 16:13:27,803 DEBUG covid19_scrapers.states.washington_dc:  Max case timestamp: 2020-06-29 00:00:00
+2020-07-01 16:13:27,803 DEBUG covid19_scrapers.states.washington_dc:  Get cases associated with desired timestamp (most recent or 4/9/2020 validation date)
+2020-07-01 16:13:27,805 DEBUG covid19_scrapers.states.washington_dc:  Load the race/ethnicity breakdown of deaths
+2020-07-01 16:13:27,987 DEBUG covid19_scrapers.states.washington_dc:  Set column names
+2020-07-01 16:13:27,991 DEBUG covid19_scrapers.states.washington_dc:  Get deaths associated with desired timestamp (most recent or 4/9/2020 validation date)
+2020-07-01 16:13:27,993 INFO covid19_scrapers.states.washington_dc:  Processing report for {date}
+2020-07-01 16:13:27,993 DEBUG covid19_scrapers.states.washington_dc:  Total cases
+2020-07-01 16:13:27,995 DEBUG covid19_scrapers.states.washington_dc:  Total deaths
+2020-07-01 16:13:27,996 DEBUG covid19_scrapers.states.washington_dc:  AA cases
+2020-07-01 16:13:27,997 DEBUG covid19_scrapers.states.washington_dc:  AA deaths
+2020-07-01 16:13:27,999 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/WashingtonDC -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:28,002 DEBUG covid19_scrapers.registry:  Skipping beta scraper: Ohio
+2020-07-01 16:13:28,002 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Delaware
+2020-07-01 16:13:28,002 INFO covid19_scrapers.scraper:  Scraping Delaware
+2020-07-01 16:13:28,003 DEBUG covid19_scrapers.utils:  Using local file locations/state
+2020-07-01 16:13:28,003 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:28,004 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): myhealthycommunity.dhss.delaware.gov:443
+2020-07-01 16:13:38,669 DEBUG urllib3.connectionpool:  https://myhealthycommunity.dhss.delaware.gov:443 "GET /locations/state/ HTTP/1.1" 200 None
+2020-07-01 16:13:38,858 DEBUG covid19_scrapers.utils:  Making locations
+2020-07-01 16:13:38,860 DEBUG covid19_scrapers.utils:  Saved download as: locations/state
+2020-07-01 16:13:38,861 DEBUG covid19_scrapers.utils:  request successful: https://myhealthycommunity.dhss.delaware.gov/locations/state/
+2020-07-01 16:13:39,003 INFO covid19_scrapers.states.delaware:  Processing data for 2020-07-01
+2020-07-01 16:13:39,018 DEBUG covid19_scrapers.utils:  Creating DataFrame with columns ['Race/Ethnicity', 'State of Delaware', 'New Castle', 'Kent', 'Sussex']
+2020-07-01 16:13:39,036 DEBUG covid19_scrapers.utils:  Creating DataFrame with columns ['Race/Ethnicity', 'State of Delaware', 'New Castle', 'Kent', 'Sussex']
+2020-07-01 16:13:39,051 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Delaware -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:39,053 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Alabama
+2020-07-01 16:13:39,053 INFO covid19_scrapers.scraper:  Scraping Alabama
+2020-07-01 16:13:39,054 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:39,056 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:39,279 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:39,342 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:39,405 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:40,829 DEBUG urllib3.connectionpool:  https://services7.arcgis.com:443 "POST /4RQmZZ0yaZkGR1zy/arcgis/rest/services/Statewide_COVID19_CONFIRMED_DEMOG_PUBLIC/FeatureServer/3/query HTTP/1.1" 200 345
+2020-07-01 16:13:40,836 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:40,839 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:41,054 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:41,110 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:41,167 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:42,145 DEBUG urllib3.connectionpool:  https://services7.arcgis.com:443 "POST /4RQmZZ0yaZkGR1zy/arcgis/rest/services/DIED_FROM_COVID19_STWD_DEMO_PUBLIC/FeatureServer/1/query HTTP/1.1" 200 332
+2020-07-01 16:13:42,153 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Alabama -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:42,155 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/NewMexico
+2020-07-01 16:13:42,155 INFO covid19_scrapers.scraper:  Scraping New Mexico
+2020-07-01 16:13:42,156 DEBUG covid19_scrapers.utils:  Using local file js/utils.js
+2020-07-01 16:13:42,156 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:42,157 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): cvprovider.nmhealth.org:443
+2020-07-01 16:13:42,620 DEBUG urllib3.connectionpool:  https://cvprovider.nmhealth.org:443 "GET /js/utils.js HTTP/1.1" 200 None
+2020-07-01 16:13:42,622 DEBUG covid19_scrapers.utils:  Making js
+2020-07-01 16:13:42,622 DEBUG covid19_scrapers.utils:  Saved download as: js/utils.js
+2020-07-01 16:13:42,625 DEBUG covid19_scrapers.utils:  Using local file prod/GetPublicStatewideData
+2020-07-01 16:13:42,625 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:42,627 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): e7p503ngy5.execute-api.us-west-2.amazonaws.com:443
+2020-07-01 16:13:42,863 DEBUG urllib3.connectionpool:  https://e7p503ngy5.execute-api.us-west-2.amazonaws.com:443 "GET /prod/GetPublicStatewideData HTTP/1.1" 200 511
+2020-07-01 16:13:42,864 DEBUG covid19_scrapers.utils:  Making prod
+2020-07-01 16:13:42,865 DEBUG covid19_scrapers.utils:  Saved download as: prod/GetPublicStatewideData
+2020-07-01 16:13:42,870 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/NewMexico -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:42,873 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Vermont
+2020-07-01 16:13:42,873 INFO covid19_scrapers.scraper:  Scraping Vermont
+2020-07-01 16:13:42,874 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:42,878 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:43,093 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:43,156 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:43,217 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:44,223 DEBUG urllib3.connectionpool:  https://services1.arcgis.com:443 "POST /BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_DailyCount_PUBLIC/FeatureServer/0/query HTTP/1.1" 200 279
+2020-07-01 16:13:44,229 INFO covid19_scrapers.states.vermont:  Processing data for 2020-07-01
+2020-07-01 16:13:44,230 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:44,234 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:44,730 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:44,798 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:44,863 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:45,590 DEBUG urllib3.connectionpool:  https://services1.arcgis.com:443 "POST /BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_PositiveCases_PUBLIC/FeatureServer/0/query HTTP/1.1" 200 331
+2020-07-01 16:13:45,596 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:45,600 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:45,834 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:45,892 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:45,958 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:46,472 DEBUG urllib3.connectionpool:  https://services1.arcgis.com:443 "POST /BkFxaEFNwHqX3tAw/arcgis/rest/services/V_EPI_PositiveCases_PUBLIC/FeatureServer/0/query HTTP/1.1" 200 275
+2020-07-01 16:13:46,476 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Vermont -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:46,478 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Michigan
+2020-07-01 16:13:46,478 INFO covid19_scrapers.scraper:  Scraping Michigan
+2020-07-01 16:13:46,478 DEBUG covid19_scrapers.utils:  Using local file coronavirus/0,9753,7-406-98163_98173---,00.html
+2020-07-01 16:13:46,478 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:46,480 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.michigan.gov:443
+2020-07-01 16:13:46,714 DEBUG urllib3.connectionpool:  https://www.michigan.gov:443 "GET /coronavirus/0,9753,7-406-98163_98173---,00.html HTTP/1.1" 200 7664
+2020-07-01 16:13:46,716 DEBUG covid19_scrapers.utils:  Making coronavirus
+2020-07-01 16:13:46,716 DEBUG covid19_scrapers.utils:  Saved download as: coronavirus/0,9753,7-406-98163_98173---,00.html
+2020-07-01 16:13:46,716 DEBUG covid19_scrapers.utils:  request successful: https://www.michigan.gov/coronavirus/0,9753,7-406-98163_98173---,00.html
+2020-07-01 16:13:46,745 INFO covid19_scrapers.states.michigan:  Processing MI data for 2020-06-30
+2020-07-01 16:13:47,131 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Michigan -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:47,132 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Alaska
+2020-07-01 16:13:47,132 INFO covid19_scrapers.scraper:  Scraping Alaska
+2020-07-01 16:13:47,133 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:13:47,135 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:13:47,382 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:13:47,443 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:13:47,508 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:13:48,231 DEBUG urllib3.connectionpool:  https://services1.arcgis.com:443 "POST /WzFsmainVTuD5KML/arcgis/rest/services/Demographic_Distribution_of_Confirmed_Cases/FeatureServer/0/query HTTP/1.1" 200 684
+2020-07-01 16:13:48,246 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Alaska -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:48,248 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/California
+2020-07-01 16:13:48,248 INFO covid19_scrapers.scraper:  Scraping California
+2020-07-01 16:13:48,249 DEBUG covid19_scrapers.utils:  Using local file Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx
+2020-07-01 16:13:48,249 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:48,250 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.cdph.ca.gov:443
+2020-07-01 16:13:51,148 DEBUG urllib3.connectionpool:  https://www.cdph.ca.gov:443 "GET /Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx HTTP/1.1" 200 58417
+2020-07-01 16:13:51,387 DEBUG covid19_scrapers.utils:  Making Programs/CID/DCDC/Pages/COVID-19
+2020-07-01 16:13:51,392 DEBUG covid19_scrapers.utils:  Saved download as: Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx
+2020-07-01 16:13:51,392 DEBUG covid19_scrapers.utils:  request successful: https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx
+2020-07-01 16:13:51,491 DEBUG covid19_scrapers.states.california:  Processing data for June 30, 2020
+2020-07-01 16:13:51,498 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/California -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:51,499 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Maryland
+2020-07-01 16:13:51,499 INFO covid19_scrapers.scraper:  Scraping Maryland
+2020-07-01 16:13:51,511 ERROR covid19_scrapers.scraper:  [Errno 8] Exec format error: 'chromedriver'
 Traceback (most recent call last):
   File "/COVID19_tracker_data_extraction/workflow/python/covid19_scrapers/scraper.py", line 46, in run
     rows = self._scrape(**kwargs)
@@ -381,90 +381,90 @@ Traceback (most recent call last):
   File "/usr/lib/python3.8/subprocess.py", line 1702, in _execute_child
     raise child_exception_type(errno_num, err_msg, err_filename)
 OSError: [Errno 8] Exec format error: 'chromedriver'
-2020-06-30 23:02:12,581 WARNING covid19_scrapers.scraper:  An error occurred. ... OSError(8, 'Exec format error')
-2020-06-30 23:02:12,582 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Maryland -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:12,584 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/CaliforniaSanDiego
-2020-06-30 23:02:12,584 INFO covid19_scrapers.scraper:  Scraping California - San Diego
-2020-06-30 23:02:12,585 DEBUG covid19_scrapers.utils:  Using local file cases.pdf
-2020-06-30 23:02:12,585 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:02:12,587 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.sandiegocounty.gov:443
-2020-06-30 23:02:13,219 DEBUG urllib3.connectionpool:  https://www.sandiegocounty.gov:443 "GET /content/dam/sdc/hhsa/programs/phs/Epidemiology/COVID-19%20Race%20and%20Ethnicity%20Summary.pdf HTTP/1.1" 200 158087
-2020-06-30 23:02:13,273 DEBUG covid19_scrapers.utils:  Saved download as: cases.pdf
-2020-06-30 23:02:13,275 DEBUG covid19_scrapers.utils:  Using local file deaths.pdf
-2020-06-30 23:02:13,275 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:02:13,276 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.sandiegocounty.gov:443
-2020-06-30 23:02:13,455 DEBUG urllib3.connectionpool:  https://www.sandiegocounty.gov:443 "GET /content/dam/sdc/hhsa/programs/phs/Epidemiology/COVID-19%20Deaths%20by%20Demographics.pdf HTTP/1.1" 200 168057
-2020-06-30 23:02:13,514 DEBUG covid19_scrapers.utils:  Saved download as: deaths.pdf
-2020-06-30 23:02:13,525 INFO covid19_scrapers.states.california_san_diego:  Processing data for 2020-06-29
-2020-06-30 23:02:13,525 DEBUG covid19_scrapers.states.california_san_diego:  Loading cases
-2020-06-30 23:02:13,525 WARNING tabula.io:  'pages' argument isn't specified.Will extract only from page 1 by default.
-2020-06-30 23:02:15,833 DEBUG covid19_scrapers.states.california_san_diego:  Total cases: 13832
-2020-06-30 23:02:15,833 DEBUG covid19_scrapers.states.california_san_diego:  Total cases with known race: 11063
-2020-06-30 23:02:15,833 DEBUG covid19_scrapers.states.california_san_diego:  Total AA cases: 478
-2020-06-30 23:02:15,833 DEBUG covid19_scrapers.states.california_san_diego:  Pct AA cases: 4.32
-2020-06-30 23:02:15,833 DEBUG covid19_scrapers.states.california_san_diego:  Loading deaths
-2020-06-30 23:02:15,833 WARNING tabula.io:  'pages' argument isn't specified.Will extract only from page 1 by default.
-2020-06-30 23:02:18,130 DEBUG covid19_scrapers.states.california_san_diego:  Total deaths: 361
-2020-06-30 23:02:18,131 DEBUG covid19_scrapers.states.california_san_diego:  Total deaths with known race: 358
-2020-06-30 23:02:18,131 DEBUG covid19_scrapers.states.california_san_diego:  Total AA deaths: 11
-2020-06-30 23:02:18,131 DEBUG covid19_scrapers.states.california_san_diego:  Pct AA deaths: 3.07
-2020-06-30 23:02:18,132 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/CaliforniaSanDiego -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:18,133 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Minnesota
-2020-06-30 23:02:18,134 INFO covid19_scrapers.scraper:  Scraping Minnesota
-2020-06-30 23:02:18,134 DEBUG covid19_scrapers.utils:  Using local file diseases/coronavirus/situation.html
-2020-06-30 23:02:18,135 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:02:18,136 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.health.state.mn.us:443
-2020-06-30 23:02:18,340 DEBUG urllib3.connectionpool:  https://www.health.state.mn.us:443 "GET /diseases/coronavirus/situation.html HTTP/1.1" 200 24156
-2020-06-30 23:02:18,343 DEBUG covid19_scrapers.utils:  Making diseases/coronavirus
-2020-06-30 23:02:18,344 DEBUG covid19_scrapers.utils:  Saved download as: diseases/coronavirus/situation.html
-2020-06-30 23:02:18,344 DEBUG covid19_scrapers.utils:  request successful: https://www.health.state.mn.us/diseases/coronavirus/situation.html#raceeth1
-2020-06-30 23:02:18,588 DEBUG covid19_scrapers.states.minnesota:  Date: 2020-06-30
-2020-06-30 23:02:18,589 DEBUG covid19_scrapers.states.minnesota:  Number Cases: 36303
-2020-06-30 23:02:18,589 DEBUG covid19_scrapers.states.minnesota:  Number Deaths: 1441
-2020-06-30 23:02:18,604 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Minnesota -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:18,606 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Kentucky
-2020-06-30 23:02:18,606 INFO covid19_scrapers.scraper:  Scraping Kentucky
-2020-06-30 23:02:18,606 DEBUG covid19_scrapers.utils:  Using local file report.pdf
-2020-06-30 23:02:18,606 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:02:18,608 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): chfs.ky.gov:443
-2020-06-30 23:02:20,015 DEBUG urllib3.connectionpool:  https://chfs.ky.gov:443 "GET /agencies/dph/covid19/COVID19DailyReport.pdf HTTP/1.1" 200 553193
-2020-06-30 23:02:21,350 DEBUG covid19_scrapers.utils:  Saved download as: report.pdf
-2020-06-30 23:02:21,364 INFO covid19_scrapers.states.kentucky:  Report date is 2020-06-30
-2020-06-30 23:02:22,843 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Kentucky -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:22,845 DEBUG covid19_scrapers.registry:  Skipping beta scraper: North Carolina
-2020-06-30 23:02:22,846 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Indiana
-2020-06-30 23:02:22,846 INFO covid19_scrapers.scraper:  Scraping Indiana
-2020-06-30 23:02:22,846 DEBUG covid19_scrapers.states.indiana:  Find the update date
-2020-06-30 23:02:22,846 DEBUG covid19_scrapers.utils:  Using local file api/3/action/resource_show_35ee4c2189eacf2cdc2ae0014de642bc
-2020-06-30 23:02:22,846 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:02:22,847 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): hub.mph.in.gov:443
-2020-06-30 23:02:23,020 DEBUG urllib3.connectionpool:  https://hub.mph.in.gov:443 "GET /api/3/action/resource_show?id=2538d7f1-391b-4733-90b3-9e95cd5f3ea6 HTTP/1.1" 200 909
-2020-06-30 23:02:23,021 DEBUG covid19_scrapers.utils:  Making api/3/action
-2020-06-30 23:02:23,022 DEBUG covid19_scrapers.utils:  Saved download as: api/3/action/resource_show_35ee4c2189eacf2cdc2ae0014de642bc
-2020-06-30 23:02:23,023 DEBUG covid19_scrapers.states.indiana:  Read in the file
-2020-06-30 23:02:23,139 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Indiana -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:23,143 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/TexasBexar
-2020-06-30 23:02:23,143 INFO covid19_scrapers.scraper:  Scraping Texas -- Bexar County
-2020-06-30 23:02:23,143 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:02:23,146 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:02:23,393 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:02:23,455 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:02:23,515 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:02:24,017 DEBUG urllib3.connectionpool:  https://services.arcgis.com:443 "POST /g1fRTDLeMgspWrYp/arcgis/rest/services/vDateCOVID19_Tracker_Public/FeatureServer/0/query HTTP/1.1" 200 345
-2020-06-30 23:02:24,021 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:02:24,023 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:02:24,242 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:02:24,300 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:02:24,375 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:02:24,764 DEBUG urllib3.connectionpool:  https://services.arcgis.com:443 "POST /g1fRTDLeMgspWrYp/arcgis/rest/services/vRaceEthnicity/FeatureServer/0/query HTTP/1.1" 200 355
-2020-06-30 23:02:24,768 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/TexasBexar -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:24,770 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Montana
-2020-06-30 23:02:24,770 INFO covid19_scrapers.scraper:  Scraping Montana
-2020-06-30 23:02:24,771 DEBUG covid19_scrapers.utils:  Using local file publichealth/cdepi/diseases/coronavirusmt/demographics
-2020-06-30 23:02:24,771 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
-2020-06-30 23:02:24,772 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): dphhs.mt.gov:443
-2020-06-30 23:02:25,025 WARNING covid19_scrapers.utils:  request failed: https://dphhs.mt.gov/publichealth/cdepi/diseases/coronavirusmt/demographics
-2020-06-30 23:02:25,025 ERROR covid19_scrapers.scraper:  HTTPSConnectionPool(host='dphhs.mt.gov', port=443): Max retries exceeded with url: /publichealth/cdepi/diseases/coronavirusmt/demographics (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1108)')))
+2020-07-01 16:13:51,513 WARNING covid19_scrapers.scraper:  An error occurred. ... OSError(8, 'Exec format error')
+2020-07-01 16:13:51,515 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Maryland -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:51,517 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/CaliforniaSanDiego
+2020-07-01 16:13:51,517 INFO covid19_scrapers.scraper:  Scraping California - San Diego
+2020-07-01 16:13:51,518 DEBUG covid19_scrapers.utils:  Using local file cases.pdf
+2020-07-01 16:13:51,518 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:51,519 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.sandiegocounty.gov:443
+2020-07-01 16:13:51,825 DEBUG urllib3.connectionpool:  https://www.sandiegocounty.gov:443 "GET /content/dam/sdc/hhsa/programs/phs/Epidemiology/COVID-19%20Race%20and%20Ethnicity%20Summary.pdf HTTP/1.1" 200 197923
+2020-07-01 16:13:51,881 DEBUG covid19_scrapers.utils:  Saved download as: cases.pdf
+2020-07-01 16:13:51,884 DEBUG covid19_scrapers.utils:  Using local file deaths.pdf
+2020-07-01 16:13:51,884 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:51,886 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.sandiegocounty.gov:443
+2020-07-01 16:13:52,044 DEBUG urllib3.connectionpool:  https://www.sandiegocounty.gov:443 "GET /content/dam/sdc/hhsa/programs/phs/Epidemiology/COVID-19%20Deaths%20by%20Demographics.pdf HTTP/1.1" 200 212141
+2020-07-01 16:13:52,104 DEBUG covid19_scrapers.utils:  Saved download as: deaths.pdf
+2020-07-01 16:13:52,115 INFO covid19_scrapers.states.california_san_diego:  Processing data for 2020-06-30
+2020-07-01 16:13:52,115 DEBUG covid19_scrapers.states.california_san_diego:  Loading cases
+2020-07-01 16:13:52,116 WARNING tabula.io:  'pages' argument isn't specified.Will extract only from page 1 by default.
+2020-07-01 16:13:54,307 DEBUG covid19_scrapers.states.california_san_diego:  Total cases: 14149
+2020-07-01 16:13:54,307 DEBUG covid19_scrapers.states.california_san_diego:  Total cases with known race: 11294
+2020-07-01 16:13:54,307 DEBUG covid19_scrapers.states.california_san_diego:  Total AA cases: 486
+2020-07-01 16:13:54,307 DEBUG covid19_scrapers.states.california_san_diego:  Pct AA cases: 4.3
+2020-07-01 16:13:54,308 DEBUG covid19_scrapers.states.california_san_diego:  Loading deaths
+2020-07-01 16:13:54,308 WARNING tabula.io:  'pages' argument isn't specified.Will extract only from page 1 by default.
+2020-07-01 16:13:56,668 DEBUG covid19_scrapers.states.california_san_diego:  Total deaths: 365
+2020-07-01 16:13:56,668 DEBUG covid19_scrapers.states.california_san_diego:  Total deaths with known race: 362
+2020-07-01 16:13:56,669 DEBUG covid19_scrapers.states.california_san_diego:  Total AA deaths: 11
+2020-07-01 16:13:56,669 DEBUG covid19_scrapers.states.california_san_diego:  Pct AA deaths: 3.04
+2020-07-01 16:13:56,670 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/CaliforniaSanDiego -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:56,671 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Minnesota
+2020-07-01 16:13:56,671 INFO covid19_scrapers.scraper:  Scraping Minnesota
+2020-07-01 16:13:56,672 DEBUG covid19_scrapers.utils:  Using local file diseases/coronavirus/situation.html
+2020-07-01 16:13:56,672 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:56,674 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.health.state.mn.us:443
+2020-07-01 16:13:56,950 DEBUG urllib3.connectionpool:  https://www.health.state.mn.us:443 "GET /diseases/coronavirus/situation.html HTTP/1.1" 200 24340
+2020-07-01 16:13:56,953 DEBUG covid19_scrapers.utils:  Making diseases/coronavirus
+2020-07-01 16:13:56,955 DEBUG covid19_scrapers.utils:  Saved download as: diseases/coronavirus/situation.html
+2020-07-01 16:13:56,955 DEBUG covid19_scrapers.utils:  request successful: https://www.health.state.mn.us/diseases/coronavirus/situation.html#raceeth1
+2020-07-01 16:13:57,177 DEBUG covid19_scrapers.states.minnesota:  Date: 2020-07-01
+2020-07-01 16:13:57,177 DEBUG covid19_scrapers.states.minnesota:  Number Cases: 36716
+2020-07-01 16:13:57,177 DEBUG covid19_scrapers.states.minnesota:  Number Deaths: 1445
+2020-07-01 16:13:57,192 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Minnesota -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:13:57,193 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Kentucky
+2020-07-01 16:13:57,193 INFO covid19_scrapers.scraper:  Scraping Kentucky
+2020-07-01 16:13:57,194 DEBUG covid19_scrapers.utils:  Using local file report.pdf
+2020-07-01 16:13:57,194 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:13:57,195 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): chfs.ky.gov:443
+2020-07-01 16:13:57,792 DEBUG urllib3.connectionpool:  https://chfs.ky.gov:443 "GET /agencies/dph/covid19/COVID19DailyReport.pdf HTTP/1.1" 200 553193
+2020-07-01 16:13:58,929 DEBUG covid19_scrapers.utils:  Saved download as: report.pdf
+2020-07-01 16:13:58,945 INFO covid19_scrapers.states.kentucky:  Report date is 2020-06-30
+2020-07-01 16:14:00,352 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Kentucky -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:14:00,354 DEBUG covid19_scrapers.registry:  Skipping beta scraper: North Carolina
+2020-07-01 16:14:00,354 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Indiana
+2020-07-01 16:14:00,354 INFO covid19_scrapers.scraper:  Scraping Indiana
+2020-07-01 16:14:00,354 DEBUG covid19_scrapers.states.indiana:  Find the update date
+2020-07-01 16:14:00,355 DEBUG covid19_scrapers.utils:  Using local file api/3/action/resource_show_35ee4c2189eacf2cdc2ae0014de642bc
+2020-07-01 16:14:00,355 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:14:00,356 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): hub.mph.in.gov:443
+2020-07-01 16:14:00,637 DEBUG urllib3.connectionpool:  https://hub.mph.in.gov:443 "GET /api/3/action/resource_show?id=2538d7f1-391b-4733-90b3-9e95cd5f3ea6 HTTP/1.1" 200 909
+2020-07-01 16:14:00,639 DEBUG covid19_scrapers.utils:  Making api/3/action
+2020-07-01 16:14:00,642 DEBUG covid19_scrapers.utils:  Saved download as: api/3/action/resource_show_35ee4c2189eacf2cdc2ae0014de642bc
+2020-07-01 16:14:00,644 DEBUG covid19_scrapers.states.indiana:  Read in the file
+2020-07-01 16:14:00,944 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Indiana -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:14:00,945 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/TexasBexar
+2020-07-01 16:14:00,945 INFO covid19_scrapers.scraper:  Scraping Texas -- Bexar County
+2020-07-01 16:14:00,946 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:14:00,949 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:14:01,369 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:14:01,433 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:14:01,496 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:14:02,318 DEBUG urllib3.connectionpool:  https://services.arcgis.com:443 "POST /g1fRTDLeMgspWrYp/arcgis/rest/services/vDateCOVID19_Tracker_Public/FeatureServer/0/query HTTP/1.1" 200 345
+2020-07-01 16:14:02,326 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:14:02,329 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:14:02,593 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:14:02,655 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:14:02,718 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:14:03,606 DEBUG urllib3.connectionpool:  https://services.arcgis.com:443 "POST /g1fRTDLeMgspWrYp/arcgis/rest/services/vRaceEthnicity/FeatureServer/0/query HTTP/1.1" 200 354
+2020-07-01 16:14:03,614 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/TexasBexar -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:14:03,616 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Montana
+2020-07-01 16:14:03,616 INFO covid19_scrapers.scraper:  Scraping Montana
+2020-07-01 16:14:03,616 DEBUG covid19_scrapers.utils:  Using local file publichealth/cdepi/diseases/coronavirusmt/demographics
+2020-07-01 16:14:03,617 DEBUG covid19_scrapers.utils:  cache file does not exist; requesting url
+2020-07-01 16:14:03,618 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): dphhs.mt.gov:443
+2020-07-01 16:14:03,955 WARNING covid19_scrapers.utils:  request failed: https://dphhs.mt.gov/publichealth/cdepi/diseases/coronavirusmt/demographics
+2020-07-01 16:14:03,956 ERROR covid19_scrapers.scraper:  HTTPSConnectionPool(host='dphhs.mt.gov', port=443): Max retries exceeded with url: /publichealth/cdepi/diseases/coronavirusmt/demographics (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1108)')))
 Traceback (most recent call last):
   File "/usr/local/lib/python3.8/dist-packages/urllib3/connectionpool.py", line 670, in urlopen
     httplib_response = self._make_request(
@@ -513,16 +513,16 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.8/dist-packages/requests/adapters.py", line 514, in send
     raise SSLError(e, request=request)
 requests.exceptions.SSLError: HTTPSConnectionPool(host='dphhs.mt.gov', port=443): Max retries exceeded with url: /publichealth/cdepi/diseases/coronavirusmt/demographics (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1108)')))
-2020-06-30 23:02:25,028 WARNING covid19_scrapers.scraper:  An error occurred. ... SSLError(MaxRetryError("HTTPSConnectionPool(host='dphhs.mt.gov', port=443): Max retries exceeded with url: /publichealth/cdepi/diseases/coronavirusmt/demographics (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1108)')))"))
-2020-06-30 23:02:25,030 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Montana -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:25,032 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Wisconsin
-2020-06-30 23:02:25,032 INFO covid19_scrapers.scraper:  Scraping Wisconsin
-2020-06-30 23:02:25,032 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
-2020-06-30 23:02:25,035 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
-2020-06-30 23:02:25,253 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
-2020-06-30 23:02:25,314 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
-2020-06-30 23:02:25,375 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
-2020-06-30 23:02:33,214 DEBUG urllib3.connectionpool:  https://services1.arcgis.com:443 "POST /ISZ89Z51ft1G16OK/arcgis/rest/services/COVID19_WI/FeatureServer/10/query HTTP/1.1" 200 377
-2020-06-30 23:02:33,222 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Wisconsin -> /COVID19_tracker_data_extraction/workflow/python
-2020-06-30 23:02:33,282 INFO root:  Writing output/xlsx/covid_disparities_output_2020-06-30.xlsx
-2020-06-30 23:02:33,440 INFO root:  Writing output/csv/covid_disparities_output_2020-06-30.csv
+2020-07-01 16:14:03,961 WARNING covid19_scrapers.scraper:  An error occurred. ... SSLError(MaxRetryError("HTTPSConnectionPool(host='dphhs.mt.gov', port=443): Max retries exceeded with url: /publichealth/cdepi/diseases/coronavirusmt/demographics (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1108)')))"))
+2020-07-01 16:14:03,964 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Montana -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:14:03,966 DEBUG covid19_scrapers.dir_context:  Entering: /COVID19_tracker_data_extraction/workflow/python -> work/Wisconsin
+2020-07-01 16:14:03,966 INFO covid19_scrapers.scraper:  Scraping Wisconsin
+2020-07-01 16:14:03,967 DEBUG arcgis.gis._impl._portalpy:  Connecting to portal: www.arcgis.com
+2020-07-01 16:14:03,970 DEBUG urllib3.connectionpool:  Starting new HTTPS connection (1): www.arcgis.com:443
+2020-07-01 16:14:04,180 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/portals/self HTTP/1.1" 200 None
+2020-07-01 16:14:04,246 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/ HTTP/1.1" 200 None
+2020-07-01 16:14:04,303 DEBUG urllib3.connectionpool:  https://www.arcgis.com:443 "POST /sharing/rest/search HTTP/1.1" 200 None
+2020-07-01 16:14:07,818 DEBUG urllib3.connectionpool:  https://services1.arcgis.com:443 "POST /ISZ89Z51ft1G16OK/arcgis/rest/services/COVID19_WI/FeatureServer/10/query HTTP/1.1" 200 377
+2020-07-01 16:14:07,826 DEBUG covid19_scrapers.dir_context:  Exiting: /COVID19_tracker_data_extraction/workflow/python/work/Wisconsin -> /COVID19_tracker_data_extraction/workflow/python
+2020-07-01 16:14:07,877 INFO root:  Writing output/xlsx/covid_disparities_output_2020-07-01.xlsx
+2020-07-01 16:14:08,061 INFO root:  Writing output/csv/covid_disparities_output_2020-07-01.csv
