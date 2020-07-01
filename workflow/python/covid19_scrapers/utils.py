@@ -1,4 +1,5 @@
 # Misc utilities
+from arcgis.features import FeatureLayerCollection
 from arcgis.gis import GIS
 import datetime
 import hashlib
@@ -27,6 +28,8 @@ import email.utils as eut
 from io import BytesIO
 import zipfile
 import ssl
+
+
 
 
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -172,18 +175,45 @@ def make_geoservice_stat(agg, in_field, out_name):
         'outStatisticFieldName': out_name,
     }
 
+def _get_layer(fld_id, flc_url, layer_name):
+    if fld_id:
+        gis = GIS()
+        flc = gis.content.get(flc_id)
+        loc = f'content ID {flc_id}'
+        assert flc is not None, f'Unable to find ArcGIS ID {flc_id}'
+    elif flc_url:
+        loc = f'flc URL {flc_url}'
+        flc = FeatureLayerCollection(flc_url)
+    else:
+        raise ValueError('Either fld_id or url must be provided')
+    layers = [layer
+              for layer in flc.layers
+              if layer.properties.name == layer_name]
+    if layers:
+        return layers[0]
+    tables = [table
+              for table in flc.tables
+              if table.properties.name == layer_name]
+    if tables:
+        return tables[0]
+    raise ValueError(f'Unable to find layer {layer_name} in {loc}')
 
-def query_geoservice(flc_id, layer_name, *,
-                     where='1=1', out_fields=['*'],
-                     group_by=None, stats=None,
-                     order_by=None, limit=None):
+
+def query_geoservice(*, flc_id=None, flc_url=None, layer_name=None,
+                     where='1=1', out_fields=['*'], group_by=None,
+                     stats=None, order_by=None, limit=None):
     """Queries the specified ESRI GeoService.
 
-    Positional arguments (mandatory):
-      flc_id: FeatureLayerCollection ID to search for.
-      layer_name: the name of the desired layer in the FeatureLayerCollection.
+    Mandatory arguments:
+      Either of
+        flc_id: FeatureLayerCollection ID to search for.
+      or
+        flc_url: URL for a FeatureServer or MapServer REST endpoint.
+      and
+        layer_name: the name of the desired layer or table.
+      must be provided.
 
-    Keyword arguments (all optional):
+    Optional arguments:
       where: the feature filtering query.
       out_fields: the fields to retrieve, defaults to all.
       group_by: the field by which to group for statistical operations.
@@ -194,20 +224,7 @@ def query_geoservice(flc_id, layer_name, *,
     Returns: a pair consisting of the update date and data frame
       containing the features.
     """
-
-    gis = GIS()
-    flc = gis.content.search(f'id:{flc_id}')[0]
-    layers = [layer
-              for layer in flc.layers
-              if layer.properties.name == layer_name]
-    if layers:
-        layer = layers[0]
-    else:
-        tables = [table
-                  for table in flc.tables
-                  if table.properties.name == layer_name]
-        if tables:
-            layer = tables[0]
+    layer = _get_layer(flc_id, flc_url, layer_name)
     features = layer.query(
         spatialRel='esriSpatialRelIntersects',
         where=where,
@@ -218,8 +235,11 @@ def query_geoservice(flc_id, layer_name, *,
         orderByFields=order_by,
         resultRecordCount=limit,
         resultType='standard')
-    update_date = datetime.datetime.fromtimestamp(
-        layer.properties.editingInfo.lastEditDate/1000).date()
+    try:
+        update_date = datetime.datetime.fromtimestamp(
+            layer.properties.editingInfo.lastEditDate/1000).date()
+    except AttributeError:
+        update_date = None
     return update_date, features.sdf
 
 
