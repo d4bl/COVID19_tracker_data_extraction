@@ -66,9 +66,13 @@ pip install matplotlib
 ##   Follow instructions to install homebrew  @https://brew.sh
 brew install tesseract
 
-## Install selenium and  chromedriver
+## Install selenium and chromedriver
 brew cask install chromedriver
 pip install selenium
+
+## Install selenium-wire (selenium but allows for requests response inspection)
+brew install openssl
+pip install selenium-wire  
 
 ## Install google APIs and oauthlib for Colorodo shared drive
 pip install google-api-python-client
@@ -78,7 +82,6 @@ pip install oauthlib2
 
 ## Install ESRI web service API client
 pip install arcgis
-
 
 
 

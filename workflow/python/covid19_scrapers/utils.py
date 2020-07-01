@@ -413,11 +413,19 @@ def url_to_soup_with_selenium(url, wait_conditions=None, timeout=10):
     driver.get(url)
     if wait_conditions:
         try:
-            conditions = [expected_conditions.presence_of_element_located(wc)
-                          for wc in wait_conditions]
-            for c in conditions:
-                WebDriverWait(driver, timeout).until(c)
+            wait_for_conditions_on_webdriver(driver, wait_conditions, timeout)
         except TimeoutException:
-            _logger.error('Waiting for element to load timed out in %s seconds for url: %s' % (timeout, url))
+            _logger.error('Timed out waiting for element in URL: %s' % url)
             raise
     return BeautifulSoup(driver.page_source, 'lxml')
+
+
+def wait_for_conditions_on_webdriver(driver, wait_conditions, timeout=10):
+    try:
+        conditions = [expected_conditions.presence_of_element_located(wc)
+                      for wc in wait_conditions]
+        for c in conditions:
+            WebDriverWait(driver, timeout).until(c)
+    except TimeoutException:
+        _logger.error("Waiting for element to load timed out in %s seconds" % timeout)
+        raise
