@@ -4,13 +4,12 @@ from datetime import datetime
 
 import pandas as pd
 from selenium.webdriver.common.by import By
-from seleniumwire import webdriver
 
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import (get_content_as_file, raw_string_to_int,
-                                    to_percentage, url_to_soup,
-                                    url_to_soup_with_selenium,
-                                    wait_for_conditions_on_webdriver)
+                                    to_percentage, url_to_soup)
+from covid19_scrapers.webdriver_runner import WebdriverRunner
+
 
 _logger = logging.getLogger(__name__)
 
@@ -33,35 +32,36 @@ def get_demographic_dataframe():
        download link and obtain the data.
 
     """
+    # 1/ Issue request to the BASE_URL
     BASE_URL = 'https://public.tableau.com/views/NCDHHS_COVID-19_DataDownload/Demographics'
-    # Setup selenium wire and make the initial request
-    options = webdriver.ChromeOptions()
-    options.add_argument('headless')
-    driver = webdriver.Chrome(options=options)
-    driver.get(BASE_URL)
-    wait_for_conditions_on_webdriver(
-        driver, [(By.XPATH, "//span[contains(text(),'Race')]")])
+    runner = (
+        WebdriverRunner()
+        .go_to_url(BASE_URL)
+        .wait_for([(By.XPATH, "//span[contains(text(),'Race')]")])
+        .cache_x_session_id())
+    runner.run()
 
-    # Inspect the response headers for the `X-Session-Id`
-    responses = [r.response for r in driver.requests if r.response]
-    response_headers = [r.headers for r in responses]
-    session_id = next((h.get('X-Session-Id')
-                       for h in response_headers if 'X-Session-Id' in h), None)
-    assert session_id, 'No X-Session-Id found'
+    # 2/ Get the Session-Id
+    session_id = runner.get_x_session_id()
+    runner.quit()
+    assert session_id, "No X-Session-Id found"
 
-    # make requests to fetch for the download link
-    # first request returns error, the second request will render the data
+    # 3/ Make requests to DOWNLOAD URL
     DOWNLOAD_URL = (
-        'https://public.tableau.com/vizql/w/NCDHHS_COVID-19_DataDownload/v/Demographics/viewData/'
-        f'sessions/{session_id}/views/5649504231100340473_15757585069639442359'
-        '?maxrows=200&viz=%7B%22worksheet%22%3A%22TABLE_RACE%22%2C%22dashboard%22%3A%22Demographics%22%7D')
-    driver.get(DOWNLOAD_URL)
-    wait_for_conditions_on_webdriver(driver, [(
-        By.XPATH, "//div[@id='tabBootErrTitle' and contains(text(),'Unexpected Error')]")])
-    driver.quit()
-    soup = url_to_soup_with_selenium(
-        DOWNLOAD_URL,
-        wait_conditions=[(By.CLASS_NAME, 'csvLink_summary')])
+        "https://public.tableau.com/vizql/w/NCDHHS_COVID-19_DataDownload/v/Demographics/viewData/"
+        "sessions/{}/views/5649504231100340473_15757585069639442359"
+        "?maxrows=200&viz=%7B%22worksheet%22%3A%22TABLE_RACE%22%2C%22dashboard%22%3A%22Demographics%22%7D")
+
+    runner = (
+        WebdriverRunner()
+        .go_to_url(DOWNLOAD_URL.format(session_id))
+        .wait_for([(By.XPATH, "//div[@id='tabBootErrTitle' and contains(text(),'Unexpected Error')]")])
+        .go_to_url(DOWNLOAD_URL.format(session_id))
+        .wait_for([(By.CLASS_NAME, "csvLink_summary")]))
+    runner.run()
+    soup = runner.get_page_source_as_soup()
+
+    # 4/ scrape the download link
     link = soup.find('a', {'class': 'csvLink_summary'})
     assert link, 'No CSV link found'
     csv_href = link.get('href')
