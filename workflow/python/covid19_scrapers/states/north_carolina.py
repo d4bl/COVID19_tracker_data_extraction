@@ -18,7 +18,7 @@ _logger = logging.getLogger(__name__)
 
 
 def get_demographic_dataframe():
-    '''This function scrapes data from a public tableau dashboard.
+    """This function scrapes data from a public tableau dashboard.
 
     In order to scrape this data, several steps have to be done:
     1. Issue a request to the `BASE_URL.` Selenium is used here because multiple back and forth requests are
@@ -28,7 +28,7 @@ def get_demographic_dataframe():
     3. Once the X-Session-Id is scraped, that can be used to query another URL which contains the download link for
        Demographic data. A gotcha here is that the first request will fail, but subsequent requests will succeed.
     4. Once the subsequent request succeeds, we can find the CSV download link and obtain the data.
-    '''
+    """
     BASE_URL = 'https://public.tableau.com/views/NCDHHS_COVID-19_DataDownload/Demographics'
     # Setup selenium wire and make the initial request
     options = webdriver.ChromeOptions()
@@ -80,6 +80,12 @@ def get_demographic_dataframe():
 
 
 class NorthCarolina(ScraperBase):
+    """North Carolina COVID data comes from 2 sources: the main URL and a tableau dashboard
+
+    The main URL consists of the total COVID cases and deaths which can be scraped via `url_to_soup`.
+    The dashboard consists of information pertaining to demographics, which is scraped
+    via the `get_demographic_dataframe` function in this file.
+    """
     URL = 'https://covid19.ncdhhs.gov/'
 
     def __init__(self, **kwargs):
