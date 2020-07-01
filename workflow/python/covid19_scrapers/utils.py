@@ -8,6 +8,7 @@ from pathlib import Path
 import os
 import re
 from urllib.parse import urlsplit
+from contextlib import contextmanager
 
 # Read webpage
 from bs4 import BeautifulSoup
@@ -383,3 +384,9 @@ def wait_for_conditions_on_webdriver(driver, wait_conditions, timeout=10):
         _logger.error(
             'Waiting for element to load timed out in %s seconds' % timeout)
         raise
+
+
+def get_session_id_from_seleniumwire(driver):
+    responses = [r.response for r in driver.requests if r.response]
+    response_headers = [r.headers for r in responses]
+    return next((h.get('X-Session-Id') for h in response_headers if 'X-Session-Id' in h), None)
