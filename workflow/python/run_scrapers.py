@@ -103,9 +103,13 @@ def setup_logging(log_file, log_level, log_to_stderr, stderr_log_level):
     gdc_logger.setLevel(logging.ERROR)
 
 
-def write_output(df, output):
+def write_output(df, output, sort=False):
     """Given a dataframe, write it to one of the output files."""
     logging.info(f'Writing {output}')
+    
+    if sort:
+        df.sort_values(by=['Location'], inplace=True)
+    
     if output == '-':
         # Set pandas options for stdout
         pd.set_option('display.max_rows', None)
