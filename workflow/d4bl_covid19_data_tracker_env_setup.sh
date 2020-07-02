@@ -43,6 +43,7 @@ pip install requests
 pip install lxml
 pip install xlrd
 pip install openpyxl
+pip install pydash
 
 ## needed for case 3: pdf table data extraction
 pip install tabula-py
