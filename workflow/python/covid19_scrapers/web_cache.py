@@ -82,7 +82,9 @@ class WebCache(object):
             requests.Request(method, url=url, headers=headers,
                              cookies=cookies, params=params, data=data,
                              files=files))
-        cache_key, _ = urldefrag(url)
+        # We want the cache key to include query params, but omit
+        # fragment.
+        cache_key, _ = urldefrag(request.url)
         cached = None
         # Only use cache for GETs
         if method == 'GET' and not force_remote:
