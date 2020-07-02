@@ -23,6 +23,7 @@ class Vermont(ScraperBase):
             'cumulative_positives as Cases',
             'total_deaths as Deaths',
         ],
+        order_by='date desc',
         limit=1,
     )
 

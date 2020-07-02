@@ -23,7 +23,7 @@ class NewYorkCity(ScraperBase):
         super().__init__(**kwargs)
         self.github_access_token = github_access_token
 
-    def _name(self):
+    def name(self):
         return 'New York -- New York'
 
     def _scrape(self, **kwargs):
@@ -32,7 +32,7 @@ class NewYorkCity(ScraperBase):
             github = Github(self.github_access_token)
         else:
             _logger.warn('Using unauthenticated for Github API: ' +
-                         'be carefule of hitting the rate limit')
+                         'be careful of hitting the rate limit')
             github = Github()
         org = github.get_organization(self.GITHUB_ORG)
         repo = org.get_repo(self.GITHUB_REPO)

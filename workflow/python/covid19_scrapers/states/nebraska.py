@@ -19,34 +19,47 @@ class Nebraska(ScraperBase):
     to the MapServer providing data for the dashboard.
 
     """
-    
+    DATE = dict(
+        flc_url=_NE_SERVER_URL,
+        layer_name='covid19_hot_accumulative_lab_dt',
+        out_fields=['LAB_REPORT_DATE'],
+        order_by='LAB_REPORT_DATE desc',
+        limit=1
+    )
+
     TOTAL_CASES = dict(
         flc_url=_NE_SERVER_URL,
         layer_name='COVID19_COLD',
         where="lab_status='Positive' AND NE_JURIS='yes'",
-        stats=[make_geoservice_stat('count','ID', 'value')]
+        stats=[make_geoservice_stat('count', 'ID', 'value')]
     )
 
     TOTAL_DEATHS = dict(
         flc_url=_NE_SERVER_URL,
         layer_name='COVID19_CASE_COLD',
-        where="case_status='Confirmed' AND NE_JURIS='yes' AND Did_Pat_Die_From_Illness='Y'",
+        where=' AND '.join(["case_status='Confirmed'",
+                            "NE_JURIS='yes'",
+                            "Did_Pat_Die_From_Illness='Y'"]),
         stats=[make_geoservice_stat('count','ID', 'value')]
     )
 
-    DEMOG=dict(
+    DEMOG = dict(
         flc_url=_NE_SERVER_URL,
         layer_name='DHHS_GIS.DHHS.COVID19_RE_HORIZONTAL',
         order_by='Category desc'
     )
 
-    # https://gis.ne.gov/enterprise/rest/services/Covid19MapV5/MapServer/6/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Category%20desc&outSR=102100&resultOffset=0&resultRecordCount=2000
-    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def _scrape(self, **kwargs):
-        date, total_cases_df = query_geoservice(**self.TOTAL_CASES)
+        # NE does not version data, so there the update date is null.
+        # We must query the date from one of the tables instead.
+        _, date_df = query_geoservice(**self.DATE)
+        date = date_df.loc[0, 'LAB_REPORT_DATE'].date()
+        _logger.info(f'Processing data for {date}')
+
+        _, total_cases_df = query_geoservice(**self.TOTAL_CASES)
         total_cases = total_cases_df.loc[0, 'value']
 
         _, total_deaths_df = query_geoservice(**self.TOTAL_DEATHS)
