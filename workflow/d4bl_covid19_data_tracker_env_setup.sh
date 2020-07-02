@@ -83,5 +83,5 @@ pip install oauthlib2
 ## Install ESRI web service API client
 pip install arcgis
 
-
-
+# Install PyGithub for New York City
+pip install PyGithub
