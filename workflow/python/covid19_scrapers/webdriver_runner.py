@@ -28,7 +28,7 @@ class WebdriverRunner(object):
             lambda driver: driver.get(url))
         return self
 
-    def wait_for(self, conditions, timeout=10):
+    def wait_for(self, conditions, timeout=30):
         """Tells the driver to wait for the given conditions before proceeding to the next steps
         """
         self._steps.append(
