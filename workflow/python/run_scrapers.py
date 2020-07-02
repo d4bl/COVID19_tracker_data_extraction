@@ -102,6 +102,9 @@ def setup_logging(log_file, log_level, log_to_stderr, stderr_log_level):
     gdc_logger = logging.getLogger('googleapiclient.discovery_cache')
     gdc_logger.setLevel(logging.ERROR)
 
+    sw_logger = logging.getLogger('seleniumwire')
+    sw_logger.setLevel(logging.ERROR)
+
 
 def write_output(df, output, sort=False):
     """Given a dataframe, write it to one of the output files."""
