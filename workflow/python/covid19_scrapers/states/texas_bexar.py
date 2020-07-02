@@ -40,6 +40,7 @@ class TexasBexar(ScraperBase):
 
         # Next get the cumulative case and death counts
         date_published, total = query_geoservice(**self.TOTALS)
+        _logger.info(f'Processing data for {date_published}')
 
         try:
             cnt_cases = total.loc[0, 'Cases']

@@ -77,6 +77,7 @@ class NewMexico(ScraperBase):
             raise ValueError(
                 f'/GetPublicStatewideData failed with status: {data["status"]}')
         date = datetime.date.fromtimestamp(data['data']['updated'] / 1000)
+        _logger.info(f'Processing data for {date}')
         # Get totals data
         total_cases = data['data']['cases']
         total_deaths = data['data']['deaths']

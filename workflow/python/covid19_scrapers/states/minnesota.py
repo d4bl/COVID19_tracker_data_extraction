@@ -37,7 +37,7 @@ class Minnesota(ScraperBase):
         num_deaths = int(strong.next_sibling.strip().replace(',', ''))
 
         date_obj = datetime.datetime.strptime(date_text, '%B %d, %Y').date()
-        _logger.debug(f'Date: {date_obj}')
+        _logger.info(f'Processing data for {date_obj}')
         _logger.debug(f'Number Cases: {num_cases}')
         _logger.debug(f'Number Deaths: {num_deaths}')
 

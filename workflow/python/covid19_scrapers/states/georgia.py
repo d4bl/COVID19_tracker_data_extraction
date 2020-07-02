@@ -27,6 +27,7 @@ class Georgia(ScraperBase):
         _logger.debug(
             'Get the last update of the demographics.csv file in archive')
         date = get_zip_member_update_date(z, 'demographics.csv')
+        _logger.info(f'Processing data for {date}')
 
         _logger.debug('Load demographics CSV')
         data = pd.read_csv(get_zip_member_as_file(z, 'demographics.csv'))
