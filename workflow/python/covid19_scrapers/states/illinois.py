@@ -13,7 +13,7 @@ class Illinois(ScraperBase):
     DATA_URL = 'https://www.dph.illinois.gov/sitefiles/COVIDHistoricalTestResults.json?nocache=1'
 
     def __init__(self, **kwargs):
-        super().init__(**kwargs)
+        super().__init__(**kwargs)
 
     def _scrape(self, **kwargs):
         json = get_json(self.DATA_URL)
