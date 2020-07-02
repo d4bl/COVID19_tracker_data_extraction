@@ -30,8 +30,13 @@ class CaliforniaLosAngeles(ScraperBase):
 
     def _scrape(self, **kwargs):
         r = get_cached_url(self.JS_URL)
-        json_str = re.search(r'data = ((.|\n)*?);',
+        json_str = re.search(r'data = (([^;]|\n)*)',
                              r.text, re.MULTILINE).group(1).strip()
+        # Commas on the last item in a list or object are valid in
+        # JavaScript, but not in JSON.
+        json_str = re.sub(r',(\s|\n)*([]}]|$)', r'\2',
+                          json_str, re.MULTILINE)
+        _logger.debug(f'Extracted JSON: {json_str}')
         data = json.loads(json_str)['content']
 
         # Find the update date
@@ -40,7 +45,7 @@ class CaliforniaLosAngeles(ScraperBase):
             data['info']).groups())
 
         date = datetime.date(year, month, day)
-        _logger.debug(f'Processing data for {date}')
+        _logger.info(f'Processing data for {date}')
 
         # Extract the total counts
         total_cases = int(data['count'].replace(',', ''))
