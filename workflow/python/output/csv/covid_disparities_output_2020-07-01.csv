@@ -1,31 +1,33 @@
 Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Status code
-Massachusetts,2020-06-30,108882.0,8054.0,10209.0,663.0,9.38,8.23,True,False,Success!
-Washington,2020-06-30,32824.0,1332.0,1343.0,42.0,6.0,3.0,False,False,Success!
-Colorado,2020-06-30,32715.0,1690.0,1769.0,110.0,5.41,6.51,True,False,Success!
-Florida,2020-07-01,156288.0,3550.0,22017.0,704.0,14.09,19.83,True,False,Success!
+Washington,2020-07-01,33435.0,1339.0,1366.0,43.0,6.0,3.0,False,False,Success!
+North Carolina,2020-07-01,66513.0,1373.0,10818.0,436.0,16.26,31.76,False,True,Success!
+Wisconsin,,,,,,,,False,False,"An error occurred. ... NameError(""name 'flc_id' is not defined"")"
+Wisconsin -- Milwaukee,,,,,,,,False,False,"An error occurred. ... NameError(""name 'flc_id' is not defined"")"
+Rhode Island,2020-06-29,16226.0,946.0,1573.0,47.0,12.33,6.11,False,False,Success!
 Maine,2020-07-01,3294.0,105.0,779.0,,26.76,,False,True,Success!
-Georgia,2020-06-30,81291.0,2805.0,23294.0,1328.0,28.66,47.34,True,True,Success!
-Mississippi,2020-07-01,27900.0,527.0,13827.0,1099.0,49.56,208.54,True,True,Success!
-California - Los Angeles,,,,,,,,False,False,An error occurred. ... JSONDecodeError('Expecting property name enclosed in double quotes: line 9 column 13 (char 313)')
-Utah,2020-06-30,22217,172,600,<5,2.7,,True,False,Success!
-Wisconsin -- Milwaukee,2020-06-30,11397,355,3230,143,30.6,40.28,False,False,Success!
-Texas,2020-06-30,21361,662,2548,85,11.93,12.84,True,False,Success!
-Missouri,2020-06-27,20261,996,5758,246,49.66,38.56,False,True,Success!
-Virginia,2020-06-30,62787,1763,8931,385,14.22,21.84,True,True,Success!
-Rhode Island,2020-06-29,16226,946,1573,47,12.33,6.11,False,False,Success!
-"Washington, DC",2020-06-30,10327,551,5144,405,49.81,73.5,True,True,Success!
-Delaware,2020-07-01,11510,509,3033,130,26.35,25.54,True,False,Success!
-Alabama,2020-07-01,38442,947,14309,431,47.31,46.9,False,False,Success!
-New Mexico,2020-06-30,12147,497,232,,1.91,,True,False,Success!
-Vermont,2020-07-01,1,0,113,0,9.6,0.0,False,True,Success!
-Michigan,2020-06-30,63794,5869,19626,2348,30.76,40.01,True,False,Success!
-Alaska,2020-07-01,940.0,14.0,24.0,0.0,2.55,0.0,True,True,Success!
-California,2020-06-30,154909,5905,6774,556,4.4,9.4,False,True,Success!
-Maryland,,,,,,,,False,False,"An error occurred. ... OSError(8, 'Exec format error')"
-California - San Diego,2020-06-30,14149,365,486,11,4.3,3.04,False,False,Success!
+Maryland,2020-07-01,67918.0,3077.0,19463.0,1246.0,28.66,40.49,False,False,Success!
+Alabama,,,,,,,,False,False,"An error occurred. ... NameError(""name 'flc_id' is not defined"")"
+Michigan,2020-07-01,64057.0,5873.0,19687.0,2352.0,30.73,40.05,True,False,Success!
+Montana,2020-07-01,1016.0,22.0,5.0,,0.49,,True,True,Success!
+Alaska,,,,,,,,False,False,"An error occurred. ... NameError(""name 'flc_id' is not defined"")"
+Massachusetts,2020-07-01,109143.0,8081.0,10242.0,664.0,9.38,8.22,True,False,Success!
+Missouri,,,,,,,,False,False,"An error occurred. ... NameError(""name 'flc_id' is not defined"")"
+Utah,2020-07-01,22716,173,613,<5,2.7,,True,False,Success!
+Mississippi,2020-07-01,27900,527,13827,1099,49.56,208.54,True,True,Success!
+Texas -- Bexar County,,,,,,,,False,False,"An error occurred. ... NameError(""name 'flc_id' is not defined"")"
 Minnesota,2020-07-01,36716,1445,7629,123,20.78,8.51,True,True,Success!
-Kentucky,2020-06-30,15624,565,1543,85,14.22,16.1,False,True,Success!
+Texas,2020-07-01,21960,662,2592,85,1180.33,1283.99,True,False,Success!
+Delaware,2020-07-01,11510,509,3033,130,26.35,25.54,True,False,Success!
+Nebraska,,19310,276,1122,21,7.59,7.95,False,True,Success!
+California,2020-06-30,154909,5905,6774,556,4.4,9.4,False,True,Success!
+Vermont,,,,,,,,False,False,"An error occurred. ... NameError(""name 'flc_id' is not defined"")"
+New Mexico,2020-07-01,12276,500,232,,1.89,,True,False,Success!
+Florida,2020-07-01,156288,3550,22017,704,14.09,19.83,True,False,Success!
+"Washington, DC",2020-06-30,10327,551,5144,405,49.81,73.5,True,True,Success!
+Colorado,2020-07-01,33029,1697,1776,109,5.38,6.48,True,False,Success!
+California - San Diego,2020-07-01,14623,372,506,12,4.35,3.26,False,False,Success!
+Georgia,2020-07-01,84237,2827,23908,1338,28.38,47.33,True,True,Success!
+Virginia,2020-07-01,63203,1786,9056,390,14.33,21.84,True,True,Success!
 Indiana,2020-07-01,45952,2456,5637,355,12.27,14.45,True,True,Success!
-Texas -- Bexar County,2020-06-30,12065,110,451,17.0,6.93,15.45,False,False,Success!
-Montana,,,,,,,,False,False,"An error occurred. ... SSLError(MaxRetryError(""HTTPSConnectionPool(host='dphhs.mt.gov', port=443): Max retries exceeded with url: /publichealth/cdepi/diseases/coronavirusmt/demographics (Caused by SSLError(SSLError(1, '[SSL: DH_KEY_TOO_SMALL] dh key too small (_ssl.c:1108)')))""))"
-Wisconsin,2020-07-01,28659,784,5022,184,19.54,23.8,False,True,Success!
+Kentucky,2020-07-01,15842,572,1566,86,14.37,16.07,False,True,Success!
+California - Los Angeles,,,,,,,,False,False,An error occurred. ... JSONDecodeError('Expecting property name enclosed in double quotes: line 9 column 13 (char 313)')
