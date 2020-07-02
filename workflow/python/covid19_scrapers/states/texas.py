@@ -44,7 +44,7 @@ class Texas(ScraperBase):
 
         cnt_cases = cases_df.loc['Total', 'Number']
         cnt_cases_aa = cases_df.loc['Black', 'Number']
-        pct_cases_aa = round(100 * cases_df.loc['Black', '%'], 2)
+        pct_cases_aa = round(cases_df.loc['Black', '%'], 2)
 
         deaths_columns = deaths_df.iloc[1, :]
         deaths_df = deaths_df.iloc[2:, :]
@@ -53,7 +53,7 @@ class Texas(ScraperBase):
 
         cnt_deaths = deaths_df.loc['Total', 'Number']
         cnt_deaths_aa = deaths_df.loc['Black', 'Number']
-        pct_deaths_aa = round(100 * deaths_df.loc['Black', '%'], 2)
+        pct_deaths_aa = round(deaths_df.loc['Black', '%'], 2)
 
         return [self._make_series(
             date=date,
