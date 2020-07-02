@@ -1,10 +1,9 @@
 from datetime import datetime
 
 import pydash
-import requests
 
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import to_percentage
+from covid19_scrapers.utils import to_percentage, get_json
 
 
 class Illinois(ScraperBase):
@@ -17,9 +16,7 @@ class Illinois(ScraperBase):
         super().init__(**kwargs)
 
     def _scrape(self, **kwargs):
-        resp = requests.get(self.DATA_URL)
-        assert resp.status_code == 200, "Request failed."
-        json = resp.json()
+        json = get_json(self.DATA_URL)
 
         state_info = pydash.get(json, 'state_testing_results.values.-1')
         demographics_data = pydash.get(json, 'demographics.race')
