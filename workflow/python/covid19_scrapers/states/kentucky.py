@@ -40,7 +40,7 @@ class Kentucky(ScraperBase):
                 month, day, year = map(int, match.groups())
                 date = datetime.date(year, month, day)
                 break
-        _logger.info(f'Report date is {date}')
+        _logger.info(f'Processing data for {date}')
 
         # Extract multiple tables
         table_list = read_pdf(
