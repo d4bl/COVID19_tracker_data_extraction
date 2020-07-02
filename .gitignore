@@ -18,3 +18,4 @@ workflow/python/images/*
 workflow/python/scratch/*
 *xlsx#
 *.log
+*_flymake.py
