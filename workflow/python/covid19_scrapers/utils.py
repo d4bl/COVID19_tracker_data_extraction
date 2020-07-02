@@ -175,8 +175,8 @@ def make_geoservice_stat(agg, in_field, out_name):
         'outStatisticFieldName': out_name,
     }
 
-def _get_layer(fld_id, flc_url, layer_name):
-    if fld_id:
+def _get_layer(flc_id, flc_url, layer_name):
+    if flc_id:
         gis = GIS()
         flc = gis.content.get(flc_id)
         loc = f'content ID {flc_id}'
@@ -185,7 +185,7 @@ def _get_layer(fld_id, flc_url, layer_name):
         loc = f'flc URL {flc_url}'
         flc = FeatureLayerCollection(flc_url)
     else:
-        raise ValueError('Either fld_id or url must be provided')
+        raise ValueError('Either flc_id or url must be provided')
     layers = [layer
               for layer in flc.layers
               if layer.properties.name == layer_name]
