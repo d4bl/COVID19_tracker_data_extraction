@@ -33,7 +33,7 @@ class Michigan(ScraperBase):
             r'(\d{4})-(\d{2})-(\d{2})', by_dem_path).groups())
 
         date_published = datetime.date(year, month, day)
-        _logger.info(f'Processing MI data for {date_published}')
+        _logger.info(f'Processing data for {date_published}')
 
         # Load the data
         by_dem_url = urljoin(self.REPORTING_URL, by_dem_path)

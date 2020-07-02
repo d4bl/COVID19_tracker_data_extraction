@@ -45,6 +45,7 @@ class Missouri(ScraperBase):
     def _scrape(self, **kwargs):
         # Download and extract the case and death totals
         date, totals = query_geoservice(**self.TOTAL)
+        _logger.info(f'Processing data for {date}')
         total_cases = totals.loc[0, 'Cases']
         total_deaths = totals.loc[0, 'Deaths']
 

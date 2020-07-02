@@ -34,6 +34,7 @@ class Wisconsin(ScraperBase):
 
     def _scrape(self, **kwargs):
         date, data = query_geoservice(**self.DATA)
+        _logger.info(f'Processing data for {date}')
 
         total_cases = data.loc[0, 'POSITIVE']
         total_deaths = data.loc[0, 'DEATHS']

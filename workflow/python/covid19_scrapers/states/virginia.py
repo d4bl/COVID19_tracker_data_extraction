@@ -26,7 +26,8 @@ class Virginia(ScraperBase):
 
         _logger.debug('Get only the most recent data published')
         # TO DO: Convert date to string first before finding the max
-        max_date = max(df_raw['Report Date'])
+        max_date = max(df_raw['Report Date']).date()
+        _logger.info(f'Processing data for {max_date}')
 
         _logger.debug('Roll up counts to race')
         df_va = df_raw.groupby('Race').sum()
@@ -50,7 +51,7 @@ class Virginia(ScraperBase):
         aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
 
         return [self._make_series(
-            date=max_date.date(),
+            date=max_date,
             cases=total_cases,
             deaths=total_deaths,
             aa_cases=aa_cases,
