@@ -41,6 +41,7 @@ class WisconsinMilwaukee(ScraperBase):
     def _scrape(self, **kwargs):
         # Get the timestamp
         date_published, cases = query_geoservice(**self.CASES)
+        _logger.info(f'Processing data for {date_published}')
         cases = cases.set_index('Race_Eth')
         cnt_cases = cases['value'].sum()
         cnt_cases_unknown = cases.loc['Not Reported', 'value']

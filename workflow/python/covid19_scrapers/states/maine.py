@@ -13,8 +13,8 @@ class Maine(ScraperBase):
     """Maine publishes demographic breakdowns of COVID cases (not yet
     deaths) in a Google Sheet. We scrape their main reporting page to
     find the link in case it changes.
-    """
 
+    """
     REPORT_URL = 'https://www.maine.gov/dhhs/mecdc/infectious-disease/epi/airborne/coronavirus/data.shtml'
 
     def __init__(self, **kwargs):
@@ -43,6 +43,7 @@ class Maine(ScraperBase):
         total_cases = table['CASES'].sum()
         total_cases_ex_unknown = table['CASES'].drop('Not disclosed').sum()
         date = table['DATA_REFRESH_DT'].max().date()
+        _logger.info(f'Processing data for {date}')
         aa_cases_cnt = table.loc['Black or African American', 'CASES']
         aa_cases_pct = to_percentage(aa_cases_cnt, total_cases_ex_unknown)
 

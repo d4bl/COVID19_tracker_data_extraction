@@ -79,6 +79,7 @@ class NewYorkCity(ScraperBase):
                     if 'scrape_history' not in kwargs:
                         break
         max_date = max(commits_by_date)
+        _logger.info(f'Processing data for {max_date}')
         sha = commits_by_date[max_date]
 
         _logger.debug(f'Fetching demographic data for {max_date}')

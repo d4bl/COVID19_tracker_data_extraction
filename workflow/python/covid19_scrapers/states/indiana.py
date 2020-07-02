@@ -28,6 +28,7 @@ class Indiana(ScraperBase):
         metadata = get_json(self.METADATA_URL)
         date = datetime.datetime.fromisoformat(
             metadata['result']['last_modified']).date()
+        _logger.info(f'Processing data for {date}')
 
         _logger.debug('Read in the file')
         df_in = pd.read_excel(

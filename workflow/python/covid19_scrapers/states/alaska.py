@@ -32,6 +32,7 @@ class Alaska(ScraperBase):
     def _scrape(self, **kwargs):
         # Download the metadata
         date, data = query_geoservice(**self.DATA)
+        _logger.info(f'Processing data for {date}')
         data = data.set_index('Demographic')
 
         # Discard non-race rows

@@ -115,6 +115,7 @@ class NorthCarolina(ScraperBase):
         demographic_df = get_demographic_dataframe()
 
         date = self.get_date(soup)
+        _logger.info(f'Processing data for {date}')
         cases = self.get_total_cases(soup)
         deaths = self.get_total_deaths(soup)
         aa_cases = self.get_aa_cases(demographic_df)

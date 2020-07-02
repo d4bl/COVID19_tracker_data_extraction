@@ -48,7 +48,7 @@ class Massachusetts(ScraperBase):
         else:
             max_date = max(df_raw.Date)
 
-        _logger.debug(f'Extracting data for {max_date}')
+        _logger.info(f'Processing data for {max_date}')
         df_mass = df_raw[df_raw.Date == max_date]
 
         # Intermediate calculations

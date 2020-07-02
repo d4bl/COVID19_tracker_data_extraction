@@ -35,7 +35,7 @@ class California(ScraperBase):
         ).text.strip()
         date = datetime.datetime.strptime(date_string, '%B %d, %Y').date()
 
-        _logger.debug(f'Processing data for {date_string}')
+        _logger.info(f'Processing data for {date_string}')
 
         # Find the first table, and extract the data
         table = soup.find('table')

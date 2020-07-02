@@ -37,6 +37,7 @@ class Alabama(ScraperBase):
     def _scrape(self, **kwargs):
         # Download the case data
         date, cases = query_geoservice(**self.CASES)
+        _logger.info(f'Processing data for {date}')
         cases = cases.set_index('Racecat')
 
         # Extract/calculate case info
