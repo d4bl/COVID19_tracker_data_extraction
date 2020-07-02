@@ -449,6 +449,8 @@ def url_to_soup_with_selenium(url, wait_conditions=None, timeout=10):
     # TODO: make this work with get_cached_url?
     options = selenium.webdriver.ChromeOptions()
     options.add_argument('headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-setuid-sandbox')
     driver = selenium.webdriver.Chrome(chrome_options=options)
     driver.get(url)
     if wait_conditions:
