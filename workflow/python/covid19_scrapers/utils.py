@@ -164,6 +164,7 @@ def get_http_date(url):
 # See, eg, states/missouri.py for examples.
 
 def make_geoservice_stat(agg, in_field, out_name):
+
     """This makes a single entry for the `stats` field of a
     query_geoservice request (a.k.a. the `outStatistics` field of a
     geoservice request).
@@ -175,7 +176,27 @@ def make_geoservice_stat(agg, in_field, out_name):
         'outStatisticFieldName': out_name,
     }
 
+
+def _get_layer_by_name(layer_name, layers, tables):
+    for layer in layers:
+        if layer.properties.name == layer_name:
+            return layer
+    for table in tables:
+        if table.properties.name == layer_name:
+            return table
+
+
+def _get_layer_by_id(layer_id, layers, tables):
+    for layer in layers:
+        if layer.properties.id == layer_id:
+            return layer
+    for table in tables:
+        if table.properties.id == layer_id:
+            return table
+
+
 def _get_layer(flc_id, flc_url, layer_name):
+    # Get the feature layer collection.
     if flc_id:
         gis = GIS()
         flc = gis.content.get(flc_id)
@@ -186,16 +207,14 @@ def _get_layer(flc_id, flc_url, layer_name):
         flc = FeatureLayerCollection(flc_url)
     else:
         raise ValueError('Either flc_id or url must be provided')
-    layers = [layer
-              for layer in flc.layers
-              if layer.properties.name == layer_name]
-    if layers:
-        return layers[0]
-    tables = [table
-              for table in flc.tables
-              if table.properties.name == layer_name]
-    if tables:
-        return tables[0]
+
+    # Now get the layer.
+    if isinstance(layer_name, str):
+        layer = _get_layer_by_name(layer_name, flc.layers, flc.tables)
+    elif isinstance(layer_name, int):
+        layer = _get_layer_by_id(layer_name, flc.layers, flc.tables)
+    if layer:
+        return layer
     raise ValueError(f'Unable to find layer {layer_name} in {loc}')
 
 
@@ -278,13 +297,14 @@ def get_cached_url(url, local_file_name=None, force_remote=False,
         local_file = Path(local_file_name)
     else:
         url_parts = urlsplit(url)
+        path = url_parts.path.replace(':', '_')
         if url_parts.query:
-            local_file = Path('./' + url_parts.path + '_' +
+            local_file = Path('./' + path + '_' +
                               hashlib.md5(
                                   url_parts.query.encode('utf-8')
                               ).hexdigest())
         else:
-            local_file = Path('./' + url_parts.path)
+            local_file = Path('./' + path)
     _logger.debug(f'Using local file {local_file}')
     r = None
     if force_remote:
