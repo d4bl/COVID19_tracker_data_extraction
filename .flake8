@@ -1,0 +1,8 @@
+[flake8]
+ignore =
+  # Ignore line-too-line for now
+  E501,
+  # Can't have W503 (line break before operator) and W504 (line break
+  # after operator) active. Latter is PEP-8 recommended, so we disable
+  # W504.
+  W503
