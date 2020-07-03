@@ -1,12 +1,14 @@
-from covid19_scrapers.utils import (
-    download_file, find_all_links, to_percentage)
-from covid19_scrapers.scraper import ScraperBase
-
 import datetime
 import logging
 import pandas as pd
 import re
 from urllib.parse import urljoin, urlsplit
+
+from covid19_scrapers.census import get_aa_pop_stats
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils import (
+    download_file, find_all_links, to_percentage)
+
 
 _logger = logging.getLogger(__name__)
 
@@ -25,6 +27,9 @@ class WashingtonDC(ScraperBase):
 
     def name(self):
         return 'Washington, DC'
+
+    def _get_aa_pop_stats(self):
+        return get_aa_pop_stats(self.census_api, 'District of Columbia')
 
     def _scrape(self, *, validation=False, **kwargs):
         _logger.debug('Find links to all Washington, DC COVID data files')
