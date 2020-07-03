@@ -42,8 +42,8 @@ class Utah(ScraperBase):
 
         headers = [th.string.strip()
                    for th in BeautifulSoup(
-                           race_data['x']['container'],
-                           features='lxml').find_all('th')]
+            race_data['x']['container'],
+            features='lxml').find_all('th')]
         race_df = pd.DataFrame(race_data['x']['data']).T
         race_df.columns = headers
         race_df = race_df.set_index('Race/Ethnicity')

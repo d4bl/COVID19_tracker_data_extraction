@@ -55,7 +55,8 @@ class Colorado(ScraperBase):
             fields='files(name,webContentLink)'
         ).execute()
         if not response.get('files'):
-            raise RuntimeError('Unable to find files in CO case data Google Drive')
+            raise RuntimeError(
+                'Unable to find files in CO case data Google Drive')
         current_file = sorted(response['files'],
                               key=lambda x: x['name'], reverse=True)[0]
 
@@ -72,17 +73,17 @@ class Colorado(ScraperBase):
 
         # Extract state totals
         state_data = data[
-            (data['description'] == 'State Data') &
-            (data['attribute'] == 'Statewide')
+            (data['description'] == 'State Data')
+            & (data['attribute'] == 'Statewide')
         ].set_index('metric')
         total_cases = state_data.loc['Cases', 'value']
         total_deaths = state_data.loc['Deaths Among Cases', 'value']
 
         # Extract AA percentages and compute AA totals
         aa_data = data[
-            (data['description'] ==
-             'COVID-19 in Colorado by Race & Ethnicity') &
-            (data['attribute'] == 'Black - Non Hispanic')
+            (data['description']
+             == 'COVID-19 in Colorado by Race & Ethnicity')
+            & (data['attribute'] == 'Black - Non Hispanic')
         ].set_index('metric')
 
         aa_cases_pct = aa_data.loc['Percent of Cases', 'value']

@@ -45,7 +45,7 @@ class WebCache(object):
 
     def get_cached_response(self, url):
         self.cursor.execute(
-            f'SELECT *'
+            'SELECT *'
             ' FROM web_cache WHERE url = ?', (url,))
         row = self.cursor.fetchone()
         if row:
@@ -76,7 +76,6 @@ class WebCache(object):
               method='GET', headers={}, params={}, data={},
               files={}, cookies={}, session=None, session_kwargs={},
               **kwargs):
-
         """Retrieve a URL from the cache, or retrieve the URL from the web and
         store the response into a cache.
 
@@ -133,6 +132,6 @@ class WebCache(object):
             return cached['response']
         response.raise_for_status()
         if cached:
-            _logger.debug(f'Cached response is stale')
+            _logger.debug('Cached response is stale')
         self.cache_response(cache_key, response)
         return response

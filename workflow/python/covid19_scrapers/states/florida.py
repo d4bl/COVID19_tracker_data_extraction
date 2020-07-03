@@ -70,8 +70,8 @@ def get_table_area(pdf_data):
     ) in page3.getText('words'):
         if word == 'Total':
             if (
-                    round(x0) == round(white_bbox.x0) and
-                    round(y0) > round(white_bbox.y0)
+                    round(x0) == round(white_bbox.x0)
+                    and round(y0) > round(white_bbox.y0)
             ):
                 total_bbox = fitz.Rect(x0, y0, x1, y1)
 
@@ -88,7 +88,7 @@ def parse_num(val):
 
 def parse_pct(val):
     if val:
-        return float(val[:-1])/100
+        return float(val[:-1]) / 100
     return float('nan')
 
 
@@ -184,8 +184,8 @@ class Florida(ScraperBase):
             "Race == 'Black' and Ethnicity == 'Non-Hispanic'"
         )[nm].to_list()[0]) for nm in att_names}
         aa_cases_and_deaths_pct = {
-            nm: round(100 * aa_cases_and_deaths[nm] /
-                      all_cases_and_deaths[nm], 2)
+            nm: round(100 * aa_cases_and_deaths[nm]
+                      / all_cases_and_deaths[nm], 2)
             for nm in att_names
         }
 

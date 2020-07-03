@@ -20,7 +20,8 @@ class Illinois(ScraperBase):
 
         state_info = pydash.get(json, 'state_testing_results.values.-1')
         demographics_data = pydash.get(json, 'demographics.race')
-        aa_data = aa_data = pydash.find(demographics_data, lambda data: data['description'] == 'Black')
+        aa_data = aa_data = pydash.find(
+            demographics_data, lambda data: data['description'] == 'Black')
 
         date = datetime.strptime(state_info['testDate'], '%m/%d/%Y').date()
         cases = state_info.get('confirmed_cases')
@@ -28,10 +29,10 @@ class Illinois(ScraperBase):
         aa_cases = aa_data.get('count')
         aa_deaths = aa_data.get('deaths')
 
-        assert cases, "Could not find number of confirmed cases"
-        assert deaths, "Could not find number of deaths"
-        assert aa_cases, "Could not find number of AA cases"
-        assert aa_deaths, "Could not find number of AA deaths"
+        assert cases, 'Could not find number of confirmed cases'
+        assert deaths, 'Could not find number of deaths'
+        assert aa_cases, 'Could not find number of AA cases'
+        assert aa_deaths, 'Could not find number of AA deaths'
 
         pct_aa_cases = to_percentage(aa_cases, cases)
         pct_aa_deaths = to_percentage(aa_deaths, deaths)

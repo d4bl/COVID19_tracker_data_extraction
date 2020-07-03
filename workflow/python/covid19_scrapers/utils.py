@@ -164,7 +164,6 @@ def get_http_date(url):
 # See, eg, states/missouri.py for examples.
 
 def make_geoservice_stat(agg, in_field, out_name):
-
     """This makes a single entry for the `stats` field of a
     query_geoservice request (a.k.a. the `outStatistics` field of a
     geoservice request).
@@ -256,7 +255,7 @@ def query_geoservice(*, flc_id=None, flc_url=None, layer_name=None,
         resultType='standard')
     try:
         update_date = datetime.datetime.fromtimestamp(
-            layer.properties.editingInfo.lastEditDate/1000).date()
+            layer.properties.editingInfo.lastEditDate / 1000).date()
     except AttributeError:
         update_date = None
     return update_date, features.sdf
@@ -381,5 +380,6 @@ def wait_for_conditions_on_webdriver(driver, wait_conditions, timeout=10):
         for c in conditions:
             WebDriverWait(driver, timeout).until(c)
     except TimeoutException:
-        _logger.error("Waiting for element to load timed out in %s seconds" % timeout)
+        _logger.error(
+            'Waiting for element to load timed out in %s seconds' % timeout)
         raise

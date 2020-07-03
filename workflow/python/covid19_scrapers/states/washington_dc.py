@@ -34,9 +34,9 @@ class WashingtonDC(ScraperBase):
     def _scrape(self, *, validation=False, **kwargs):
         _logger.debug('Find links to all Washington, DC COVID data files')
 
-        prefix = re.compile(r'/sites/default/' +
-                            r'files/dc/sites/(coronavirus|thrivebyfive)/' +
-                            r'page_content/attachments/DC-COVID-19-Data')
+        prefix = re.compile(r'/sites/default/'
+                            + r'files/dc/sites/(coronavirus|thrivebyfive)/'
+                            + r'page_content/attachments/DC-COVID-19-Data')
         links_raw = find_all_links(self.MAIN_URL, prefix)
 
         links = [x for x in links_raw if ('csv' in x or 'xlsx' in x)]

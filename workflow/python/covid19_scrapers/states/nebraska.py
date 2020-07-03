@@ -40,7 +40,7 @@ class Nebraska(ScraperBase):
         where=' AND '.join(["case_status='Confirmed'",
                             "NE_JURIS='yes'",
                             "Did_Pat_Die_From_Illness='Y'"]),
-        stats=[make_geoservice_stat('count','ID', 'value')]
+        stats=[make_geoservice_stat('count', 'ID', 'value')]
     )
 
     DEMOG = dict(
