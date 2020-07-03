@@ -1,9 +1,8 @@
-from covid19_scrapers.utils import url_to_soup
+from covid19_scrapers.utils import table_to_dataframe, url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
 import datetime
 import logging
-import pandas as pd
 import string
 
 
@@ -39,27 +38,17 @@ class California(ScraperBase):
 
         # Find the first table, and extract the data
         table = soup.find('table')
-        cols = [th.text.strip(self.WHITESPACE)
-                for th in table.find_all('th')]
-        data = pd.DataFrame(
-            [
-                [
-                    td.text.strip(self.WHITESPACE).replace(',', '')
-                    for td in tr]
-                for tr in table.find_all('tr')
-            ][1:],
-            columns=cols).set_index(
-                'Race/Ethnicity'
-        )
-
+        data = table_to_dataframe(table).set_index('Race/Ethnicity')
+        black_lbl = data.index[data.index.str.contains('Black')]
+        assert len(black_lbl) == 1, f'Unexpected "Black" label in table: {black_lbl}'
+        black_lbl = black_lbl[0]
+        _logger.debug(f'Black label: {black_lbl}')
         total_cases = data.loc['Total with data', 'No. Cases']
         total_deaths = data.loc['Total with data', 'No. Deaths']
-        aa_cases = data.loc['African American/Black', 'No. Cases']
-        aa_cases_pct = data.loc['African American/Black',
-                                'Percent Cases']
-        aa_deaths = data.loc['African American/Black', 'No. Deaths']
-        aa_deaths_pct = data.loc['African American/Black',
-                                 'Percent Deaths']
+        aa_cases = data.loc[black_lbl, 'No. Cases']
+        aa_cases_pct = data.loc[black_lbl, 'Percent Cases']
+        aa_deaths = data.loc[black_lbl, 'No. Deaths']
+        aa_deaths_pct = data.loc[black_lbl, 'Percent Deaths']
 
         return [self._make_series(
             date=date,
