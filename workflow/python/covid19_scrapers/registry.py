@@ -1,5 +1,6 @@
 from functools import reduce
 import logging
+import os
 import pandas as pd
 
 from covid19_scrapers.web_cache import WebCache
@@ -29,6 +30,7 @@ class Registry(object):
         """
         self.enable_beta_scrapers = enable_beta_scrapers
         self.home_dir = home_dir
+        os.makedirs(str(home_dir), exist_ok=True)
         self.web_cache = WebCache(str(home_dir / 'web_cache.db'))
         self._scrapers = {}
 
