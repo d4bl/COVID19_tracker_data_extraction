@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime
+import re
 
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import (
@@ -33,27 +34,27 @@ class Delaware(ScraperBase):
         # There are multiple places on the page that display the
         # `total cases`, all of which have the same value.  This just
         # randomly chooses one and parses it.
-        total_cases_text = soup.find('div', text='Total Cases')
+        total_cases_text = soup.find('span', text='Total Cases')
         total_cases_value = total_cases_text.find_next(
             'span',
-            {'class':
-             'c-summary-metric__value c-summary-metric__value--lg d-block'})
+            class_='c-summary-metric__value')
         return raw_string_to_int(total_cases_value.text)
 
     def get_total_deaths(self, soup):
-        total_deaths_text = soup.find('div', text='Total deaths')
+        total_deaths_text = soup.find('span', text='Total deaths')
         total_deaths_value = total_deaths_text.find_previous(
-            'div', {'class': 'c-summary-metric__value'})
+            'div', class_='c-summary-metric__value')
         return raw_string_to_int(total_deaths_value.text)
 
-    def _parse_aa_df(self, soup, div_filters):
-        parsed = soup.find('div', div_filters)
+    def _parse_aa_df(self, soup, text):
+        title = soup.find('h4', text=text)
+        parsed = title.find_next('table')
         df = table_to_dataframe(parsed)
         assert 'Race/Ethnicity' in df.columns
         return df.set_index('Race/Ethnicity')
 
     def get_aa_cases(self, soup):
-        df = self._parse_aa_df(soup, {'id': 'total-cases-by-race-ethnicity'})
+        df = self._parse_aa_df(soup, re.compile(r'cases by race', re.I))
         assert 'State of Delaware' in df.columns, 'Unable to parse Total AA cases for Delaware'
         raw_value = df.loc['Non-Hispanic Black', 'State of Delaware']
         # the raw value consists of total and pct seperated by a \n
@@ -61,8 +62,7 @@ class Delaware(ScraperBase):
         return int(total)
 
     def get_aa_deaths(self, soup):
-        df = self._parse_aa_df(
-            soup, {'id': 'total-deaths-by-race-ethnicity'})
+        df = self._parse_aa_df(soup, re.compile(r'deaths by race', re.I))
         assert 'State of Delaware' in df.columns, 'Unable to parse Total AA deaths for Delaware'
         raw_value = df.loc['Non-Hispanic Black', 'State of Delaware']
         # the raw value consists of total and pct seperated by a \n
