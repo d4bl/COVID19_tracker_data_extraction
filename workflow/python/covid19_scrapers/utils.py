@@ -27,25 +27,13 @@ from io import BytesIO
 import zipfile
 import ssl
 
+from covid19_scrapers.scoped_resource import ScopedResource
 from covid19_scrapers.web_cache import WebCache
 
 
 ssl._create_default_https_context = ssl._create_unverified_context
 _logger = logging.getLogger(__name__)
-_DEFAULT_WEB_CACHE = None
-
-
-def get_web_cache(web_cache):
-    if web_cache is not None:
-        return web_cache
-    if _DEFAULT_WEB_CACHE is None:
-        set_default_web_cache(WebCache())
-    return _DEFAULT_WEB_CACHE
-
-
-def set_default_web_cache(web_cache):
-    global _DEFAULT_WEB_CACHE
-    _DEFAULT_WEB_CACHE = web_cache
+UTILS_WEB_CACHE = ScopedResource(WebCache)
 
 
 def as_list(arg):
@@ -275,22 +263,21 @@ def query_geoservice(*, flc_id=None, flc_url=None, layer_name=None,
 
 
 # Helpers for HTTP data retrieval.
-def get_cached_url(url, *,
-                   web_cache=None,
-                   **kwargs):
+def get_cached_url(url, **kwargs):
     """Retrieve a URL from the cache, or retrieve the URL from the web and
     store the response into a cache.
 
+    This must be called inside
+      with UTILS_WEB_CACHE(...):
+         ...
+
     Arguments:
       url: the URL to retrieve
-      web_cache: if provided, the WebCache instance to use for this
-        request.
 
     Returns a requests.Response object.
 
     """
-    web_cache = get_web_cache(web_cache)
-    return web_cache.fetch(url, **kwargs)
+    return UTILS_WEB_CACHE.fetch(url, **kwargs)
 
 
 def download_file(file_url, new_file_name=None, **kwargs):

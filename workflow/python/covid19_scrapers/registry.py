@@ -2,6 +2,9 @@ from functools import reduce
 import logging
 import pandas as pd
 
+from covid19_scrapers.web_cache import WebCache
+from covid19_scrapers.utils import UTILS_WEB_CACHE
+
 
 _logger = logging.getLogger(__name__)
 
@@ -14,15 +17,19 @@ class Registry(object):
     scrapers, and collecting their results.
     """
 
-    def __init__(self, *, enable_beta_scrapers=False, **kwargs):
+    def __init__(self, *, home_dir, enable_beta_scrapers=False, **kwargs):
         """Returns a Registry instance with all the per-state scrapers
         registered.
 
         Keyword arguments:
-          enable_beta_scrapers: optional, a bool indicating whether to include
-            scrapers with the BETA_SCRAPER class variable set.
+          home_dir: Path-like for the cache/download directory root.
+          enable_beta_scrapers: optional, a bool indicating whether to
+            include scrapers with the BETA_SCRAPER class variable set.
+
         """
         self.enable_beta_scrapers = enable_beta_scrapers
+        self.home_dir = home_dir
+        self.web_cache = WebCache(str(home_dir / 'web_cache.db'))
         self._scrapers = {}
 
     def register_scraper(self, instance):
@@ -47,9 +54,10 @@ class Registry(object):
         """
         scraper = self._scrapers.get(name)
         if scraper:
-            if scraper.is_beta() and not self.enable_beta_scrapers:
-                _logger.warn(f'Running beta scraper: {scraper.name()}')
-            return scraper.run(**kwargs)
+            with UTILS_WEB_CACHE(instance=self.web_cache):
+                if scraper.is_beta() and not self.enable_beta_scrapers:
+                    _logger.warn(f'Running beta scraper: {scraper.name()}')
+                return scraper.run(**kwargs)
 
     def run_scrapers(self, names, **kwargs):
         """Return the results of running the specified scrapers, or an empty
@@ -71,11 +79,12 @@ class Registry(object):
         Dataframe if no scrapers are registered.
         """
         ret = []
-        for scraper in self._scrapers.values():
-            if scraper.is_beta() and not self.enable_beta_scrapers:
-                _logger.debug(f'Skipping beta scraper: {scraper.name()}')
-                continue
-            ret.append(scraper.run(**kwargs))
+        with UTILS_WEB_CACHE(instance=self.web_cache):
+            for scraper in self._scrapers.values():
+                if scraper.is_beta() and not self.enable_beta_scrapers:
+                    _logger.debug(f'Skipping beta scraper: {scraper.name()}')
+                    continue
+                ret.append(scraper.run(**kwargs))
         if ret:
             # Append the DFs in the list together, going from left
             # to right.
