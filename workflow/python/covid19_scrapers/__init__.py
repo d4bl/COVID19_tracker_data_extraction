@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from covid19_scrapers.census import CensusApi
@@ -50,8 +49,9 @@ def make_scraper_registry(*, home_dir=Path('work'),
       scraper_args: optional, a dict of additional keyword arguments
         for all scrapers' constructors.
     """
-    registry = Registry(**registry_args)
+
     census_api = CensusApi(census_api_key)
+    registry = Registry(home_dir=home_dir, **registry_args)
     for scraper_class in get_scraper_classes():
         registry.register_scraper(
             scraper_class(home_dir=home_dir / scraper_class.__name__,
