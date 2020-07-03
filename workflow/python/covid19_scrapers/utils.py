@@ -177,19 +177,19 @@ def make_geoservice_stat(agg, in_field, out_name):
 
 
 def _get_layer_by_name(layer_name, layers, tables):
-    for layer in layers:
+    for layer in layers or []:
         if layer.properties.name == layer_name:
             return layer
-    for table in tables:
+    for table in tables or []:
         if table.properties.name == layer_name:
             return table
 
 
 def _get_layer_by_id(layer_id, layers, tables):
-    for layer in layers:
+    for layer in layers or []:
         if layer.properties.id == layer_id:
             return layer
-    for table in tables:
+    for table in tables or []:
         if table.properties.id == layer_id:
             return table
 
