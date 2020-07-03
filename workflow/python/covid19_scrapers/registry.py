@@ -1,9 +1,7 @@
 from functools import reduce
 import logging
-import os
 import pandas as pd
 
-from covid19_scrapers.web_cache import WebCache
 from covid19_scrapers.utils import UTILS_WEB_CACHE
 
 
@@ -18,20 +16,18 @@ class Registry(object):
     scrapers, and collecting their results.
     """
 
-    def __init__(self, *, home_dir, enable_beta_scrapers=False, **kwargs):
+    def __init__(self, *, web_cache, enable_beta_scrapers=False, **kwargs):
         """Returns a Registry instance with all the per-state scrapers
         registered.
 
         Keyword arguments:
-          home_dir: Path-like for the cache/download directory root.
+          web_cache: the WebCache instance to use for scraping.
           enable_beta_scrapers: optional, a bool indicating whether to
             include scrapers with the BETA_SCRAPER class variable set.
 
         """
         self.enable_beta_scrapers = enable_beta_scrapers
-        self.home_dir = home_dir
-        os.makedirs(str(home_dir), exist_ok=True)
-        self.web_cache = WebCache(str(home_dir / 'web_cache.db'))
+        self.web_cache = web_cache
         self._scrapers = {}
 
     def register_scraper(self, instance):
