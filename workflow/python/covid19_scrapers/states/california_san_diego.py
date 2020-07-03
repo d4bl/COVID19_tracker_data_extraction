@@ -5,7 +5,7 @@ import re
 import fitz
 from tabula import read_pdf
 
-from covid19_scrapers.census import CensusApi
+from covid19_scrapers.census import get_aa_pop_stats
 from covid19_scrapers.utils import download_file, as_list
 from covid19_scrapers.scraper import ScraperBase
 
