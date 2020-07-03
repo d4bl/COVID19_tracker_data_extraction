@@ -61,7 +61,14 @@ class ExecutionStep(metaclass=abc.ABCMeta):
     def __init__(self):
         pass
 
+    @abc.abstractmethod
     def execute(self, driver, context):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def __repr__(self):
+        """The __repr__ method must be implemented for logging purposes
+        """
         raise NotImplementedError
 
 
@@ -72,6 +79,9 @@ class GoToURL(ExecutionStep):
     def execute(self, driver, context):
          driver.get(self.url)
 
+    def __repr__(self):
+        return f"GoToURL(url={self.url})"
+
 
 class WaitFor(ExecutionStep):
     def __init__(self, conditions, timeout=30):
@@ -80,6 +90,9 @@ class WaitFor(ExecutionStep):
     
     def execute(self, driver, context):
         utils.wait_for_conditions_on_webdriver(driver, self.conditions, self.timeout)
+
+    def __repr__(self):
+        return f"WaitFor(conditions={self.conditions}, timeout={self.timeout})"
 
 
 class FindElement(ExecutionStep):
@@ -100,6 +113,11 @@ class FindElement(ExecutionStep):
         else:
             raise ExecutionStepException("Method (%s) of finding an element is invalid." % self.method)
 
+    def __repr__(self):
+        return (
+            f"FindElement(method={self.method}, xpath={self.xpath},"
+            f"ignore_missing={self.ignore_missing}, context_key={self.context_key})")
+        
 
 class ClickOn(ExecutionStep):
     def __init__(self, last_element=False, saved_element_name=None):
@@ -118,6 +136,9 @@ class ClickOn(ExecutionStep):
             context.get(self.saved_element_name).click()
         else:
             raise ExecutionStepException("Invalid click location")
+    
+    def __repr__(self):
+        return f"ClickOn(last_element={self.last_element}, saved_element_name={self.saved_element_name})"
 
 
 class GetPageSource(ExecutionStep):
@@ -130,8 +151,14 @@ class GetPageSource(ExecutionStep):
             data = BeautifulSoup(data, 'lxml')
         context.add_to_context('page_source', data)
 
+    def __repr__(self):
+        return f"GetPageSource(as_soup={self.as_soup})"
+
 
 class GetXSessionId(ExecutionStep):
     def execute(self, driver, context):
         context.add_to_context(
             'x_session_id', utils.get_session_id_from_seleniumwire(driver))
+
+    def __repr__(self):
+        return "GetXSessionId()"
