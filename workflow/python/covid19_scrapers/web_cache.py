@@ -11,17 +11,37 @@ _logger = logging.getLogger(__name__)
 
 
 class WebCache(object):
+    SCHEMA = [
+        'url TEXT PRIMARY KEY',
+        'etag TEXT',
+        'last_modified TEXT',
+        'response BLOB NOT NULL',
+    ]
+
     def __init__(self, db_name='web_cache.db', reset=False):
         # Set up DB connection.
         self.conn = sqlite3.connect(db_name)
         self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
-        if reset:
-            self.cursor.execute('DROP TABLE IF EXISTS web_cache')
         self.cursor.execute(
             'CREATE TABLE IF NOT EXISTS web_cache\n'
-            '(url TEXT PRIMARY KEY, etag TEXT, last_modified TEXT,'
-            ' response BLOB NOT NULL)')
+            f'({", ".join(self.SCHEMA)})')
+        if reset:
+            self.delete_from_cache(where='1=1')
+
+    def delete_from_cache(self, * where):
+        """Remove the requested rows from the cache.
+
+        Arguments:
+          where: a string WHERE clause in the schema of this DB.
+
+        Example:
+          web_cache.delete_from_cache(where='url LIKE "%missisippi%"')
+
+        """
+        self.cursor.execute('DELETE FROM TABLE web_cache '
+                            f'WHERE {where}')
+        self.conn.commit()
 
     def get_cached_response(self, url):
         self.cursor.execute(
@@ -56,6 +76,7 @@ class WebCache(object):
               method='GET', headers={}, params={}, data={},
               files={}, cookies={}, session=None, session_kwargs={},
               **kwargs):
+
         """Retrieve a URL from the cache, or retrieve the URL from the web and
         store the response into a cache.
 
