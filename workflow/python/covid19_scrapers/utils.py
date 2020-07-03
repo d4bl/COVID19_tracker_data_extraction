@@ -2,13 +2,11 @@
 from arcgis.features import FeatureLayerCollection
 from arcgis.gis import GIS
 import datetime
-import hashlib
 import logging
 import pandas as pd
 from pathlib import Path
 import os
 import re
-import time
 from urllib.parse import urlsplit
 
 # Read webpage
@@ -29,11 +27,13 @@ from io import BytesIO
 import zipfile
 import ssl
 
-
+from covid19_scrapers.scoped_resource import ScopedResource
+from covid19_scrapers.web_cache import WebCache
 
 
 ssl._create_default_https_context = ssl._create_unverified_context
 _logger = logging.getLogger(__name__)
+UTILS_WEB_CACHE = ScopedResource(WebCache)
 
 
 def as_list(arg):
@@ -263,116 +263,36 @@ def query_geoservice(*, flc_id=None, flc_url=None, layer_name=None,
 
 
 # Helpers for HTTP data retrieval.
-def get_cached_url(url, local_file_name=None, force_remote=False,
-                   method='GET', headers={}, params={}, data={},
-                   files={}, cookies={}, session=None,
-                   session_args={}, **kwargs):
-    """Retrieve a URL and cache the results in a local file.
+def get_cached_url(url, **kwargs):
+    """Retrieve a URL from the cache, or retrieve the URL from the web and
+    store the response into a cache.
 
-    force_remote: inhibits checking the cached file.
+    This must be called inside
+      with UTILS_WEB_CACHE(...):
+         ...
 
-    local_file_name: string or None.  A default value is generated
-      from the URL if not provided.
-
-    If the local file exists, its modification time is used in a
-    conditional GET for url, and if a newer version is available, it
-    replaces the cached data.  If the local file is up-to-date, its
-    contents are used.
+    Arguments:
+      url: the URL to retrieve
 
     Returns a requests.Response object.
+
     """
-    if session is None:
-        session = requests.Session(**session_args)
-
-    req = requests.Request(method, url=url, headers=headers,
-                           cookies=cookies, params=params, data=data,
-                           files=files)
-    preq = session.prepare_request(req)
-
-    if local_file_name:
-        local_file = Path(local_file_name)
-    else:
-        url_parts = urlsplit(preq.url)
-        path = url_parts.path.replace(':', '_')
-        if path.endswith('/'):
-            path += 'index.html'
-        if url_parts.query:
-            local_file = Path('./' + path + '_' +
-                              hashlib.md5(
-                                  url_parts.query.encode('utf-8')
-                              ).hexdigest())
-        else:
-            local_file = Path('./' + path)
-    _logger.debug(f'Using local file {local_file}')
-    r = None
-    if force_remote:
-        _logger.debug(f'force_remote is set; requesting url')
-        # fall though to response handling code
-    elif method != 'GET':
-        _logger.debug(f'Cache requires conditional GET, but requested method is {method}; requesting url')
-        # fall though to response handling code
-    elif not local_file.exists():
-        _logger.debug(f'cache file does not exist; requesting url')
-        # fall though to response handling code
-    else:
-        _logger.debug(f'Trying conditional GET')
-        # Setting the If-Modified-Since header on GET turns it into a
-        # Conditional GET. For details, see
-        # https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests
-        mtime = local_file.stat().st_mtime
-        local_file_update_time = eut.formatdate(mtime, usegmt=True)
-        preq.headers.update({'If-Modified-Since': local_file_update_time})
-        r = session.send(preq)
-        # A status of 304 means "Not modified"
-        if r.status_code != 304:
-            _logger.debug('Cached file is stale: ' +
-                          f'last-fetch: {local_file_update_time}, ' +
-                          f'current-fetch: {r.headers.get("Last-Modified")}')
-            # fall though to response handling code
-        else:
-            _logger.info(f'File cache hit: {local_file.name}')
-            with local_file.open('rb') as f:
-                r = requests.Response()
-                r.url = url
-                r.status_code = 200
-                r._content = f.read()
-                r._content_consumed = True
-                r.headers['last-modified'] = eut.format_datetime(
-                    datetime.datetime.fromtimestamp(mtime))
-                if local_file.suffix == 'html' or local_file.suffix == 'xml':
-                    encoding = EncodingDetector.find_declared_encoding(
-                        r.content, is_html=local_file.suffix == 'html')
-                    r.encoding = encoding or 'utf-8'
-                return r
-    # non-cache retrieval cases
-    if r is None:
-        r = session.send(preq)
-    # response handling code
-    r.raise_for_status()
-    last_modified = r.headers.get('last-modified')
-    if last_modified:
-        mtime = eut.parsedate_to_datetime(last_modified).timestamp()
-    else:
-        mtime = time.time()
-    try:
-        if local_file.parent and not local_file.parent.exists():
-            _logger.debug(f'Making {local_file.parent}')
-            os.makedirs(str(local_file.parent), exist_ok=True)
-        with local_file.open('wb') as f:
-            f.write(r.content)
-            _logger.debug(f'Saved download as: {local_file}')
-        os.utime(local_file, (mtime, mtime))
-    except OSError as e:
-        _logger.warn(f'Saving to cache failed: {local_file}: {e}')
-
-    return r
+    return UTILS_WEB_CACHE.fetch(url, **kwargs)
 
 
 def download_file(file_url, new_file_name=None, **kwargs):
     """Save the url contents in the specified file."""
+    if new_file_name is None:
+        new_file_name = Path(urlsplit(file_url).path).name
     try:
-        get_cached_url(file_url, local_file_name=new_file_name,
-                       **kwargs)
+        response = get_cached_url(file_url, **kwargs)
+        new_file = Path(new_file_name)
+        _logger.debug(f'Saving response content to: {new_file}')
+        if new_file.parent and not new_file.parent.exists():
+            _logger.debug(f'Making {new_file.parent}')
+            os.makedirs(str(new_file.parent), exist_ok=True)
+        with new_file.open('wb') as f:
+            f.write(response.content)
     except Exception as e:
         _logger.warn(f'File download failed: {new_file_name}: {e}')
         raise
