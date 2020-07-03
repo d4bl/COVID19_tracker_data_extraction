@@ -7,6 +7,14 @@ from covid19_scrapers import utils
 
 
 class WebdriverSteps(object):
+    """This class is used to hold the steps that should be executed in order
+    by the WebdriverRunner.
+
+    Use the `add_step` function to add an `ExecutionStep` to the list
+
+    Optionally, once an execution step has been created, an instance method, for adding
+    the execution step, can be added to this class as (kinda) syntactic sugar.
+    """
     def __init__(self):
         self._steps = []
 
@@ -19,37 +27,21 @@ class WebdriverSteps(object):
         return self._steps
     
     def go_to_url(self, url):
-        """Tells the driver to go to the url given
-        """
         return self.add_step(GoToURL(url))
 
     def wait_for(self, conditions, timeout=30):
-        """Tells the driver to wait for the given conditions before proceeding to the next steps
-        """
         return self.add_step(WaitFor(conditions, timeout))
 
     def find_element_by_xpath(self, xpath, ignore_missing=False):
-        """Finds an element by x-path. Element is then saved as a variable which can then be
-        used in subsequent actions.
-        """
         return self.add_step(FindElement('xpath', xpath, ignore_missing))
 
     def click_on_last_element_found(self):
-        """After `find_element_by_{}` has been invoked, this function will perform a click on the last
-        element that was found.
-        """
         return self.add_step(ClickOn(last_element=True))
 
     def get_x_session_id(self):
-        """Many Tableau dashboards can be interacted with via a X-Session-ID. This function goes through
-        the many requests that were made and saves the X-Session-Id. This info can then be obtained via
-        the `.get_x_session_id()` function.
-        """
         return self.add_step(GetXSessionId())
 
     def get_page_source(self, as_soup=True):
-        """Adds the page_source as raw text or with the option of outputting it as a BeautifulSoup output
-        """
         return self.add_step(GetPageSource(as_soup))
 
 
@@ -58,11 +50,34 @@ class ExecutionStepException(Exception):
 
 
 class ExecutionStep(metaclass=abc.ABCMeta):
+    """This class is an abstract class used for declaring a single step for
+    the WebdriverRunner to execute.
+
+    Usage:
+        class ExampleStep(ExecutionStep):
+            def __init__(self, thing):
+                self.thing = thing
+            
+            def execute(self, driver, context):
+                result = driver.do_something_with(self.thing)
+                context.add_to_context('thing', result)
+
+            def __repr__(self):
+                return f"ExampleStep(thing={self.thing})"
+    """
     def __init__(self):
         pass
 
     @abc.abstractmethod
     def execute(self, driver, context):
+        """The function that will be executed by the WebdriverRunner
+        
+        Positional arguments:
+          driver: the webdriver instance that will be passed in
+
+          context: a `WebdriverContext` used to hold state. 
+            See WebdriverContext in `covid19_scrapers/webdriver/runner.py`
+        """
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -73,6 +88,8 @@ class ExecutionStep(metaclass=abc.ABCMeta):
 
 
 class GoToURL(ExecutionStep):
+    """Tells the driver to go to the url given
+    """
     def __init__(self, url):
         self.url = url
     
@@ -84,6 +101,8 @@ class GoToURL(ExecutionStep):
 
 
 class WaitFor(ExecutionStep):
+    """Tells the driver to wait for the given conditions before proceeding to the next steps
+    """
     def __init__(self, conditions, timeout=30):
         self.conditions = conditions
         self.timeout = timeout
@@ -96,6 +115,9 @@ class WaitFor(ExecutionStep):
 
 
 class FindElement(ExecutionStep):
+    """Finds an element by parameters given. Element is then saved as a variable which can then be
+    used in subsequent ExecutionSteps.
+    """
     def __init__(self, method, xpath=None, ignore_missing=False, context_key=None):
         self.method = method
         self.xpath = xpath
@@ -120,6 +142,9 @@ class FindElement(ExecutionStep):
         
 
 class ClickOn(ExecutionStep):
+    """After `FindElement` has been invoked in a previous step, click on the last_element_found or
+    click on an element saved by key
+    """
     def __init__(self, last_element=False, saved_element_name=None):
         if not (bool(last_element) ^ bool(saved_element_name)):
             raise ExecutionStepException(
@@ -142,6 +167,8 @@ class ClickOn(ExecutionStep):
 
 
 class GetPageSource(ExecutionStep):
+    """Adds the page_source as raw text or with the option of outputting it as a BeautifulSoup output
+    """
     def __init__(self, as_soup):
         self.as_soup = as_soup
     
@@ -156,6 +183,10 @@ class GetPageSource(ExecutionStep):
 
 
 class GetXSessionId(ExecutionStep):
+    """Many Tableau dashboards can be interacted with via a X-Session-ID. This function goes through
+    the many requests that were made and saves the X-Session-Id. This info can then be obtained via
+    the `.get_x_session_id()` function.
+    """
     def execute(self, driver, context):
         context.add_to_context(
             'x_session_id', utils.get_session_id_from_seleniumwire(driver))
