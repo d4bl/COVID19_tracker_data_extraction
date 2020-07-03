@@ -1,2 +1,4 @@
-from .runner import WebdriverRunner
-from .execution import WebdriverSteps
+__all__ = ['WebdriverRunner', 'WebdriverSteps']
+
+from covid19_scrapers.webdriver.runner import WebdriverRunner
+from covid19_scrapers.webdriver.execution import WebdriverSteps
