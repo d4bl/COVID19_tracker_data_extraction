@@ -75,8 +75,10 @@ class Nebraska(ScraperBase):
 
         aa_cases = demog_df.loc['PositiveCases', 'race_AfricanAmerican']
         aa_deaths = demog_df.loc['Deaths', 'race_AfricanAmerican']
-        aa_cases_pct = to_percentage(aa_cases, known_df['PositiveCases'])
-        aa_deaths_pct = to_percentage(aa_deaths, known_df['Deaths'])
+        known_cases = known_df['PositiveCases']
+        known_deaths = known_df['Deaths']
+        aa_cases_pct = to_percentage(aa_cases, known_cases)
+        aa_deaths_pct = to_percentage(aa_deaths, known_deaths)
 
         return [self._make_series(
             date=date,
@@ -88,4 +90,6 @@ class Nebraska(ScraperBase):
             pct_aa_deaths=aa_deaths_pct,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=True,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]

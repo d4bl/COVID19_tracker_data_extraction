@@ -112,4 +112,6 @@ class NewYorkCity(ScraperBase):
             pct_aa_deaths=aa_death_pct,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=True,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]

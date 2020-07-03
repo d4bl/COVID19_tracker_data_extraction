@@ -50,7 +50,6 @@ def get_demographic_dataframe():
         'https://public.tableau.com/vizql/w/NCDHHS_COVID-19_DataDownload/v/Demographics/viewData/'
         'sessions/{}/views/5649504231100340473_15757585069639442359'
         '?maxrows=200&viz=%7B%22worksheet%22%3A%22TABLE_RACE%22%2C%22dashboard%22%3A%22Demographics%22%7D')
-
     results = runner.run(
         WebdriverSteps()
         .go_to_url(DOWNLOAD_URL.format(session_id))
@@ -69,7 +68,6 @@ def get_demographic_dataframe():
     # Read CSV, set first row as header, and the first two columns (Race and Name) as indices.
     content = get_content_as_file(csv_href)
     df = pd.read_csv(content, header=0, index_col=[0, 1])
-
     # Remaining column is the `value`; rename accordingly
     assert len(df.columns) == 1
     return df.rename(columns={df.columns[0]: 'Value'})
@@ -109,6 +107,12 @@ class NorthCarolina(ScraperBase):
         assert text, 'Text not found'
         return raw_string_to_int(text.previous_element)
 
+    def get_missing_cases(self, df):
+        return raw_string_to_int(df.loc[('Missing', 'Cases'), 'Value'])
+
+    def get_missing_deaths(self, df):
+        return raw_string_to_int(df.loc[('Missing', 'Deaths'), 'Value'])
+
     def get_aa_cases(self, df):
         return raw_string_to_int(df.loc[('Black or African American', 'Cases'), 'Value'])
 
@@ -123,10 +127,12 @@ class NorthCarolina(ScraperBase):
         _logger.info(f'Processing data for {date}')
         cases = self.get_total_cases(soup)
         deaths = self.get_total_deaths(soup)
+        known_cases = cases - self.get_missing_cases(demographic_df)
+        known_deaths = deaths - self.get_missing_deaths(demographic_df)
         aa_cases = self.get_aa_cases(demographic_df)
         aa_deaths = self.get_aa_deaths(demographic_df)
-        pct_aa_cases = to_percentage(aa_cases, cases)
-        pct_aa_deaths = to_percentage(aa_deaths, deaths)
+        pct_aa_cases = to_percentage(aa_cases, known_cases)
+        pct_aa_deaths = to_percentage(aa_deaths, known_deaths)
 
         return [self._make_series(
             date=date,
@@ -138,4 +144,6 @@ class NorthCarolina(ScraperBase):
             pct_aa_deaths=pct_aa_deaths,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=True,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]

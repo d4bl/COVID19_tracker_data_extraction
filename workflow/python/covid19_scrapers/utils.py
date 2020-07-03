@@ -136,14 +136,23 @@ def _maybe_convert(val):
 
 
 def table_to_dataframe(table):
-    """Given a bs4 Table element, make a DataFrame using the `th` items as
-    columns and `td` items as float data.
+    """Given a bs4 Table element, make a DataFrame using the `th` items or
+    first row as columns and `td` items as float data.
+
     """
-    columns = [th.text.strip() for th in table.find_all('th')]
+    ths = table.find_all('th')
+    trs = table.find_all('tr')
+    if ths:
+        columns = [th.text.strip() for th in ths]
+    else:
+        columns = [td.text.strip() for td in trs[0]]
+        trs = trs[1:]
     _logger.debug(f'Creating DataFrame with columns {columns}')
 
-    data = [[_maybe_convert(td.text) for td in tr.find_all('td')]
-            for tr in table.find_all('tr')]
+    data = [[_maybe_convert(td.text)
+             for idx, td in enumerate(tr.find_all('td'))
+             if idx < len(columns)]
+            for tr in trs]
     return pd.DataFrame(data, columns=columns).dropna(how='all')
 
 
