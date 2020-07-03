@@ -9,13 +9,12 @@ class ScopedResource(object):
         with resource(1, foo=2):
             use_resource()
 
-    If a single keyword arg `instance` of type SomeClass is passed in,
-    it will be used instead of creating a fresh instance on context
-    manager entry:
+    If `with_instance` is used instead, its argument will be used
+    instead of creating a fresh instance on context manager entry:
 
         my_instance = SomeClass()
 
-        with resource(instance=my_instance):
+        with resource.with_instance(instance):
             use_resource()
 
     """
@@ -23,10 +22,14 @@ class ScopedResource(object):
         self.cls = cls
         self.instance = None
 
-    def __call__(self, *args, instance=None, **kwargs):
+    def __call__(self, *args, **kwargs):
         self.args = args
-        self.instance = instance
         self.kwargs = kwargs
+        return self
+
+    def with_instance(self, instance):
+        assert isinstance(instance, self.cls), 'Invalid argument type'
+        self.instance = instance
         return self
 
     def __enter__(self):
