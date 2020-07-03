@@ -1,3 +1,5 @@
+__all__ = ['CensusApi', 'FipsLookup', 'get_aa_pop_stats']
+
 from covid19_scrapers.census.census_api import CensusApi
 from covid19_scrapers.census.fips_lookup import FipsLookup
 from covid19_scrapers.utils import to_percentage

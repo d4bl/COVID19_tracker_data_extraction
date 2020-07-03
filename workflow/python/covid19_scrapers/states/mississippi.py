@@ -66,24 +66,24 @@ class Mississippi(ScraperBase):
 
         # Fix headers
         cases.columns = cases.iloc[1, :].str.replace(r'\r', ' ').str.strip()
-        cases = cases[~cases['County'].isnull() &
-                      (cases['County'] != 'County')]
+        cases = cases[~cases['County'].isnull()
+                      & (cases['County'] != 'County')]
         cases = cases.set_index('County')
         cases = cases.astype(int)
 
         deaths.columns = deaths.iloc[1, :].str.replace(r'\r', ' ').str.strip()
-        deaths = deaths[~deaths['County'].isnull() &
-                        (deaths['County'] != 'County')]
+        deaths = deaths[~deaths['County'].isnull()
+                        & (deaths['County'] != 'County')]
         deaths = deaths.set_index('County')
         deaths = deaths.astype(int)
 
         # Aggregate over ethnicities
-        cases_agg = (cases.iloc[:, 1:7] +
-                     cases.iloc[:, 7:13] +
-                     cases.iloc[:, 13:19])
-        deaths_agg = (deaths.iloc[:, 1:7] +
-                      deaths.iloc[:, 7:13] +
-                      deaths.iloc[:, 13:19])
+        cases_agg = (cases.iloc[:, 1:7]
+                     + cases.iloc[:, 7:13]
+                     + cases.iloc[:, 13:19])
+        deaths_agg = (deaths.iloc[:, 1:7]
+                      + deaths.iloc[:, 7:13]
+                      + deaths.iloc[:, 13:19])
 
         # Copy over the totals
         cases_agg['Total'] = cases['Total Cases']

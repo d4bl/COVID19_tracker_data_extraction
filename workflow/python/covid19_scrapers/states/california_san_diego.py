@@ -63,13 +63,13 @@ class CaliforniaSanDiego(ScraperBase):
             raise ValueError('Unable to find date in cases PDF')
         _logger.info(f'Processing data for {date}')
 
-        _logger.debug(f'Loading cases')
+        _logger.debug('Loading cases')
         cases_raw = as_list(read_pdf('cases.pdf'))[0]
 
         # Scan the rows to find where the header ends.
         for idx in cases_raw.index:
             if cases_raw.iloc[idx, 0] == 'Race and Ethnicity':
-                cases = cases_raw.iloc[idx+1:].copy()
+                cases = cases_raw.iloc[idx + 1:].copy()
                 cases.columns = cases_raw.iloc[idx]
                 break
 
@@ -90,7 +90,7 @@ class CaliforniaSanDiego(ScraperBase):
         _logger.debug(f'Total AA cases: {aa_cases_cnt}')
         _logger.debug(f'Pct AA cases: {aa_cases_pct}')
 
-        _logger.debug(f'Loading deaths')
+        _logger.debug('Loading deaths')
         deaths_raw = as_list(read_pdf('deaths.pdf'))[0]
 
         # Scan the rows to find where the header ends.
@@ -99,7 +99,7 @@ class CaliforniaSanDiego(ScraperBase):
                 # Pick out the total deaths en passant
                 total_deaths = self.check_cvt(deaths_raw.iloc[idx, 1])
             elif deaths_raw.iloc[idx, 0] == 'Race/Ethnicity':
-                deaths = deaths_raw.iloc[idx+1:]
+                deaths = deaths_raw.iloc[idx + 1:]
                 # The table is read with two columns, and centering
                 # makes some entries in the left column get included
                 # in the right instead. dropna removes these.
