@@ -56,7 +56,7 @@ class Registry(object):
         """
         scraper = self._scrapers.get(name)
         if scraper:
-            with UTILS_WEB_CACHE(instance=self.web_cache):
+            with UTILS_WEB_CACHE.with_instance(self.web_cache):
                 if scraper.is_beta() and not self.enable_beta_scrapers:
                     _logger.warn(f'Running beta scraper: {scraper.name()}')
                 return scraper.run(**kwargs)
@@ -81,7 +81,7 @@ class Registry(object):
         Dataframe if no scrapers are registered.
         """
         ret = []
-        with UTILS_WEB_CACHE(instance=self.web_cache):
+        with UTILS_WEB_CACHE.with_instance(self.web_cache):
             for scraper in self._scrapers.values():
                 if scraper.is_beta() and not self.enable_beta_scrapers:
                     _logger.debug(f'Skipping beta scraper: {scraper.name()}')
