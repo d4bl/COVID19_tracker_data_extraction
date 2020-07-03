@@ -19,8 +19,17 @@ class WebdriverRunner(object):
     In performing some webscraping tasks, multiple functions are often used together to
     setup various things (generating links, sessions, etc.) such that data can be easily scraped
 
-    To use this, declare multiple steps that need to be invoked. Those actions will be saved in a queue and
-    will be lazily run. Invoking the `.run()` method will execute everything in the queue.
+    To use this, declare multiple steps that need to be invoked using `webdriver.execution.WebdriverSteps()`
+
+    Usage:
+        runner = WebdriverRunner()
+        results = runner.run(
+            WebdriverSteps()
+            .step1()
+            .step2()
+            ...)
+    
+    After the run, results will be returned as a `WebdriverResults` namedtuple
     """
 
     def __init__(self, driver=None):
