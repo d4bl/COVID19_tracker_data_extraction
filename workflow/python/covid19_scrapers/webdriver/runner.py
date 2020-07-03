@@ -1,6 +1,10 @@
 from collections import namedtuple
+import logging
 
 from seleniumwire import webdriver
+
+
+_logger = logging.getLogger(__name__)
 
 
 WebdriverResults = namedtuple('WebdriverResults', [
@@ -28,18 +32,29 @@ class WebdriverRunner(object):
             options.add_argument('headless')
         return webdriver.Chrome(options=options)
 
+    def format_error_log(self, idx, steps):
+        step_number = idx + 1
+        base = f"WebdriverRunner failed in step {step_number} when running steps:\n"
+        steps_log = "\n".join([f"{i}. {step}" for i, step in enumerate(steps, 1)])
+        return base + steps_log
+
     def run(self, webdriver_steps, headless=True):
         """Performs all the steps from webdriver_steps after another in order.
 
         returns results as a WebdriverResults namedtuple
         """
         driver = self.driver or self._get_default_driver(headless)
-        cxt = WebdriverContext()
-        for step in webdriver_steps.steps():
-            step.execute(driver, cxt)
-        if not self.driver:
-            driver.quit()
-        return cxt.get_results()
+        ctx = WebdriverContext()
+        try:
+            for idx, step in enumerate(webdriver_steps.steps()):
+                step.execute(driver, ctx)
+        except:
+            _logger.debug(self.format_error_log(idx, webdriver_steps.steps()))
+            raise
+        finally:
+            if not self.driver:
+                driver.quit()
+        return ctx.get_results()
 
 
 class WebdriverContext(object):
