@@ -18,6 +18,7 @@ class ScopedResource(object):
             use_resource()
 
     """
+
     def __init__(self, cls):
         self.cls = cls
         self.instance = None
