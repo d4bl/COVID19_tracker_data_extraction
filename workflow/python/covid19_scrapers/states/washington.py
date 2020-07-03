@@ -1,7 +1,6 @@
 from covid19_scrapers.utils import table_to_dataframe, url_to_soup
 from covid19_scrapers.scraper import ScraperBase
 
-from bs4 import BeautifulSoup
 import datetime
 import logging
 import re

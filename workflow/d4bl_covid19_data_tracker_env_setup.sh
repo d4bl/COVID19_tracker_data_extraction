@@ -86,3 +86,6 @@ pip install arcgis
 
 # Install PyGithub for New York City
 pip install PyGithub
+
+# Automate pre-commit checks
+pip install pre-commit

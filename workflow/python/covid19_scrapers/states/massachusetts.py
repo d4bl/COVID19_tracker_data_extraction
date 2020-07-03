@@ -56,13 +56,13 @@ class Massachusetts(ScraperBase):
         total_cases = df_mass['All Cases'].sum()
         total_deaths = df_mass['Deaths'].sum()
         aa_cases = df_mass[
-            df_mass['Race/Ethnicity'] ==
-            'Non-Hispanic Black/African American'
+            df_mass['Race/Ethnicity']
+            == 'Non-Hispanic Black/African American'
         ]['All Cases'].tolist()[0]
         aa_cases_pct = to_percentage(aa_cases, total_cases)
         aa_deaths = df_mass[
-            df_mass['Race/Ethnicity'] ==
-            'Non-Hispanic Black/African American'
+            df_mass['Race/Ethnicity']
+            == 'Non-Hispanic Black/African American'
         ]['Deaths'].tolist()[0]
         aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
         return [self._make_series(

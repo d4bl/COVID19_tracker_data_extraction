@@ -52,8 +52,8 @@ def parse_args():
                         help='Write working outputs to subdirectories of DIR.')
     parser.add_argument('--output', dest='outputs', metavar='FILE',
                         action='append', type=output_file,
-                        help='Write output to FILE (must be -, or have csv' +
-                             ' or xlsx extension)')
+                        help='Write output to FILE (must be -, or have csv'
+                             + ' or xlsx extension)')
     parser.add_argument('--log_file', type=str, metavar='FILE',
                         action='store', default='run_scrapers.log',
                         help='Write logs to FILE')
@@ -112,10 +112,10 @@ def setup_logging(log_file, log_level, log_to_stderr, stderr_log_level):
 def write_output(df, output, sort=False):
     """Given a dataframe, write it to one of the output files."""
     logging.info(f'Writing {output}')
-    
+
     if sort:
         df.sort_values(by=['Location'], inplace=True)
-    
+
     if output == '-':
         # Set pandas options for stdout
         pd.set_option('display.max_rows', None)
@@ -139,7 +139,7 @@ def main():
                 enable_beta_scrapers=opts.enable_beta_scrapers):
             print(f'  {scraper_name}', end='')
             if is_beta:
-                print(f' (BETA)', end='')
+                print(' (BETA)', end='')
             print()
         exit(0)
 

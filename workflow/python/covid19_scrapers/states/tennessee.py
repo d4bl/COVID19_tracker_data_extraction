@@ -6,7 +6,7 @@ from covid19_scrapers.utils import get_content_as_file, to_percentage
 
 class Tennessee(ScraperBase):
     '''The Tennessee can be downloaded via their dataset apis.
-    
+
     Of the apis they have, the `daily cases` set can be used for obtaining the total cases/deaths
     while the `race, ethnic, sex` set can be used for obtaining aa cases/deaths info.
 
@@ -20,17 +20,19 @@ class Tennessee(ScraperBase):
         super().__init__(**kwargs)
 
     def _scrape(self, **kwargs):
-        cases_df = pd.read_excel(get_content_as_file(self.BASE_URL.format(self.CASES_SUFFIX)))
+        cases_df = pd.read_excel(get_content_as_file(
+            self.BASE_URL.format(self.CASES_SUFFIX)))
         most_recent_cases = cases_df.iloc[-1]
         date = most_recent_cases['DATE'].to_pydatetime().date()
         cases = int(most_recent_cases['TOTAL_CASES'])
         deaths = int(most_recent_cases['TOTAL_DEATHS'])
 
-        demographic_df = pd.read_excel(get_content_as_file(self.BASE_URL.format(self.DEMOGRAPHIC_SUFFIX)))
+        demographic_df = pd.read_excel(get_content_as_file(
+            self.BASE_URL.format(self.DEMOGRAPHIC_SUFFIX)))
         most_recent_aa_cases = demographic_df[
-            (demographic_df['Category'] == 'RACE') &
-            (demographic_df['CAT_DETAIL'] == 'Black or African American') &
-            (demographic_df['Date'] == str(date))
+            (demographic_df['Category'] == 'RACE')
+            & (demographic_df['CAT_DETAIL'] == 'Black or African American')
+            & (demographic_df['Date'] == str(date))
         ].iloc[0]
         aa_cases = int(most_recent_aa_cases['Cat_CaseCount'])
         aa_deaths = int(most_recent_aa_cases['CAT_DEATHCOUNT'])
