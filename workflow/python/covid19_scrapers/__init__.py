@@ -1,8 +1,10 @@
+import os
+from pathlib import Path
+
+from covid19_scrapers.census import CensusApi
 from covid19_scrapers.registry import Registry
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.states import *
-
-from pathlib import Path
 
 
 def get_scraper_classes():
@@ -29,6 +31,7 @@ def get_scraper_names(enable_beta_scrapers=False):
 
 
 def make_scraper_registry(*, home_dir=Path('work'),
+                          census_api_key=None,
                           registry_args={},
                           scraper_args={}):
     """Returns a Registry instance with all the per-state scrapers
@@ -48,8 +51,10 @@ def make_scraper_registry(*, home_dir=Path('work'),
         for all scrapers' constructors.
     """
     registry = Registry(**registry_args)
+    census_api = CensusApi(census_api_key)
     for scraper_class in get_scraper_classes():
         registry.register_scraper(
             scraper_class(home_dir=home_dir / scraper_class.__name__,
+                          census_api=census_api,
                           **scraper_args))
     return registry

@@ -263,15 +263,6 @@ def query_geoservice(*, flc_id=None, flc_url=None, layer_name=None,
 
 
 # Helpers for HTTP data retrieval.
-def _send_request(*, session, method, url, headers, cookies, params,
-                  data, files):
-    req = requests.Request(method, url=url, headers=headers,
-                           cookies=cookies, params=params, data=data,
-                           files=files)
-    preq = session.prepare_request(req)
-    return session.send(preq)
-
-
 def get_cached_url(url, local_file_name=None, force_remote=False,
                    method='GET', headers={}, params={}, data={},
                    files={}, cookies={}, session=None,
@@ -293,11 +284,18 @@ def get_cached_url(url, local_file_name=None, force_remote=False,
     if session is None:
         session = requests.Session(**session_args)
 
+    req = requests.Request(method, url=url, headers=headers,
+                           cookies=cookies, params=params, data=data,
+                           files=files)
+    preq = session.prepare_request(req)
+
     if local_file_name:
         local_file = Path(local_file_name)
     else:
-        url_parts = urlsplit(url)
+        url_parts = urlsplit(preq.url)
         path = url_parts.path.replace(':', '_')
+        if path.endswith('/'):
+            path += 'index.html'
         if url_parts.query:
             local_file = Path('./' + path + '_' +
                               hashlib.md5(
@@ -323,12 +321,8 @@ def get_cached_url(url, local_file_name=None, force_remote=False,
         # https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests
         mtime = local_file.stat().st_mtime
         local_file_update_time = eut.formatdate(mtime, usegmt=True)
-        cond_headers = {'If-Modified-Since': local_file_update_time}
-        cond_headers.update(headers)
-        r = _send_request(session=session, method=method, url=url,
-                          params=params, data=data,
-                          files=files, headers=cond_headers,
-                          cookies=cookies)
+        preq.headers.update({'If-Modified-Since': local_file_update_time})
+        r = session.send(preq)
         # A status of 304 means "Not modified"
         if r.status_code != 304:
             _logger.debug('Cached file is stale: ' +
@@ -352,9 +346,7 @@ def get_cached_url(url, local_file_name=None, force_remote=False,
                 return r
     # non-cache retrieval cases
     if r is None:
-        r = _send_request(session=session, method=method, url=url,
-                          params=params, data=data, files=files,
-                          headers=headers, cookies=cookies)
+        r = session.send(preq)
     # response handling code
     r.raise_for_status()
     last_modified = r.headers.get('last-modified')
