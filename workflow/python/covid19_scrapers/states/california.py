@@ -50,7 +50,7 @@ class California(ScraperBase):
             ][1:],
             columns=cols).set_index(
                 'Race/Ethnicity'
-            )
+        )
 
         total_cases = data.loc['Total with data', 'No. Cases']
         total_deaths = data.loc['Total with data', 'No. Deaths']

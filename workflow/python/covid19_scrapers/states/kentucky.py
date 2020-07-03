@@ -105,12 +105,12 @@ class Kentucky(ScraperBase):
         # Since the AA% values do NOT include unknown race counts, we
         # need to omit these when backing out AA case/death counts
         # from the total.
-        aa_cases = round(total_cases *
-                         aa_cases_pct / 100 *
-                         cases_known_pct / 100)
-        aa_deaths = round(total_deaths *
-                          aa_deaths_pct / 100 *
-                          deaths_known_pct / 100)
+        aa_cases = round(total_cases
+                         * aa_cases_pct / 100
+                         * cases_known_pct / 100)
+        aa_deaths = round(total_deaths
+                          * aa_deaths_pct / 100
+                          * deaths_known_pct / 100)
 
         return [self._make_series(
             date=date,

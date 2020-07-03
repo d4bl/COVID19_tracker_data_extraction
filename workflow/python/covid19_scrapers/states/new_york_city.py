@@ -36,8 +36,8 @@ class NewYorkCity(ScraperBase):
             _logger.debug('Using access token for Github API')
             github = Github(self.github_access_token)
         else:
-            _logger.warn('Using unauthenticated for Github API: ' +
-                         'be careful of hitting the rate limit')
+            _logger.warn('Using unauthenticated for Github API: '
+                         + 'be careful of hitting the rate limit')
             github = Github()
         org = github.get_organization(self.GITHUB_ORG)
         repo = org.get_repo(self.GITHUB_REPO)

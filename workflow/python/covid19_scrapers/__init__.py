@@ -4,7 +4,7 @@ from pathlib import Path
 from covid19_scrapers.census import CensusApi
 from covid19_scrapers.registry import Registry
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.states import *
+from covid19_scrapers.states import *  # noqa: F401,F403
 from covid19_scrapers.utils import UTILS_WEB_CACHE
 from covid19_scrapers.web_cache import WebCache
 
