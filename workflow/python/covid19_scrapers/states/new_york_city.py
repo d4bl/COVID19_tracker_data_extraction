@@ -6,6 +6,7 @@ from github import Github
 import logging
 import pandas as pd
 
+from covid19_scrapers.census import get_aa_pop_stats
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import to_percentage
 
@@ -25,6 +26,10 @@ class NewYorkCity(ScraperBase):
 
     def name(self):
         return 'New York -- New York'
+
+    def _get_aa_pop_stats(self):
+        return get_aa_pop_stats(self.census_api, 'New York',
+                                city='New York')
 
     def _scrape(self, **kwargs):
         if self.github_access_token:

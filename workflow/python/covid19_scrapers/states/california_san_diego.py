@@ -1,12 +1,13 @@
-from covid19_scrapers.utils import download_file, as_list
-from covid19_scrapers.scraper import ScraperBase
+import datetime
+import logging
+import re
 
 import fitz
 from tabula import read_pdf
 
-import datetime
-import logging
-import re
+from covid19_scrapers.census import CensusApi
+from covid19_scrapers.utils import download_file, as_list
+from covid19_scrapers.scraper import ScraperBase
 
 
 _logger = logging.getLogger(__name__)
@@ -27,6 +28,10 @@ class CaliforniaSanDiego(ScraperBase):
 
     def name(self):
         return 'California - San Diego'
+
+    def _get_aa_pop_stats(self):
+        return get_aa_pop_stats(self.census_api, 'California',
+                                county='San Diego')
 
     @staticmethod
     def check_cvt(x):

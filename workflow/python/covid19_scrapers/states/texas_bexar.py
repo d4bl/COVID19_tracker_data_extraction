@@ -1,7 +1,10 @@
-from covid19_scrapers.utils import (query_geoservice, to_percentage)
-from covid19_scrapers.scraper import ScraperBase
-
 import logging
+
+
+from covid19_scrapers.census import get_aa_pop_stats
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils import (query_geoservice, to_percentage)
+
 
 
 _logger = logging.getLogger(__name__)
@@ -35,6 +38,10 @@ class TexasBexar(ScraperBase):
 
     def name(self):
         return 'Texas -- Bexar County'
+
+    def _get_aa_pop_stats(self):
+        return get_aa_pop_stats(self.census_api, 'Texas',
+                                county='Bexar')
 
     def _scrape(self, **kwargs):
 
