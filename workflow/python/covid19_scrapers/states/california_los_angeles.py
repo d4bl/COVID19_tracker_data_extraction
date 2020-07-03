@@ -1,10 +1,11 @@
-from covid19_scrapers.utils import get_cached_url, to_percentage, url_to_soup
-from covid19_scrapers.scraper import ScraperBase
-
 import datetime
 import json
 import logging
 import re
+
+from covid19_scrapers.census import get_aa_pop_stats
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils import get_cached_url, to_percentage, url_to_soup
 
 
 _logger = logging.getLogger(__name__)
@@ -27,6 +28,10 @@ class CaliforniaLosAngeles(ScraperBase):
 
     def name(self):
         return 'California - Los Angeles'
+
+    def _get_aa_pop_stats(self):
+        return get_aa_pop_stats(self.census_api, 'California',
+                                county='Los Angeles')
 
     def _scrape(self, **kwargs):
         r = get_cached_url(self.JS_URL)
