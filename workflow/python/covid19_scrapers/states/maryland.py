@@ -1,11 +1,11 @@
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import (
-    raw_string_to_int, to_percentage, url_to_soup_with_selenium)
+    raw_string_to_int, to_percentage, table_to_dataframe,
+    url_to_soup_with_selenium)
 
 from datetime import datetime, timedelta
 import logging
 from pytz import timezone
-import re
 from selenium.webdriver.common.by import By
 
 _logger = logging.getLogger(__name__)
@@ -37,27 +37,15 @@ class Maryland(ScraperBase):
         death_count_string = total_deaths_text.next_element
         return raw_string_to_int(death_count_string)
 
-    def _get_race_and_ethnicity_table(self, soup):
+    def get_race_and_ethnicity_table(self, soup):
         race_and_ethnicity_text = soup.find(
             'strong', text='By Race and Ethnicity')
-        return race_and_ethnicity_text.find_next('table')
-
-    def get_aa_cases(self, soup):
-        table = self._get_race_and_ethnicity_table(soup)
-        aa_text = table.find_next('td', text=re.compile('African-American'))
-        # Next td is total cases for AA, and after that is total
-        # deaths for AA.
-        return raw_string_to_int(aa_text.find_next('td').text)
-
-    def get_aa_deaths(self, soup):
-        table = self._get_race_and_ethnicity_table(soup)
-        aa_text = table.find_next('td', text=re.compile('African-American'))
-
-        total_aa_count = aa_text.find_next('td')
-
-        # Next td is total cases for AA, and after that is total
-        # deaths for AA
-        return raw_string_to_int(total_aa_count.find_next('td').text)
+        df = table_to_dataframe(race_and_ethnicity_text.find_next('table'))
+        df['Race/Ethnicity'] = df['Race/Ethnicity'].str.strip()
+        # df['Cases'] should have been converted by utils._maybe_convert
+        df['Deaths'] = df['Deaths'].str.extract(
+            r'\(([0-9,]+)\)', expand=False).apply(raw_string_to_int)
+        return df.set_index('Race/Ethnicity')
 
     def _scrape(self, **kwargs):
         soup = url_to_soup_with_selenium(
@@ -72,8 +60,11 @@ class Maryland(ScraperBase):
 
         cases = self.get_total_cases(soup)
         deaths = self.get_total_deaths(soup)
-        aa_cases = self.get_aa_cases(soup)
-        aa_deaths = self.get_aa_deaths(soup)
+        race_df = self.get_race_and_ethnicity_table(soup)
+        known_cases = cases - race_df.loc['Data not available', 'Cases']
+        known_deaths = cases - race_df.loc['Data not available', 'Deaths']
+        aa_cases = race_df.loc['African-American (NH)', 'Cases']
+        aa_deaths = race_df.loc['African-American (NH)', 'Deaths']
         pct_aa_cases = to_percentage(aa_cases, cases)
         pct_aa_deaths = to_percentage(aa_deaths, deaths)
 
@@ -86,5 +77,7 @@ class Maryland(ScraperBase):
             pct_aa_cases=pct_aa_cases,
             pct_aa_deaths=pct_aa_deaths,
             pct_includes_unknown_race=False,
-            pct_includes_hispanic_black=False
+            pct_includes_hispanic_black=False,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]
