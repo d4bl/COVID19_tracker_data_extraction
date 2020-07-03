@@ -8,14 +8,14 @@ _logger = logging.getLogger(__name__)
 
 
 WebdriverResults = namedtuple('WebdriverResults', [
-    'x_session_id', 
+    'x_session_id',
     'page_source'
 ])
 
 
 class WebdriverRunner(object):
     """WebdriverRunner wraps a selenium webdriver and runs steps in a declarative manner allowing for better readabiity
-    
+
     In performing some webscraping tasks, multiple functions are often used together to
     setup various things (generating links, sessions, etc.) such that data can be easily scraped
 
@@ -28,7 +28,7 @@ class WebdriverRunner(object):
             .step1()
             .step2()
             ...)
-    
+
     After the run, results will be returned as a `WebdriverResults` namedtuple
     """
 
@@ -43,8 +43,8 @@ class WebdriverRunner(object):
 
     def format_error_log(self, idx, steps):
         step_number = idx + 1
-        base = f"WebdriverRunner failed in step {step_number} when running steps:\n"
-        steps_log = "\n".join([f"{i}. {step}" for i, step in enumerate(steps, 1)])
+        base = f'WebdriverRunner failed in step {step_number} when running steps:\n'
+        steps_log = '\n'.join([f'{i}. {step}' for i, step in enumerate(steps, 1)])
         return base + steps_log
 
     def run(self, webdriver_steps, headless=True):
@@ -57,7 +57,7 @@ class WebdriverRunner(object):
         try:
             for idx, step in enumerate(webdriver_steps.steps()):
                 step.execute(driver, ctx)
-        except:
+        except Exception:
             _logger.debug(self.format_error_log(idx, webdriver_steps.steps()))
             raise
         finally:
@@ -75,6 +75,7 @@ class WebdriverContext(object):
 
     ExecutionSteps should only interact with it only via the `get` and `add_to_context` methods
     """
+
     def __init__(self):
         self._context = {}
 
