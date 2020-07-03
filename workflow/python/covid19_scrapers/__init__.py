@@ -1,9 +1,12 @@
+import os
 from pathlib import Path
 
 from covid19_scrapers.census import CensusApi
 from covid19_scrapers.registry import Registry
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.states import *
+from covid19_scrapers.utils import UTILS_WEB_CACHE
+from covid19_scrapers.web_cache import WebCache
 
 
 def get_scraper_classes():
@@ -50,8 +53,12 @@ def make_scraper_registry(*, home_dir=Path('work'),
         for all scrapers' constructors.
     """
 
-    census_api = CensusApi(census_api_key)
-    registry = Registry(home_dir=home_dir, **registry_args)
+    os.makedirs(str(home_dir), exist_ok=True)
+    # We need a web cache for creating the census API.
+    web_cache = WebCache(str(home_dir / 'web_cache.db'))
+    with UTILS_WEB_CACHE.with_instance(web_cache):
+        census_api = CensusApi(census_api_key)
+    registry = Registry(web_cache=web_cache, **registry_args)
     for scraper_class in get_scraper_classes():
         registry.register_scraper(
             scraper_class(home_dir=home_dir / scraper_class.__name__,
