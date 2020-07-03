@@ -75,7 +75,6 @@ class WebdriverContext(object):
 
     ExecutionSteps should only interact with it only via the `get` and `add_to_context` methods
     """
-
     def __init__(self):
         self._context = {}
 
