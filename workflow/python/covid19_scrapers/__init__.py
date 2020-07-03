@@ -4,7 +4,9 @@ from pathlib import Path
 from covid19_scrapers.census import CensusApi
 from covid19_scrapers.registry import Registry
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.states import *  # noqa: F401,F403
+# We load states for ScraperBase.__subclasses__ to work. So we disable
+# the unused import lint warning.
+import covid19_scrapers.states  # noqa: F401
 from covid19_scrapers.utils import UTILS_WEB_CACHE
 from covid19_scrapers.web_cache import WebCache
 
@@ -52,7 +54,6 @@ def make_scraper_registry(*, home_dir=Path('work'),
       scraper_args: optional, a dict of additional keyword arguments
         for all scrapers' constructors.
     """
-
     os.makedirs(str(home_dir), exist_ok=True)
     # We need a web cache for creating the census API.
     web_cache = WebCache(str(home_dir / 'web_cache.db'))
