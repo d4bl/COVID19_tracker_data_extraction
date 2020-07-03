@@ -1,10 +1,12 @@
-from covid19_scrapers.scraper import ScraperBase
-
 import datetime
-from googleapiclient.discovery import build
 import logging
 import re
+
+from googleapiclient.discovery import build
 import pandas as pd
+
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils import to_percentage
 
 
 _logger = logging.getLogger(__name__)
@@ -70,27 +72,53 @@ class Colorado(ScraperBase):
 
         # Load the csv into a DataFrame
         data = pd.read_csv(current_file['webContentLink'])
+        data = data[data['attribute'] != 'Note']
+        data = data.set_index(['description', 'attribute', 'metric']).sort_index()
 
-        # Extract state totals
-        state_data = data[
-            (data['description'] == 'State Data')
-            & (data['attribute'] == 'Statewide')
-        ].set_index('metric')
-        total_cases = state_data.loc['Cases', 'value']
-        total_deaths = state_data.loc['Deaths Among Cases', 'value']
+        # Extract totals
+        total_cases = data.loc[('State Data', 'Statewide', 'Cases'), 'value']
+        total_deaths = data.loc[('State Data', 'Statewide',
+                                 'Deaths Among Cases'), 'value']
+
+        _logger.debug(f'Total cases: {total_cases}')
+        _logger.debug(f'Total deaths: {total_deaths}')
+        # Extract unknown percentages and compute known totals
+        unknown_cases_pct = data.loc[
+            ('COVID-19 in Colorado by Race & Ethnicity',
+             'Unknown/Not Provided', 'Percent of Cases'),
+            'value']
+        unknown_cases = round(total_cases * unknown_cases_pct / 100, 0)
+        known_cases = total_cases - unknown_cases
+        _logger.debug(f'Pct unknown-race cases: {unknown_cases_pct}')
+        _logger.debug(f'Known-race cases: {known_cases}')
+
+        unknown_deaths_pct = data.loc[
+            ('COVID-19 in Colorado by Race & Ethnicity',
+             'Unknown/Not Provided', 'Percent of Deaths'),
+            'value']
+        unknown_deaths = round(total_deaths * unknown_deaths_pct / 100, 0)
+        known_deaths = total_deaths - unknown_deaths
+        _logger.debug(f'Pct unknown-race deaths: {unknown_deaths_pct}')
+        _logger.debug(f'Known-race deaths: {known_deaths}')
 
         # Extract AA percentages and compute AA totals
-        aa_data = data[
-            (data['description']
-             == 'COVID-19 in Colorado by Race & Ethnicity')
-            & (data['attribute'] == 'Black - Non Hispanic')
-        ].set_index('metric')
+        aa_cases_pct = data.loc[
+            ('COVID-19 in Colorado by Race & Ethnicity',
+             'Black - Non Hispanic', 'Percent of Cases'),
+            'value']
+        aa_cases = round(total_cases * aa_cases_pct / 100, 0)
+        aa_cases_pct = to_percentage(aa_cases, known_cases)
+        _logger.debug(f'AA cases: {aa_cases}')
+        _logger.debug(f'Pct AA cases: {aa_cases_pct}')
 
-        aa_cases_pct = aa_data.loc['Percent of Cases', 'value']
-        aa_cases = round(total_cases * aa_cases_pct / 100, 2)
-
-        aa_deaths_pct = aa_data.loc['Percent of Deaths', 'value']
-        aa_deaths = round(total_deaths * aa_deaths_pct / 100, 2)
+        aa_deaths_pct = data.loc[
+            ('COVID-19 in Colorado by Race & Ethnicity',
+             'Black - Non Hispanic', 'Percent of Deaths'),
+            'value']
+        aa_deaths = round(total_deaths * aa_deaths_pct / 100, 0)
+        aa_deaths_pct = to_percentage(aa_deaths, known_deaths)
+        _logger.debug(f'AA deaths: {aa_deaths}')
+        _logger.debug(f'Pct AA deaths: {aa_deaths_pct}')
 
         return [self._make_series(
             date=date,
@@ -100,6 +128,8 @@ class Colorado(ScraperBase):
             aa_deaths=int(aa_deaths),
             pct_aa_cases=aa_cases_pct,
             pct_aa_deaths=aa_deaths_pct,
-            pct_includes_unknown_race=True,
+            pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]

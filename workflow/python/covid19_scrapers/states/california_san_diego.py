@@ -6,8 +6,9 @@ import fitz
 from tabula import read_pdf
 
 from covid19_scrapers.census import get_aa_pop_stats
-from covid19_scrapers.utils import download_file, as_list
 from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils import (
+    as_list, download_file, to_percentage)
 
 
 _logger = logging.getLogger(__name__)
@@ -80,7 +81,7 @@ class CaliforniaSanDiego(ScraperBase):
         total_cases = cases['Count'].sum()
         total_known_cases = cases['Count'].drop(
             'Race/Ethnicity Other/Unknown').sum()
-        cases['Percent'] = round(100 * cases['Count'] / total_known_cases, 2)
+        cases['Percent'] = to_percentage(cases['Count'], total_known_cases)
 
         aa_cases_cnt = cases.loc['Black or African American', 'Count']
         aa_cases_pct = cases.loc['Black or African American', 'Percent']
@@ -115,9 +116,7 @@ class CaliforniaSanDiego(ScraperBase):
         total_known_deaths = (
             total_deaths - deaths.loc['Race/Ethnicity Other/Unknown', 'Count'])
 
-        deaths['Percent'] = round(
-            100 * deaths['Count'] / total_known_deaths, 2
-        )
+        deaths['Percent'] = to_percentage(deaths['Count'], total_known_deaths)
 
         aa_deaths_cnt = deaths.loc['Black or African American', 'Count']
         aa_deaths_pct = deaths.loc['Black or African American', 'Percent']
@@ -137,4 +136,6 @@ class CaliforniaSanDiego(ScraperBase):
             pct_aa_deaths=aa_deaths_pct,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
+            known_race_cases=total_known_cases,
+            known_race_deaths=total_known_deaths,
         )]

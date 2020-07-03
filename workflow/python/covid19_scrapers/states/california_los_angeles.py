@@ -3,9 +3,12 @@ import json
 import logging
 import re
 
+import pandas as pd
+
 from covid19_scrapers.census import get_aa_pop_stats
+from covid19_scrapers.utils import (
+    get_cached_url, raw_string_to_int, to_percentage, url_to_soup)
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import get_cached_url, to_percentage, url_to_soup
 
 
 _logger = logging.getLogger(__name__)
@@ -33,6 +36,17 @@ class CaliforniaLosAngeles(ScraperBase):
         return get_aa_pop_stats(self.census_api, 'California',
                                 county='Los Angeles')
 
+    @staticmethod
+    def _extract_by_race_table(header_tr):
+        data = []
+        for tr in header_tr.find_next_siblings('tr'):
+            td = tr.find('td')
+            if not td.text.startswith('-'):
+                break
+            data.append([td.text.strip()[1:].strip(),
+                         raw_string_to_int(td.next_sibling.text)])
+        return pd.DataFrame(data, columns=['race', 'count']).set_index('race')
+
     def _scrape(self, **kwargs):
         r = get_cached_url(self.JS_URL)
         json_str = re.search(r'data = (([^;]|\n)*)',
@@ -53,31 +67,24 @@ class CaliforniaLosAngeles(ScraperBase):
         _logger.info(f'Processing data for {date}')
 
         # Extract the total counts
-        total_cases = int(data['count'].replace(',', ''))
-        total_deaths = int(data['death'].replace(',', ''))
+        total_cases = raw_string_to_int(data['count'])
+        total_deaths = raw_string_to_int(data['death'])
 
         # Fetch the HTML page
         soup = url_to_soup(self.DATA_URL)
 
         # Extract the Black/AA counts
-        race = soup.find(id='race')
-        for tr in race.find_next_siblings('tr'):
-            td = tr.find('td')
-            if td and td.text.find('Black') >= 0:
-                aa_cases = int(
-                    td.next_sibling.text.strip().replace(',', ''))
-                break
+        cases = self._extract_by_race_table(soup.find(id='race'))
+        deaths = self._extract_by_race_table(soup.find(id='race-d'))
 
-        race_d = soup.find(id='race-d')
-        for tr in race_d.find_next_siblings('tr'):
-            td = tr.find('td')
-            if td.text.find('Black') >= 0:
-                aa_deaths = int(
-                    td.next_sibling.text.strip().replace(',', ''))
-                break
+        known_cases = cases.drop('Under Investigation')['count'].sum()
+        known_deaths = deaths.drop('Under Investigation')['count'].sum()
 
-        aa_cases_pct = to_percentage(aa_cases, total_cases)
-        aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
+        aa_cases = cases.loc['Black', 'count'].sum()
+        aa_deaths = deaths.loc['Black', 'count'].sum()
+
+        aa_cases_pct = to_percentage(aa_cases, known_cases)
+        aa_deaths_pct = to_percentage(aa_deaths, known_deaths)
 
         return [self._make_series(
             date=date,
@@ -87,6 +94,8 @@ class CaliforniaLosAngeles(ScraperBase):
             aa_deaths=aa_deaths,
             pct_aa_cases=aa_cases_pct,
             pct_aa_deaths=aa_deaths_pct,
-            pct_includes_unknown_race=True,
+            pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]
