@@ -126,6 +126,10 @@ def find_all_links(url, search_string=None):
 def _maybe_convert(val):
     val = val.replace(',', '').replace('%', '').replace('NA', 'nan').strip()
     try:
+        return int(val)
+    except ValueError:
+        pass
+    try:
         return float(val)
     except ValueError:
         return val
@@ -137,9 +141,10 @@ def table_to_dataframe(table):
     """
     columns = [th.text.strip() for th in table.find_all('th')]
     _logger.debug(f'Creating DataFrame with columns {columns}')
+
     data = [[_maybe_convert(td.text) for td in tr.find_all('td')]
             for tr in table.find_all('tr')]
-    return pd.DataFrame(data, columns=columns)
+    return pd.DataFrame(data, columns=columns).dropna(how='all')
 
 
 def get_http_datetime(url):
