@@ -43,20 +43,20 @@ def get_demographic_dataframe():
 
     # 2/ Get the Session-Id
     session_id = results.x_session_id
-    assert session_id, "No X-Session-Id found"
+    assert session_id, 'No X-Session-Id found'
 
     # 3/ Make requests to DOWNLOAD URL
     DOWNLOAD_URL = (
-        "https://public.tableau.com/vizql/w/NCDHHS_COVID-19_DataDownload/v/Demographics/viewData/"
-        "sessions/{}/views/5649504231100340473_15757585069639442359"
-        "?maxrows=200&viz=%7B%22worksheet%22%3A%22TABLE_RACE%22%2C%22dashboard%22%3A%22Demographics%22%7D")
+        'https://public.tableau.com/vizql/w/NCDHHS_COVID-19_DataDownload/v/Demographics/viewData/'
+        'sessions/{}/views/5649504231100340473_15757585069639442359'
+        '?maxrows=200&viz=%7B%22worksheet%22%3A%22TABLE_RACE%22%2C%22dashboard%22%3A%22Demographics%22%7D')
 
     results = runner.run(
         WebdriverSteps()
         .go_to_url(DOWNLOAD_URL.format(session_id))
         .wait_for([(By.XPATH, "//div[@id='tabBootErrTitle' and contains(text(),'Unexpected Error')]")])
         .go_to_url(DOWNLOAD_URL.format(session_id))
-        .wait_for([(By.CLASS_NAME, "csvLink_summary")])
+        .wait_for([(By.CLASS_NAME, 'csvLink_summary')])
         .get_page_source())
     soup = results.page_source
 
