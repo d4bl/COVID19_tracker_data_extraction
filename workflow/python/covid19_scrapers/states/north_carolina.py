@@ -6,8 +6,10 @@ import pandas as pd
 from selenium.webdriver.common.by import By
 
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import (get_content_as_file, raw_string_to_int,
-                                    to_percentage, url_to_soup)
+from covid19_scrapers.utils.html import url_to_soup
+from covid19_scrapers.utils.http import get_content_as_file
+from covid19_scrapers.utils.misc import to_percentage
+from covid19_scrapers.utils.parse import raw_string_to_int
 from covid19_scrapers.webdriver import WebdriverSteps, WebdriverRunner
 
 

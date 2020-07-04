@@ -1,14 +1,16 @@
-from covid19_scrapers.utils import as_list, get_content, url_to_soup
-from covid19_scrapers.scraper import ScraperBase
+import datetime
+from io import BytesIO
+import logging
+import re
 
 import fitz
 from tabula import read_pdf
 from urllib.parse import urljoin
 
-import datetime
-from io import BytesIO
-import logging
-import re
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils.html import url_to_soup
+from covid19_scrapers.utils.http import get_content
+from covid19_scrapers.utils.misc import as_list
 
 # Backwards compatibility for datetime_fromisoformat for Python 3.6 and below
 # Has no effect for Python 3.7 and above
