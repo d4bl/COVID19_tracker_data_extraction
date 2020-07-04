@@ -99,7 +99,7 @@ def to_percentage(numerator, denominator, round_num_digits=2):
 
 # Source: https://stackoverflow.com/questions/1080411/retrieve-links-from-web-page-using-python-and-beautifulsoup
 
-def find_all_links(url, search_string=None):
+def find_all_links(url, search_string=None, links_and_text=False):
     resp = requests.get(url)
     http_encoding = resp.encoding if 'charset' in resp.headers.get(
         'content-type', '').lower() else None
@@ -110,17 +110,28 @@ def find_all_links(url, search_string=None):
                          features='lxml')
 
     link_list = []
+    title_dict = dict()
 
     for link in soup.find_all('a', href=True):
         link_list.append(link['href'])
+        # print(link['href'], link.text)
+        if link.text:
+            title_dict[link['href']] = link.text
 
+    ret = None
     if search_string:
         if isinstance(search_string, str):
-            return [x for x in link_list if search_string in x]
+            ret = [x for x in link_list if search_string in x]
         elif isinstance(search_string, re.Pattern):
-            return [x for x in link_list if search_string.search(x)]
+            ret = [x for x in link_list if search_string.search(x)]
     else:
-        return link_list
+        ret = link_list
+
+    if links_and_text:
+        title_dict = {key: value for key, value in title_dict.items() if key in ret}
+        return title_dict
+    else:
+        return ret
 
 
 def _maybe_convert(val):
@@ -403,3 +414,13 @@ def get_session_id_from_seleniumwire(driver):
     responses = [r.response for r in driver.requests if r.response]
     response_headers = [r.headers for r in responses]
     return next((h.get('X-Session-Id') for h in response_headers if 'X-Session-Id' in h), None)
+
+
+def convert_date(date_str, fmt_from='%B %d, %Y', fmt_to='%Y-%m-%d'):
+    # If date has no comma, add one
+    if ',' not in date_str:
+        splt = date_str.split(' ')
+        date_str = '{} {}, {}'.format(splt[0], splt[1], splt[2])
+
+    dt = datetime.datetime.strptime(date_str, fmt_from)
+    return datetime.datetime.strftime(dt, fmt_to)
