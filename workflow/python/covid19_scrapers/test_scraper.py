@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from covid19_scrapers.scraper import ERROR, SUCCESS, ScraperBase
-from covid19_scrapers.testing_utils import FakeCensusApi
+from covid19_scrapers.utils.testing import FakeCensusApi
 
 
 CENSUS_API = FakeCensusApi()

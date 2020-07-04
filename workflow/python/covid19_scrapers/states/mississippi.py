@@ -1,54 +1,58 @@
-from covid19_scrapers.utils import (
-    as_list, download_file, to_percentage, find_all_links, convert_date)
-from covid19_scrapers.scraper import ScraperBase
+import datetime
+import logging
+import re
+from urllib.parse import urljoin
 
-# import fitz
+import pandas as pd
 from tabula import read_pdf
 
-# import datetime
-import logging
-# import re
-# from urllib.parse import urljoin
-import pandas as pd
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils.html import find_all_links
+from covid19_scrapers.utils.http import download_file
+from covid19_scrapers.utils.misc import as_list, to_percentage
 
 
 _logger = logging.getLogger(__name__)
 
 
 class Mississippi(ScraperBase):
-    """Mississippi updates PDF files with demographic breakdowns of
+    """Mississippi uploads a PDF file with demographic breakdowns of
     COVID-19 cases and deaths daily. We scrape the reporting page for
-    the latest URLs, and extract the tables from them.
-    """
+    the latest PDF URL, and extract the tables from it.
 
+    """
     REPORTING_URL = 'https://msdh.ms.gov/msdhsite/_static/14,0,420,884.html'
-    BASE_URL = 'https://msdh.ms.gov/msdhsite/_static'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def _scrape(self, **kwargs):
         # Find the PDF links
-        # soup = url_to_soup(self.REPORTING_URL)
         title_dict = find_all_links(url=self.REPORTING_URL,
                                     search_string='pdf',
                                     links_and_text=True)
 
-        # Dictionary of dates associated with the PDF links
-        link_dates = {key: convert_date(val.replace('Mississippi COVID-19 Cases and Deaths as of ', ''))
-                      for key, val in title_dict.items()}
+        # Dictionary from dates associated to their PDF links
+        links_by_date = {}
+        for link, title in title_dict.items():
+            # Some entries omit the comma in the as-of date
+            month, day, year = re.search(r'as of ([A-Z][a-z]+) (\d+),? (\d+)',
+                                         title).groups()
+            dt = datetime.datetime.strptime(f'{month} {day}, {year}',
+                                            '%B %d, %Y').date()
+            links_by_date[dt] = link
 
         # Find the most recent link
-        recent_link = {key: val for key, val in link_dates.items() if val == max(link_dates.values())}
+        date = max(links_by_date)
+        pdf_link = links_by_date[date]
 
         # Extract the date
-        date = list(recent_link.values())[0]
-        # _logger.info(f'Report date is {date}')
+        _logger.info(f'Processing data for {date}')
 
-        # case_and_death_url = urljoin(self.BASE_URL, list(recent_link.keys())[0]) # didn't work for some reason
-        case_and_death_url = '{}/{}'.format(self.BASE_URL, list(recent_link.keys())[0])
+        # The PDF URL is relative to the reporting URL
+        case_and_death_url = urljoin(self.REPORTING_URL, pdf_link)
 
-        print('Cases/deaths url: {}'.format(case_and_death_url))
+        _logger.debug('Cases/deaths url: {}'.format(case_and_death_url))
 
         # Download the files
         download_file(case_and_death_url, 'ms_cases_and_deaths.pdf')
@@ -62,6 +66,10 @@ class Mississippi(ScraperBase):
         cases = pd.concat(cases)
         deaths = pd.concat(deaths)
 
+        # Fail if the format changes, so we know to fix the scraper
+        title = cases.columns[~cases.columns.str.startswith('Unnamed')][0]
+        assert title == 'Cases by Race and Ethnicity'
+
         # Fix headers
         cases.columns = cases.iloc[1, :].str.replace(r'\r', ' ').str.strip()
         cases = cases[~cases['County'].isnull()
@@ -69,6 +77,11 @@ class Mississippi(ScraperBase):
         cases = cases.set_index('County')
         cases = cases.astype(int)
 
+        # Fail if the format changes, so we know to fix the scraper
+        title = deaths.columns[~deaths.columns.str.startswith('Unnamed')][0]
+        assert title == 'Deaths by Race and Ethnicity'
+
+        # Fix headers
         deaths.columns = deaths.iloc[1, :].str.replace(r'\r', ' ').str.strip()
         deaths = deaths[~deaths['County'].isnull()
                         & (deaths['County'] != 'County')]

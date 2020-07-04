@@ -6,8 +6,9 @@ from urllib.parse import urljoin, urlsplit
 
 from covid19_scrapers.census import get_aa_pop_stats
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import (
-    download_file, find_all_links, to_percentage)
+from covid19_scrapers.utils.html import find_all_links
+from covid19_scrapers.utils.http import download_file
+from covid19_scrapers.utils.misc import to_percentage
 
 
 _logger = logging.getLogger(__name__)
