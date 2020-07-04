@@ -1,6 +1,5 @@
 import logging
 
-
 from covid19_scrapers.census import get_aa_pop_stats
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import (query_geoservice, to_percentage)
@@ -49,8 +48,8 @@ class TexasBexar(ScraperBase):
         _logger.info(f'Processing data for {date_published}')
 
         try:
-            cnt_cases = total.loc[0, 'Cases']
-            cnt_deaths = total.loc[0, 'Deaths']
+            cases = total.loc[0, 'Cases']
+            deaths = total.loc[0, 'Deaths']
         except IndexError:
             raise ValueError('Total count data not found')
 
@@ -60,21 +59,25 @@ class TexasBexar(ScraperBase):
 
         try:
             known = data.sum()
-            cnt_cases_aa = data.loc['Black', 'Cases']
-            cnt_deaths_aa = data.loc['Black', 'Deaths']
-            pct_cases_aa = to_percentage(cnt_cases_aa, known['Cases'])
-            pct_deaths_aa = to_percentage(cnt_deaths_aa, known['Deaths'])
+            cases_aa = data.loc['Black', 'Cases']
+            deaths_aa = data.loc['Black', 'Deaths']
+            known_cases = known['Cases']
+            known_deaths = known['Deaths']
+            pct_cases_aa = to_percentage(cases_aa, known_cases)
+            pct_deaths_aa = to_percentage(deaths_aa, known_deaths)
         except IndexError:
             raise ValueError('No data found for Black RaceEthnicity category')
 
         return [self._make_series(
             date=date_published,
-            cases=cnt_cases,
-            deaths=cnt_deaths,
-            aa_cases=cnt_cases_aa,
-            aa_deaths=cnt_deaths_aa,
+            cases=cases,
+            deaths=deaths,
+            aa_cases=cases_aa,
+            aa_deaths=deaths_aa,
             pct_aa_cases=pct_cases_aa,
             pct_aa_deaths=pct_deaths_aa,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]

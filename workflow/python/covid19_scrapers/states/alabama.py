@@ -66,4 +66,6 @@ class Alabama(ScraperBase):
             pct_aa_deaths=aa_deaths_pct,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
+            known_race_cases=total_known_cases,
+            known_race_deaths=total_known_deaths,
         )]

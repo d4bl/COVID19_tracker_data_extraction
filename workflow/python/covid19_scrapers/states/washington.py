@@ -1,4 +1,5 @@
-from covid19_scrapers.utils import table_to_dataframe, url_to_soup
+from covid19_scrapers.utils import (
+    table_to_dataframe, to_percentage, url_to_soup)
 from covid19_scrapers.scraper import ScraperBase
 
 import datetime
@@ -58,16 +59,20 @@ class Washington(ScraperBase):
         # Extract the data
         total_cases = cases.loc['Total Number of Cases',
                                 'Confirmed Cases']
+        known_cases = cases.loc['Total with Race/Ethnicity Available',
+                                'Confirmed Cases']
         aa_cases = cases.loc['Non-Hispanic Black', 'Confirmed Cases']
-        aa_cases_pct = cases.loc['Non-Hispanic Black', 'Percent of Cases']
+        aa_cases_pct = to_percentage(aa_cases, known_cases)
 
         deaths_div = soup.find(id='pnlDeathsByRaceTbl')
         deaths = table_to_dataframe(
             deaths_div.find('table')).set_index('Race/Ethnicity')
         deaths.columns = deaths.columns.str.replace('\xa0.*', '')
         total_deaths = deaths.loc['Total Number of Deaths', 'Deaths']
+        known_deaths = deaths.loc['Total with Race/Ethnicity Available',
+                                  'Deaths']
         aa_deaths = deaths.loc['Non-Hispanic Black', 'Deaths']
-        aa_deaths_pct = deaths.loc['Non-Hispanic Black', 'Percent of Deaths']
+        aa_deaths_pct = to_percentage(aa_deaths, known_deaths)
 
         return [self._make_series(
             date=date,
@@ -79,4 +84,6 @@ class Washington(ScraperBase):
             pct_aa_deaths=aa_deaths_pct,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]

@@ -1,4 +1,5 @@
-from covid19_scrapers.utils import make_geoservice_stat, query_geoservice
+from covid19_scrapers.utils import (
+    make_geoservice_stat, query_geoservice, to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -52,17 +53,17 @@ class Missouri(ScraperBase):
         # Extract by-race data
         _, cases_race = query_geoservice(**self.RACE_CASE)
         cases_race = cases_race.set_index('RACE')
-        total_known_cases = cases_race.drop(
+        known_cases = cases_race.drop(
             ['REFUSED TO ANSWER RACE', 'UNKNOWN RACE']).sum()['Cases']
         aa_cases = cases_race.loc['BLACK', 'Cases']
-        aa_cases_pct = round(100 * aa_cases / total_known_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases, known_cases)
 
         _, deaths_race = query_geoservice(**self.RACE_DEATH)
         deaths_race = deaths_race.set_index('RACE')
-        total_known_deaths = deaths_race.drop(
+        known_deaths = deaths_race.drop(
             ['REFUSED TO ANSWER RACE', 'UNKNOWN RACE']).sum()['Deaths']
         aa_deaths = deaths_race.loc['BLACK', 'Deaths']
-        aa_deaths_pct = round(100 * aa_deaths / total_known_deaths, 2)
+        aa_deaths_pct = to_percentage(aa_deaths, known_deaths)
 
         return [self._make_series(
             date=date,
@@ -74,4 +75,6 @@ class Missouri(ScraperBase):
             pct_aa_deaths=aa_deaths_pct,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=True,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]
