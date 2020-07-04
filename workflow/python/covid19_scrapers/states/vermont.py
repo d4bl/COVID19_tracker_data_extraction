@@ -66,9 +66,9 @@ class Vermont(ScraperBase):
 
         _, deaths = query_geoservice(**self.RACE_DEATH)
         deaths = deaths.set_index('Race')
+        known_deaths = deaths.drop('Unknown', errors='ignore').sum()['Deaths']
         try:
             aa_deaths_cnt = deaths.loc['Black or African American', 'value']
-            known_deaths = deaths.drop('Unknown').sum()['Deaths']
             aa_deaths_pct = to_percentage(aa_deaths_cnt, known_deaths)
         except KeyError:
             aa_deaths_cnt = 0
@@ -84,4 +84,6 @@ class Vermont(ScraperBase):
             pct_aa_deaths=aa_deaths_pct,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=True,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]

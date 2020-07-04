@@ -41,15 +41,16 @@ class Maine(ScraperBase):
 
         table = pd.read_excel(url, sheet_name='cases_by_race', index_col=0)
         total_cases = table['CASES'].sum()
-        total_cases_ex_unknown = table['CASES'].drop('Not disclosed').sum()
+        known_cases = table['CASES'].drop('Not disclosed').sum()
         date = table['DATA_REFRESH_DT'].max().date()
         _logger.info(f'Processing data for {date}')
         aa_cases_cnt = table.loc['Black or African American', 'CASES']
-        aa_cases_pct = to_percentage(aa_cases_cnt, total_cases_ex_unknown)
+        aa_cases_pct = to_percentage(aa_cases_cnt, known_cases)
 
         # No race breakdowns for deaths
         aa_deaths_cnt = float('nan')
         aa_deaths_pct = float('nan')
+        known_deaths = float('nan')
 
         return [self._make_series(
             date=date,
@@ -61,4 +62,6 @@ class Maine(ScraperBase):
             pct_aa_deaths=aa_deaths_pct,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=True,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]
