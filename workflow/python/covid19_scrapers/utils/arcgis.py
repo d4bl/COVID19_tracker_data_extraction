@@ -65,6 +65,7 @@ def _get_layer(flc_id, flc_url, layer_name):
         raise ValueError('Either flc_id or url must be provided')
 
     # Now get the layer.
+    layer = None
     if isinstance(layer_name, str):
         layer = _get_layer_by_name(layer_name, flc.layers, flc.tables)
     elif isinstance(layer_name, int):
