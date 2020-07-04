@@ -1,4 +1,4 @@
-from covid19_scrapers.utils import query_geoservice
+from covid19_scrapers.utils import (query_geoservice, to_percentage)
 from covid19_scrapers.scraper import ScraperBase
 
 import logging
@@ -45,15 +45,15 @@ class Alaska(ScraperBase):
 
         # Extract/calculate case info
         total_cases = data.loc['Grand Total', 'Cases']
+        known_cases = data.loc['Known Race', 'Cases']
         aa_cases_cnt = data.loc['Black', 'Cases']
-        # data.loc['Black', 'Cases_Pct'] includes unknown race
-        aa_cases_pct = round(100 * aa_cases_cnt / total_cases, 2)
+        aa_cases_pct = to_percentage(aa_cases_cnt, known_cases, 2)
 
         # Extract/calculate death info
         total_deaths = data.loc['Grand Total', 'Deaths']
+        known_deaths = data.loc['Known Race', 'Deaths']
         aa_deaths_cnt = data.loc['Black', 'Deaths']
-        # data.loc['Black', 'Deaths_Pct'] includes unknown race
-        aa_deaths_pct = round(100 * aa_deaths_cnt / total_deaths, 2)
+        aa_deaths_pct = to_percentage(aa_deaths_cnt, known_deaths, 2)
 
         return [self._make_series(
             date=date,
@@ -63,6 +63,8 @@ class Alaska(ScraperBase):
             aa_deaths=aa_deaths_cnt,
             pct_aa_cases=aa_cases_pct,
             pct_aa_deaths=aa_deaths_pct,
-            pct_includes_unknown_race=True,
+            pct_includes_unknown_race=False,
             pct_includes_hispanic_black=True,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]

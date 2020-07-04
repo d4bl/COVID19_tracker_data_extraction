@@ -1,4 +1,5 @@
 import logging
+
 import requests
 
 from covid19_scrapers.census import get_aa_pop_stats
@@ -45,47 +46,49 @@ class WisconsinMilwaukee(ScraperBase):
 
     def _scrape(self, **kwargs):
         # Get the timestamp
-        date_published, cases = query_geoservice(**self.CASES)
+        date_published, cases_df = query_geoservice(**self.CASES)
         _logger.info(f'Processing data for {date_published}')
-        cases = cases.set_index('Race_Eth')
-        cnt_cases = cases['value'].sum()
-        cnt_cases_unknown = cases.loc['Not Reported', 'value']
-        cnt_cases_known = cnt_cases - cnt_cases_unknown
+        cases_df = cases_df.set_index('Race_Eth')
+        cases = cases_df['value'].sum()
+        cases_unknown = cases_df.loc['Not Reported', 'value']
+        known_cases = cases - cases_unknown
 
-        _, deaths = query_geoservice(**self.DEATHS)
-        deaths = deaths.set_index('Race_Eth')
-        cnt_deaths = deaths['value'].sum()
-        if 'Not Reported' in deaths.index:
-            cnt_deaths_unknown = deaths.loc['Not Reported', 'value']
+        _, deaths_df = query_geoservice(**self.DEATHS)
+        deaths_df = deaths_df.set_index('Race_Eth')
+        deaths = deaths_df['value'].sum()
+        if 'Not Reported' in deaths_df.index:
+            deaths_unknown = deaths_df.loc['Not Reported', 'value']
         else:
-            cnt_deaths_unknown = 0
-        cnt_deaths_known = cnt_deaths - cnt_deaths_unknown
+            deaths_unknown = 0
+        known_deaths = deaths - deaths_unknown
 
         try:
-            cnt_cases_aa = cases.loc['Black Alone', 'value']
-            pct_cases_aa = to_percentage(cnt_cases_aa, cnt_cases_known)
+            cases_aa = cases_df.loc['Black Alone', 'value']
+            pct_cases_aa = to_percentage(cases_aa, known_cases)
         except IndexError:
             raise ValueError('Case counts for Black Alone not found')
 
         try:
-            if 'Black Alone' in deaths.index:
-                cnt_deaths_aa = deaths.loc['Black Alone', 'value']
+            if 'Black Alone' in deaths_df.index:
+                deaths_aa = deaths_df.loc['Black Alone', 'value']
             else:
-                cnt_deaths_aa = 0
-            pct_deaths_aa = to_percentage(cnt_deaths_aa, cnt_deaths_known)
+                deaths_aa = 0
+            pct_deaths_aa = to_percentage(deaths_aa, known_deaths)
         except IndexError:
             raise ValueError('Death counts for Black Alone not found')
 
         return [self._make_series(
             date=date_published,
-            cases=cnt_cases,
-            deaths=cnt_deaths,
-            aa_cases=cnt_cases_aa,
-            aa_deaths=cnt_deaths_aa,
+            cases=cases,
+            deaths=deaths,
+            aa_cases=cases_aa,
+            aa_deaths=deaths_aa,
             pct_aa_cases=pct_cases_aa,
             pct_aa_deaths=pct_deaths_aa,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
         )]
 
     def _format_error(self, e):
