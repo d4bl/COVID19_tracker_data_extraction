@@ -3,7 +3,8 @@ from datetime import datetime
 import pydash
 
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import to_percentage, get_json
+from covid19_scrapers.utils.http import get_json
+from covid19_scrapers.utils.misc import to_percentage
 
 
 class Illinois(ScraperBase):

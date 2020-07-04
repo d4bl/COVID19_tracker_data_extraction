@@ -1,11 +1,12 @@
-from covid19_scrapers.utils import query_geoservice
-from covid19_scrapers.scraper import ScraperBase
-
 from io import BytesIO
 import logging
-import pandas as pd
 import re
+
+import pandas as pd
 import requests
+
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils.arcgis import query_geoservice
 
 
 _logger = logging.getLogger(__name__)
