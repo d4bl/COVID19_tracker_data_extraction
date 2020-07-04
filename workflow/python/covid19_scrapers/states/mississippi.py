@@ -1,14 +1,14 @@
 from covid19_scrapers.utils import (
-    as_list, download_file, to_percentage, url_to_soup)
+    as_list, download_file, to_percentage, find_all_links, convert_date)
 from covid19_scrapers.scraper import ScraperBase
 
-import fitz
+# import fitz
 from tabula import read_pdf
 
-import datetime
+# import datetime
 import logging
-import re
-from urllib.parse import urljoin
+# import re
+# from urllib.parse import urljoin
 import pandas as pd
 
 
@@ -21,44 +21,42 @@ class Mississippi(ScraperBase):
     the latest URLs, and extract the tables from them.
     """
 
-    REPORTING_URL = 'https://msdh.ms.gov/msdhsite/_static/14,0,420.html'
+    REPORTING_URL = 'https://msdh.ms.gov/msdhsite/_static/14,0,420,884.html'
+    BASE_URL = 'https://msdh.ms.gov/msdhsite/_static'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def _scrape(self, **kwargs):
         # Find the PDF links
-        soup = url_to_soup(self.REPORTING_URL)
-        race_table = soup.find(id='raceTable').find_next_sibling('ul')
-        cases_url = urljoin(
-            self.REPORTING_URL,
-            race_table.find(
-                'a', text=re.compile('cases'))['href'])
+        # soup = url_to_soup(self.REPORTING_URL)
+        title_dict = find_all_links(url=self.REPORTING_URL,
+                                    search_string='pdf',
+                                    links_and_text=True)
 
-        deaths_url = urljoin(
-            self.REPORTING_URL,
-            race_table.find(
-                'a', text=re.compile('deaths'))['href'])
+        # Dictionary of dates associated with the PDF links
+        link_dates = {key: convert_date(val.replace('Mississippi COVID-19 Cases and Deaths as of ', ''))
+                      for key, val in title_dict.items()}
 
-        # Download the files
-        download_file(cases_url, 'ms_cases.pdf')
-        download_file(deaths_url, 'ms_deaths.pdf')
+        # Find the most recent link
+        recent_link = {key: val for key, val in link_dates.items() if val == max(link_dates.values())}
 
         # Extract the date
-        doc = fitz.Document(filename='ms_cases.pdf', filetype='pdf')
-        for (
-                x0, y0, x1, y1, word, block_no, line_no, word_no
-        ) in doc[0].getText('words'):
-            match = re.match(r'(\d+)/(\d+)/(\d+)', word)
-            if match:
-                month, day, year = map(int, match.groups())
-                date = datetime.date(year, month, day)
-                break
-        _logger.info(f'Report date is {date}')
+        date = list(recent_link.values())[0]
+        # _logger.info(f'Report date is {date}')
+
+        # case_and_death_url = urljoin(self.BASE_URL, list(recent_link.keys())[0]) # didn't work for some reason
+        case_and_death_url = '{}/{}'.format(self.BASE_URL, list(recent_link.keys())[0])
+
+        print('Cases/deaths url: {}'.format(case_and_death_url))
+
+        # Download the files
+        download_file(case_and_death_url, 'ms_cases_and_deaths.pdf')
+        # download_file(deaths_url, 'ms_deaths.pdf')
 
         # Extract the tables
-        cases = as_list(read_pdf('ms_cases.pdf', pages=[1, 2]))
-        deaths = as_list(read_pdf('ms_deaths.pdf', pages=[1, 2]))
+        cases = as_list(read_pdf('ms_cases_and_deaths.pdf', pages=[1, 2]))
+        deaths = as_list(read_pdf('ms_cases_and_deaths.pdf', pages=[3, 4]))
 
         # Tables span across multiple pages, so concatenate them row-wise
         cases = pd.concat(cases)
