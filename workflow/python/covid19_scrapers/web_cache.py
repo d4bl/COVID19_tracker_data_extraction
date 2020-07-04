@@ -23,13 +23,13 @@ class WebCache(object):
         self.conn = sqlite3.connect(db_name)
         self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
+        if reset:
+            self.cursor.execute('DROP TABLE IF EXISTS web_cache')
         self.cursor.execute(
             'CREATE TABLE IF NOT EXISTS web_cache\n'
             f'({", ".join(self.SCHEMA)})')
-        if reset:
-            self.delete_from_cache(where='1=1')
 
-    def delete_from_cache(self, * where):
+    def delete_from_cache(self, where):
         """Remove the requested rows from the cache.
 
         Arguments:
@@ -39,7 +39,7 @@ class WebCache(object):
           web_cache.delete_from_cache(where='url LIKE "%missisippi%"')
 
         """
-        self.cursor.execute('DELETE FROM TABLE web_cache '
+        self.cursor.execute('DELETE FROM web_cache '
                             f'WHERE {where}')
         self.conn.commit()
 

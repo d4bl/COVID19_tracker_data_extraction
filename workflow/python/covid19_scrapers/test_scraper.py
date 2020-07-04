@@ -1,14 +1,19 @@
-from covid19_scrapers.scraper import ERROR, SUCCESS, ScraperBase
-
 from pathlib import Path
+
+from covid19_scrapers.scraper import ERROR, SUCCESS, ScraperBase
+from covid19_scrapers.testing_utils import FakeCensusApi
+
+
+CENSUS_API = FakeCensusApi()
 
 
 def test_empty_scraper():
     class EmptyScraper(ScraperBase):
         def __init__(self):
-            super().__init__(home_dir=Path('test'))
+            super().__init__(home_dir=Path('test'),
+                             census_api=CENSUS_API)
 
-        def _scrape(self, unused):
+        def _scrape(self):
             return []
     scraper = EmptyScraper()
     assert scraper.name() == 'EmptyScraper'
@@ -18,9 +23,10 @@ def test_empty_scraper():
 def test_one_row_scraper():
     class OneRowScraper(ScraperBase):
         def __init__(self):
-            super().__init__(home_dir=Path('test'))
+            super().__init__(home_dir=Path('test'),
+                             census_api=CENSUS_API)
 
-        def _scrape(self, unused):
+        def _scrape(self):
             return [self._make_series()]
     scraper = OneRowScraper()
     assert scraper.name() == 'OneRowScraper'
@@ -32,9 +38,10 @@ def test_one_row_scraper():
 def test_throwing_scraper():
     class ThrowingScraper(ScraperBase):
         def __init__(self):
-            super().__init__(home_dir=Path('test'))
+            super().__init__(home_dir=Path('test'),
+                             census_api=CENSUS_API)
 
-        def _scrape(self, unused):
+        def _scrape(self):
             raise ValueError('error')
     scraper = ThrowingScraper()
     assert scraper.name() == 'ThrowingScraper'
@@ -46,9 +53,10 @@ def test_throwing_scraper():
 def test_throwing_custom_handler_scraper():
     class ThrowingCustomHandlerScraper(ScraperBase):
         def __init__(self):
-            super().__init__(home_dir=Path('test'))
+            super().__init__(home_dir=Path('test'),
+                             census_api=CENSUS_API)
 
-        def _scrape(self, unused):
+        def _scrape(self):
             raise ValueError('error')
 
         def _handle_error(self, e):
@@ -63,9 +71,10 @@ def test_throwing_custom_handler_scraper():
 def test_throwing_custom_format_scraper():
     class ThrowingCustomFormatScraper(ScraperBase):
         def __init__(self):
-            super().__init__(home_dir=Path('test'))
+            super().__init__(home_dir=Path('test'),
+                             census_api=CENSUS_API)
 
-        def _scrape(self, unused):
+        def _scrape(self):
             raise ValueError('error')
 
         def _format_error(self, e):
