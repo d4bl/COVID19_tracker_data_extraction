@@ -1,31 +1,36 @@
+from pathlib import Path
+
 from covid19_scrapers.registry import Registry
 from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.testing_utils import (
+    FakeCensusApi, fake_webcache)
 
-from pathlib import Path
+
+CENSUS_API = FakeCensusApi()
 
 
 class MockScraperOneSeries(ScraperBase):
     def __init__(self):
-        super().__init__(home_dir=Path('test'))
+        super().__init__(home_dir=Path('test'),
+                         census_api=CENSUS_API)
 
-    def _scrape(self, unused1):
+    def _scrape(self):
         return [self._make_series()]
 
 
 class MockScraperTwoSeries(ScraperBase):
     def __init__(self):
-        super().__init__(home_dir=Path('test'))
+        super().__init__(home_dir=Path('test'),
+                         census_api=CENSUS_API)
 
-    def _scrape(self, unused):
+    def _scrape(self):
         return [self._make_series(), self._make_series()]
 
 
 class TestRegistry(object):
-    def __init__(self):
-        self.registry = None
-
     def setup(self):
-        self.registry = Registry()
+        self.registry = Registry(
+            web_cache=fake_webcache()[0])
 
     def test_empty_registry(self):
         df = self.registry.run_all_scrapers()
