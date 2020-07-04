@@ -1,10 +1,10 @@
-from covid19_scrapers.utils import (get_zip, get_zip_member_as_file,
-                                    get_zip_member_update_date,
-                                    to_percentage)
-from covid19_scrapers.scraper import ScraperBase
-
 import logging
 import pandas as pd
+
+from covid19_scrapers.utils.zip import (
+    get_zip, get_zip_member_as_file, get_zip_member_update_date)
+from covid19_scrapers.utils.misc import to_percentage
+from covid19_scrapers.scraper import ScraperBase
 
 
 _logger = logging.getLogger(__name__)

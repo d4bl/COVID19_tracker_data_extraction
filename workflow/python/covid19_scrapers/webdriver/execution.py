@@ -3,7 +3,7 @@ from copy import deepcopy
 
 from bs4 import BeautifulSoup
 
-from covid19_scrapers import utils
+from covid19_scrapers.utils import selenium as utils
 
 
 class WebdriverSteps(object):

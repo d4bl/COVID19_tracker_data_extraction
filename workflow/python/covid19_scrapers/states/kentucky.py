@@ -1,13 +1,13 @@
-from covid19_scrapers.utils import download_file
-from covid19_scrapers.scraper import ScraperBase
-
-import fitz
-from tabula import read_pdf
-
 import datetime
 import logging
 import pandas as pd
 import re
+
+import fitz
+from tabula import read_pdf
+
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils.http import download_file
 
 
 _logger = logging.getLogger(__name__)

@@ -1,11 +1,12 @@
-from covid19_scrapers.utils import get_content
-from covid19_scrapers.scraper import ScraperBase
-
 import datetime
 from io import BytesIO
 import logging
-import pandas as pd
 import re
+
+import pandas as pd
+
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils.http import get_content
 
 
 _logger = logging.getLogger(__name__)
