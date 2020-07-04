@@ -5,7 +5,7 @@ import pytest
 import requests
 
 from covid19_scrapers.web_cache import WebCache
-from covid19_scrapers.testing_utils import MockSession, fake_webcache
+from covid19_scrapers.utils.testing import MockSession, fake_webcache
 
 
 def test_webcache_delete_uncached_fails():

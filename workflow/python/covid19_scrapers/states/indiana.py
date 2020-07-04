@@ -1,9 +1,9 @@
-from covid19_scrapers.utils import get_json
-from covid19_scrapers.scraper import ScraperBase
-
 import datetime
 import logging
 import pandas as pd
+
+from covid19_scrapers.utils.http import get_json
+from covid19_scrapers.scraper import ScraperBase
 
 
 _logger = logging.getLogger(__name__)

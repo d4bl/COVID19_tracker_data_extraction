@@ -1,12 +1,14 @@
-from covid19_scrapers.utils import to_percentage, url_to_soup
-from covid19_scrapers.scraper import ScraperBase
-
-from bs4 import BeautifulSoup
 import datetime
 import json
 import logging
-import pandas as pd
 import re
+
+from bs4 import BeautifulSoup
+import pandas as pd
+
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils.html import url_to_soup
+from covid19_scrapers.utils.misc import to_percentage
 
 
 _logger = logging.getLogger(__name__)

@@ -4,8 +4,9 @@ import requests
 
 from covid19_scrapers.census import get_aa_pop_stats
 from covid19_scrapers.scraper import ScraperBase, ERROR
-from covid19_scrapers.utils import (
-    make_geoservice_stat, query_geoservice, to_percentage)
+from covid19_scrapers.utils.arcgis import (
+    make_geoservice_stat, query_geoservice)
+from covid19_scrapers.utils.misc import to_percentage
 
 
 _logger = logging.getLogger(__name__)

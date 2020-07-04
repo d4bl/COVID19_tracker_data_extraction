@@ -1,17 +1,20 @@
 import pandas as pd
 
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import get_content_as_file, to_percentage
+from covid19_scrapers.utils.http import get_content_as_file
+from covid19_scrapers.utils.misc import to_percentage
 
 
 class Tennessee(ScraperBase):
-    '''The Tennessee can be downloaded via their dataset apis.
+    """The Tennessee can be downloaded via their dataset apis.
 
-    Of the apis they have, the `daily cases` set can be used for obtaining the total cases/deaths
-    while the `race, ethnic, sex` set can be used for obtaining aa cases/deaths info.
+    Of the apis they have, the `daily cases` set can be used for
+    obtaining the total cases/deaths while the `race, ethnic, sex` set
+    can be used for obtaining aa cases/deaths info.
 
     The API returns the data back in xlsx format.
-    '''
+
+    """
     BASE_URL = 'https://www.tn.gov/content/dam/tn/health/documents/cedep/novel-coronavirus/datasets/{}'
     DEMOGRAPHIC_SUFFIX = 'Public-Dataset-RaceEthSex.XLSX'
     CASES_SUFFIX = 'Public-Dataset-Daily-Case-Info.XLSX'
