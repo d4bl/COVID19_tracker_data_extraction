@@ -1,12 +1,15 @@
-from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import (
-    raw_string_to_int, to_percentage, table_to_dataframe,
-    url_to_soup_with_selenium)
-
-from datetime import datetime, timedelta
+import datetime
 import logging
+
 from pytz import timezone
 from selenium.webdriver.common.by import By
+
+from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils.html import table_to_dataframe
+from covid19_scrapers.utils.misc import to_percentage
+from covid19_scrapers.utils.parse import raw_string_to_int
+from covid19_scrapers.utils.selenium import url_to_soup_with_selenium
+
 
 _logger = logging.getLogger(__name__)
 
@@ -22,8 +25,8 @@ class Maryland(ScraperBase):
         # states that the dataset is updated at 10am everyday.  So
         # check for current US/Eastern time. If it is past 10, use the
         # current date, otherwise use yesterday's date.
-        now = datetime.now(timezone('US/Eastern'))
-        return (now.date() - timedelta(days=1)
+        now = datetime.datetime.now(timezone('US/Eastern'))
+        return (now.date() - datetime.timedelta(days=1)
                 if now.hour < 10
                 else now.date())
 
