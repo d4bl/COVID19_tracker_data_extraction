@@ -67,7 +67,7 @@ def url_to_soup(data_url, **kwargs):
     try:
         data_page = get_cached_url(data_url, **kwargs)
     except requests.RequestException:
-        _logger.warn(f'request failed: {data_url}')
+        _logger.warning(f'request failed: {data_url}')
         raise
     _logger.debug(f'request successful: {data_url}')
 
@@ -100,7 +100,7 @@ def to_percentage(numerator, denominator, round_num_digits=2):
 # Source: https://stackoverflow.com/questions/1080411/retrieve-links-from-web-page-using-python-and-beautifulsoup
 
 def find_all_links(url, search_string=None, links_and_text=False):
-    resp = requests.get(url)
+    resp = get_cached_url(url)
     http_encoding = resp.encoding if 'charset' in resp.headers.get(
         'content-type', '').lower() else None
     html_encoding = EncodingDetector.find_declared_encoding(resp.content,
@@ -114,7 +114,6 @@ def find_all_links(url, search_string=None, links_and_text=False):
 
     for link in soup.find_all('a', href=True):
         link_list.append(link['href'])
-        # print(link['href'], link.text)
         if link.text:
             title_dict[link['href']] = link.text
 
@@ -128,7 +127,8 @@ def find_all_links(url, search_string=None, links_and_text=False):
         ret = link_list
 
     if links_and_text:
-        title_dict = {key: value for key, value in title_dict.items() if key in ret}
+        title_dict = {key: value for key, value in title_dict.items()
+                      if key in ret}
         return title_dict
     else:
         return ret
@@ -168,8 +168,12 @@ def table_to_dataframe(table):
 
 
 def get_http_datetime(url):
-    r = requests.head(url)
-    r.raise_for_status()
+    try:
+        r = get_cached_url(url, cache_only=True)
+    except RuntimeError:
+        _logger.debug(f'trying HEAD request for {url}')
+        r = requests.head(url)
+        r.raise_for_status()
     date = r.headers.get('last-modified')
     if date:
         return eut.parsedate_to_datetime(date)
