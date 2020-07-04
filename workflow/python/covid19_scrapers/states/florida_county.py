@@ -1,4 +1,3 @@
-from pathlib import Path
 import logging
 
 from numpy import nan
@@ -9,33 +8,42 @@ from covid19_scrapers.utils.arcgis import query_geoservice
 from covid19_scrapers.utils.misc import to_percentage
 
 
-_logger = logging.getLogger(__name__)
-
-
 def _make_florida_county_scraper(
-        db_county_name,
-        census_county_name,
-        class_county_name):
+        db_name,
+        census_name,
+        camel_case_name,
+        snake_case_name):
     """Return a ScraperBase subclass that retrieves county level
     information for a Florida county.  This retrieves data from state
     dashboard, which does not include demographic breakdowns for
     deaths.
 
-    Arguments:
-      db_county_name: the county name to use in the `where` clause of
-        the ArcGIS query.  E.g., 'DADE' for Miami-Dade county.
+    It also creates a descriptive logger name.
 
-      census_county_name: the county name to use in the scraper output
-        in "Florida -- {} County". This MUST match the Census name for
+    Arguments:
+
+      db_name: the county name to use in the `where` clause of the
+        ArcGIS query.  E.g., 'DADE' for Miami-Dade county.
+
+      census_name: the county name to use in the scraper output in
+        "Florida -- {} County". This MUST match the Census name for
         the county without the "County" suffix.  You can check these
         names at
         https://api.census.gov/data/2018/acs/acs5?get=NAME&for=county:*&in=state:12
         E.g., 'Miami-Dade' for Miami-Dade county.
-      class_county_name: the camel-case suffix to use in the class
-        name, "Florida{class_county_name}".  E.g., 'MiamiDade' for
+
+      camel_case_name: the camel-case suffix to use in the class name,
+        "Florida{camel_case_name}".  E.g., 'MiamiDade' for Miami-Dade
+        county.
+
+      snake_case_name: the snake-case suffix to use in the logger
+        name, "florida_{snake_case_name}".  E.g., 'miami_dade' for
         Miami-Dade county.
 
     """
+    _logger = logging.getLogger(
+        __name__.replace('_county', f'_{snake_case_name}'))
+
     class FloridaCounty(ScraperBase):
         """Florida has an ArcGIS dashboard at
         https://experience.arcgis.com/experience/c2ef4a4fcbe5458fbf2e48a21e4fece9
@@ -48,7 +56,7 @@ def _make_florida_county_scraper(
         DEMOG = dict(
             flc_url='https://services1.arcgis.com/CY1LXxl9zlJeBuRZ/arcgis/rest/services/Florida_COVID19_Cases/FeatureServer',
             layer_name='Florida_COVID_Cases',
-            where=f"COUNTYNAME='{db_county_name}'",
+            where=f"COUNTYNAME='{db_name}'",
         )
 
         def __init__(self, *, home_dir, census_api, **kwargs):
@@ -56,11 +64,11 @@ def _make_florida_county_scraper(
                              **kwargs)
 
         def name(self):
-            return f'Florida -- {census_county_name} County'
+            return f'Florida -- {census_name} County'
 
         def _get_aa_pop_stats(self):
             return get_aa_pop_stats(self.census_api, 'Florida',
-                                    county=census_county_name)
+                                    county=census_name)
 
         def _scrape(self, **kwargs):
             date, data = query_geoservice(**self.DEMOG)
@@ -91,16 +99,13 @@ def _make_florida_county_scraper(
                 known_race_deaths=known_deaths,
             )]
 
-    FloridaCounty.__name__ = f'Florida{class_county_name}'
-    print('class name:', FloridaCounty.__name__)
-    print('instance name:', FloridaCounty(home_dir=Path('.'), census_api=None).name())
-    print('DEMOG:', FloridaCounty.DEMOG)
+    FloridaCounty.__name__ = f'Florida{camel_case_name}'
     return FloridaCounty
 
 
 # Create classes for the desired counties
 FloridaMiamiDade = _make_florida_county_scraper('DADE', 'Miami-Dade',
-                                                'MiamiDade')
+                                                'MiamiDade', 'miami_dade')
 
 FloridaOrange = _make_florida_county_scraper('ORANGE', 'Orange',
-                                             'Orange')
+                                             'Orange', 'orange')
