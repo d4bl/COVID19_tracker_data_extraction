@@ -1,0 +1,41 @@
+Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
+Illinois,2020-07-04,146612.0,7014.0,24592.0,1956.0,16.77,27.89,True,False,,,1824125,14.23,Success!
+Washington,2020-07-04,35247.0,1354.0,1415.0,44.0,5.51,3.38,False,False,25679.0,1300.0,269854,3.7,Success!
+North Carolina,,,,,,,,False,False,,,2179622,21.46,"An error occurred. ... TimeoutException('', None, None)"
+New York -- New York,2020-07-04,213561,18555,33185.0,5188.0,30.17,30.52,False,True,110009.0,17001.0,2049418,24.27,Success!
+Wisconsin,2020-07-04,31055,796,5335.0,188.0,19.14,23.95,False,True,27876.0,785.0,368744,6.38,Success!
+Wisconsin -- Milwaukee,2020-07-04,12062,355,3458.0,143.0,30.96,40.28,False,False,11168.0,355.0,252321,26.44,Success!
+Rhode Island,2020-07-03,16491,960,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
+Tennessee,2020-07-04,50140,637,10343.0,223.0,20.63,35.01,True,True,,,1117489,16.8,Success!
+Maine,2020-07-04,3397,107,801.0,,26.7,,False,True,3000.0,,17881,1.34,Success!
+Maryland,2020-07-04,69341,3111,19874.0,1258.0,28.66,40.44,False,False,56832.0,69314.0,1788090,29.78,Success!
+Alabama,2020-07-04,42359,984,15198.0,442.0,46.61,46.48,False,False,32606.0,951.0,1293186,26.58,Success!
+Arkansas,2020-07-04,23209,286,5077.0,70.0,25.3,25.55,False,True,20068.0,274.0,460970,15.41,Success!
+Michigan,2020-07-04,65450,5894,19895.0,2358.0,30.4,40.01,True,False,,,1375424,13.81,Success!
+Montana,2020-07-04,1167,23,6.0,,0.51,,True,True,,,4630,0.44,Success!
+Alaska,2020-07-04,1111.0,16.0,25.0,0.0,1.28,0.0,False,True,1946.0,32.0,24129,3.27,Success!
+Massachusetts,2020-07-04,109838,8172,10346.0,667.0,9.42,8.16,True,False,,,510558,7.48,Success!
+Florida -- Miami-Dade County,2020-07-04,44729,1038,5598.0,,20.77,,False,True,26953.0,,481976,17.75,Success!
+Florida -- Orange County,2020-07-04,13262,59,1696.0,,23.85,,False,True,7111.0,,277193,20.98,Success!
+Missouri,2020-06-27,20261,996,5758.0,246.0,49.66,38.56,False,True,11594.0,638.0,704896,11.57,Success!
+Utah,2020-07-04,24542,181,644,<5,2.6,,True,False,,,35862,1.18,Success!
+Mississippi,2020-07-03,30674,1107,14869,553,48.47,49.95,True,True,,,1125834,37.67,Success!
+Texas -- Bexar County,2020-07-04,14553,122,464,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
+Minnesota,2020-07-03,37624,1466,7765,125,20.64,8.53,True,True,,,342186,6.19,Success!
+Texas,2020-07-04,23063,679,2700,87,0.12,0.13,True,False,,,3365783,12.07,Success!
+Delaware,2020-07-04,11996,512,3097,131,25.82,25.59,True,False,,,209892,22.11,Success!
+Nebraska,2020-07-04,19827,284,1136,21,7.59,7.78,False,True,14959.0,270.0,90860,4.77,Success!
+California,2020-07-03,254745,6246,7310.0,572.0,4.3,9.3,False,True,168270.0,6146.0,2267875,5.79,Success!
+Vermont,2020-07-04,1238,56,121,0,10.06,0.0,False,True,1203.0,56.0,8058,1.29,Success!
+New Mexico,2020-07-04,13063,513,254,,1.94,,True,False,,,43006,2.06,Success!
+Florida,2020-07-04,187090,3702,25116,725,13.42,19.58,True,False,,,3316376,16.1,Success!
+"Washington, DC",2020-07-02,10390,554,5174,408,49.8,73.65,True,True,,,321317,46.94,Success!
+Colorado,2020-07-04,33866,1701,1802,111,6.46,6.78,False,False,27909.0,1638.0,227938,4.12,Success!
+California - San Diego,2020-07-03,15696,387,569,13,4.55,3.4,False,False,12513.0,382.0,166412,5.04,Success!
+Idaho,2020-07-04,7370,92,107,1,1.45,1.09,False,True,,,11536,0.68,Success!
+Pennsylvania,2020-07-04,86813,6749,11500,1426,30.1,21.68,False,True,38210.0,6579.0,1423319,11.13,Success!
+Georgia,2020-07-04,93319,2857,25921,1352,27.78,47.32,True,True,,,3239300,31.46,Success!
+Virginia,2020-07-04,65109,1849,9438,411,14.5,22.23,True,True,,,1613285,19.17,Success!
+Indiana,2020-07-04,47432,2494,5728,361,12.08,14.47,True,True,,,619472,9.33,Success!
+Kentucky,2020-07-03,16376,585,1607,85,14.06,15.72,False,True,11432.0,546.0,354112,7.98,Success!
+California - Los Angeles,2020-07-01,107667,3454,2946,365,4.6,11.37,False,False,63985.0,3209.0,823987,8.16,Success!
