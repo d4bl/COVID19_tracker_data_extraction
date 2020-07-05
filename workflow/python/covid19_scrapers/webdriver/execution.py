@@ -276,8 +276,13 @@ class FindRequest(ExecutionStep):
 
     def execute(self, driver, context):
         current = context.get('requests')
-        found_request = {self.key: pydash.find(driver.requests, self.find_by)}
-        context.add_to_context('requests', {**current, **found_request})
+        found_request = pydash.find(driver.requests, self.find_by)
+
+        # HACK: Response bodys are lazily loaded so it must get called before adding to context
+        if found_request:
+            found_request.response.body
+
+        context.add_to_context('requests', {**current, **{self.key: found_request}})
 
     def __repr__(self):
         return f'GetRequest(key={self.key}, find_by={self.find_by.__name__})'
