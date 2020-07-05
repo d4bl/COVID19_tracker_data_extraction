@@ -1,7 +1,7 @@
 Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
-Illinois,2020-07-04,146612.0,7014.0,24592.0,1956.0,16.77,27.89,True,False,,,1824125,14.23,Success!
-Washington,2020-07-04,35247.0,1354.0,1415.0,44.0,5.51,3.38,False,False,25679.0,1300.0,269854,3.7,Success!
-North Carolina,,,,,,,,False,False,,,2179622,21.46,"An error occurred. ... TimeoutException('', None, None)"
+Illinois,2020-07-04,146612,7014,24592.0,1956.0,16.77,27.89,True,False,,,1824125,14.23,Success!
+Washington,2020-07-04,35247,1354,1415.0,44.0,5.51,3.38,False,False,25679.0,1300.0,269854,3.7,Success!
+North Carolina,2020-07-04,71654,1395,11390.0,446.0,22.98,33.16,False,True,49566.0,1345.0,2179622,21.46,Success!
 New York -- New York,2020-07-04,213561,18555,33185.0,5188.0,30.17,30.52,False,True,110009.0,17001.0,2049418,24.27,Success!
 Wisconsin,2020-07-04,31055,796,5335.0,188.0,19.14,23.95,False,True,27876.0,785.0,368744,6.38,Success!
 Wisconsin -- Milwaukee,2020-07-04,12062,355,3458.0,143.0,30.96,40.28,False,False,11168.0,355.0,252321,26.44,Success!
