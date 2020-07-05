@@ -19,3 +19,4 @@ workflow/python/scratch/*
 *xlsx#
 *.log
 *_flymake.py
+web_cache.db

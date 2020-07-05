@@ -40,7 +40,7 @@ def get_demographic_dataframe():
     results = runner.run(
         WebdriverSteps()
         .go_to_url(BASE_URL)
-        .wait_for([(By.XPATH, "//span[contains(text(),'Race')]")])
+        .wait_for_presence_of_elements([(By.XPATH, "//span[contains(text(),'Race')]")])
         .get_x_session_id())
 
     # 2/ Get the Session-Id
@@ -55,9 +55,9 @@ def get_demographic_dataframe():
     results = runner.run(
         WebdriverSteps()
         .go_to_url(DOWNLOAD_URL.format(session_id))
-        .wait_for([(By.XPATH, "//div[@id='tabBootErrTitle' and contains(text(),'Unexpected Error')]")])
+        .wait_for_presence_of_elements([(By.XPATH, "//div[@id='tabBootErrTitle' and contains(text(),'Unexpected Error')]")])
         .go_to_url(DOWNLOAD_URL.format(session_id))
-        .wait_for([(By.CLASS_NAME, 'csvLink_summary')])
+        .wait_for_presence_of_elements([(By.CLASS_NAME, 'csvLink_summary')])
         .get_page_source())
     soup = results.page_source
 
