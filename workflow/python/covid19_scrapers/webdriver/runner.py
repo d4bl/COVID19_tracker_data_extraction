@@ -43,6 +43,10 @@ class WebdriverRunner(object):
         options = webdriver.ChromeOptions()
         if headless is True:
             options.add_argument('headless')
+            options.add_argument('--disable-extensions')
+            options.add_argument('--headless')
+            options.add_argument('--disable-gpu')
+            options.add_argument('--no-sandbox')
         return webdriver.Chrome(options=options)
 
     def format_error_log(self, idx, steps):
