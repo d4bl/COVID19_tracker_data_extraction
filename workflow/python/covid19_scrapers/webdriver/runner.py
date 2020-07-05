@@ -1,4 +1,4 @@
-from collections import namedtuple
+from collections import defaultdict, namedtuple
 import logging
 
 from seleniumwire import webdriver
@@ -9,7 +9,8 @@ _logger = logging.getLogger(__name__)
 
 WebdriverResults = namedtuple('WebdriverResults', [
     'x_session_id',
-    'page_source'
+    'page_source',
+    'requests'
 ])
 
 
@@ -32,7 +33,10 @@ class WebdriverRunner(object):
     After the run, results will be returned as a `WebdriverResults` namedtuple
     """
 
-    def __init__(self, driver=None):
+    def __init__(self, driver=None, headless=True):
+        '''The headless variable will only be used if a webdriver is not passed in.
+        '''
+        self.headless = headless
         self.driver = driver
 
     def _get_default_driver(self, headless):
@@ -47,23 +51,25 @@ class WebdriverRunner(object):
         steps_log = '\n'.join([f'{i}. {step}' for i, step in enumerate(steps, 1)])
         return base + steps_log
 
-    def run(self, webdriver_steps, headless=True):
+    def run(self, webdriver_steps):
         """Performs all the steps from webdriver_steps after another in order.
 
         returns results as a WebdriverResults namedtuple
         """
-        driver = self.driver or self._get_default_driver(headless)
+        driver = self.driver or self._get_default_driver(self.headless)
         ctx = WebdriverContext()
         try:
             for idx, step in enumerate(webdriver_steps.steps()):
                 step.execute(driver, ctx)
+            # need to get results before quitting the webdriver, otherwise some requests info will throw errors.
+            results = ctx.get_results()
         except Exception:
             _logger.debug(self.format_error_log(idx, webdriver_steps.steps()))
             raise
         finally:
             if not self.driver:
                 driver.quit()
-        return ctx.get_results()
+        return results
 
 
 class WebdriverContext(object):
@@ -77,7 +83,7 @@ class WebdriverContext(object):
     """
 
     def __init__(self):
-        self._context = {}
+        self._context = defaultdict(dict)
 
     def __contains__(self, key):
         return key in self._context
