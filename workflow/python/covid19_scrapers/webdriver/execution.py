@@ -1,9 +1,18 @@
 import abc
+import enum
 from copy import deepcopy
+import logging
 
+import pydash
 from bs4 import BeautifulSoup
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
 
-from covid19_scrapers.utils import selenium as utils
+from covid19_scrapers.webdriver.driver_expected_conditions import NumberOfElementsIsGreaterOrEqualTo
+
+
+_logger = logging.getLogger(__name__)
 
 
 class WebdriverSteps(object):
@@ -30,8 +39,13 @@ class WebdriverSteps(object):
     def go_to_url(self, url):
         return self.add_step(GoToURL(url))
 
-    def wait_for(self, conditions, timeout=30):
-        return self.add_step(WaitFor(conditions, timeout))
+    def wait_for_presence_of_elements(self, element_locators, timeout=30):
+        return self.add_step(WaitFor(element_locators, timeout=timeout))
+
+    def wait_for_number_of_elements(self, element_locators, number_of_elements, timeout=30):
+        return self.add_step(
+            WaitFor(element_locators, condition=Condition.NUMBER_OF_ELEMENTS,
+                    number_of_elements=number_of_elements, timeout=timeout))
 
     def find_element_by_xpath(self, xpath, ignore_missing=False):
         return self.add_step(FindElement('xpath', xpath, ignore_missing))
@@ -44,6 +58,9 @@ class WebdriverSteps(object):
 
     def get_page_source(self, as_soup=True):
         return self.add_step(GetPageSource(as_soup))
+
+    def find_request(self, key, find_by):
+        return self.add_step(FindRequest(key, find_by))
 
 
 class ExecutionStepException(Exception):
@@ -103,19 +120,53 @@ class GoToURL(ExecutionStep):
         return f'GoToURL(url={self.url})'
 
 
+class Condition(enum.Enum):
+    PRESENCE = 'presence'
+    NUMBER_OF_ELEMENTS = 'number_of_elements'
+
+
 class WaitFor(ExecutionStep):
     """Tells the driver to wait for the given conditions before proceeding to the next steps
     """
 
-    def __init__(self, conditions, timeout=30):
-        self.conditions = conditions
+    def wait_for_conditions_on_webdriver(self, driver, conditions, timeout):
+        try:
+            for c in conditions:
+                WebDriverWait(driver, timeout).until(c)
+        except TimeoutException:
+            _logger.error('Waiting timed out in %s seconds' % timeout)
+            raise
+
+    def __init__(self, element_locators, condition=Condition.PRESENCE, number_of_elements=None, timeout=30):
+        if condition not in Condition:
+            raise ExecutionStepException('Invalid condition, check the `Conditions` enum for valid conditions')
+        self.locators = self._listify(element_locators)
+        self.condition = condition
         self.timeout = timeout
+        self.number_of_elements = number_of_elements
 
     def execute(self, driver, context):
-        utils.wait_for_conditions_on_webdriver(driver, self.conditions, self.timeout)
+        applied_conditions = None
+        if self.condition == Condition.PRESENCE:
+            applied_conditions = [expected_conditions.presence_of_element_located(locator)
+                                  for locator in self.locators]
+        elif self.condition == Condition.NUMBER_OF_ELEMENTS:
+            assert isinstance(self.number_of_elements, int), '`number_of_elements` as an integer must be given'
+            applied_conditions = [NumberOfElementsIsGreaterOrEqualTo(locator, self.number_of_elements)
+                                  for locator in self.locators]
+        else:
+            raise ExecutionStepException('Invalid condition, check the `Conditions` enum for valid conditions')
+        self.wait_for_conditions_on_webdriver(driver, applied_conditions, self.timeout)
+
+    def _listify(self, obj):
+        if not isinstance(obj, list):
+            return [obj]
+        return obj
 
     def __repr__(self):
-        return f'WaitFor(conditions={self.conditions}, timeout={self.timeout})'
+        return (
+            f'WaitFor(locators={self.locators}, condition={self.condition},'
+            f'number_of_elements={self.number_of_elements}, timeout={self.timeout})')
 
 
 class FindElement(ExecutionStep):
@@ -195,9 +246,38 @@ class GetXSessionId(ExecutionStep):
     the `.get_x_session_id()` function.
     """
 
+    def get_session_id_from_seleniumwire(self, driver):
+        responses = [r.response for r in driver.requests if r.response]
+        response_headers = [r.headers for r in responses]
+        return next((h.get('X-Session-Id') for h in response_headers if 'X-Session-Id' in h), None)
+
     def execute(self, driver, context):
         context.add_to_context(
-            'x_session_id', utils.get_session_id_from_seleniumwire(driver))
+            'x_session_id', self.get_session_id_from_seleniumwire(driver))
 
     def __repr__(self):
         return 'GetXSessionId()'
+
+
+class FindRequest(ExecutionStep):
+    """Adds a request to the context under the `requests` variable in WebdriverResults
+    `requests` will be a dictionary keyed by the `key` variable
+
+    Params:
+        key: the key which the request will be saved to in the `request` variable.
+        find_by: function that takes a single seleniumwire.webdriver.request.Request object.
+            Requests made by the will then be iterated over and the first request that the function
+            returns truthy for will be saved.
+    """
+
+    def __init__(self, key, find_by):
+        self.key = key
+        self.find_by = find_by
+
+    def execute(self, driver, context):
+        current = context.get('requests')
+        found_request = {self.key: pydash.find(driver.requests, self.find_by)}
+        context.add_to_context('requests', {**current, **found_request})
+
+    def __repr__(self):
+        return f'GetRequest(key={self.key}, find_by={self.find_by.__name__})'

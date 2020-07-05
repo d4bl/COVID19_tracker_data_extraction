@@ -58,9 +58,9 @@ class Idaho(ScraperBase):
         runner = WebdriverRunner()
         results = runner.run(WebdriverSteps()
                              .go_to_url(url)
-                             .wait_for([(By.XPATH, "//div[@id='tabBootErrTitle' and contains(text(),'Unexpected Error')]")])
+                             .wait_for_presence_of_elements([(By.XPATH, "//div[@id='tabBootErrTitle' and contains(text(),'Unexpected Error')]")])
                              .go_to_url(url)
-                             .wait_for([(By.CLASS_NAME, 'csvLink_summary')])
+                             .wait_for_presence_of_elements([(By.CLASS_NAME, 'csvLink_summary')])
                              .get_page_source())
         soup = results.page_source
         link = soup.find('a', {'class': 'csvLink_summary'})
@@ -85,17 +85,17 @@ class Idaho(ScraperBase):
         return runner.run(
             WebdriverSteps()
             .go_to_url(self.BASE_URL)
-            .wait_for([(By.ID, 'dashboard-viewport')])
+            .wait_for_presence_of_elements([(By.ID, 'dashboard-viewport')])
             .get_x_session_id()
-            .wait_for([
+            .wait_for_presence_of_elements([
                 (By.CLASS_NAME, 'tabStoryPointContent'),
                 (By.CLASS_NAME, 'tab-widget')])
             .find_element_by_xpath(f"//*[contains(text(), '{self.STATEWIDE_DEMOGRAPHICS_TAB_TEXT}')]")
             .click_on_last_element_found()
-            .wait_for([(By.XPATH, f"//*[contains(text(), '{self.STATEWIDE_DEMOGRAPHICS_DASHBOARD_TITLE}')]")])
+            .wait_for_presence_of_elements([(By.XPATH, f"//*[contains(text(), '{self.STATEWIDE_DEMOGRAPHICS_DASHBOARD_TITLE}')]")])
             .find_element_by_xpath(f"//*[contains(text(), '{self.DEATH_DEMOGRAPHICS_TAB_TEXT}')]")
             .click_on_last_element_found()
-            .wait_for([(By.XPATH, f"//*[contains(text(), '{self.DEATH_DEMOGRAPHICS_DASHBOARD_TITLE}')]")]))
+            .wait_for_presence_of_elements([(By.XPATH, f"//*[contains(text(), '{self.DEATH_DEMOGRAPHICS_DASHBOARD_TITLE}')]")]))
 
     def get_total_cases(self, x_session_id):
         df = self._df_from_url(self.TOTAL_CASES_DATA_URL.format(x_session_id))

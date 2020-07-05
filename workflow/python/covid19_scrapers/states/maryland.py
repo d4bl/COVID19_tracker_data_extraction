@@ -8,7 +8,7 @@ from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils.html import table_to_dataframe
 from covid19_scrapers.utils.misc import to_percentage
 from covid19_scrapers.utils.parse import raw_string_to_int
-from covid19_scrapers.utils.selenium import url_to_soup_with_selenium
+from covid19_scrapers.webdriver import WebdriverSteps, WebdriverRunner
 
 
 _logger = logging.getLogger(__name__)
@@ -51,12 +51,15 @@ class Maryland(ScraperBase):
         return df.set_index('Race/Ethnicity')
 
     def _scrape(self, **kwargs):
-        soup = url_to_soup_with_selenium(
-            self.DATA_URL,
-            wait_conditions=[
+        runner = WebdriverRunner()
+        results = runner.run(
+            WebdriverSteps()
+            .go_to_url(self.DATA_URL)
+            .wait_for_presence_of_elements([
                 (By.CLASS_NAME, 'markdown-card'),
-                (By.CLASS_NAME, 'ember-view')
-            ])
+                (By.CLASS_NAME, 'ember-view')])
+            .get_page_source())
+        soup = results.page_source
 
         date = self.get_date()
         _logger.info(f'Processing data for {date}')
