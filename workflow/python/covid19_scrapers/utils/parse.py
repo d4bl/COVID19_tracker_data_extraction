@@ -1,13 +1,15 @@
 # Text parsing helpers.
-def raw_string_to_int(s):
+def raw_string_to_int(s, default=None):
     """Some parsed strings have additional elements attached to them such
     as `\n` or `,`.  This function filters those elements out and
     casts the string to an int.
 
-    It throws ValueError if the string is empty.
-
+    If the string is empty, it returns the `default`
     """
-    return int(''.join([c for c in s if c.isnumeric()]))
+    nums = [c for c in s if c.isnumeric()]
+    if not nums:
+        return default
+    return int(''.join(nums))
 
 
 def maybe_convert(val):
