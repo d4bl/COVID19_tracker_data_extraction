@@ -142,20 +142,15 @@ pip3 install wheel && \
 apt-get install openssl && \
 pip install pydash
 
+# Install PDF utils
 RUN . $env_name/bin/activate && \
-#pip3 install fitz && \
-#pip3 install -U PyMuPDF
-#python -m pip install -U pymupdf
 pip install --upgrade pip && \
 pip install -U PyMuPDF
 
 # cleanup
-#RUN apt-get -qy autoremove
-
-
-# cleanup
 RUN apt-get -qy autoremove
 
+# Build arguments
 ARG GITHUB_KEY
 ARG GITHUB_USERNAME
 ARG USER_EMAIL
@@ -163,17 +158,22 @@ ARG USER_NAME
 ARG USER_CENSUS_API
 ARG USER_GOOGLE_API
 
-RUN echo $GITHUB_USERNAME && \
-echo ${GITHUB_USERNAME}
-
 RUN echo "\n*****         Clone Github repository"
 RUN git clone https://${GITHUB_USERNAME}:${GITHUB_KEY}@github.com/d4bl/COVID19_tracker_data_extraction.git
 
 #Set time zone
-ENV TZ=America/Chicago
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#ENV TZ=America/Chicago
+#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+#RUN echo $TZ
 
-RUN echo $TZ
+# Set time zone to Central (i.e., America/Chicago)
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=America/Chicago
+RUN apt-get install -y tzdata
+
+RUN echo "Setting time zone" && \
+echo $(date +'%B %d, %Y %r') && \
+echo $TZ
 
 # Pull latest code from the repo
 ARG kick=10
