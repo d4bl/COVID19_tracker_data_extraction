@@ -266,8 +266,8 @@ class FindRequest(ExecutionStep):
     Params:
         key: the key which the request will be saved to in the `request` variable.
         find_by: function that takes a single seleniumwire.webdriver.request.Request object.
-            Requests made by the will then be iterated over and the first request that the function
-            returns truthy for will be saved.
+            Requests made by the dricver will then be iterated over and the first request that
+            the function returns truthy for will be saved.
     """
 
     def __init__(self, key, find_by):
