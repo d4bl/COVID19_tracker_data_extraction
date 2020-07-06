@@ -14,6 +14,10 @@ from covid19_scrapers.webdriver import WebdriverSteps, WebdriverRunner
 class Iowa(ScraperBase):
     """Data for Iowa comes from Domo dashboards.
 
+    The `CASES_DASHBOARD_URL` or `DEATHS_DASHBOARD_URL` brings the user to a page where dashboards are displayed
+    The data in these dashboards are recieved in different urls as PUT requests.
+    In each of those requests that returns dashboard data, there is a "card" number associated with each that does not change.
+    By collecting the requests that are associated with the card number, the data from the requests can be extracted and parsed
     """
     CASES_DASHBOARD_URL = 'https://public.domo.com/embed/pages/aQVpq'
     CASES_CARD_NUMBER = '1232797918'
