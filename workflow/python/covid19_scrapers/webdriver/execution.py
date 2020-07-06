@@ -39,10 +39,10 @@ class WebdriverSteps(object):
     def go_to_url(self, url):
         return self.add_step(GoToURL(url))
 
-    def wait_for_presence_of_elements(self, element_locators, timeout=30):
+    def wait_for_presence_of_elements(self, element_locators, timeout=60):
         return self.add_step(WaitFor(element_locators, timeout=timeout))
 
-    def wait_for_number_of_elements(self, element_locators, number_of_elements, timeout=30):
+    def wait_for_number_of_elements(self, element_locators, number_of_elements, timeout=60):
         return self.add_step(
             WaitFor(element_locators, condition=Condition.NUMBER_OF_ELEMENTS,
                     number_of_elements=number_of_elements, timeout=timeout))
@@ -137,7 +137,7 @@ class WaitFor(ExecutionStep):
             _logger.error('Waiting timed out in %s seconds' % timeout)
             raise
 
-    def __init__(self, element_locators, condition=Condition.PRESENCE, number_of_elements=None, timeout=30):
+    def __init__(self, element_locators, condition=Condition.PRESENCE, number_of_elements=None, timeout=60):
         if condition not in Condition:
             raise ExecutionStepException('Invalid condition, check the `Conditions` enum for valid conditions')
         self.locators = self._listify(element_locators)
