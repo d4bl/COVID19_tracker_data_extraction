@@ -39,4 +39,4 @@ Minnesota,2020-07-06,38569,1474,7928,125,20.56,8.48,True,True,,,342186,6.19,Succ
 Massachusetts,2020-07-06,110137,8198,10370,671,9.42,8.18,True,False,,,510558,7.48,Success!
 Wisconsin -- Milwaukee,2020-07-06,12436,356,3592,143,31.12,40.17,False,False,11541.0,356.0,252321,26.44,Success!
 Missouri,2020-06-27,20261,996,5758,246,49.66,38.56,False,True,11594.0,638.0,704896,11.57,Success!
-Iowa,,,,,,,,False,False,,,109911,3.51,"An error occurred. ... ValueError('Unable to parse ""Reported Deaths In Adair : No Data"" as int')"
+Iowa,2020-07-07,31906,725,2868,36,8.99,4.97,True,True,,,109911,3.51,Success!
