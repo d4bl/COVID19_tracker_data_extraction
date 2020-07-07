@@ -17,6 +17,7 @@ workflow/python/screenshots/*
 workflow/python/images/*
 workflow/python/scratch/*
 *xlsx#
-*.log
 *_flymake.py
 web_cache.db
+*gcloud_001/*
+gcloud_install/*
