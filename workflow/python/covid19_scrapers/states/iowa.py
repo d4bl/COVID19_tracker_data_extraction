@@ -81,7 +81,7 @@ class Iowa(ScraperBase):
         # total deaths
         deaths_data = self.load_response_json(deaths_results, 'deaths')
         deaths_rows = self.extract_deaths_rows(deaths_data)
-        deaths = sum([raw_string_to_int(s, default=0) for s in deaths_rows])
+        deaths = sum([raw_string_to_int(s, error='return_default', default=0) for s in deaths_rows])
 
         # pct_aa_deaths
         deaths_pct_by_race_data = self.load_response_json(deaths_results, 'deaths_by_race')
