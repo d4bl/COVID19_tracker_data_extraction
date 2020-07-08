@@ -51,6 +51,7 @@ class Iowa(ScraperBase):
             WebdriverSteps()
             .go_to_url(self.CASES_DASHBOARD_URL)
             .wait_for_number_of_elements((By.XPATH, "//div[@class='badge-content-shield']"), 10)
+            .wait_for_presence_of_elements((By.XPATH, '//summary-number/span'))
             .find_request(key='cases', find_by=lambda r: self.CASES_CARD_NUMBER in r.path)
             .find_request(key='cases_by_race', find_by=lambda r: self.AA_CASES_CARD_NUMBER in r.path)
             .get_page_source())
@@ -81,7 +82,7 @@ class Iowa(ScraperBase):
         # total deaths
         deaths_data = self.load_response_json(deaths_results, 'deaths')
         deaths_rows = self.extract_deaths_rows(deaths_data)
-        deaths = sum([raw_string_to_int(s, default=0) for s in deaths_rows])
+        deaths = sum([raw_string_to_int(s, error='return_default', default=0) for s in deaths_rows])
 
         # pct_aa_deaths
         deaths_pct_by_race_data = self.load_response_json(deaths_results, 'deaths_by_race')
