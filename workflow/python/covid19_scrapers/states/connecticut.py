@@ -117,9 +117,7 @@ def get_nh_black_cases_deaths(pdf_data, NH_BLACK_INDEX):
     page_begin_index = 9
     word_index = 4
     for page in doc:
-        words = page.getText("words")
-        #Race/Ethnicity data is on the APPENDIX B. page.
-        if words[page_begin_index][word_index] == 'APPENDIX' and words[page_begin_index+1][word_index] == 'B.':
+        if page.searchFor("APPENDIX B."):
             race_page = page
             break
 
