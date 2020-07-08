@@ -20,14 +20,21 @@ class WebCache(object):
 
     def __init__(self, db_name='web_cache.db', reset=False):
         # Set up DB connection.
+        _logger.info(f'Connecting web cache to DB: {db_name}')
+        self.db_name = db_name
         self.conn = sqlite3.connect(db_name)
         self.conn.row_factory = sqlite3.Row
         self.cursor = self.conn.cursor()
         if reset:
+            _logger.debug('Resetting DB table')
             self.cursor.execute('DROP TABLE IF EXISTS web_cache')
+        _logger.debug('Creating DB table')
         self.cursor.execute(
             'CREATE TABLE IF NOT EXISTS web_cache\n'
             f'({", ".join(self.SCHEMA)})')
+
+    def __repr__(self):
+        return f'<{self.__class__.__name__} db={self.db_name}>'
 
     def delete_from_cache(self, where):
         """Remove the requested rows from the cache.
