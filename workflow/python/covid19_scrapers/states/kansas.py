@@ -10,6 +10,14 @@ from covid19_scrapers.webdriver import WebdriverRunner, WebdriverSteps
 
 
 class Kansas(ScraperBase):
+    """Kansas data is extracted from a Tableau dashboard
+
+    The way this is extracted is by going to each of the Tableau tabs.
+    When a request is made to the Tableau URL, several requests are made back and forth between the client and server.
+    One of the requests made will contain a giant blob that contains 2 pieces of data in json
+
+    The data can then be extracted through a custom parser. From there the needed data can be extracted.
+    """
     CASES_AND_DEATHS_URL = 'https://public.tableau.com/views/COVID-19TableauVersion2/CaseSummary?%3Aembed=y&%3AshowVizHome=no'
     RACE_CASES_URL = 'https://public.tableau.com/views/COVID-19TableauVersion2/AgeandDemographics?%3Aembed=y&%3AshowVizHome=no'
     RACE_DEATHS_URL = 'https://public.tableau.com/views/COVID-19TableauVersion2/DeathSummary?%3Aembed=y&%3AshowVizHome=no'
@@ -46,7 +54,8 @@ class Kansas(ScraperBase):
         date = self.get_date(cases_results.page_source)
 
         assert cases_results.requests['cases_and_deaths'], 'No results for cases_and_deaths found'
-        cases_json_list = tableau.extract_json_from_response(cases_results.requests['cases_and_deaths'].response)
+        resp_body = cases_results.requests['cases_and_deaths'].response.body.decode('utf8')
+        cases_json_list = tableau.extract_json_from_blob(resp_body)
 
         total_cases_json = tableau.extract_data_from_key(cases_json_list[1], key='Case Totals')
         assert 'CNT(Number of Records)' in total_cases_json, 'Missing total cases key.'
@@ -64,7 +73,8 @@ class Kansas(ScraperBase):
             .find_request('race_cases', find_by=lambda r: 'bootstrapSession' in r.path))
 
         assert cases_by_race_results.requests['race_cases'], 'No results for race_cases found'
-        cases_for_race_data = tableau.extract_json_from_response(cases_by_race_results.requests['race_cases'].response)
+        resp_body = cases_by_race_results.requests['race_cases'].response.body.decode('utf8')
+        cases_for_race_data = tableau.extract_json_from_blob(resp_body)
         cases_for_race_json = tableau.extract_data_from_key(cases_for_race_data[1], key='Rates by Race for All Cases')
         lookup = self.create_lookup(cases_for_race_json, indices=['Race', 'Measure Names'], value_key='Measure Values')
         aa_cases = parse.raw_string_to_int(lookup[('Black or African American', 'Number of Cases')])
@@ -77,7 +87,8 @@ class Kansas(ScraperBase):
             .find_request('race_deaths', find_by=lambda r: 'bootstrapSession' in r.path))
 
         assert deaths_by_race_results.requests['race_deaths'], 'No results for race_deaths found'
-        deaths_for_race_data = tableau.extract_json_from_response(deaths_by_race_results.requests['race_deaths'].response)
+        resp_body = deaths_by_race_results.requests['race_deaths'].response.body.decode('utf8')
+        deaths_for_race_data = tableau.extract_json_from_blob(resp_body)
         deaths_for_race_json = tableau.extract_data_from_key(deaths_for_race_data[1], key='Mortality by Race')
         lookup = self.create_lookup(deaths_for_race_json, indices=['Race', 'Measure Names'], value_key='Measure Values')
         aa_deaths = parse.raw_string_to_int(lookup[('Black or African American', 'Number of Deaths')])
