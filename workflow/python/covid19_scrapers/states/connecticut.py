@@ -23,8 +23,6 @@ class Connecticut(ScraperBase):
 
     CASE_DATA_URL = 'https://data.ct.gov/resource/rf3k-f8fg.json'
     RACE_DATA_URL = 'https://data.ct.gov/resource/7rne-efic.json'
-    #The index (zero based) of the bar corresponding to the NH black data
-    NH_BLACK_INDEX = 3
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
