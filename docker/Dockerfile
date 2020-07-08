@@ -1,7 +1,7 @@
 # Docker script for Data 4 Black Lives COVID-19 Data Tracker
 # Author: Sydeaka Watson
 #
-# Prepare an text file called "build.args" (in the same folder as the Dockerfile) containing credentials 
+# Prepare a text file called "build.args" (in the same folder as the Dockerfile) containing credentials 
 #  for each config parameter one per line, as in the following example:
 #  
 #
@@ -15,9 +15,15 @@
 # To build the file using the args file, run:
 #     docker build -t tracker $(for i in `cat build.args`; do out+="--build-arg $i " ; done; echo $out;out="") . --build-arg kick=0
 #
+# When running on some systems (including Ubuntu on Oracle Cloud), I had to set permissions on docker.sock to resolve "permission denied" error
+#   prior to running the docker container.
+# Reference: https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket
+#   sudo chmod 666 /var/run/docker.sock
+#
 #
 # 
 
+# Using Ubuntu version 19.10
 FROM ubuntu:19.10
 
 RUN apt-get update -y && \
@@ -161,17 +167,12 @@ ARG USER_GOOGLE_API
 RUN echo "\n*****         Clone Github repository"
 RUN git clone https://${GITHUB_USERNAME}:${GITHUB_KEY}@github.com/d4bl/COVID19_tracker_data_extraction.git
 
-#Set time zone
-#ENV TZ=America/Chicago
-#RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-#RUN echo $TZ
-
 # Set time zone to Central (i.e., America/Chicago)
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=America/Chicago
 RUN apt-get install -y tzdata
 
-RUN echo "Setting time zone" && \
+RUN echo "Current timestamp in selected time zone:" && \
 echo $(date +'%B %d, %Y %r') && \
 echo $TZ
 
@@ -193,12 +194,13 @@ python3 run_scrapers.py --census_api_key $USER_CENSUS_API --google_api_key $USER
 
 RUN echo "$(date +'%B %d, %Y %r')" > /tmp/tmpfile
 RUN timestamp=$(cat /tmp/tmpfile) && \
-commit_msg="Results from $timestamp $TZ run" && \
+commit_msg="Results from $timestamp $TZ TZ run" && \
 echo $commit_msg && \
 cd /COVID19_tracker_data_extraction/workflow/python && \ 
 git pull && \
-git add *.csv && \
-git add *.xlsx && \
+git add *.csv -f && \
+git add *.xlsx -f && \
+git add *.log -f && \
 git commit -m "$commit_msg"
 
 RUN cd /COVID19_tracker_data_extraction/workflow/python && \
