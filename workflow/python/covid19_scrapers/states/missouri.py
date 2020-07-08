@@ -21,8 +21,8 @@ class Missouri(ScraperBase):
 
     # Services are at https://services6.arcgis.com/Bd4MACzvEukoZ9mR
     TOTAL = dict(
-        flc_id='8b32bc8b97fb4f789a623ae632ab5e5a',
-        layer_name='county_mohsis_map_temp',
+        flc_id='6f2a47a25872470a815bcd95f52c2872',
+        layer_name='county_MOHSIS',
         stats=[
             make_geoservice_stat('sum', 'Cases', 'Cases'),
             make_geoservice_stat('sum', 'Deaths', 'Deaths'),
