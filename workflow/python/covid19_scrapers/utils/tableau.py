@@ -4,11 +4,15 @@ import re
 import pydash
 
 
-def extract_json_from_response(response):
+def extract_json_from_blob(blob):
+    """Given a blob returned from a specific Tableau request, this function aims to
+    return back the various json blobs back as a list.
+    """
+
     # There is some id attached to the beginning of each json response,
     # so look for that number with a curly brace and replace it with a curly brace.
     expr = r'(\d+;)(\{)'
-    json_str_blobs = re.sub(expr, '{', response.body.decode('utf8'))
+    json_str_blobs = re.sub(expr, '{', blob)
     decoder = json.JSONDecoder()
     pos = 0
     json_data = []
@@ -23,6 +27,12 @@ def extract_json_from_response(response):
 
 
 def extract_data_from_key(json_data, key):
+    """As the json blobs are extracted from Tableau, the second piece of information from the extracted data
+    contains data about each dashboard that is shown.
+
+    Each dashboard is partioned off by a specific key. This function reads the json data and makes
+    the data from the key available in a dictionary format.
+    """
     lookup = pydash.get(json_data, 'secondaryInfo.presModelMap.dataDictionary.presModelHolder.'
                         'genDataDictionaryPresModel.dataSegments.0.dataColumns')
     values_lookup = {v.get('dataType'): v.get('dataValues') for v in lookup}
@@ -38,15 +48,15 @@ def extract_data_from_key(json_data, key):
             continue
         alias_indices = aliased_value.get('aliasIndices')
         is_measure = meta['fieldRole'] == 'measure'
-        data[meta['fieldCaption']] = try_to_unalias(values_lookup, alias_indices, is_measure)
+        data[meta['fieldCaption']] = _try_to_unalias(values_lookup, alias_indices, is_measure)
     return data
 
 
-def try_to_unalias(values_lookup, alias_indices, is_measure):
+def _try_to_unalias(values_lookup, alias_indices, is_measure):
     for data_type, lookup in values_lookup.items():
         try:
             if is_measure:
-                alias_indices = [abs(idx) - 1 if idx < 0 else abs(idx) for idx in alias_indices]
+                alias_indices = [abs(idx) - 1 if idx < 0 else idx for idx in alias_indices]
             return [values_lookup[data_type][abs(idx)] for idx in alias_indices]
         except IndexError:
             continue
