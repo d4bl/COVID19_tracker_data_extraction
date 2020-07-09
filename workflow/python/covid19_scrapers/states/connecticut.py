@@ -74,6 +74,6 @@ class Connecticut(ScraperBase):
             aa_deaths=aa_deaths,
             pct_aa_cases=pct_aa_cases,
             pct_aa_deaths=pct_aa_deaths,
-            pct_includes_unknown_race=False,
+            pct_includes_unknown_race=True,
             pct_includes_hispanic_black=False
         )]
