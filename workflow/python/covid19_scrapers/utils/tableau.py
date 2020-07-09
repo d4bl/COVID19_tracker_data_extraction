@@ -47,17 +47,32 @@ def extract_data_from_key(json_data, key):
         if 'fieldCaption' not in meta:
             continue
         alias_indices = aliased_value.get('aliasIndices')
-        is_measure = meta['fieldRole'] == 'measure'
-        data[meta['fieldCaption']] = _try_to_unalias(values_lookup, alias_indices, is_measure)
+        data[meta['fieldCaption']] = _try_to_unalias(values_lookup, alias_indices, meta)
     return data
 
 
-def _try_to_unalias(values_lookup, alias_indices, is_measure):
+def _try_to_unalias(values_lookup, alias_indices, meta):
+    try:
+        data_type = meta.get('dataType')
+        return _unalias_by_data_type(values_lookup, alias_indices, meta, data_type)
+    except (IndexError, KeyError):
+        return _try_hard_to_unalias(values_lookup, alias_indices, meta)
+
+
+def _unalias_by_data_type(values_lookup, alias_indices, meta, data_type):
+    if meta['fieldRole'] == 'measure' or meta['dataType'] == 'date':
+        alias_indices = [abs(idx) - 1 if idx < 0 else idx for idx in alias_indices]
+    if meta['dataType'] == 'date':
+        data_type = 'cstring'
+    return [values_lookup[data_type][abs(idx)] for idx in alias_indices]
+
+
+def _try_hard_to_unalias(values_lookup, alias_indices, meta):
     for data_type, lookup in values_lookup.items():
         try:
-            if is_measure:
+            if meta['fieldRole'] == 'measure':
                 alias_indices = [abs(idx) - 1 if idx < 0 else idx for idx in alias_indices]
             return [values_lookup[data_type][abs(idx)] for idx in alias_indices]
-        except IndexError:
+        except (IndexError, KeyError):
             continue
     raise Exception('Could not unalias values.')
