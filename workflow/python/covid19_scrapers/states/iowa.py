@@ -51,6 +51,7 @@ class Iowa(ScraperBase):
             WebdriverSteps()
             .go_to_url(self.CASES_DASHBOARD_URL)
             .wait_for_number_of_elements((By.XPATH, "//div[@class='badge-content-shield']"), 10)
+            .wait_for_presence_of_elements((By.XPATH, '//summary-number'))
             .find_request(key='cases', find_by=lambda r: self.CASES_CARD_NUMBER in r.path)
             .find_request(key='cases_by_race', find_by=lambda r: self.AA_CASES_CARD_NUMBER in r.path)
             .get_page_source())
