@@ -36,14 +36,14 @@ class Delaware(ScraperBase):
         # There are multiple places on the page that display the
         # `total cases`, all of which have the same value.  This just
         # randomly chooses one and parses it.
-        total_cases_text = soup.find('span', text='Total Cases')
+        total_cases_text = soup.find('span', text='Total Positive Cases')
         total_cases_value = total_cases_text.find_next(
             'span',
             class_='c-summary-metric__value')
         return raw_string_to_int(total_cases_value.text)
 
     def get_total_deaths(self, soup):
-        total_deaths_text = soup.find('span', text='Total deaths')
+        total_deaths_text = soup.find('span', text='Total Deaths')
         total_deaths_value = total_deaths_text.find_previous(
             'div', class_='c-summary-metric__value')
         return raw_string_to_int(total_deaths_value.text)
