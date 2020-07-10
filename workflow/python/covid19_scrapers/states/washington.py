@@ -41,11 +41,12 @@ class Washington(ScraperBase):
         soup = url_to_soup(self.DATA_URL, method='POST', files={None: b'_pd'})
 
         # Find the update date
+        last_updated_text = soup.find('strong', string=re.compile('Last Updated'))
         month, day, year = map(
             int,
             re.search(
                 r'(\d\d)/(\d\d)/(\d\d\d\d)',
-                soup.find('strong', string=re.compile('Last Updated')).string
+                last_updated_text.find_next('strong').string
             ).groups())
         date = datetime.date(year, month, day)
         _logger.info(f'Processing data for {date}')
