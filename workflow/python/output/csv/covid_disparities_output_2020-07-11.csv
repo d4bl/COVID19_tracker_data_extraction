@@ -39,5 +39,5 @@ Colorado,2020-07-10,36191,1724,1871,117,6.35,7.04,False,False,29452.0,1661.0,227
 Washington,2020-07-10,39218,1424,1520,46,5.43,3.39,False,False,27979.0,1355.0,269854,3.7,Success!
 Florida,2020-07-11,250984,4197,32370,821,12.9,19.56,True,False,,,3316376,16.1,Success!
 Michigan,2020-07-11,68857,5983,20486,2390,29.75,39.95,True,False,,,1375424,13.81,Success!
-Mississippi,,,,,,,,False,False,,,1125834,37.67,"An error occurred. ... ConnectionError(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))"
+Mississippi,2020-07-10,35419,1230,16811,616,47.46,50.08,True,True,,,1125834,37.67,Success!
 Delaware,2020-07-11,12743,106,3254,132,25.54,124.53,True,False,,,209892,22.11,Success!
