@@ -33,7 +33,7 @@ Rhode Island,2020-07-03,16491,960,1592,48,12.29,6.14,False,False,12950.0,782.0,6
 Nebraska,2020-07-10,20777,286,1230,22,7.61,8.03,False,True,16169.0,274.0,90860,4.77,Success!
 Georgia,2020-07-10,111211,2965,30267,1385,27.22,46.71,True,True,,,3239300,31.46,Success!
 Wisconsin -- Milwaukee,2020-07-10,13430,359,3889,145,31.17,40.39,False,False,12475.0,359.0,252321,26.44,Success!
-Idaho,,,,,,,,False,False,,,11536,0.68,"An error occurred. ... TimeoutException('', None, None)"
+Idaho,2020-07-10,9928,101,145,1,1.46,0.99,False,True,,,11536,0.68,Success!
 Pennsylvania,2020-07-11,92001,6897,12624,1426,30.31,21.68,False,True,41651.0,6579.0,1423319,11.13,Success!
 Colorado,2020-07-10,36191,1724,1871,117,6.35,7.04,False,False,29452.0,1661.0,227938,4.12,Success!
 Washington,2020-07-10,39218,1424,1520,46,5.43,3.39,False,False,27979.0,1355.0,269854,3.7,Success!
