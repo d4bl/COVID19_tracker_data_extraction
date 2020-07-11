@@ -37,11 +37,8 @@ class Kansas(ScraperBase):
 
     def to_df(self, json):
         df = pd.DataFrame.from_dict(json)
-        df = df.set_index('Race')
-        df = df[df['Measure Names'].isin(['Number of Cases', 'Number of Deaths'])]
-        df['Measure Values'] = df['Measure Values'].apply(
-            partial(parse.raw_string_to_int, error='return_default', default=0))
-        return df
+        df['Measure Values'] = df['Measure Values'].apply(parse.maybe_convert).replace('', 0)
+        return df.astype({'Measure Values': float})
 
     def _scrape(self, **kwargs):
         runner = WebdriverRunner()
@@ -65,10 +62,11 @@ class Kansas(ScraperBase):
         assert cases_by_race_results.requests['race_cases'], 'No results for race_cases found'
         resp_body = cases_by_race_results.requests['race_cases'].response.body.decode('utf8')
         cases_for_race_json = TableauParser(resp_body).extract_data_from_key(key='Rates by Race for All Cases')
-        cases_df = self.to_df(cases_for_race_json)
-        cases = cases_df['Measure Values'].sum()
-        known_race_cases = cases_df.drop('Not Reported/Missing')['Measure Values'].sum()
-        aa_cases = cases_df.loc['Black or African American', 'Measure Values'].sum()
+        df = self.to_df(cases_for_race_json)
+        cases_df = df[(df['Measure Names'] == 'Number of Cases')]
+        cases = int(cases_df['Measure Values'].sum())
+        known_race_cases = int(cases_df[(cases_df['Race'] != 'Not Reported/Missing')]['Measure Values'].sum())
+        aa_cases = int(cases_df[cases_df['Race'] == 'Black or African American']['Measure Values'].sum())
 
         # Deaths for Race
         deaths_by_race_results = runner.run(
@@ -80,10 +78,11 @@ class Kansas(ScraperBase):
         assert deaths_by_race_results.requests['race_deaths'], 'No results for race_deaths found'
         resp_body = deaths_by_race_results.requests['race_deaths'].response.body.decode('utf8')
         deaths_for_race_json = TableauParser(resp_body).extract_data_from_key(key='Mortality by Race')
-        deaths_df = self.to_df(deaths_for_race_json)
-        deaths = deaths_df['Measure Values'].sum()
-        known_race_deaths = deaths_df.drop('Not Reported/Missing')['Measure Values'].sum()
-        aa_deaths = deaths_df.loc['Black or African American', 'Measure Values'].sum()
+        df = self.to_df(deaths_for_race_json)
+        deaths_df = df[df['Measure Names'] == 'Number of Deaths']
+        deaths = int(deaths_df['Measure Values'].sum())
+        known_race_deaths = int(deaths_df[deaths_df['Race'] != 'Not Reported/Missing']['Measure Values'].sum())
+        aa_deaths = int(deaths_df[deaths_df['Race'] == 'Black or African American']['Measure Values'].sum())
 
         pct_aa_cases = misc.to_percentage(aa_cases, known_race_cases)
         pct_aa_deaths = misc.to_percentage(aa_deaths, known_race_deaths)
