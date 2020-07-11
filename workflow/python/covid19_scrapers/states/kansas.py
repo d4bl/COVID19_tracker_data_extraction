@@ -1,11 +1,13 @@
 from datetime import datetime
+from functools import partial
 import re
 
-import pydash
+import pandas as pd
 from selenium.webdriver.common.by import By
 
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils import misc, parse, tableau
+from covid19_scrapers.utils import misc, parse
+from covid19_scrapers.utils.tableau import TableauParser
 from covid19_scrapers.webdriver import WebdriverRunner, WebdriverSteps
 
 
@@ -18,8 +20,8 @@ class Kansas(ScraperBase):
 
     The data can then be extracted through a custom parser. From there the needed data can be extracted.
     """
-    CASES_AND_DEATHS_URL = 'https://public.tableau.com/views/COVID-19TableauVersion2/CaseSummary?%3Aembed=y&%3AshowVizHome=no'
-    RACE_CASES_URL = 'https://public.tableau.com/views/COVID-19TableauVersion2/AgeandDemographics?%3Aembed=y&%3AshowVizHome=no'
+    SUMMARY_URL = 'https://public.tableau.com/views/COVID-19TableauVersion2/COVID-19Overview?:embed=y&:showVizHome=no'
+    RACE_CASES_URL = 'https://public.tableau.com/views/COVID-19TableauVersion2/CaseCharacteristics?%3Aembed=y&%3AshowVizHome=no'
     RACE_DEATHS_URL = 'https://public.tableau.com/views/COVID-19TableauVersion2/DeathSummary?%3Aembed=y&%3AshowVizHome=no'
 
     def __init__(self, **kwargs):
@@ -33,37 +35,25 @@ class Kansas(ScraperBase):
         assert matches, 'Date not found.'
         return datetime.strptime(matches.group(), '%m/%d/%Y').date()
 
-    def create_lookup(self, json, indices, value_key):
-        tupled_indices = zip(*[json[k] for k in indices])
-        return {index: json[value_key][idx] for idx, index in enumerate(tupled_indices)}
+    def to_df(self, json):
+        df = pd.DataFrame.from_dict(json)
+        df = df.set_index('Race')
+        df = df[df['Measure Names'].isin(['Number of Cases', 'Number of Deaths'])]
+        df['Measure Values'] = df['Measure Values'].apply(
+            partial(parse.raw_string_to_int, error='return_default', default=0))
+        return df
 
     def _scrape(self, **kwargs):
         runner = WebdriverRunner()
 
-        # Total cases and total deaths
+        # Get date
         cases_results = runner.run(
             WebdriverSteps()
-            .go_to_url(self.CASES_AND_DEATHS_URL)
-            .wait_for_presence_of_elements([
-                (By.XPATH, "//span[contains(text(),'Cases*')]"),
-                (By.XPATH, "//span[contains(text(),'Statewide Deaths')]")
-            ])
-            .find_request('cases_and_deaths', find_by=lambda r: 'bootstrapSession' in r.path)
+            .go_to_url(self.SUMMARY_URL)
+            .wait_for_presence_of_elements((By.XPATH, "//span[contains(text(),'Last updated:')]"))
             .get_page_source())
 
         date = self.get_date(cases_results.page_source)
-
-        assert cases_results.requests['cases_and_deaths'], 'No results for cases_and_deaths found'
-        resp_body = cases_results.requests['cases_and_deaths'].response.body.decode('utf8')
-        cases_json_list = tableau.extract_json_from_blob(resp_body)
-
-        total_cases_json = tableau.extract_data_from_key(cases_json_list[1], key='Case Totals')
-        assert 'CNT(Number of Records)' in total_cases_json, 'Missing total cases key.'
-        cases = pydash.head(total_cases_json['CNT(Number of Records)'])
-
-        total_deaths_json = tableau.extract_data_from_key(cases_json_list[1], key='Statewide Deaths')
-        assert 'CNT(Number of Records)' in total_cases_json, 'Missing total deaths key.'
-        deaths = pydash.head(total_deaths_json['CNT(Number of Records)'])
 
         # Cases for Race
         cases_by_race_results = runner.run(
@@ -74,10 +64,11 @@ class Kansas(ScraperBase):
 
         assert cases_by_race_results.requests['race_cases'], 'No results for race_cases found'
         resp_body = cases_by_race_results.requests['race_cases'].response.body.decode('utf8')
-        cases_for_race_data = tableau.extract_json_from_blob(resp_body)
-        cases_for_race_json = tableau.extract_data_from_key(cases_for_race_data[1], key='Rates by Race for All Cases')
-        lookup = self.create_lookup(cases_for_race_json, indices=['Race', 'Measure Names'], value_key='Measure Values')
-        aa_cases = parse.raw_string_to_int(lookup[('Black or African American', 'Number of Cases')])
+        cases_for_race_json = TableauParser(resp_body).extract_data_from_key(key='Rates by Race for All Cases')
+        cases_df = self.to_df(cases_for_race_json)
+        cases = cases_df['Measure Values'].sum()
+        known_race_cases = cases_df.drop('Not Reported/Missing')['Measure Values'].sum()
+        aa_cases = cases_df.loc['Black or African American', 'Measure Values'].sum()
 
         # Deaths for Race
         deaths_by_race_results = runner.run(
@@ -88,13 +79,14 @@ class Kansas(ScraperBase):
 
         assert deaths_by_race_results.requests['race_deaths'], 'No results for race_deaths found'
         resp_body = deaths_by_race_results.requests['race_deaths'].response.body.decode('utf8')
-        deaths_for_race_data = tableau.extract_json_from_blob(resp_body)
-        deaths_for_race_json = tableau.extract_data_from_key(deaths_for_race_data[1], key='Mortality by Race')
-        lookup = self.create_lookup(deaths_for_race_json, indices=['Race', 'Measure Names'], value_key='Measure Values')
-        aa_deaths = parse.raw_string_to_int(lookup[('Black or African American', 'Number of Deaths')])
+        deaths_for_race_json = TableauParser(resp_body).extract_data_from_key(key='Mortality by Race')
+        deaths_df = self.to_df(deaths_for_race_json)
+        deaths = deaths_df['Measure Values'].sum()
+        known_race_deaths = deaths_df.drop('Not Reported/Missing')['Measure Values'].sum()
+        aa_deaths = deaths_df.loc['Black or African American', 'Measure Values'].sum()
 
-        pct_aa_cases = misc.to_percentage(aa_cases, cases)
-        pct_aa_deaths = misc.to_percentage(aa_deaths, deaths)
+        pct_aa_cases = misc.to_percentage(aa_cases, known_race_cases)
+        pct_aa_deaths = misc.to_percentage(aa_deaths, known_race_deaths)
 
         return [self._make_series(
             date=date,
@@ -106,4 +98,6 @@ class Kansas(ScraperBase):
             pct_aa_deaths=pct_aa_deaths,
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=True,
+            known_race_cases=known_race_cases,
+            known_race_deaths=known_race_deaths
         )]
