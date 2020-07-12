@@ -41,7 +41,9 @@ class California(ScraperBase):
         # Find the first table, and extract the data
         table = soup.find('table')
         data = table_to_dataframe(table).set_index('Race/Ethnicity')
-        black_lbl = data.index[data.index.str.contains('Black')]
+        _logger.debug(f'Race keys: {data.index.values}')
+        black_lbl = data.index[data.index.str.contains('Black')
+                               | data.index.str.contains('African')]
         assert len(black_lbl) == 1, f'Unexpected "Black" label in table: {black_lbl}'
         black_lbl = black_lbl[0]
         _logger.debug(f'Black label: {black_lbl}')
@@ -52,13 +54,18 @@ class California(ScraperBase):
         aa_deaths = data.loc[black_lbl, 'No. Deaths']
         aa_deaths_pct = data.loc[black_lbl, 'Percent Deaths']
 
-        cases_soup = table.find_next('h4', text=re.compile('Cases:'))
+        cases_deaths_soup = table.find_next_sibling('h4')
+        cases_deaths_text = cases_deaths_soup.text
+        cases_deaths_text = ''.join([x if x not in self.WHITESPACE
+                                     else ' '
+                                     for x in cases_deaths_text])
+        _logger.debug(f'Total cases/deaths text: "{cases_deaths_text}"')
         total_cases = raw_string_to_int(
-            re.search(r'Cases:\s+([0-9,]+)\s+total', cases_soup.text).group(1))
-
-        deaths_soup = table.find_next('h4', text=re.compile('Deaths:'))
+            re.search(r'Cases:\s+([0-9,]+)\s+total',
+                      cases_deaths_soup.text).group(1))
         total_deaths = raw_string_to_int(
-            re.search(r'Deaths:\s+([0-9,]+)\s+total', deaths_soup.text).group(1))
+            re.search(r'Deaths:\s+([0-9,]+)\s+total',
+                      cases_deaths_soup.text).group(1))
         return [self._make_series(
             date=date,
             cases=total_cases,
