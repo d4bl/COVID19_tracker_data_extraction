@@ -1,0 +1,43 @@
+Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
+Arkansas,2020-07-12,27864,319,5959,77.0,24.83,25.84,False,True,24000.0,298.0,460970,15.41,Success!
+Massachusetts,2020-07-11,111398,8310,10477,684.0,9.41,8.23,True,False,,,510558,7.48,Success!
+Alabama,2020-07-11,51294,1086,17111,479.0,45.22,45.84,False,False,37836.0,1045.0,1293186,26.58,Success!
+Iowa,2020-07-12,35006,749,3020,36.0,8.63,4.81,True,True,,,109911,3.51,Success!
+Illinois,2020-07-11,152962,7168,25689,1982.0,16.79,27.65,True,False,,,1824125,14.23,Success!
+Maine,2020-07-12,3539,114,816,,25.81,,False,True,3161.0,,17881,1.34,Success!
+Texas -- Bexar County,2020-07-11,19137,175,464,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
+"Washington, DC",2020-07-09,10679,568,5266,421.0,49.31,74.12,True,True,,,321317,46.94,Success!
+Kentucky,2020-07-11,19121,622,2091,24.0,16.08,4.14,False,True,13008.0,583.0,354112,7.98,Success!
+Minnesota,2020-07-12,42281,1502,8665,147.0,20.49,9.79,True,True,,,342186,6.19,Success!
+Wisconsin,2020-07-11,35679,821,5984,192.0,18.6,23.73,False,True,32164.0,809.0,368744,6.38,Success!
+Indiana,2020-07-12,51612,2567,6099,370.0,11.82,14.41,True,True,,,619472,9.33,Success!
+Tennessee,2020-07-11,61006,738,12323,261.0,20.2,35.37,True,True,,,1117489,16.8,Success!
+New York -- New York,2020-07-12,215924,18670,33489,5226.0,30.15,30.52,False,True,111088.0,17124.0,2049418,24.27,Success!
+Utah,2020-07-11,28855,212,731,<5,2.5,,True,False,,,35862,1.18,Success!
+Vermont,2020-07-12,1296,56,143,0,11.33,0.0,False,True,1262.0,56.0,8058,1.29,Success!
+Missouri,2020-06-27,20261,996,5758,246,49.66,38.56,False,True,11594.0,638.0,704896,11.57,Success!
+California,,,,,,,,False,False,,,2267875,5.79,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
+New Mexico,2020-07-11,14773,543,279,,1.89,,True,False,,,43006,2.06,Success!
+Alaska,2020-07-11,1385.0,17.0,34.0,0.0,1.43,0.0,False,True,2376.0,34.0,24129,3.27,Success!
+Texas,2020-07-11,25291,717,2887,91,11.42,12.69,True,False,,,3365783,12.07,Success!
+Maryland,2020-07-12,73109,3188,21160,1295,28.94,40.62,False,False,60333.0,73092.0,1788090,29.78,Success!
+California - San Diego,2020-07-11,19371,422,712,16,4.61,3.87,False,False,15451.0,413.0,166412,5.04,Success!
+Florida -- Miami-Dade County,2020-07-12,64444,1139,7127,,20.65,,False,True,34512.0,,481976,17.75,Success!
+Florida -- Orange County,2020-07-12,18001,80,2278,,24.78,,False,True,9192.0,,277193,20.98,Success!
+North Carolina,2020-07-12,85701,1503,13921,473,23.93,32.69,False,True,58167.0,1447.0,2179622,21.46,Success!
+California - Los Angeles,2020-07-10,130242,3793,3476,386,4.74,10.94,False,False,73398.0,3529.0,823987,8.16,Success!
+Montana,2020-07-12,1758,29,7,,0.4,,True,True,,,4630,0.44,Success!
+Connecticut,2020-07-09,45308,3476,6189,646,13.66,18.58,True,False,,,378262,10.56,Success!
+Virginia,2020-07-12,70670,1966,10760,456,15.23,23.19,True,True,,,1613285,19.17,Success!
+Rhode Island,2020-07-03,16491,960,1592,48,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
+Nebraska,2020-07-11,20998,285,1230,22,7.61,8.03,False,True,16169.0,274.0,90860,4.77,Success!
+Georgia,2020-07-11,114401,2996,31052,1397,27.14,46.63,True,True,,,3239300,31.46,Success!
+Wisconsin -- Milwaukee,2020-07-10,13430,359,3889,145,31.17,40.39,False,False,12475.0,359.0,252321,26.44,Success!
+Idaho,2020-07-11,10505,101,149,1,1.42,0.99,False,True,,,11536,0.68,Success!
+Pennsylvania,2020-07-12,92552,6904,12702,1426,30.29,21.68,False,True,41935.0,6579.0,1423319,11.13,Success!
+Colorado,2020-07-11,36591,1725,1881,117,6.34,7.04,False,False,29686.0,1662.0,227938,4.12,Success!
+Washington,2020-07-10,39218,1424,1520,46,5.43,3.39,False,False,27979.0,1355.0,269854,3.7,Success!
+Florida,2020-07-12,266119,4242,33479,835,12.58,19.68,True,False,,,3316376,16.1,Success!
+Michigan,2020-07-11,68857,5983,20486,2390,29.75,39.95,True,False,,,1375424,13.81,Success!
+Mississippi,2020-07-11,36287,1249,17059,624,47.01,49.96,True,True,,,1125834,37.67,Success!
+Delaware,2020-07-12,12804,104,3266,132,25.51,126.92,True,False,,,209892,22.11,Success!
