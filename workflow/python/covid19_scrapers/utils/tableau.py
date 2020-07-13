@@ -4,6 +4,10 @@ import re
 import pydash
 
 
+class TableauParserException(Exception):
+    pass
+
+
 class TableauParser(object):
     """Tableau returns back data to populate a dashboard with a response that contains 2 json blobs
 
@@ -98,4 +102,4 @@ class TableauParser(object):
                 return [values_lookup[data_type][abs(idx)] for idx in alias_indices]
             except (IndexError, KeyError):
                 continue
-        raise Exception('Could not unalias values.')
+        raise TableauParserException('Could not unalias values.')
