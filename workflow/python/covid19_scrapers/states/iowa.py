@@ -88,13 +88,14 @@ class Iowa(ScraperBase):
         deaths_pct_by_race_data = self.load_response_json(deaths_results, 'deaths_by_race')
         deaths_pct_by_race_strings = self.extract_deaths_rows(deaths_pct_by_race_data)
         aa_death_pct_string = pydash.find(deaths_pct_by_race_strings, lambda s: 'Black or African-American' in s)
-        pct_pattern = re.compile(r'(\d{1,2}\.\d{2})%')
+        pct_pattern = re.compile(r'(\d{1,2}\.\d+)%')
         matches = pct_pattern.search(aa_death_pct_string)
         assert matches, 'No percentage deaths found.'
-        pct_aa_deaths = maybe_convert(matches.group())
+
+        # format to 2 decimal places
+        pct_aa_deaths = float('{:.2f}'.format(maybe_convert(matches.group())))
 
         aa_deaths = round((pct_aa_deaths / 100) * deaths)
-
         pct_aa_cases = to_percentage(aa_cases, cases)
 
         return [self._make_series(
