@@ -21,7 +21,7 @@ class Missouri(ScraperBase):
 
     # Services are at https://services6.arcgis.com/Bd4MACzvEukoZ9mR
     TOTAL = dict(
-        flc_id='8b32bc8b97fb4f789a623ae632ab5e5a',
+        flc_url='https://services6.arcgis.com/Bd4MACzvEukoZ9mR/ArcGIS/rest/services/county_MOHSIS_map/FeatureServer',
         layer_name='county_mohsis_map_temp',
         stats=[
             make_geoservice_stat('sum', 'Cases', 'Cases'),
@@ -30,14 +30,14 @@ class Missouri(ScraperBase):
     )
 
     RACE_CASE = dict(
-        flc_id='6cc7aa6446fe40ac8c7cf4bac8e90d9f',
-        layer_name='207bd9dd6cc54a018f5b1c26e967ec1',
+        flc_url='https://services6.arcgis.com/Bd4MACzvEukoZ9mR/arcgis/rest/services/Case_by_Race_Automated/FeatureServer',
+        layer_name='CasesByRace_Temp',
         out_fields=['RACE', 'Frequency as Cases'],
     )
 
     RACE_DEATH = dict(
-        flc_id='554ada3bc8b147abad21ae23d4a7ba3a',
-        layer_name='198404abd4eb43e6a0c51c0d08f7efe',
+        flc_url='https://services6.arcgis.com/Bd4MACzvEukoZ9mR/ArcGIS/rest/services/Death_by_Race_Automated/FeatureServer',
+        layer_name='DeathByRace_Temp',
         out_fields=['RACE', 'Frequency as Deaths'],
     )
 
@@ -53,16 +53,20 @@ class Missouri(ScraperBase):
 
         # Extract by-race data
         _, cases_race = query_geoservice(**self.RACE_CASE)
-        cases_race = cases_race.set_index('RACE')
+        cases_race = cases_race.set_index('RACE').dropna().astype(int)
         known_cases = cases_race.drop(
-            ['REFUSED TO ANSWER RACE', 'UNKNOWN RACE']).sum()['Cases']
+            ['REFUSED TO ANSWER RACE', 'UNKNOWN RACE'],
+            errors='ignore'
+        ).sum()['Cases']
         aa_cases = cases_race.loc['BLACK', 'Cases']
         aa_cases_pct = to_percentage(aa_cases, known_cases)
 
         _, deaths_race = query_geoservice(**self.RACE_DEATH)
-        deaths_race = deaths_race.set_index('RACE')
+        deaths_race = deaths_race.set_index('RACE').dropna().astype(int)
         known_deaths = deaths_race.drop(
-            ['REFUSED TO ANSWER RACE', 'UNKNOWN RACE']).sum()['Deaths']
+            ['REFUSED TO ANSWER RACE', 'UNKNOWN RACE'],
+            errors='ignore'
+        ).sum()['Deaths']
         aa_deaths = deaths_race.loc['BLACK', 'Deaths']
         aa_deaths_pct = to_percentage(aa_deaths, known_deaths)
 
