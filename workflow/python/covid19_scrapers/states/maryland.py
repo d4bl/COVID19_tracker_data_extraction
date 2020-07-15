@@ -47,7 +47,7 @@ class Maryland(ScraperBase):
         df['Race/Ethnicity'] = df['Race/Ethnicity'].str.strip()
         # df['Cases'] should have been converted by utils._maybe_convert
         df['Deaths'] = df['Deaths'].str.extract(
-            r'\(([0-9,]+)\)', expand=False).apply(raw_string_to_int)
+            r'\(([0-9,]+)\)', expand=False).fillna(0).astype(int)
         return df.set_index('Race/Ethnicity')
 
     def _scrape(self, **kwargs):
@@ -68,11 +68,11 @@ class Maryland(ScraperBase):
         deaths = self.get_total_deaths(soup)
         race_df = self.get_race_and_ethnicity_table(soup)
         known_cases = cases - race_df.loc['Data not available', 'Cases']
-        known_deaths = cases - race_df.loc['Data not available', 'Deaths']
+        known_deaths = deaths - race_df.loc['Data not available', 'Deaths']
         aa_cases = race_df.loc['African-American (NH)', 'Cases']
         aa_deaths = race_df.loc['African-American (NH)', 'Deaths']
-        pct_aa_cases = to_percentage(aa_cases, cases)
-        pct_aa_deaths = to_percentage(aa_deaths, deaths)
+        pct_aa_cases = to_percentage(aa_cases, known_cases)
+        pct_aa_deaths = to_percentage(aa_deaths, known_deaths)
 
         return [self._make_series(
             date=date,
