@@ -42,7 +42,6 @@ class WebdriverRunner(object):
     def _get_default_driver(self, headless):
         options = webdriver.ChromeOptions()
         if headless is True:
-            options.add_argument('headless')
             options.add_argument('--disable-extensions')
             options.add_argument('--headless')
             options.add_argument('--disable-gpu')
