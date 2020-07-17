@@ -1,0 +1,31 @@
+# CronJob configuration script for Data 4 Black Lives COVID-19 Data Tracker
+# Author: Sydeaka Watson
+# Updated: July 2020
+# 
+# This is the cronjob.yaml file that configures the CronJob for use on Googles Kubernetes Engine.
+# As indicated in the `schedule` parameter setting below, the job is set to run every day 
+#   at 5:40, 11:40, 17:40, and 23:40 in the Etc/UTC time zone.
+#
+# Default time zone is Etc/UTC (i.e., +0:00). 
+# For reference, America/Chicago time zone is -5:00 (or -6:00 daylight savings time)
+
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: d4bl
+spec:
+  schedule: "40 5,11,17,23 * * *"
+  startingDeadlineSeconds: 100
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: d4bl
+            image: gcr.io/d4bl-covid19-282714/d4bl-covid19-github:latest
+            command: [ "/bin/sh" ]
+            args: [ "/execute.sh" ]
+            ports:
+              - containerPort: 8080
+          restartPolicy: Never
