@@ -44,8 +44,8 @@ class Delaware(ScraperBase):
 
     def get_total_deaths(self, soup):
         total_deaths_text = soup.find('span', text='Total Deaths')
-        total_deaths_value = total_deaths_text.find_previous(
-            'div', class_='c-summary-metric__value')
+        total_deaths_value = total_deaths_text.find_next(
+            'span', class_='c-summary-metric__value')
         return raw_string_to_int(total_deaths_value.text)
 
     def _parse_aa_df(self, soup, text):
