@@ -59,8 +59,8 @@ class Maryland(ScraperBase):
                 (By.CLASS_NAME, 'markdown-card'),
                 (By.CLASS_NAME, 'ember-view')])
             .get_page_source())
-        soup = results.page_source
 
+        soup = results.page_source
         date = self.get_date()
         _logger.info(f'Processing data for {date}')
 
