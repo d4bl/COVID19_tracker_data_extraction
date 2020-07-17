@@ -47,6 +47,9 @@ class WebdriverSteps(object):
             WaitFor(element_locators, condition=Condition.NUMBER_OF_ELEMENTS,
                     number_of_elements=number_of_elements, timeout=timeout))
 
+    def wait_for_visibility_of_elements(self, element_locators, timeout=60):
+        return self.add_step(WaitFor(element_locators, condition=Condition.VISIBILITY, timeout=timeout))
+
     def find_element_by_xpath(self, xpath, ignore_missing=False):
         return self.add_step(FindElement('xpath', xpath, ignore_missing))
 
@@ -61,6 +64,9 @@ class WebdriverSteps(object):
 
     def find_request(self, key, find_by):
         return self.add_step(FindRequest(key, find_by))
+
+    def clear_request_history(self):
+        return self.add_step(ClearRequests())
 
 
 class ExecutionStepException(Exception):
@@ -123,6 +129,7 @@ class GoToURL(ExecutionStep):
 class Condition(enum.Enum):
     PRESENCE = 'presence'
     NUMBER_OF_ELEMENTS = 'number_of_elements'
+    VISIBILITY = 'visibility'
 
 
 class WaitFor(ExecutionStep):
@@ -153,6 +160,9 @@ class WaitFor(ExecutionStep):
         elif self.condition == Condition.NUMBER_OF_ELEMENTS:
             assert isinstance(self.number_of_elements, int), '`number_of_elements` as an integer must be given'
             applied_conditions = [NumberOfElementsIsGreaterOrEqualTo(locator, self.number_of_elements)
+                                  for locator in self.locators]
+        elif self.condition == Condition.VISIBILITY:
+            applied_conditions = [expected_conditions.visibility_of_element_located(locator)
                                   for locator in self.locators]
         else:
             raise ExecutionStepException('Invalid condition, check the `Conditions` enum for valid conditions')
@@ -279,10 +289,25 @@ class FindRequest(ExecutionStep):
         found_request = pydash.find(driver.requests, self.find_by)
 
         # HACK: Response bodys are lazily loaded so it must get called before adding to context
-        if found_request:
+        if found_request and found_request.response:
             found_request.response.body
 
         context.add_to_context('requests', {**current, **{self.key: found_request}})
 
     def __repr__(self):
         return f'GetRequest(key={self.key}, find_by={self.find_by.__name__})'
+
+
+class ClearRequests(ExecutionStep):
+    """In between WebdriverSteps, it's possible that requests can pile up.
+    This makes it so that subsequent `find_requests` are slow.
+
+    To help with this, this step can be used to clear the existing requests that were
+    made to speed up the `find_requests`
+    """
+
+    def execute(self, driver, context):
+        del driver.requests
+
+    def __repr__(self):
+        return 'ClearRequests()'
