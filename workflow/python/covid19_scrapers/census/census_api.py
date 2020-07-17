@@ -65,7 +65,7 @@ class CensusApi(object):
         names.
 
         """
-        resp = get_json(url + f'/groups/{group}.json')
+        resp = get_json(url + f'/groups/{group}.json', force_cache=True)
         for val in resp['variables'].values():
             if val.get('concept'):
                 concept = val['concept']
@@ -99,7 +99,7 @@ class CensusApi(object):
         else:
             _logger.warn('Calling Census API without a key: '
                          'Be careful of hitting the rate limit.')
-        results = get_content_as_file(url, params=params)
+        results = get_content_as_file(url, params=params, force_cache=True)
 
         # Get group field to name mappings
         fields = dict(fields)  # Make a copy.
