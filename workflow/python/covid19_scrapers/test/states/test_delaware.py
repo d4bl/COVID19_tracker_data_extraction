@@ -10,7 +10,7 @@ from covid19_scrapers.utils.misc import to_percentage
 @mock.patch('covid19_scrapers.states.delaware.url_to_soup',
             util.mock_url_to_soup(template='delaware.jinja2'))
 def test_delaware():
-    util.run_and_assert_scraper(
+    util.run_scraper_and_assert(
         scraper_cls=Delaware,
         assertions={
             'Date Published': datetime(2020, 7, 16).date(),

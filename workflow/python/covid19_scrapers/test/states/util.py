@@ -8,7 +8,7 @@ from covid19_scrapers.utils.testing import FakeCensusApi
 from covid19_scrapers.webdriver.runner import WebdriverResults
 
 
-def run_and_assert_scraper(*, scraper_cls, assertions):
+def run_scraper_and_assert(*, scraper_cls, assertions):
     scraper = scraper_cls(home_dir=Path('test'), census_api=FakeCensusApi())
     results = scraper._scrape()
     assert len(results) == 1
