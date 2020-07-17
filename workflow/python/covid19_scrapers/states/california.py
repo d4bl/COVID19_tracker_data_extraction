@@ -23,47 +23,58 @@ class California(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, **kwargs):
+    def _scrape(self, start_date, end_date, **kwargs):
         # For statewide totals, sum the latest county figures.
         total_df = pd.read_csv(
             self.COUNTY_URL,
-            parse_dates=True
+            parse_dates=['date']
         ).groupby('date').sum().sort_index(ascending=False)
-        total_cases = int(total_df.iloc[0]['totalcountconfirmed'])
-        total_deaths = int(total_df.iloc[0]['totalcountdeaths'])
+        if start_date is not None:
+            subindex = total_df.index[(total_df.index >= start_date)
+                                      & (total_df.index <= end_date)]
+        else:
+            subindex = [total_df.index[total_df.index <= end_date].max()]
+        total_cases = total_df.loc[subindex, 'totalcountconfirmed'].astype(int)
+        total_deaths = total_df.loc[subindex, 'totalcountdeaths'].astype(int)
 
         # CA demographic breakdowns use combined race & ethnicity.
         race_df = pd.read_csv(
             self.RACE_URL,
             index_col=['date', 'race_ethnicity'],
-            parse_dates=True
+            parse_dates=['date']
         ).sort_index(ascending=False)
-        date = race_df.index.levels[0].max()
-        race_df = race_df.loc[date]
-        race_df['cases'] = race_df['cases'].astype(int)
-        race_df['deaths'] = race_df['deaths'].astype(int)
-        aa_cases = race_df.loc['Black', 'cases']
-        aa_deaths = race_df.loc['Black', 'deaths']
+        dates = race_df.index.levels[0]
+        if start_date is not None:
+            subindex = dates[(dates >= start_date) & (dates <= end_date)]
+        else:
+            subindex = [dates[dates <= end_date].max()]
+        race_df = race_df.loc[subindex]
+        race_df.loc[:, 'cases'] = race_df.loc[:, 'cases'].astype(int)
+        race_df.loc[:, 'deaths'] = race_df.loc[:, 'deaths'].astype(int)
+        aa_cases = race_df.loc[(slice(None), 'Black'), 'cases']
+        aa_deaths = race_df.loc[(slice(None), 'Black'), 'deaths']
 
         # Since the above DF does not include unknown counts, we can
         # sum the rows to get known counts.
-        known_df = race_df.sum(axis=0)
-        known_cases = int(known_df['cases'])
-        known_deaths = int(known_df['deaths'])
+        known_df = race_df.reset_index().groupby('date').sum()
+        known_cases = known_df.loc[:, 'cases'].astype(int)
+        known_deaths = known_df.loc[:, 'deaths'].astype(int)
+
+        dates = total_df.index.intersection(known_df.index)
 
         aa_cases_pct = to_percentage(aa_cases, known_cases)
         aa_deaths_pct = to_percentage(aa_deaths, known_deaths)
 
         return [self._make_series(
-            date=date.date(),
-            cases=total_cases,
-            deaths=total_deaths,
-            aa_cases=aa_cases,
-            aa_deaths=aa_deaths,
-            pct_aa_cases=aa_cases_pct,
-            pct_aa_deaths=aa_deaths_pct,
+            date=date,
+            cases=total_cases[date],
+            deaths=total_deaths[date],
+            aa_cases=aa_cases[(date, 'Black')],
+            aa_deaths=aa_deaths[(date, 'Black')],
+            pct_aa_cases=aa_cases_pct[(date, 'Black')],
+            pct_aa_deaths=aa_deaths_pct[(date, 'Black')],
             pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
-            known_race_cases=known_cases,
-            known_race_deaths=known_deaths,
-        )]
+            known_race_cases=known_cases[date],
+            known_race_deaths=known_deaths[date],
+        ) for date in dates]

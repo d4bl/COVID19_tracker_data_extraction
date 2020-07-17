@@ -4,7 +4,6 @@ the output to an Excel file.
 """
 
 import argparse
-import datetime
 import logging
 import pandas as pd
 from pathlib import Path
@@ -80,7 +79,17 @@ def parse_args():
                         action='store',
                         help='Provide a key for accessing Census APIs.')
     parser.add_argument('--enable_beta_scrapers', action='store_true',
-                        help='Include beta scrapers when not specifying scrapers manually.')
+                        help='Include beta scrapers when not specifying'
+                        ' scrapers manually.')
+    parser.add_argument('--start_date', action='store',
+                        type=pd.Timestamp.fromisoformat,
+                        help='If set, acquire data starting on the specified'
+                        ' date in ISO format.')
+    parser.add_argument('--end_date', action='store',
+                        default=pd.Timestamp.today(),
+                        type=pd.Timestamp.fromisoformat,
+                        help='If set, acquire data through the specified'
+                        ' date in ISO format, inclusive.')
     # Parse command-line arguments
     return parser.parse_args()
 
@@ -157,16 +166,19 @@ def main():
     )
     if not opts.scrapers:
         logging.info('Running all scrapers')
-        df = scraper_registry.run_all_scrapers()
+        df = scraper_registry.run_all_scrapers(start_date=opts.start_date,
+                                               end_date=opts.end_date)
     else:
         logging.info(f'Running selected scrapers: {opts.scrapers}')
-        df = scraper_registry.run_scrapers(opts.scrapers)
+        df = scraper_registry.run_scrapers(opts.scrapers,
+                                           start_date=opts.start_date,
+                                           end_date=opts.end_date)
 
     # When run without outputs specified, we will write to today's
     # default CSV and XLSX files
-    today = datetime.date.today()
-    default_outputs = [f'output/xlsx/covid_disparities_output_{today}.xlsx',
-                       f'output/csv/covid_disparities_output_{today}.csv']
+    default_outputs = [
+        f'output/xlsx/covid_disparities_output_{opts.end_date.date()}.xlsx',
+        f'output/csv/covid_disparities_output_{opts.end_date.date()}.csv']
 
     # Write output files
     for output in opts.outputs or default_outputs:
