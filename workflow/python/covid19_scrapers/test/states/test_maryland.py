@@ -8,7 +8,7 @@ from covid19_scrapers.utils.misc import to_percentage
 @mock.patch('covid19_scrapers.states.maryland.WebdriverRunner',
             util.mocked_webdriver_runner(template='maryland.jinja2'))
 def test_maryland():
-    util.run_and_assert_scraper(
+    util.run_scraper_and_assert(
         scraper_cls=Maryland,
         assertions={
             'Total Cases': 75000,
