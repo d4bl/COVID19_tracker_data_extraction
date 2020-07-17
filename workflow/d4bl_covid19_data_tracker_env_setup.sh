@@ -89,3 +89,8 @@ pip install PyGithub
 
 # Automate pre-commit checks
 pip install pre-commit
+
+# For tests
+pip install pytest
+pip install mock
+pip install Jinja2
