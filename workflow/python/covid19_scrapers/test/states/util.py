@@ -34,9 +34,15 @@ def mocked_webdriver_runner(template=None, as_soup=True):
 
 class MockWebdriverRunner(object):
     def __init__(self, template=None, as_soup=True):
-        self.template = template_loader.get_template(template).render() if template else None
+        self.template = self._handle_template(template, as_soup)
+
+    def _handle_template(self, template, as_soup):
+        if not template:
+            return None
+        rendered_template = template_loader.get_template(template).render()
         if as_soup:
-            self.template = BeautifulSoup(self.template, 'lxml')
+            rendered_template = BeautifulSoup(rendered_template, 'lxml')
+        return rendered_template
 
     def run(self, *args, **kwargs):
         return WebdriverResults(
