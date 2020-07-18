@@ -8,7 +8,7 @@ from covid19_scrapers.utils.misc import to_percentage
 
 @mock.patch('covid19_scrapers.states.arkansas.query_geoservice',
             mock.MagicMock(return_value=util.make_query_geoservice_data(json_file='arkansas.json')))
-def test_alabama():
+def test_arkansas():
     util.run_scraper_and_assert(
         scraper_cls=Arkansas,
         assertions={
