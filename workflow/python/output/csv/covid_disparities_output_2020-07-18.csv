@@ -22,7 +22,7 @@ Florida,2020-07-18,333201,4895,40870,934,12.27,19.08,True,False,,,3316376,16.1,S
 Montana,2020-07-17,2366,37,12,,0.51,,True,True,,,4630,0.44,Success!
 Vermont,2020-07-18,1338,56,150,0,11.54,0.0,False,True,1300.0,56.0,8058,1.29,Success!
 Connecticut,2020-07-16,45910,3519,6278,651,13.67,18.5,True,False,,,378262,10.56,Success!
-Kansas,,,,,,,,False,False,,,169801,5.84,"An error occurred. ... WebDriverException('unknown error: Chrome failed to start: exited abnormally.\n  (chrome not reachable)\n  (The process started from chrome location /usr/bin/google-chrome is no longer running, so ChromeDriver is assuming that Chrome has crashed.)', None, None)"
+Kansas,2020-07-17,21965,299,1644,64,9.18,21.99,False,True,17913.0,291.0,169801,5.84,Success!
 Colorado,2020-07-17,39344,1751,1963,118,6.24,6.97,False,False,31452.0,1694.0,227938,4.12,Success!
 Nebraska,2020-07-17,22361,301,1297,22,7.55,7.69,False,True,17187.0,286.0,90860,4.77,Success!
 Michigan,2020-07-17,72410,6024,21120,2401,29.17,39.86,True,False,,,1375424,13.81,Success!
