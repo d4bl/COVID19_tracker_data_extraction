@@ -1,0 +1,45 @@
+Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
+Texas,2020-07-17,27428,740,3129,95.0,11.41,12.84,True,False,,,3365783,12.07,Success!
+Texas -- Bexar County,2020-07-17,27525,240,464,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
+New York -- New York,2020-07-17,217562,18758,33649,5246.0,30.12,30.49,False,True,111730.0,17207.0,2049418,24.27,Success!
+Rhode Island,2020-07-03,16491,960,1592,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
+California - San Francisco,2020-07-17,5116,41,280,5.0,6.34,12.82,False,False,4415.0,39.0,,,Success!
+Tennessee,2020-07-17,73819,815,14737,289.0,19.96,35.46,True,True,,,1117489,16.8,Success!
+Utah,2020-07-17,32572,235,810,<5,2.5,,True,False,,,35862,1.18,Success!
+Kentucky,2020-07-17,21605,658,1908,91,12.64,14.8,False,True,15097.0,615.0,354112,7.98,Success!
+Arkansas,2020-07-18,31762,353,6784,92,24.53,26.29,False,True,27661.0,350.0,460970,15.41,Success!
+California - San Diego,2020-07-17,22489,472,832,18,4.72,3.94,False,False,17636.0,457.0,166412,5.04,Success!
+Virginia,2020-07-18,76373,2025,12245,476,16.03,23.51,True,True,,,1613285,19.17,Success!
+New Mexico,2020-07-17,16456,565,298,,1.81,,True,False,,,43006,2.06,Success!
+Florida -- Miami-Dade County,2020-07-18,81026,1274,8241,,19.99,,False,True,41229.0,,481976,17.75,Success!
+Florida -- Orange County,2020-07-18,22518,117,2859,,24.93,,False,True,11469.0,,277193,20.98,Success!
+Alabama,2020-07-17,62111,1232,19053,532,44.0,45.01,False,False,43301.0,1182.0,1293186,26.58,Success!
+California - Los Angeles,2020-07-16,150319,4047,3983,400,4.67,10.64,False,False,85284.0,3760.0,823987,8.16,Success!
+Maryland,2020-07-18,77206,3238,22528,1318,35.21,40.86,False,False,63989.0,3226.0,1788090,29.78,Success!
+Mississippi,2020-07-16,40829,1332,18838,664,46.14,49.85,True,True,,,1125834,37.67,Success!
+Pennsylvania,2020-07-18,97388,7007,13641,1484,30.24,21.22,False,True,45114.0,6992.0,1423319,11.13,Success!
+Florida,2020-07-18,333201,4895,40870,934,12.27,19.08,True,False,,,3316376,16.1,Success!
+Montana,2020-07-17,2366,37,12,,0.51,,True,True,,,4630,0.44,Success!
+Vermont,2020-07-18,1338,56,150,0,11.54,0.0,False,True,1300.0,56.0,8058,1.29,Success!
+Connecticut,2020-07-16,45910,3519,6278,651,13.67,18.5,True,False,,,378262,10.56,Success!
+Kansas,,,,,,,,False,False,,,169801,5.84,"An error occurred. ... WebDriverException('unknown error: Chrome failed to start: exited abnormally.\n  (chrome not reachable)\n  (The process started from chrome location /usr/bin/google-chrome is no longer running, so ChromeDriver is assuming that Chrome has crashed.)', None, None)"
+Colorado,2020-07-17,39344,1751,1963,118,6.24,6.97,False,False,31452.0,1694.0,227938,4.12,Success!
+Nebraska,2020-07-17,22361,301,1297,22,7.55,7.69,False,True,17187.0,286.0,90860,4.77,Success!
+Michigan,2020-07-17,72410,6024,21120,2401,29.17,39.86,True,False,,,1375424,13.81,Success!
+California,2020-07-16,366164,7475,10199,635,4.33,8.77,False,False,235539.0,7243.0,2267875,5.79,Success!
+Indiana,2020-07-17,54813,2610,6426,373,11.72,14.29,True,True,,,619472,9.33,Success!
+Alaska,2020-07-17,1733.0,17.0,41.0,0.0,1.41,0.0,False,True,2904.0,34.0,24129,3.27,Success!
+Wisconsin,2020-07-17,40507,833,6620,196,18.08,23.9,False,True,36613.0,820.0,368744,6.38,Success!
+Georgia,2020-07-17,135183,3132,35319,1461,26.13,46.65,True,True,,,3239300,31.46,Success!
+Washington,2020-07-17,45067,1434,1676,48,5.41,3.48,False,False,30976.0,1379.0,269854,3.7,Success!
+"Washington, DC",2020-07-18,11194,578,5530,426,49.4,73.7,True,True,,,321317,46.94,Success!
+Delaware,2020-07-18,13429,523,3423,134,25.49,25.62,True,False,,,209892,22.11,Success!
+Maine,2020-07-18,3646,117,837,,25.52,,False,True,3280.0,,17881,1.34,Success!
+Iowa,2020-07-18,37904,787,3180,38,8.39,4.83,True,True,,,109911,3.51,Success!
+North Carolina,2020-07-17,95477,1606,15601,509,23.95,32.84,False,True,65147.0,1550.0,2179622,21.46,Success!
+Illinois,2020-07-17,159334,7272,26784,2006,16.81,27.59,True,False,,,1824125,14.23,Success!
+Idaho,2020-07-17,13752,114,176,1,1.28,0.88,False,True,,,11536,0.68,Success!
+Minnesota,2020-07-17,45013,1533,9114,150,20.25,9.78,True,True,,,342186,6.19,Success!
+Massachusetts,2020-07-17,112879,8402,10612,690,9.4,8.21,True,False,,,510558,7.48,Success!
+Wisconsin -- Milwaukee,2020-07-17,15426,365,4438,146,30.97,40.0,False,False,14328.0,365.0,252321,26.44,Success!
+Missouri,2020-07-17,31288,1121,6910,373,34.6,36.82,False,True,19970.0,1013.0,704896,11.57,Success!
