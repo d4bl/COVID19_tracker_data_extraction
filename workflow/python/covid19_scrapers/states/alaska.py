@@ -42,7 +42,7 @@ class Alaska(ScraperBase):
 
         # Add total rows
         data.loc['Grand Total', :] = data.sum()
-        data.loc['Known Race', :] = data.drop('Unknown Race').sum()
+        data.loc['Known Race', :] = data.drop(['Grand Total', 'Unknown Race']).sum()
 
         # Extract/calculate case info
         total_cases = data.loc['Grand Total', 'Cases']
