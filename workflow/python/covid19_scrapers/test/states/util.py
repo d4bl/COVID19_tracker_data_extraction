@@ -34,6 +34,10 @@ def make_query_geoservice_data(*, data=None, json_file=None):
     return (date.today(), pd.DataFrame.from_dict(data))
 
 
+def mock_read_csv_dataframe(csv_file, **kwargs):
+    return loader.get_csv(csv_file, **kwargs)
+
+
 def mocked_webdriver_runner(template=None, as_soup=True):
     mocked_driver = MockWebdriverRunner(
         template=template,
