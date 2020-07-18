@@ -17,6 +17,8 @@ def test_maryland():
             'Count Deaths Black/AA': 1000,
             'Pct Includes Unknown Race': False,
             'Pct Includes Hispanic Black': False,
-            'Pct Cases Black/AA': to_percentage(20000, 75000),
-            'Pct Deaths Black/AA': to_percentage(1000, 3000)
+            'Pct Cases Black/AA': to_percentage(20000, 63000),
+            'Pct Deaths Black/AA': to_percentage(1000, 2990),
+            'Count Cases Known Race': 63000,
+            'Count Deaths Known Race': 2990
         })
