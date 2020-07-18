@@ -6,7 +6,7 @@ from covid19_scrapers.test.states import util
 from covid19_scrapers.utils.misc import to_percentage
 
 
-@mock.patch('covid19_scrapers.states.alabama.query_geoservice',
+@mock.patch('covid19_scrapers.states.alaska.query_geoservice',
             mock.MagicMock(return_value=util.make_query_geoservice_data(json_file='alaska.json')))
 def test_alaska():
     util.run_scraper_and_assert(
