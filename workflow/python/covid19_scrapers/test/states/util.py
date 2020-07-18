@@ -1,9 +1,11 @@
+from datetime import date
 from pathlib import Path
 
 import mock
+import pandas as pd
 from bs4 import BeautifulSoup
 
-from covid19_scrapers.test.states.templates import template_loader
+from covid19_scrapers.test.states.data import loader
 from covid19_scrapers.utils.testing import FakeCensusApi
 from covid19_scrapers.webdriver.runner import WebdriverResults
 
@@ -20,9 +22,13 @@ def run_scraper_and_assert(*, scraper_cls, assertions):
 
 def mock_url_to_soup(template):
     def _mock_url_to_soup(*args, **kwargs):
-        html = template_loader.get_template(template).render()
+        html = loader.get_template(template).render()
         return BeautifulSoup(html, 'lxml')
     return _mock_url_to_soup
+
+
+def make_query_geoservice_data(data):
+    return (date.today(), pd.DataFrame.from_dict(data))
 
 
 def mocked_webdriver_runner(template=None, as_soup=True):
@@ -39,7 +45,7 @@ class MockWebdriverRunner(object):
     def _handle_template(self, template, as_soup):
         if not template:
             return None
-        rendered_template = template_loader.get_template(template).render()
+        rendered_template = loader.get_template(template).render()
         if as_soup:
             rendered_template = BeautifulSoup(rendered_template, 'lxml')
         return rendered_template
