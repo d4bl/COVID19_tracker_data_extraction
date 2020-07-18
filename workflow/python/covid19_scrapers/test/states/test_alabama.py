@@ -27,8 +27,8 @@ def test_alabama(patched_geoservice):
 
     # patch geoservice
     patched_geoservice.side_effect = [
-        util.make_query_geoservice_data(cases),
-        util.make_query_geoservice_data(deaths)]
+        util.make_query_geoservice_data(data=cases),
+        util.make_query_geoservice_data(data=deaths)]
 
     # run and test
     util.run_scraper_and_assert(

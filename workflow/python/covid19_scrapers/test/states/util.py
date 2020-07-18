@@ -16,7 +16,7 @@ def run_scraper_and_assert(*, scraper_cls, assertions):
     assert len(results) == 1
     result = results[0]
     for key, value in assertions.items():
-        assert result[key] == value, f'Failed on field: {key}, value: {value}'
+        assert result[key] == value, f'Failed on field: {key}. {result[key]} != {value}'
     return results
 
 
@@ -27,7 +27,10 @@ def mock_url_to_soup(template):
     return _mock_url_to_soup
 
 
-def make_query_geoservice_data(data):
+def make_query_geoservice_data(*, data=None, json_file=None):
+    assert bool(data) != bool(json_file), 'a dictionary or json_file (in data.json) needs to be passed in, but not both.'
+    if not data:
+        data = loader.get_json(json_file)
     return (date.today(), pd.DataFrame.from_dict(data))
 
 
