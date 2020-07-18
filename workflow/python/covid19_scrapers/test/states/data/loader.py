@@ -18,4 +18,11 @@ def get_json(file_name):
     base_path = Path('/'.join(current_file.split('/')[:-1] + ['json']))
     json_path = Path(file_name)
     with base_path.joinpath(json_path).open() as json_file:
-        return json.loads(json_file.read())
+        return json.loads(json_file.read(), object_hook=try_keys_to_int)
+
+
+def try_keys_to_int(d):
+    try:
+        return {int(k): v for k, v in d.items()}
+    except ValueError:
+        return d
