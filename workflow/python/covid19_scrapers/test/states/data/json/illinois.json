@@ -1,0 +1,171 @@
+{
+    "state_testing_results": {
+        "values": [
+            {
+                "testDate": "7/15/2020",
+                "total_tested": 2079601,
+                "confirmed_cases": 156693,
+                "deaths": 7226
+            },
+            {
+                "testDate": "7/16/2020",
+                "total_tested": 2122607,
+                "confirmed_cases": 157950,
+                "deaths": 7250
+            },
+            {
+                "testDate": "7/17/2020",
+                "total_tested": 2166299,
+                "confirmed_cases": 159334,
+                "deaths": 7272
+            },
+            {
+                "testDate": "7/18/2020",
+                "total_tested": 2212398,
+                "confirmed_cases": 160000,
+                "deaths": 7000
+            }
+        ]
+    },
+    "demographics": {
+        "race": [
+            {
+                "description": "White",
+                "count": 35810,
+                "tested": 617208,
+                "deaths": 3247,
+                "color": "rgb(31,119,180)"
+            },
+            {
+                "description": "Black",
+                "count": 27000,
+                "tested": 196962,
+                "deaths": 2000,
+                "color": "rgb(255,127,14)"
+            },
+            {
+                "description": "Left Blank",
+                "count": 36540,
+                "tested": 1123579,
+                "deaths": 109,
+                "color": "rgb(44,160,44)"
+            },
+            {
+                "description": "Other",
+                "count": 5985,
+                "tested": 69203,
+                "deaths": 50,
+                "color": "rgb(148,103,189)"
+            },
+            {
+                "description": "Asian",
+                "count": 4419,
+                "tested": 32227,
+                "deaths": 347,
+                "color": "rgb(140,86,75)"
+            },
+            {
+                "description": "Hispanic",
+                "count": 50226,
+                "tested": 169295,
+                "deaths": 1507,
+                "color": "rgb(214,39,40)"
+            },
+            {
+                "description": "NH/PI*",
+                "count": 392,
+                "tested": 2351,
+                "deaths": 9,
+                "color": "rgb(127,127,127)"
+            },
+            {
+                "description": "AI/AN**",
+                "count": 229,
+                "tested": 1573,
+                "deaths": 10,
+                "color": "rgb(31,119,180)"
+            }
+        ],
+        "gender": [
+            {
+                "description": "Male",
+                "count": 75675,
+                "tested": 879162,
+                "deaths": 3943,
+                "color": "rgb(31,119,180)"
+            },
+            {
+                "description": "Female",
+                "count": 82084,
+                "tested": 1153641,
+                "deaths": 3341,
+                "color": "rgb(255,127,14)"
+            },
+            {
+                "description": "Unknown/Left Blank",
+                "count": 2851,
+                "tested": 179595,
+                "deaths": 6,
+                "color": "rgb(44,160,44)"
+            }
+        ]
+    },
+    "state_recovery_data": {
+        "values": [
+            {
+                "report_date": "7/17/2020",
+                "recovered_cases": 120498,
+                "recovered_and_deceased_cases": 127452,
+                "recovery_rate": 0.95
+            },
+            {
+                "report_date": "7/10/2020",
+                "recovered_cases": 113624,
+                "recovered_and_deceased_cases": 120302,
+                "recovery_rate": 0.94
+            },
+            {
+                "report_date": "7/2/2020",
+                "recovered_cases": 102980,
+                "recovered_and_deceased_cases": 109257,
+                "recovery_rate": 0.94
+            },
+            {
+                "report_date": "6/25/2020",
+                "recovered_cases": 89314,
+                "recovered_and_deceased_cases": 95043,
+                "recovery_rate": 0.94
+            },
+            {
+                "report_date": "6/18/2020",
+                "recovered_cases": 79815,
+                "recovered_and_deceased_cases": 74634,
+                "recovery_rate": 0.94
+            },
+            {
+                "report_date": "6/11/2020",
+                "recovered_cases": 57012,
+                "recovered_and_deceased_cases": 61389,
+                "recovery_rate": 0.93
+            },
+            {
+                "report_date": "6/4/2020",
+                "recovered_cases": 39542,
+                "recovered_and_deceased_cases": 42905,
+                "recovery_rate": 0.92
+            },
+            {
+                "report_date": "5/28/2020",
+                "recovered_cases": 27011,
+                "recovered_and_deceased_cases": 29434,
+                "recovery_rate": 0.92
+            },
+            {
+                "report_date": "5/21/2020",
+                "recovered_cases": 19725,
+                "recovered_and_deceased_cases": 21440,
+                "recovery_rate": 0.92
+            }
+        ]
+    }
+}
