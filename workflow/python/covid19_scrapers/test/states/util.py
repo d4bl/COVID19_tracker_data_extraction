@@ -6,6 +6,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 
 from covid19_scrapers.test.states.data import loader
+from covid19_scrapers.utils.misc import to_percentage
 from covid19_scrapers.utils.testing import FakeCensusApi
 from covid19_scrapers.webdriver.runner import WebdriverResults
 
@@ -18,6 +19,10 @@ def run_scraper_and_assert(*, scraper_cls, assertions):
     for key, value in assertions.items():
         assert result[key] == value, f'Failed on field: {key}. {result[key]} != {value}'
     return results
+
+
+def mock_aa_pop_stats(aa_pop=1000, total_pop=50000):
+    return mock.MagicMock(return_value=(aa_pop, total_pop, to_percentage(aa_pop, total_pop)))
 
 
 def mock_url_to_soup(template):
@@ -62,3 +67,26 @@ class MockWebdriverRunner(object):
             x_session_id=None,
             requests=None,
             page_source=self.template)
+
+
+def mock_response(*, json_file=None, blob_file=None):
+    assert bool(json_file) != bool(blob_file), 'Exactly one of `json_file` or `blob_file` should be passed in'
+    text = None
+    if json_file:
+        text = loader.get_json(json_file)
+    if blob_file:
+        text = loader.get_blob(blob_file)
+    return MockResponse(text=text)
+
+
+def magic_mock_response(**kwargs):
+    """This is a wrapper for mock_response.
+
+    Just wraps mock_response in a magic mock if needed for ease.
+    """
+    return mock.MagicMock(return_value=mock_response(**kwargs))
+
+
+class MockResponse(object):
+    def __init__(self, text):
+        self.text = text
