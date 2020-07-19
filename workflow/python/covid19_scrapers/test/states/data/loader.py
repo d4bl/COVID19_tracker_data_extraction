@@ -1,3 +1,4 @@
+import enum
 import inspect
 import json
 from pathlib import Path
@@ -6,12 +7,23 @@ import jinja2
 import pandas as pd
 
 
+class FileType(enum.Enum):
+    CSV = 'csv'
+    JSON = 'json'
+    BLOB = 'blob'
+    TEMPLATE = 'template'
+
+
+def get_path(file_type, file_name):
+    current_file = inspect.getfile(get_path)
+    base_path = Path('/'.join(current_file.split('/')[:-1] + [file_type.value]))
+    file_path = Path(file_name)
+    return base_path.joinpath(file_path)
+
+
 def get_csv(csv_file, **kwargs):
-    current_file = inspect.getfile(get_csv)
-    template_path = Path('/'.join(current_file.split('/')[:-1] + ['csv']))
-    csv_path = Path(csv_file)
-    full_path = template_path.joinpath(csv_path)
-    return pd.read_csv(str(full_path), **kwargs)
+    csv_path = get_path(FileType.CSV, csv_file)
+    return pd.read_csv(str(csv_path), **kwargs)
 
 
 def get_template(template_name):
@@ -22,11 +34,16 @@ def get_template(template_name):
     return _env.get_template(template_name)
 
 
+def get_blob(file_name):
+    path = get_path(FileType.BLOB, file_name)
+    with open(path, 'r') as file:
+        blob = file.read()
+    return blob
+
+
 def get_json(file_name):
-    current_file = inspect.getfile(get_json)
-    base_path = Path('/'.join(current_file.split('/')[:-1] + ['json']))
-    json_path = Path(file_name)
-    with base_path.joinpath(json_path).open() as json_file:
+    file = get_path(FileType.JSON, file_name)
+    with file.open() as json_file:
         return json.loads(json_file.read(), object_hook=try_keys_to_int)
 
 
