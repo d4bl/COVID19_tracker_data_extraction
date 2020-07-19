@@ -4,6 +4,10 @@ import re
 import pydash
 
 
+def find_tableau_request(request):
+    return 'bootstrapSession' in request.path
+
+
 class TableauParserException(Exception):
     pass
 
@@ -17,7 +21,9 @@ class TableauParser(object):
     calls to `extract_data_from_key` can be used to extract needed data.
     """
 
-    def __init__(self, blob):
+    def __init__(self, blob=None, *, request=None):
+        if request:
+            blob = request.response.body.decode('utf8')
         self.blob = blob
         _, self.json_data = self._extract_json_from_blob(self.blob)
 
