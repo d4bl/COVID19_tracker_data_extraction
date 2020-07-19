@@ -2,7 +2,7 @@
 Data is often not collected by Black communities when it is needed the most. We have compiled a list of all of the states that have shared data on COVID-19 infections and deaths by race and those who have not. This effort is to extract this data from websites to track disparities COVID-19 deaths and cases for Black people.
 
 
-# Mac Setup
+## Mac Setup
 ### Install Pip:
 ```
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -22,15 +22,13 @@ virtualenv d4blcovid19tracker
 ```
 source d4blcovid19tracker/bin/activate
 ```
-Note: Adding an alias to easily enter into this environment can be helpful.
-
-For example, in your ~/.zshrc or ~/.bashrc:
+Adding an alias to easily enter into this environment can be helpful. For example, in your `~/.zshrc` or `~/.bashrc`:
 ```
 alias enter_d4bl='cd /path/to/COVID19_tracker_data_extraction/workflow/python; source /path/to/d4blcovid19tracker/bin/activate'
 ```
 
 ### Installing Packages:
-In the python directory (COVID19_tracker_data_extraction/workflow/python) run:
+In the root of the repo (./COVID19_tracker_data_extraction) run:
 ```
 ./setup_mac.sh
 pip install -r requirements.txt
