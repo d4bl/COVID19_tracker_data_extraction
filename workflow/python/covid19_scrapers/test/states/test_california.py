@@ -11,12 +11,12 @@ def test_california():
     mock_dfs = [
         util.mock_read_csv_dataframe(
             'california_cases.csv',
-            parse_dates=True),
+            parse_dates=['date']),
 
         util.mock_read_csv_dataframe(
             'california_demographics.csv',
             index_col=['date', 'race_ethnicity'],
-            parse_dates=True)
+            parse_dates=['date'])
     ]
 
     with mock.patch('covid19_scrapers.states.california.pd.read_csv', side_effect=mock_dfs):
