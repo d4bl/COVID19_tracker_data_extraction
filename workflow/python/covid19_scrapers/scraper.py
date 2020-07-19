@@ -25,7 +25,9 @@ class ScraperBase(object):
             if it does not exist.
 
           census_api: instance of
-            covid19_scrapers.census_api.CensusApi
+            covid19_scrapers.census_api.CensusApi.
+          start_date: start date for scraper output, or None.
+          end_date: end date for scraper output.
 
         """
         self.home_dir = home_dir
@@ -39,7 +41,7 @@ class ScraperBase(object):
         """
         return self.__class__.__name__
 
-    def run(self, **kwargs):
+    def run(self, start_date, end_date, **kwargs):
         """Invoke the subclass's _scrape method and return the result or an
         error row. _scrape must return a list (possibly empty) of
         pandas Series objects, or a DataFrame.
@@ -50,7 +52,8 @@ class ScraperBase(object):
         with dir_context(self.home_dir):
             try:
                 _logger.info(f'Scraping {self.name()}')
-                rows = self._scrape(**kwargs)
+                rows = self._scrape(start_date=start_date, end_date=end_date,
+                                    **kwargs)
             except Exception as e:
                 rows = self._handle_error(e)
         return pd.DataFrame(rows)
