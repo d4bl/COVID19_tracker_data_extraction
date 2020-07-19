@@ -43,16 +43,18 @@ def mock_read_csv_dataframe(csv_file, **kwargs):
     return loader.get_csv(csv_file, **kwargs)
 
 
-def mocked_webdriver_runner(template=None, as_soup=True):
+def mocked_webdriver_runner(template=None, as_soup=True, requests=None):
     mocked_driver = MockWebdriverRunner(
         template=template,
-        as_soup=as_soup)
+        as_soup=as_soup,
+        requests=requests)
     return mock.MagicMock(return_value=mocked_driver)
 
 
 class MockWebdriverRunner(object):
-    def __init__(self, template=None, as_soup=True):
+    def __init__(self, template=None, as_soup=True, requests=None):
         self.template = self._handle_template(template, as_soup)
+        self.requests = requests
 
     def _handle_template(self, template, as_soup):
         if not template:
@@ -65,7 +67,7 @@ class MockWebdriverRunner(object):
     def run(self, *args, **kwargs):
         return WebdriverResults(
             x_session_id=None,
-            requests=None,
+            requests=self.requests,
             page_source=self.template)
 
 
@@ -90,3 +92,12 @@ def magic_mock_response(**kwargs):
 class MockResponse(object):
     def __init__(self, text):
         self.text = text
+
+    @property
+    def body(self):
+        return str.encode(self.text)
+
+
+class MockSeleniumWireRequest(object):
+    def __init__(self, response_body):
+        self.response = MockResponse(response_body)
