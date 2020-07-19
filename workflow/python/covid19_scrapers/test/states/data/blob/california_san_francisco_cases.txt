@@ -1,0 +1,157 @@
+{
+    "jobIds": [
+        "92e7c656-b2bc-4a72-b534-323c3944c80a"
+    ],
+    "results": [
+        {
+            "jobId": "92e7c656-b2bc-4a72-b534-323c3944c80a",
+            "result": {
+                "data": {
+                    "descriptor": {
+                        "Select": [
+                            {
+                                "Kind": 2,
+                                "Value": "M0",
+                                "Name": "CountNonNull(Cases_Ethnicity.Total Cases)"
+                            },
+                            {
+                                "Kind": 2,
+                                "Value": "M1",
+                                "Format": "0",
+                                "Name": "CountNonNull(Cases_Ethnicity.Total Cases)1"
+                            },
+                            {
+                                "Kind": 1,
+                                "Depth": 0,
+                                "Value": "G0",
+                                "GroupKeys": [
+                                    {
+                                        "Source": {
+                                            "Entity": "Cases_Ethnicity",
+                                            "Property": "raceethnicity"
+                                        },
+                                        "Calc": "G0",
+                                        "IsSameAsSelect": true
+                                    }
+                                ],
+                                "Name": "Cases_Ethnicity.raceethnicity"
+                            }
+                        ],
+                        "Expressions": {
+                            "Primary": {
+                                "Groupings": [
+                                    {
+                                        "Keys": [
+                                            {
+                                                "Source": {
+                                                    "Entity": "Cases_Ethnicity",
+                                                    "Property": "raceethnicity"
+                                                },
+                                                "Select": 2
+                                            }
+                                        ],
+                                        "Member": "DM0"
+                                    }
+                                ]
+                            }
+                        },
+                        "Version": 2
+                    },
+                    "dsr": {
+                        "Version": 2,
+                        "MinorVersion": 1,
+                        "DS": [
+                            {
+                                "N": "DS0",
+                                "PH": [
+                                    {
+                                        "DM0": [
+                                            {
+                                                "S": [
+                                                    {
+                                                        "N": "G0",
+                                                        "T": 1
+                                                    },
+                                                    {
+                                                        "N": "M0",
+                                                        "T": 3
+                                                    },
+                                                    {
+                                                        "N": "M1",
+                                                        "T": 3
+                                                    }
+                                                ],
+                                                "C": [
+                                                    "Native American",
+                                                    "0.0039093041438623922",
+                                                    25
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "Other",
+                                                    "0.0044956997654417514",
+                                                    25
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "Native Hawaiian or Other Pacific Islander",
+                                                    "0.0099687255668491",
+                                                    50
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "Multi-racial",
+                                                    "0.019351055512118843",
+                                                    100
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "Black or African American",
+                                                    "0.054730258014073496",
+                                                    300
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "Asian",
+                                                    "0.10906958561376075",
+                                                    550
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "Unknown",
+                                                    "0.13702111024237687",
+                                                    700
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "White",
+                                                    "0.16282251759186864",
+                                                    800
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "Hispanic or Latino/a, all races",
+                                                    "0.49863174354964818",
+                                                    2550
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "IC": true
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}
