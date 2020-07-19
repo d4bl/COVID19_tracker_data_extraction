@@ -13,7 +13,7 @@ from covid19_scrapers.webdriver.runner import WebdriverResults
 
 def run_scraper_and_assert(*, scraper_cls, assertions):
     scraper = scraper_cls(home_dir=Path('test'), census_api=FakeCensusApi())
-    results = scraper._scrape()
+    results = scraper._scrape(start_date=None, end_date=pd.Timestamp.today())
     assert len(results) == 1
     result = results[0]
     for key, value in assertions.items():
