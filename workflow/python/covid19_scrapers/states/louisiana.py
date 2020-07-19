@@ -30,8 +30,7 @@ class Louisiana(ScraperBase):
         stats=[make_geoservice_stat('sum', 'Value', 'value')])
 
     def __init__(self, **kwargs):
-        # super().__init__(**kwargs)
-        pass
+        super().__init__(**kwargs)
 
     def _scrape(self, **kwargs):
         _, total_cases_df = query_geoservice(**self.TOTAL_CASES_QUERY)
