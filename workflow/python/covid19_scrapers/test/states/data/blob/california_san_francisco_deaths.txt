@@ -1,0 +1,115 @@
+{
+    "jobIds": [
+        "6c6596e5-9bd7-4256-aa87-d52926652d25"
+    ],
+    "results": [
+        {
+            "jobId": "6c6596e5-9bd7-4256-aa87-d52926652d25",
+            "result": {
+                "data": {
+                    "descriptor": {
+                        "Select": [
+                            {
+                                "Kind": 2,
+                                "Value": "M0",
+                                "Format": "0",
+                                "Name": "Sum(Deaths_Ethnicity.Total Cases)"
+                            },
+                            {
+                                "Kind": 1,
+                                "Depth": 0,
+                                "Value": "G0",
+                                "GroupKeys": [
+                                    {
+                                        "Source": {
+                                            "Entity": "Deaths_Ethnicity",
+                                            "Property": "raceethnicity"
+                                        },
+                                        "Calc": "G0",
+                                        "IsSameAsSelect": true
+                                    }
+                                ],
+                                "Name": "Deaths_Ethnicity.raceethnicity"
+                            }
+                        ],
+                        "Expressions": {
+                            "Primary": {
+                                "Groupings": [
+                                    {
+                                        "Keys": [
+                                            {
+                                                "Source": {
+                                                    "Entity": "Deaths_Ethnicity",
+                                                    "Property": "raceethnicity"
+                                                },
+                                                "Select": 1
+                                            }
+                                        ],
+                                        "Member": "DM0"
+                                    }
+                                ]
+                            }
+                        },
+                        "Version": 2
+                    },
+                    "dsr": {
+                        "Version": 2,
+                        "MinorVersion": 1,
+                        "DS": [
+                            {
+                                "N": "DS0",
+                                "PH": [
+                                    {
+                                        "DM0": [
+                                            {
+                                                "S": [
+                                                    {
+                                                        "N": "G0",
+                                                        "T": 1
+                                                    },
+                                                    {
+                                                        "N": "M0",
+                                                        "T": 3
+                                                    }
+                                                ],
+                                                "C": [
+                                                    "Asian",
+                                                    10
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "Hispanic or Latino/a, all races",
+                                                    10
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "White"
+                                                ],
+                                                "R": 5
+                                            },
+                                            {
+                                                "C": [
+                                                    "Black or African American",
+                                                    5
+                                                ]
+                                            },
+                                            {
+                                                "C": [
+                                                    "Unknown",
+                                                    100
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "IC": true
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}

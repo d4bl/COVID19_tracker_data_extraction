@@ -31,7 +31,15 @@ class CaliforniaSanFrancisco(ScraperBase):
         return datetime.strptime(parsed_date, '%m/%d/%Y').date()
 
     def parse_race_data(self, unparsed):
-        return [up['C'] for up in unparsed if 'C' in up and len(up['C']) > 1]
+        parsed = []
+        for up in unparsed:
+            if 'C' not in up:
+                continue
+            data = up['C']
+            if len(data) < 2:
+                data.append(up.get('R', 0))
+            parsed.append(data)
+        return parsed
 
     def _scrape(self, **kwargs):
         runner = WebdriverRunner()
