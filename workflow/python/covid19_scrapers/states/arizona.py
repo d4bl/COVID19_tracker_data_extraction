@@ -1,6 +1,7 @@
 from datetime import datetime
 
 import pydash
+import pandas as pd
 from selenium.webdriver.common.by import By
 
 from covid19_scrapers.scraper import ScraperBase
@@ -54,27 +55,25 @@ class Arizona(ScraperBase):
         cases = pydash.head(parsed_num_cases['SUM(Number of Records)'])
 
         parsed_race_eth = tableau_parser.extract_data_from_key('Race/Ethnicity Epi')
-        assert 'Raceeth' in parsed_race_eth, 'Missing key in parsed_race_eth'
-        aa_cases_idx = parsed_race_eth['Raceeth'].index('Black, non-Hispanic')
-        assert 'AGG(RecordCount)' in parsed_race_eth, 'Missing total AA cases'
-        aa_cases = parsed_race_eth['AGG(RecordCount)'][aa_cases_idx]
+        parsed_race_eth_df = pd.DataFrame.from_dict(parsed_race_eth).set_index('Raceeth')
+        aa_cases = parsed_race_eth_df.loc['Black, non-Hispanic']['AGG(RecordCount)']
+        known_race_cases = cases - parsed_race_eth_df.loc['Unknown']['AGG(RecordCount)']
 
         assert deaths_results.requests['deaths'], 'No results found for `deaths`'
         resp_body = deaths_results.requests['deaths'].response.body.decode('utf8')
         tableau_parser = TableauParser(resp_body)
         parsed_death_cases = tableau_parser.extract_data_from_key('Number of deaths')
-        parsed_deaths_by_race = tableau_parser.extract_data_from_key('Death Race/Ethnicity')
         assert 'SUM(Death count)' in parsed_death_cases, 'Death count not found'
         assert len(parsed_death_cases['SUM(Death count)']) == 1, 'Parsing error might have occurred.'
         deaths = pydash.head(parsed_death_cases['SUM(Death count)'])
 
-        assert 'Raceeth' in parsed_deaths_by_race, 'Missing key in parsed_deaths_by_race'
-        aa_deaths_idx = parsed_deaths_by_race['Raceeth'].index('Black, non-Hispanic')
-        assert 'AGG(RecordCount)' in parsed_deaths_by_race, 'Missing total AA deaths'
-        aa_deaths = parsed_deaths_by_race['AGG(RecordCount)'][aa_deaths_idx]
+        parsed_deaths_by_race = tableau_parser.extract_data_from_key('Death Race/Ethnicity')
+        parsed_deaths_by_race_df = pd.DataFrame.from_dict(parsed_deaths_by_race).set_index('Raceeth')
+        aa_deaths = parsed_deaths_by_race_df.loc['Black, non-Hispanic']['AGG(RecordCount)']
+        known_race_deaths = deaths - parsed_deaths_by_race_df.loc['Unknown']['AGG(RecordCount)']
 
-        pct_aa_cases = misc.to_percentage(aa_cases, cases)
-        pct_aa_deaths = misc.to_percentage(aa_deaths, deaths)
+        pct_aa_cases = misc.to_percentage(aa_cases, known_race_cases)
+        pct_aa_deaths = misc.to_percentage(aa_deaths, known_race_deaths)
 
         return [self._make_series(
             date=date,
@@ -84,6 +83,8 @@ class Arizona(ScraperBase):
             aa_deaths=aa_deaths,
             pct_aa_cases=pct_aa_cases,
             pct_aa_deaths=pct_aa_deaths,
-            pct_includes_unknown_race=True,
+            pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
+            known_race_cases=known_race_cases,
+            known_race_deaths=known_race_deaths
         )]
