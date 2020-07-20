@@ -35,12 +35,13 @@ class Mississippi(ScraperBase):
         # Dictionary from dates associated to their PDF links
         links_by_date = {}
         for link, title in title_dict.items():
-            # Some entries omit the comma in the as-of date
-            month, day, year = re.search(r'as of ([A-Z][a-z]+) (\d+),? (\d+)',
-                                         title).groups()
-            dt = datetime.datetime.strptime(f'{month} {day}, {year}',
-                                            '%B %d, %Y').date()
-            links_by_date[dt] = link
+            if 'Incidence and Cases' not in title:
+                # Some entries omit the comma in the as-of date
+                month, day, year = re.search(r'as of ([A-Z][a-z]+) (\d+),? (\d+)',
+                                             title).groups()
+                dt = datetime.datetime.strptime(f'{month} {day}, {year}',
+                                                '%B %d, %Y').date()
+                links_by_date[dt] = link
 
         # Find the most recent link
         date = max(links_by_date)
