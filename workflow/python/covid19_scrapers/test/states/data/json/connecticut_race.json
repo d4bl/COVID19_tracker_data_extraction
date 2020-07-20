@@ -1,0 +1,218 @@
+[
+    {
+        "dateupdated": "2020-07-16T00:00:00.000",
+        "hisp_race": "Hispanic",
+        "total_pop": "589809",
+        "case_tot": "9070",
+        "crudecaserate": "1537",
+        "caseageadjusted": "1742",
+        "deaths": "380",
+        "crudedeathrate": "64",
+        "deathageadjusted": "121"
+    },
+    {
+        "dateupdated": "2020-07-16T00:00:00.000",
+        "hisp_race": "NH American Indian or Alaskan Native",
+        "total_pop": "9566",
+        "case_tot": "44",
+        "crudecaserate": "460",
+        "caseageadjusted": "503",
+        "deaths": "2",
+        "crudedeathrate": "21"
+    },
+    {
+        "dateupdated": "2020-07-16T00:00:00.000",
+        "hisp_race": "NH Asian or Pacific Islander",
+        "total_pop": "177966",
+        "case_tot": "690",
+        "crudecaserate": "387",
+        "caseageadjusted": "397",
+        "deaths": "49",
+        "crudedeathrate": "28",
+        "deathageadjusted": "41"
+    },
+    {
+        "dateupdated": "2020-07-16T00:00:00.000",
+        "hisp_race": "NH Black",
+        "total_pop": "387134",
+        "case_tot": "6000",
+        "crudecaserate": "1621",
+        "caseageadjusted": "1644",
+        "deaths": "600",
+        "crudedeathrate": "168",
+        "deathageadjusted": "196"
+    },
+    {
+        "dateupdated": "2020-07-16T00:00:00.000",
+        "hisp_race": "NH Multiracial",
+        "case_tot": "139",
+        "deaths": "31"
+    },
+    {
+        "dateupdated": "2020-07-16T00:00:00.000",
+        "hisp_race": "NH Other",
+        "case_tot": "288",
+        "deaths": "21"
+    },
+    {
+        "dateupdated": "2020-07-16T00:00:00.000",
+        "hisp_race": "NH White",
+        "total_pop": "2408190",
+        "case_tot": "17025",
+        "crudecaserate": "707",
+        "caseageadjusted": "539",
+        "deaths": "3218",
+        "crudedeathrate": "134",
+        "deathageadjusted": "73"
+    },
+    {
+        "dateupdated": "2020-07-16T00:00:00.000",
+        "hisp_race": "Unknown",
+        "case_tot": "14359",
+        "deaths": "44"
+    },
+    {
+        "dateupdated": "2020-07-15T00:00:00.000",
+        "hisp_race": "Hispanic",
+        "total_pop": "589809",
+        "case_tot": "9063",
+        "crudecaserate": "1536",
+        "caseageadjusted": "1743",
+        "deaths": "378",
+        "crudedeathrate": "64",
+        "deathageadjusted": "121"
+    },
+    {
+        "dateupdated": "2020-07-15T00:00:00.000",
+        "hisp_race": "NH American Indian or Alaskan Native",
+        "total_pop": "9566",
+        "case_tot": "44",
+        "crudecaserate": "460",
+        "caseageadjusted": "503",
+        "deaths": "2",
+        "crudedeathrate": "21"
+    },
+    {
+        "dateupdated": "2020-07-15T00:00:00.000",
+        "hisp_race": "NH Asian or Pacific Islander",
+        "total_pop": "177966",
+        "case_tot": "690",
+        "crudecaserate": "387",
+        "caseageadjusted": "397",
+        "deaths": "48",
+        "crudedeathrate": "27",
+        "deathageadjusted": "40"
+    },
+    {
+        "dateupdated": "2020-07-15T00:00:00.000",
+        "hisp_race": "NH Black",
+        "total_pop": "387134",
+        "case_tot": "6280",
+        "crudecaserate": "1622",
+        "caseageadjusted": "1644",
+        "deaths": "650",
+        "crudedeathrate": "168",
+        "deathageadjusted": "196"
+    },
+    {
+        "dateupdated": "2020-07-15T00:00:00.000",
+        "hisp_race": "NH Multiracial",
+        "case_tot": "139",
+        "deaths": "31"
+    },
+    {
+        "dateupdated": "2020-07-15T00:00:00.000",
+        "hisp_race": "NH Other",
+        "case_tot": "292",
+        "deaths": "21"
+    },
+    {
+        "dateupdated": "2020-07-15T00:00:00.000",
+        "hisp_race": "NH White",
+        "total_pop": "2408190",
+        "case_tot": "17058",
+        "crudecaserate": "708",
+        "caseageadjusted": "540",
+        "deaths": "3216",
+        "crudedeathrate": "134",
+        "deathageadjusted": "73"
+    },
+    {
+        "dateupdated": "2020-07-15T00:00:00.000",
+        "hisp_race": "Unknown",
+        "case_tot": "14184",
+        "deaths": "43"
+    },
+    {
+        "dateupdated": "2020-07-14T00:00:00.000",
+        "hisp_race": "Hispanic",
+        "total_pop": "589809",
+        "case_tot": "9047",
+        "crudecaserate": "1533",
+        "caseageadjusted": "1739",
+        "deaths": "376",
+        "crudedeathrate": "64",
+        "deathageadjusted": "120"
+    },
+    {
+        "dateupdated": "2020-07-14T00:00:00.000",
+        "hisp_race": "NH American Indian or Alaskan Native",
+        "total_pop": "9566",
+        "case_tot": "44",
+        "crudecaserate": "460",
+        "caseageadjusted": "503",
+        "deaths": "2",
+        "crudedeathrate": "21"
+    },
+    {
+        "dateupdated": "2020-07-14T00:00:00.000",
+        "hisp_race": "NH Asian or Pacific Islander",
+        "total_pop": "177966",
+        "case_tot": "689",
+        "crudecaserate": "387",
+        "caseageadjusted": "396",
+        "deaths": "48",
+        "crudedeathrate": "27",
+        "deathageadjusted": "40"
+    },
+    {
+        "dateupdated": "2020-07-14T00:00:00.000",
+        "hisp_race": "NH Black",
+        "total_pop": "387134",
+        "case_tot": "6273",
+        "crudecaserate": "1620",
+        "caseageadjusted": "1642",
+        "deaths": "646",
+        "crudedeathrate": "167",
+        "deathageadjusted": "195"
+    },
+    {
+        "dateupdated": "2020-07-14T00:00:00.000",
+        "hisp_race": "NH Multiracial",
+        "case_tot": "139",
+        "deaths": "31"
+    },
+    {
+        "dateupdated": "2020-07-14T00:00:00.000",
+        "hisp_race": "NH Other",
+        "case_tot": "291",
+        "deaths": "21"
+    },
+    {
+        "dateupdated": "2020-07-14T00:00:00.000",
+        "hisp_race": "NH White",
+        "total_pop": "2408190",
+        "case_tot": "17043",
+        "crudecaserate": "708",
+        "caseageadjusted": "540",
+        "deaths": "3211",
+        "crudedeathrate": "133",
+        "deathageadjusted": "73"
+    },
+    {
+        "dateupdated": "2020-07-14T00:00:00.000",
+        "hisp_race": "Unknown",
+        "case_tot": "14110",
+        "deaths": "45"
+    }
+]
