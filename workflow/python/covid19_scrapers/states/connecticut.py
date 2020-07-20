@@ -1,10 +1,10 @@
 import logging
-import pydash
-from datetime import datetime
+
+import pandas as pd
 
 from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils.http import get_content_as_file
 from covid19_scrapers.utils.misc import to_percentage
-from covid19_scrapers.utils.http import get_json
 
 _logger = logging.getLogger(__name__)
 
@@ -32,53 +32,58 @@ class Connecticut(ScraperBase):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        print('running connecticut')
 
     def _scrape(self, refresh=False, **kwargs):
         _logger.debug('Get case totals data')
-        totals_json = get_json(self.CASE_DATA_URL)
-        assert totals_json, 'Error finding total cases and deaths'
-
-        most_recent_totals = totals_json[0]
-        # dict.get sets value to None if key not availale
-        report_date = datetime.strptime(most_recent_totals.get('date'), '%Y-%m-%dT%H:%M:%S.%f').date()
-        total_cases = most_recent_totals.get('confirmedcases')
-        total_deaths = most_recent_totals.get('confirmeddeaths')
-
-        assert total_cases, 'Error finding total cases'
-        assert total_deaths, 'Error finding total deaths'
-
-        # convert from string to int
-        total_cases = int(total_cases)
-        total_deaths = int(total_deaths)
+        totals_df = pd.read_json(
+            get_content_as_file(self.CASE_DATA_URL),
+            convert_dates=['date'],
+            orient='records',
+            dtype={'confirmedcases': float, 'confirmeddeaths': float}
+        ).set_index(
+            'date'
+        ).sort_index(
+            ascending=False
+        )
+        most_recent_totals = totals_df.iloc[0]
+        report_date = most_recent_totals.name.date()
+        _logger.info(f'Processing data for {report_date}')
+        total_cases = most_recent_totals['confirmedcases']
+        total_deaths = most_recent_totals['confirmeddeaths']
 
         _logger.debug('Get race data')
-        race_json = get_json(self.RACE_DATA_URL)
-        assert race_json, 'Error getting race cases and deaths json'
+        race_df = pd.read_json(
+            get_content_as_file(self.RACE_DATA_URL),
+            convert_dates=['dateupdated'],
+            orient='records',
+            dtype={'case_tot': float, 'deaths': float}
+        ).set_index(
+            ['dateupdated', 'hisp_race']
+        )
+        most_recent_race = race_df.loc[race_df.index.levels[0].max(), :]
+        aa_cases = most_recent_race.loc['NH Black', 'case_tot']
+        aa_deaths = most_recent_race.loc['NH Black', 'deaths']
+        unknown_cases = most_recent_race.loc['Unknown', 'case_tot']
+        unknown_deaths = most_recent_race.loc['Unknown', 'deaths']
 
-        most_recent_nh_black_data = pydash.find(race_json, lambda data: data['hisp_race'] == 'NH Black')
-        assert most_recent_nh_black_data, 'Error finding total NH Black entry'
-        aa_cases = most_recent_nh_black_data.get('case_tot')
-        aa_deaths = most_recent_nh_black_data.get('deaths')
+        # Compute denominators.
+        known_cases = total_cases - unknown_cases
+        known_deaths = total_deaths - unknown_deaths
 
-        assert aa_cases, 'Error finding total NH Black cases'
-        assert aa_deaths, 'Error finding total NH Black deaths'
-
-        # convert from string to int
-        aa_cases = int(aa_cases)
-        aa_deaths = int(aa_deaths)
-
-        pct_aa_cases = to_percentage(aa_cases, total_cases)
-        pct_aa_deaths = to_percentage(aa_deaths, total_deaths)
+        # Compute the AA case/death percentages.
+        pct_aa_cases = to_percentage(aa_cases, known_cases)
+        pct_aa_deaths = to_percentage(aa_deaths, known_deaths)
 
         return [self._make_series(
             date=report_date,
-            cases=total_cases,
-            deaths=total_deaths,
-            aa_cases=aa_cases,
-            aa_deaths=aa_deaths,
+            cases=int(total_cases),
+            deaths=int(total_deaths),
+            aa_cases=int(aa_cases),
+            aa_deaths=int(aa_deaths),
             pct_aa_cases=pct_aa_cases,
             pct_aa_deaths=pct_aa_deaths,
-            pct_includes_unknown_race=True,
+            known_race_cases=int(known_cases),
+            known_race_deaths=int(known_deaths),
+            pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False
         )]
