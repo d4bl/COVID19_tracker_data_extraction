@@ -1,22 +1,23 @@
 Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
-Texas,2020-07-19,28205,753,3249.0,95.0,11.52,12.62,True,False,,,3365783,12.07,Success!
-Texas -- Bexar County,2020-07-18,28633,251,464.0,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
-New York -- New York,2020-07-19,218159,18776,33726.0,5256.0,30.1,30.5,False,True,112051.0,17234.0,2049418,24.27,Success!
-Rhode Island,2020-07-03,16491,960,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
-California - San Francisco,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'body'"")"
-Tennessee,2020-07-19,78115,843,15317.0,304.0,19.61,36.06,True,True,,,1117489,16.8,Success!
+Texas,2020-07-19,28205,753,3249,95.0,11.52,12.62,True,False,,,3365783,12.07,Success!
+Texas -- Bexar County,2020-07-19,30835,257,464,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
+New York -- New York,2020-07-19,218159,18776,33726,5256.0,30.1,30.5,False,True,112051.0,17234.0,2049418,24.27,Success!
+Rhode Island,2020-07-03,16491,960,1592,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
+California - San Francisco,2020-07-18,5202,43,283,5.0,6.32,12.2,False,False,4481.0,41.0,,,Success!
+Tennessee,2020-07-19,78115,843,15317,304.0,19.61,36.06,True,True,,,1117489,16.8,Success!
 Utah,2020-07-19,34117,243,848,<5,2.5,,True,False,,,35862,1.18,Success!
 Kentucky,2020-07-19,23161,670,2328,26,15.32,4.19,False,True,15200.0,624.0,354112,7.98,Success!
-Arkansas,2020-07-19,32533,357,6918,93,24.53,26.2,False,True,28197.0,355.0,460970,15.41,Success!
-California - San Diego,2020-07-18,23114,478,847,18,4.68,3.9,False,False,18089.0,462.0,166412,5.04,Success!
+Arkansas,2020-07-19,33228,357,7041,93,24.59,26.2,False,True,28631.0,355.0,460970,15.41,Success!
+California - San Diego,2020-07-19,23682,478,864,18,4.68,3.9,False,False,18459.0,462.0,166412,5.04,Success!
 Virginia,2020-07-19,77430,2027,12455,477,16.09,23.53,True,True,,,1613285,19.17,Success!
 New Mexico,2020-07-19,16971,571,306,,1.8,,True,False,,,43006,2.06,Success!
 Florida -- Miami-Dade County,2020-07-19,84238,1302,8402,,19.88,,False,True,42254.0,,481976,17.75,Success!
 Florida -- Orange County,2020-07-19,23259,120,2944,,24.99,,False,True,11782.0,,277193,20.98,Success!
 Alabama,2020-07-19,65865,1254,19867,537,43.88,44.71,False,False,45275.0,1201.0,1293186,26.58,Success!
-California - Los Angeles,2020-07-17,153041,4084,4094,409,4.69,10.76,False,False,87304.0,3801.0,823987,8.16,Success!
+California - Los Angeles,2020-07-18,155887,4095,4162,410,4.67,10.76,False,False,89087.0,3812.0,823987,8.16,Success!
 Maryland,2020-07-19,78131,3247,22887,1322,35.32,40.92,False,False,64808.0,3231.0,1788090,29.78,Success!
-Mississippi,,,,,,,,False,False,,,1125834,37.67,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'groups'"")"
+Mississippi,2020-07-18,42638,1355,19470,678,45.66,50.04,True,True,,,1125834,37.67,Success!
+Arizona,2020-07-19,143624,2761,3102.0,81.0,4.32,3.48,False,False,71888.0,2325.0,305259,4.39,Success!
 Pennsylvania,2020-07-19,98164,7015,13749,1484,30.22,21.22,False,True,45500.0,6992.0,1423319,11.13,Success!
 Florida,2020-07-19,345612,4982,41950,945,12.14,18.97,True,False,,,3316376,16.1,Success!
 Montana,2020-07-19,2533,37,13,,0.51,,True,True,,,4630,0.44,Success!
@@ -24,23 +25,23 @@ Vermont,2020-07-19,1350,56,150,0,11.44,0.0,False,True,1311.0,56.0,8058,1.29,Succ
 Connecticut,2020-07-16,45910,3519,6278,651,13.67,18.5,True,False,,,378262,10.56,Success!
 Kansas,2020-07-17,21965,299,1644,64,9.18,21.99,False,True,17913.0,291.0,169801,5.84,Success!
 Colorado,2020-07-19,40142,1752,1995,118,6.25,6.96,False,False,31937.0,1695.0,227938,4.12,Success!
-Nebraska,2020-07-18,22481,301,1297,22,7.55,7.69,False,True,17187.0,286.0,90860,4.77,Success!
+Nebraska,2020-07-19,22583,301,1350,22,7.64,7.64,False,True,17675.0,288.0,90860,4.77,Success!
 Michigan,2020-07-19,73575,6041,21288,2406,28.93,39.83,True,False,,,1375424,13.81,Success!
 Louisiana,2020-07-15,91706,3433,32137,1724,48.31,51.56,False,True,66518.0,3344.0,1502916,32.23,Success!
 California,2020-07-18 00:00:00,384692,7685,10678,654,4.32,8.72,False,False,247369.0,7501.0,2267875,5.79,Success!
 Indiana,2020-07-19,56571,2629,6564,373,11.6,14.19,True,True,,,619472,9.33,Success!
-Alaska,2020-07-19,1874.0,18.0,45.0,0.0,1.44,0.0,False,True,3116.0,36.0,24129,3.27,Success!
+Alaska,2020-07-19,1874.0,18.0,45.0,0.0,3.62,0.0,False,True,1242.0,18.0,24129,3.27,Success!
 Wisconsin,2020-07-19,42315,844,6824,196,17.86,23.61,False,True,38198.0,830.0,368744,6.38,Success!
 Georgia,2020-07-19,143123,3173,36959,1472,25.82,46.39,True,True,,,3239300,31.46,Success!
-Washington,2020-07-18,46026,1444,1690,48,5.42,3.46,False,False,31176.0,1386.0,269854,3.7,Success!
+Washington,2020-07-19,46946,1447,1696,48,5.42,3.46,False,False,31275.0,1387.0,269854,3.7,Success!
 New Hampshire,2020-07-19,6203,398,320,9,6.03,2.27,False,False,5308.0,397.0,20516,1.53,Success!
 "Washington, DC",2020-07-19,11261,578,5550,426,49.29,73.7,True,True,,,321317,46.94,Success!
 Delaware,2020-07-19,13519,523,3443,134,25.47,25.62,True,False,,,209892,22.11,Success!
 Maine,2020-07-19,3687,117,839,,25.47,,False,True,3294.0,,17881,1.34,Success!
-Iowa,2020-07-19,38723,793,3209,38,8.29,4.79,True,True,,,109911,3.51,Success!
+Iowa,2020-07-19,38813,793,3210,38,8.27,4.79,True,True,,,109911,3.51,Success!
 North Carolina,2020-07-19,99778,1634,16174,517,23.92,32.76,False,True,67629.0,1578.0,2179622,21.46,Success!
 Illinois,2020-07-19,161575,7295,27157,2012,16.81,27.58,True,False,,,1824125,14.23,Success!
-Idaho,2020-07-18,14302,114,177,1,1.24,0.88,False,True,,,11536,0.68,Success!
+Idaho,2020-07-19,14873,114,191,1,1.28,0.88,False,True,,,11536,0.68,Success!
 Minnesota,2020-07-19,46204,1541,9345,151,20.23,9.8,True,True,,,342186,6.19,Success!
 Massachusetts,2020-07-19,113534,8431,10663,691,9.39,8.2,True,False,,,510558,7.48,Success!
 Wisconsin -- Milwaukee,2020-07-17,15426,365,4438,146,30.97,40.0,False,False,14328.0,365.0,252321,26.44,Success!
