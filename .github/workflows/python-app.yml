@@ -39,4 +39,4 @@ jobs:
 
     - name: Test with pytest
       run: |
-        pytest workflow/python/covid19_scrapers/test/**/*.py
+        pytest workflow/python/covid19_scrapers/**/*.py
