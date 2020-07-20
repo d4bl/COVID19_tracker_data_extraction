@@ -2,9 +2,9 @@ import logging
 
 import pandas as pd
 
-from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.scraper import ScraperBase, SUCCESS
 from covid19_scrapers.utils.http import get_content_as_file
-from covid19_scrapers.utils.misc import to_percentage
+from covid19_scrapers.utils.misc import slice_dataframe, to_percentage
 
 _logger = logging.getLogger(__name__)
 
@@ -33,7 +33,7 @@ class Connecticut(ScraperBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def _scrape(self, refresh=False, **kwargs):
+    def _scrape(self, start_date, end_date, **kwargs):
         _logger.debug('Get case totals data')
         totals_df = pd.read_json(
             get_content_as_file(self.CASE_DATA_URL),
@@ -45,11 +45,18 @@ class Connecticut(ScraperBase):
         ).sort_index(
             ascending=False
         )
-        most_recent_totals = totals_df.iloc[0]
-        report_date = most_recent_totals.name.date()
-        _logger.info(f'Processing data for {report_date}')
-        total_cases = most_recent_totals['confirmedcases']
-        total_deaths = most_recent_totals['confirmeddeaths']
+        totals_df = slice_dataframe(totals_df, start_date, end_date)
+        report_dates = totals_df.index
+        if len(report_dates) > 1:
+            _logger.info('Processing data for '
+                         f'{report_dates.min()} - {report_dates.max()}')
+        elif len(report_dates) == 1:
+            _logger.info(f'Processing data for {report_dates.min()}')
+        else:
+            _logger.warn('No summary data')
+            return
+        total_cases = totals_df['confirmedcases'].dropna().astype(int)
+        total_deaths = totals_df['confirmeddeaths'].dropna().astype(int)
 
         _logger.debug('Get race data')
         race_df = pd.read_json(
@@ -58,15 +65,23 @@ class Connecticut(ScraperBase):
             orient='records',
             dtype={'case_tot': float, 'deaths': float}
         ).set_index(
-            ['dateupdated', 'hisp_race']
+            'dateupdated'
         )
-        most_recent_race = race_df.loc[race_df.index.levels[0].max(), :]
-        aa_cases = most_recent_race.loc['NH Black', 'case_tot']
-        aa_deaths = most_recent_race.loc['NH Black', 'deaths']
-        unknown_cases = most_recent_race.loc['Unknown', 'case_tot']
-        unknown_deaths = most_recent_race.loc['Unknown', 'deaths']
+        race_df = slice_dataframe(
+            race_df, start_date, end_date
+        ).reset_index().set_index(['hisp_race', 'dateupdated'])
+        aa_cases = race_df.loc[('NH Black',), 'case_tot'].dropna().astype(int)
+        aa_deaths = race_df.loc[('NH Black',), 'deaths'].dropna().astype(int)
+        unknown_cases = race_df.loc[('Unknown',),
+                                    'case_tot'].dropna().astype(int)
+        unknown_deaths = race_df.loc[('Unknown',),
+                                     'deaths'].dropna().astype(int)
 
         # Compute denominators.
+        #
+        # Arithmetic on Series from DFs with different indices will
+        # have the union of the indices, with the values for the
+        # symmetric difference set to NaN.
         known_cases = total_cases - unknown_cases
         known_deaths = total_deaths - unknown_deaths
 
@@ -74,16 +89,16 @@ class Connecticut(ScraperBase):
         pct_aa_cases = to_percentage(aa_cases, known_cases)
         pct_aa_deaths = to_percentage(aa_deaths, known_deaths)
 
-        return [self._make_series(
-            date=report_date,
-            cases=int(total_cases),
-            deaths=int(total_deaths),
-            aa_cases=int(aa_cases),
-            aa_deaths=int(aa_deaths),
+        return self._make_dataframe(
+            cases=total_cases,
+            deaths=total_deaths,
+            aa_cases=aa_cases,
+            aa_deaths=aa_deaths,
             pct_aa_cases=pct_aa_cases,
             pct_aa_deaths=pct_aa_deaths,
-            known_race_cases=int(known_cases),
-            known_race_deaths=int(known_deaths),
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
             pct_includes_unknown_race=False,
-            pct_includes_hispanic_black=False
-        )]
+            pct_includes_hispanic_black=False,
+            status=SUCCESS
+        )
