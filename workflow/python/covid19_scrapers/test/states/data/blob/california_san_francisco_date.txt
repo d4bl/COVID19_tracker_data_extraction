@@ -1,0 +1,57 @@
+{
+    "jobIds": [
+        "4d086b21-8df5-4632-a0df-a73f736a7ccc"
+    ],
+    "results": [
+        {
+            "jobId": "4d086b21-8df5-4632-a0df-a73f736a7ccc",
+            "result": {
+                "data": {
+                    "descriptor": {
+                        "Select": [
+                            {
+                                "Kind": 2,
+                                "Value": "M0",
+                                "Name": "Date_Uploaded.Data as of"
+                            }
+                        ],
+                        "Version": 2
+                    },
+                    "dsr": {
+                        "Version": 2,
+                        "MinorVersion": 1,
+                        "DS": [
+                            {
+                                "N": "DS0",
+                                "PH": [
+                                    {
+                                        "DM0": [
+                                            {
+                                                "S": [
+                                                    {
+                                                        "N": "M0",
+                                                        "T": 1
+                                                    }
+                                                ],
+                                                "M0": "Data as of 7/17/2020"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "IC": true,
+                                "HAD": true,
+                                "Msg": [
+                                    {
+                                        "Code": "IgnoredDataReductionAlgorithm",
+                                        "Severity": "Warning",
+                                        "Message": "A data reduction algorithm was specified but the corresponding grouping does not exist. The data reduction will be ignored for the primary, secondary, and intersection hierarchy."
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    ]
+}
