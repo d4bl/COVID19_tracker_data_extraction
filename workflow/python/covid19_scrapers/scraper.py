@@ -100,7 +100,11 @@ class ScraperBase(object):
         if status != SUCCESS:
             _logger.warning(status)
 
-        aa_pop, _, pct_aa_pop = self._get_aa_pop_stats()
+        # Get location demographics if there were not errors:
+        aa_pop = None
+        pct_aa_pop = None
+        if status == SUCCESS:
+            aa_pop, _, pct_aa_pop = self._get_aa_pop_stats()
 
         return pd.Series({
             'Location': location or self.name(),
@@ -120,7 +124,7 @@ class ScraperBase(object):
             'Status code': status,
         })
 
-    def _handle_error(self, e):
+    def _handle_error(self, e, date=None):
         """Returns a row indicating that an exception occurred, and log a
         traceback.
 
@@ -128,7 +132,7 @@ class ScraperBase(object):
         specialized error handling.
         """
         _logger.exception(e)
-        return [self._make_series(status=self._format_error(e))]
+        return [self._make_series(date=date, status=self._format_error(e))]
 
     def _format_error(self, e):
         """Generate a descriptive string for an exception.
