@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@master
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -39,4 +39,9 @@ jobs:
 
     - name: Test with pytest
       run: |
-        pytest workflow/python/covid19_scrapers/**/*.py
+        pytest --cov-config=.coveragerc --cov-report html --cov=covid19_scrapers
+    
+    - uses: actions/upload-artifact@master
+      with:
+        name: Codecov
+        path: ./htmlcov
