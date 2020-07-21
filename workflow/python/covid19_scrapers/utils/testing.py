@@ -48,9 +48,12 @@ def fake_webcache():
                   method='GET', headers={}, params={}, data={},
                   files={}, cookies={}, session=None, session_kwargs={},
                   **kwargs):
-        return old_fetch(url, force_remote, cache_only, method, headers,
-                         params, data, files, cookies, mock_session, {},
-                         **kwargs)
+        return old_fetch(
+            url=url, force_remote=force_remote, cache_only=cache_only,
+            method=method, headers=headers, params=params, data=data,
+            files=files, cookies=cookies, session=mock_session, session_kwargs={},
+            **kwargs)
+
     wc.fetch = new_fetch
     return wc, mock_session
 
