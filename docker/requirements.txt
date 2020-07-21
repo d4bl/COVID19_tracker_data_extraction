@@ -1,0 +1,4 @@
+fdk
+oci
+paramiko
+requests
