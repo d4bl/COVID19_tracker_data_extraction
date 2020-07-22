@@ -33,10 +33,10 @@ Indiana,2020-07-22,58673,2666,6696,377,11.41,14.14,True,True,,,619472,9.33,Succe
 Alaska,2020-07-22,2132.0,19.0,49.0,0.0,3.7,0.0,False,True,1323.0,18.0,24129,3.27,Success!
 Wisconsin,2020-07-22,44847,865,7066,197,17.43,23.15,False,True,40535.0,851.0,368744,6.38,Success!
 Georgia,2020-07-22,152302,3335,39406,1525,25.87,45.73,True,True,,,3239300,31.46,Success!
-Washington,2020-07-21,48575,1465,1732,48,5.44,3.42,False,False,31843.0,1403.0,269854,3.7,Success!
+Washington,2020-07-22,49247,1468,1743,49,5.44,3.47,False,False,32066.0,1413.0,269854,3.7,Success!
 New Hampshire,2020-07-22,6295,402,325,9,6.01,2.25,False,False,5404.0,400.0,20516,1.53,Success!
 "Washington, DC",2020-07-22,11529,580,5637,428,48.89,73.79,True,True,,,321317,46.94,Success!
-Delaware,,,,,,,,False,False,,,209892,22.11,An error occurred. ... HTTPError('504 Server Error: Gateway Time-out for url: https://myhealthycommunity.dhss.delaware.gov/locations/state/')
+Delaware,,,,,,,,False,False,,,209892,22.11,"An error occurred. ... AttributeError(""'numpy.float64' object has no attribute 'split'"")"
 Maine,2020-07-22,3723,118,848,,25.35,,False,True,3345.0,,17881,1.34,Success!
 Iowa,2020-07-22,40085,811,3286,38,8.2,4.69,True,True,,,109911,3.51,Success!
 North Carolina,2020-07-22,105001,1698,17314,536,23.99,32.66,False,True,72174.0,1641.0,2179622,21.46,Success!
