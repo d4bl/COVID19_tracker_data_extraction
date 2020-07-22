@@ -1,3 +1,6 @@
+from datetime import datetime
+import re
+
 import pandas as pd
 import pydash
 from selenium.webdriver.common.by import By
@@ -12,15 +15,26 @@ class SouthCarolina(ScraperBase):
 
     We search the request for the Tableau data, parse it and extract the needed info.
     """
-
+    HOME_URL = 'https://www.scdhec.gov/infectious-diseases/viruses/coronavirus-disease-2019-covid-19/sc-demographic-data-covid-19'
     URL = 'https://public.tableau.com/views/EpiProfile/DemoStory?:embed=y&:showVizHome=no'
 
     def __init__(self, **kwargs):
-        # super().__init__(**kwargs)
-        pass
+        super().__init__(**kwargs)
+
+    def parse_date(self, page_source):
+        date_pattern = re.compile(r'\w+ \d{1,2}, \d{4}')
+        raw_date_str = page_source.find('em', string=date_pattern).text
+        match = date_pattern.search(raw_date_str)
+        date_str = match.group()
+        assert date_str, 'No date found'
+        return datetime.strptime(date_str, '%B %d, %Y').date()
 
     def _scrape(self, **kwargs):
         runner = WebdriverRunner()
+
+        results = runner.run(WebdriverSteps().go_to_url(self.HOME_URL).get_page_source())
+        date = self.parse_date(results.page_source)
+
         results = runner.run(
             WebdriverSteps()
             .go_to_url(self.URL)
@@ -35,15 +49,14 @@ class SouthCarolina(ScraperBase):
 
         parser = tableau.TableauParser(request=results.requests['cases'])
         cases = pydash.head(parser.extract_data_from_key('Cases')['SUM(Number of Records)'])
-        cases_pct_df = pd.DataFrame.from_dict(parser.extract_data_from_key('Race_Cases')).set_index('Assigned_Race')
+        cases_pct_df = pd.DataFrame.from_dict(parser.extract_data_from_key('Race_Cases')).set_index('Assigned Race')
         cases_df = cases_pct_df.assign(Count=[round(v * cases) for v in cases_pct_df['SUM(Number of Records)'].values])
         aa_cases = cases_df.loc['Black']['Count']
         known_race_cases = cases - cases_df.loc['Unknown']['Count']
 
-        parser.update_with_vql_command_request(request=results.requests['deaths'])
-
+        parser = tableau.TableauParser(request=results.requests['deaths'])
         deaths = pydash.head(parser.extract_data_from_key('NumberDeaths')['SUM(Number of Records)'])
-        deaths_pct_df = pd.DataFrame.from_dict(parser.extract_data_from_key('Race_Deaths')).set_index('Assigned_Race')
+        deaths_pct_df = pd.DataFrame.from_dict(parser.extract_data_from_key('Race_Deaths')).set_index('Assigned Race')
         deaths_df = deaths_pct_df.assign(Count=[round(v * deaths) for v in deaths_pct_df['SUM(Number of Records)'].values])
         aa_deaths = deaths_df.loc['Black']['Count']
         known_race_deaths = deaths - deaths_df.loc['Unknown']['Count']
@@ -52,7 +65,7 @@ class SouthCarolina(ScraperBase):
         pct_aa_deaths = misc.to_percentage(aa_deaths, known_race_deaths)
 
         return [self._make_series(
-            date=None,
+            date=date,
             cases=cases,
             deaths=deaths,
             aa_cases=aa_cases,
