@@ -25,7 +25,7 @@ Vermont,2020-07-22,1366,56,151,0,11.39,0.0,False,True,1326.0,56.0,8058,1.29,Succ
 Connecticut,2020-07-21,46203,3527,6375,651,13.8,18.46,True,False,,,378262,10.56,Success!
 Kansas,2020-07-22,24104,308,1780,64,9.03,21.33,False,True,19703.0,300.0,169801,5.84,Success!
 Colorado,2020-07-22,41698,1771,2027,118,6.17,6.89,False,False,32858.0,1713.0,227938,4.12,Success!
-Nebraska,2020-07-21,23190,310,1369,23,7.61,7.67,False,True,17993.0,300.0,90860,4.77,Success!
+Nebraska,2020-07-22,23486,311,1390,23,7.65,7.74,False,True,18180.0,297.0,90860,4.77,Success!
 Michigan,2020-07-22,75171,6056,21592,2415,28.72,39.88,True,False,,,1375424,13.81,Success!
 Louisiana,2020-07-22,99354,3558,36693,1803,45.36,51.05,False,True,80885.0,3532.0,1502916,32.23,Success!
 California,2020-07-21 00:00:00,413576,7870,11396,660,4.31,8.6,False,False,264380.0,7672.0,2267875,5.79,Success!
@@ -38,10 +38,10 @@ New Hampshire,2020-07-22,6295,402,325,9,6.01,2.25,False,False,5404.0,400.0,20516
 "Washington, DC",2020-07-22,11529,580,5637,428,48.89,73.79,True,True,,,321317,46.94,Success!
 Delaware,,,,,,,,False,False,,,209892,22.11,An error occurred. ... HTTPError('504 Server Error: Gateway Time-out for url: https://myhealthycommunity.dhss.delaware.gov/locations/state/')
 Maine,2020-07-22,3723,118,848,,25.35,,False,True,3345.0,,17881,1.34,Success!
-Iowa,2020-07-22,40000,811,3280,38,8.2,4.69,True,True,,,109911,3.51,Success!
+Iowa,2020-07-22,40085,811,3286,38,8.2,4.69,True,True,,,109911,3.51,Success!
 North Carolina,2020-07-22,105001,1698,17314,536,23.99,32.66,False,True,72174.0,1641.0,2179622,21.46,Success!
 Illinois,2020-07-22,165301,7347,27704,2024,16.76,27.55,True,False,,,1824125,14.23,Success!
-Idaho,,,,,,,,False,False,,,11536,0.68,"An error occurred. ... TimeoutException('', None, None)"
+Idaho,2020-07-22,16322,131,208,2,1.27,1.53,False,True,,,11536,0.68,Success!
 Minnesota,2020-07-22,47961,1552,9842,152,20.52,9.79,True,True,,,342186,6.19,Success!
 Massachusetts,2020-07-22,114320,8468,10731,693,9.39,8.18,True,False,,,510558,7.48,Success!
 Wisconsin -- Milwaukee,2020-07-22,16911,370,4771,147,30.42,39.73,False,False,15682.0,370.0,252321,26.44,Success!
