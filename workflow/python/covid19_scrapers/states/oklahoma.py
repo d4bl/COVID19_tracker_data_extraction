@@ -3,6 +3,7 @@ import pandas as pd
 from selenium.webdriver.common.by import By
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.webdriver import WebdriverSteps, WebdriverRunner
+from re import search
 
 _logger = logging.getLogger(__name__)
 
@@ -36,32 +37,39 @@ class Oklahoma(ScraperBase):
         cases_results = runner.run(
             WebdriverSteps()
             .go_to_url(self.CASES_DASHBOARD_OK)
-            .wait_for_number_of_elements((By.XPATH, "//a[@target='_self']"), 6)
+            .wait_for_presence_of_elements([(By.XPATH, "//a[@target='_self']")])
             .get_page_source())
 
+        runner = WebdriverRunner()
         death_results = runner.run(
             WebdriverSteps()
             .go_to_url(self.DEATH_DASHBOARD_OK)
-            .wait_for_number_of_elements((By.XPATH, "//a[@target='_self']"), 6)
+            .wait_for_presence_of_elements([(By.XPATH, "//a[@target='_self']")])
             .get_page_source())
 
         # Once we have the page source for both dashboard, I'm extracting the "tspan"
         # tags which include the percentages for black lives
-        cases_percentages_results = [percentages.text.strip()
-                                     for percentages in cases_results.page_source.find_all('tspan')]
+        cases_results_list = [values.text.strip().replace('%', '') for values in cases_results.page_source.find_all('tspan')]
+        death_results_list = [values.text.strip().replace('%', '') for values in death_results.page_source.find_all('tspan')]
 
-        death_percentages_results = [percentages.text.strip()
-                                     for percentages in death_results.page_source.find_all('tspan')]
+        for i in cases_results_list:
+            if search('Unknown', i):
+                string_index = cases_results_list.index(i)
+                percentage_unkown_cases = float(cases_results_list[string_index + 1])
+            elif search('African', i):
+                string_index = cases_results_list.index(i)
+                aa_cases_pct = float(cases_results_list[string_index + 2])
 
-        aa_cases_pct = float(cases_percentages_results[6].strip('%'))
-        aa_deaths_pct = float(death_percentages_results[6].strip('%'))
+        for i in death_results_list:
+            if search('Unknown', i):
+                string_index = death_results_list.index(i)
+                percentage_unkown_deaths = death_results_list[string_index + 1]
+            elif search('African', i):
+                string_index = death_results_list.index(i)
+                aa_deaths_pct = death_results_list[string_index + 2]
 
-        aa_cases = aa_cases_pct * (total_cases / 100)
-        aa_deaths = aa_deaths_pct * (total_deaths / 100)
-
-        # Acquiring percentage of unkown cases & deaths
-        percentage_unkown_cases = float(cases_percentages_results[2].strip('%'))
-        percentage_unkown_deaths = float(death_percentages_results[2].strip('%'))
+        aa_cases = (aa_cases_pct / 100) * total_cases
+        aa_deaths = (aa_deaths_pct / 100) * total_deaths
 
         known_cases = total_cases * (1 - (percentage_unkown_cases / 100))
         known_deaths = total_deaths * (1 - (percentage_unkown_deaths / 100))
