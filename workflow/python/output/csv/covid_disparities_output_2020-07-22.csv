@@ -1,10 +1,10 @@
 Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
-Texas,2020-07-22,29588,764,3491,95.0,0.12,0.12,True,False,,,3365783,12.07,Success!
-Texas -- Bexar County,2020-07-22,33555,283,464,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
-New York -- New York,2020-07-22,219128,18803,33790,5239.0,30.07,30.43,False,True,112360.0,17217.0,2049418,24.27,Success!
-Rhode Island,2020-07-03,16491,960,1592,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
-California - San Francisco,2020-07-21,5459,53,302,5.0,6.42,9.8,False,False,4701.0,51.0,,,Success!
-Tennessee,2020-07-22,84417,888,16107,319.0,19.08,35.92,True,True,,,1117489,16.8,Success!
+Texas,2020-07-22,29588.0,764.0,3491.0,95.0,0.12,0.12,True,False,,,3365783,12.07,Success!
+Texas -- Bexar County,2020-07-22,33555.0,283.0,464.0,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
+New York -- New York,,,,,,,,False,False,,,2049418,24.27,"An error occurred. ... RateLimitExceededException(403, {'message': ""API rate limit exceeded for 132.145.200.60. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)"", 'documentation_url': 'https://developer.github.com/v3/#rate-limiting'})"
+Rhode Island,2020-07-03,16491.0,960.0,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
+California - San Francisco,2020-07-21,5459.0,53.0,302.0,5.0,6.42,9.8,False,False,4701.0,51.0,,,Success!
+Tennessee,2020-07-22,84417.0,888.0,16107.0,319.0,19.08,35.92,True,True,,,1117489,16.8,Success!
 Utah,2020-07-22,35578,260,886,5,2.5,1.92,True,False,,,35862,1.18,Success!
 Kentucky,2020-07-22,24540,677,2044,92,12.43,14.69,False,True,16446.0,632.0,354112,7.98,Success!
 Arkansas,2020-07-22,35246,380,7521,100,24.57,26.53,False,True,30608.0,377.0,460970,15.41,Success!
