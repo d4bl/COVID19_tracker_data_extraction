@@ -1,0 +1,47 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python application
+
+on:
+  push:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    
+    - name: Cache pip dependencies
+      id: cache-pip
+      uses: actions/cache@master
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Lint with flake8
+      run: |
+        flake8 workflow/python/covid19_scrapers/*.py
+
+    - name: Test with pytest
+      run: |
+        pytest --cov-config=.coveragerc --cov-report html --cov=covid19_scrapers
+    
+    - uses: actions/upload-artifact@master
+      with:
+        name: Codecov
+        path: ./htmlcov

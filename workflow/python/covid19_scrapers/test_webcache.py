@@ -21,7 +21,7 @@ def test_webcache_delete_incache_succeeds():
     r._content = b'Content'
     r.encoding = 'utf-8'
     r.headers['ETag'] = 'fake-etag'
-    r = webcache.cache_response('http://fake/', r)
+    r = webcache.cache_response('http://fake/', r, force_cache=True)
     webcache.delete_from_cache('url = "http://fake/"')
 
 
@@ -37,7 +37,7 @@ def test_webcache_get_incache_succeeds():
     r.headers['ETag'] = 'fake-etag'
 
     webcache = WebCache(':memory:')
-    webcache.cache_response('http://fake/', r)
+    webcache.cache_response('http://fake/', r, force_cache=True)
     r2 = webcache.get_cached_response('http://fake/')
     assert isinstance(r2, dict)
     assert len(r2) == 4
@@ -56,7 +56,7 @@ def test_reset():
 
     try:
         webcache = WebCache('test.db', reset=True)
-        webcache.cache_response('http://fake/', r)
+        webcache.cache_response('http://fake/', r, force_cache=True)
         r2 = webcache.get_cached_response('http://fake/')
         webcache.conn.close()
         assert r2 is not None
@@ -74,7 +74,7 @@ def test_webcache_fetch_nocache():
     r = session.make_response()
     r.headers['etag'] = 'fake-etag'
     session.add_response(r)
-    webcache.cache_response('http://fake/', r)
+    webcache.cache_response('http://fake/', r, force_cache=True)
     resp = webcache.fetch('http://fake/')
     print(resp, r)
     # Check that we got back the same Response instance
@@ -85,7 +85,7 @@ def test_webcache_fetch_incache():
     webcache, session = fake_webcache()
     r = session.make_response(status_code=200)
     r.headers['ETag'] = 'fake-etag'
-    webcache.cache_response('http://fake/', r)
+    webcache.cache_response('http://fake/', r, force_cache=True)
     r.status_code = 304
     session.add_response(r)
 
@@ -98,7 +98,7 @@ def test_webcache_fetch_stale():
     webcache, session = fake_webcache()
     r_stale = session.make_response(status_code=200)
     r_stale.headers['ETag'] = 'fake-etag'
-    webcache.cache_response('http://fake/', r_stale)
+    webcache.cache_response('http://fake/', r_stale, force_cache=True)
     session.add_response(r_stale)
 
     r_new = session.make_response(status_code=200)
@@ -114,7 +114,7 @@ def test_webcache_fetch_incache_force_remote():
     webcache, session = fake_webcache()
     r = session.make_response(status_code=200)
     r.headers['ETag'] = 'fake-etag'
-    webcache.cache_response('http://fake/', r)
+    webcache.cache_response('http://fake/', r, force_cache=True)
     r.headers['ETag'] = 'new-etag'
     session.add_response(r)
 
@@ -137,7 +137,7 @@ def test_webcache_fetch_incache_cache_only():
     webcache, session = fake_webcache()
     r = session.make_response(status_code=200)
     r.headers['ETag'] = 'fake-etag'
-    webcache.cache_response('http://fake/', r)
+    webcache.cache_response('http://fake/', r, force_cache=True)
     session.add_response(r)
 
     resp = webcache.fetch('http://fake/', cache_only=True)
