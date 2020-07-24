@@ -1,20 +1,20 @@
 Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
 Texas,2020-07-23,30343,774,3644.0,96.0,0.12,0.12,True,False,,,3365783,12.07,Success!
-Texas -- Bexar County,2020-07-22,33555,283,464.0,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
+Texas -- Bexar County,2020-07-23,,,464.0,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
 New York -- New York,2020-07-23,219489,18839,33830.0,5244.0,30.06,30.42,False,True,112527.0,17236.0,2049418,24.27,Success!
 Rhode Island,2020-07-03,16491,960,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
 California - San Francisco,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 85', None, None)"
 Tennessee,2020-07-23,86987,925,17171.0,325.0,19.74,35.14,True,True,,,1117489,16.8,Success!
 Utah,2020-07-23,36099,267,902,5,2.5,1.87,True,False,,,35862,1.18,Success!
 Kentucky,,,,,,,,False,False,,,354112,7.98,"An error occurred. ... UnboundLocalError(""local variable 'aa_deaths_pct' referenced before assignment"")"
-Arkansas,2020-07-23,35246,380,7521,100,24.57,26.53,False,True,30608.0,377.0,460970,15.41,Success!
-California - San Diego,2020-07-22,25107,505,918,19,4.67,3.85,False,False,19655.0,493.0,166412,5.04,Success!
+Arkansas,2020-07-23,36259,386,7710,102,24.54,26.36,False,True,31419.0,387.0,460970,15.41,Success!
+California - San Diego,2020-07-23,25608,512,942,19,4.7,3.81,False,False,20033.0,499.0,166412,5.04,Success!
 Virginia,2020-07-21,79371,2048,12922,483,16.28,23.58,True,True,,,1613285,19.17,Success!
-New Mexico,2020-07-22,17828,591,322,,1.81,,True,False,,,43006,2.06,Success!
+New Mexico,2020-07-23,18163,596,328,,1.81,,True,False,,,43006,2.06,Success!
 Florida -- Miami-Dade County,2020-07-23,95068,1354,9136,,19.38,,False,True,47152.0,,481976,17.75,Success!
 Florida -- Orange County,2020-07-23,25254,156,3205,,25.12,,False,True,12758.0,,277193,20.98,Success!
 Alabama,2020-07-23,72696,1357,21260,575,43.53,44.44,False,False,48842.0,1294.0,1293186,26.58,Success!
-California - Los Angeles,2020-07-21,164870,4213,4391,419,4.64,10.67,False,False,94674.0,3927.0,823987,8.16,Success!
+California - Los Angeles,2020-07-22,166848,4262,4451,424,4.64,10.66,False,False,95952.0,3976.0,823987,8.16,Success!
 Maryland,,,,,,,,False,False,,,1788090,29.78,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 85', None, None)"
 Mississippi,2020-07-22,48053,1436,21106,722,43.92,50.28,True,True,,,1125834,37.67,Success!
 Arizona,,,,,,,,False,False,,,305259,4.39,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 85', None, None)"
@@ -24,8 +24,8 @@ Montana,2020-07-23,2910,43,17,,0.58,,True,True,,,4630,0.44,Success!
 Vermont,2020-07-23,1377,56,159,0,11.9,0.0,False,True,1336.0,56.0,8058,1.29,Success!
 Connecticut,2020-07-22,46213,3530,6382,653,13.81,18.5,True,False,,,378262,10.56,Success!
 Kansas,,,,,,,,False,False,,,169801,5.84,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 85', None, None)"
-Colorado,2020-07-22,41698,1771,2027,118,6.17,6.89,False,False,32858.0,1713.0,227938,4.12,Success!
-Nebraska,2020-07-22,23486,311,1390,23,7.65,7.74,False,True,18180.0,297.0,90860,4.77,Success!
+Colorado,2020-07-23,42314,1786,2048,119,6.16,6.9,False,False,33225.0,1725.0,227938,4.12,Success!
+Nebraska,2020-07-23,23818,316,1414,23,7.69,7.72,False,True,18381.0,298.0,90860,4.77,Success!
 Michigan,2020-07-23,75868,6065,21684,2418,28.58,39.87,True,False,,,1375424,13.81,Success!
 Louisiana,2020-07-22,101650,3574,36693,1803,45.36,51.05,False,True,80885.0,3532.0,1502916,32.23,Success!
 California,2020-07-22 00:00:00,425616,8027,11717,672,4.31,8.6,False,False,271707.0,7816.0,2267875,5.79,Success!
@@ -33,10 +33,10 @@ Indiana,2020-07-23,59602,2683,6758,378,11.34,14.09,True,True,,,619472,9.33,Succe
 Alaska,2020-07-23,2192.0,19.0,52.0,0.0,3.82,0.0,False,True,1361.0,19.0,24129,3.27,Success!
 Wisconsin,2020-07-23,45899,878,7222,198,17.43,22.97,False,True,41432.0,862.0,368744,6.38,Success!
 Georgia,2020-07-23,156588,3360,40774,1548,26.04,46.07,True,True,,,3239300,31.46,Success!
-Washington,2020-07-22,49247,1468,1743,49,5.44,3.47,False,False,32066.0,1413.0,269854,3.7,Success!
+Washington,2020-07-23,50009,1482,1766,49,5.46,3.39,False,False,32323.0,1446.0,269854,3.7,Success!
 New Hampshire,,,,,,,,False,False,,,20516,1.53,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 85', None, None)"
 "Washington, DC",2020-07-23,11571,581,5681,429,49.1,73.84,True,True,,,321317,46.94,Success!
-Delaware,,,,,,,,False,False,,,209892,22.11,An error occurred. ... HTTPError('504 Server Error: Gateway Time-out for url: https://myhealthycommunity.dhss.delaware.gov/locations/state/')
+Delaware,,,,,,,,False,False,,,209892,22.11,"An error occurred. ... AttributeError(""'numpy.float64' object has no attribute 'split'"")"
 Maine,2020-07-23,3736,118,850,,25.3,,False,True,3360.0,,17881,1.34,Success!
 Iowa,,,,,,,,False,False,,,109911,3.51,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 85', None, None)"
 North Carolina,,,,,,,,False,False,,,2179622,21.46,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 85', None, None)"
