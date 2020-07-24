@@ -1,6 +1,6 @@
 Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
 Texas,2020-07-23,30343,774,3644.0,96.0,0.12,0.12,True,False,,,3365783,12.07,Success!
-Texas -- Bexar County,2020-07-23,,,464.0,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
+Texas -- Bexar County,2020-07-23,34633,298,464.0,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
 New York -- New York,2020-07-23,219489,18839,33830.0,5244.0,30.06,30.42,False,True,112527.0,17236.0,2049418,24.27,Success!
 Rhode Island,2020-07-03,16491,960,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
 California - San Francisco,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 85', None, None)"
