@@ -134,7 +134,11 @@ class PowerBIParser(object):
             if sv and sv in data_row:
                 row.append(data_row[sv])
             else:
+<<<<<<< HEAD
                 return as_list(data_row.get('C', [])) + as_list(data_row.get('R', []))
+=======
+                return data_row.get('C', [])
+>>>>>>> 9d519b1... Update PowerBI parser; update SF scraper
         return row
 
     def _get_value_labels(self, result):
