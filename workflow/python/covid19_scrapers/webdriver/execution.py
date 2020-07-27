@@ -74,6 +74,9 @@ class WebdriverSteps(object):
     def switch_to_iframe(self, index=0):
         return self.add_step(SwitchTo(Frame.IFRAME, index=index))
 
+    def set_request_capture_scope(self, scope):
+        return self.add_step(SetRequestCaptureScope(scope))
+
 
 class ExecutionStepException(Exception):
     pass
@@ -350,3 +353,14 @@ class SwitchTo(ExecutionStep):
 
     def __repr__(self):
         return f'SwitchTo(frame={self.frame}, index={self.index})'
+
+
+class SetRequestCaptureScope(ExecutionStep):
+    def __init__(self, scope):
+        self.scope = scope
+
+    def execute(self, driver, context):
+        driver.scope = self.scope
+
+    def __repr__(self):
+        return f'SetRequestCaptureScope({self.scope})'
