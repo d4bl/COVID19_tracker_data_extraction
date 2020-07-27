@@ -11,17 +11,17 @@ Arkansas,2020-07-27,38623,401,8161,106,24.46,26.3,False,True,33370.0,403.0,46097
 California - San Diego,2020-07-26,26984,533,991,20,4.7,3.86,False,False,21068.0,518.0,166412,5.04,Success!
 Virginia,2020-07-21,79371,2048,12922,483,16.28,23.58,True,True,,,1613285,19.17,Success!
 New Mexico,2020-07-26,19042,614,341,,1.79,,True,False,,,43006,2.06,Success!
-Florida -- Miami-Dade County,2020-07-26,104755,1388,9771,,18.4,,False,True,53093.0,,481976,17.75,Success!
-Florida -- Orange County,2020-07-26,26980,173,3468,,25.18,,False,True,13773.0,,277193,20.98,Success!
+Florida -- Miami-Dade County,2020-07-27,107315,1404,9879,,18.27,,False,True,54066.0,,481976,17.75,Success!
+Florida -- Orange County,2020-07-27,27393,174,3513,,25.12,,False,True,13983.0,,277193,20.98,Success!
 Alabama,2020-07-26,77351,1428,22273,599,43.2,43.66,False,False,51553.0,1372.0,1293186,26.58,Success!
 California - Los Angeles,2020-07-25,173995,4360,4687,438,4.64,10.76,False,False,101022.0,4069.0,823987,8.16,Success!
-Maryland,,,,,,,,False,False,,,1788090,29.78,"An error occurred. ... TimeoutException('', None, None)"
+Maryland,2020-07-27,84876,3315,25440,1357,36.16,41.08,False,False,70362.0,3303.0,1788090,29.78,Success!
 Mississippi,2020-07-25,52304,1495,22670,748,43.34,50.03,True,True,,,1125834,37.67,Success!
 Arizona,2020-07-26,162014,3305,3457.0,97.0,4.31,3.54,False,False,80134.0,2738.0,305259,4.39,Success!
 Pennsylvania,2020-07-27,104401,7118,14631,1484,29.77,21.22,False,True,49149.0,6992.0,1423319,11.13,Success!
 Florida,2020-07-26,418844,5854,49983,1134,11.93,19.37,True,False,,,3316376,16.1,Success!
 Montana,2020-07-26,3342,46,20,,0.6,,True,True,,,4630,0.44,Success!
-Vermont,2020-07-26,1400,56,159,0,11.7,0.0,False,True,1359.0,56.0,8058,1.29,Success!
+Vermont,2020-07-27,1402,56,159,0,11.67,0.0,False,True,1362.0,56.0,8058,1.29,Success!
 Connecticut,2020-07-23,46806,3531,6376,653,13.62,18.49,True,False,,,378262,10.56,Success!
 Kansas,2020-07-24,25109,326,1844,63,8.95,19.87,False,True,20609.0,317.0,169801,5.84,Success!
 Colorado,2020-07-26,44336,1794,2088,119,6.08,6.87,False,False,34320.0,1732.0,227938,4.12,Success!
