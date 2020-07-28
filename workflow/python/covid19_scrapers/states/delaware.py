@@ -1,18 +1,20 @@
 import logging
-from datetime import datetime
 import re
+from datetime import datetime
+
+from selenium.webdriver.common.by import By
 
 from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils.html import table_to_dataframe, url_to_soup
+from covid19_scrapers.utils.html import table_to_dataframe
 from covid19_scrapers.utils.misc import to_percentage
 from covid19_scrapers.utils.parse import raw_string_to_int
-
+from covid19_scrapers.webdriver import WebdriverRunner, WebdriverSteps
 
 _logger = logging.getLogger(__name__)
 
 
 class Delaware(ScraperBase):
-    DATA_URL = 'https://myhealthycommunity.dhss.delaware.gov/locations/state/'
+    DATA_URL = 'https://myhealthycommunity.dhss.delaware.gov/locations/state'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -53,36 +55,44 @@ class Delaware(ScraperBase):
         parsed = title.find_next('table')
         df = table_to_dataframe(parsed)
         assert 'Race/Ethnicity' in df.columns
+        assert 'State of Delaware' in df.columns, 'Unable to parse Total AA cases for Delaware'
+        df['State of Delaware'] = df['State of Delaware'].apply(lambda num: raw_string_to_int(num.split('\n')[0]))
         return df.set_index('Race/Ethnicity')
 
-    def get_aa_cases(self, soup):
-        df = self._parse_aa_df(soup, re.compile(r'cases by race', re.I))
-        assert 'State of Delaware' in df.columns, 'Unable to parse Total AA cases for Delaware'
-        raw_value = df.loc['Non-Hispanic Black', 'State of Delaware']
-        # the raw value consists of total and pct seperated by a \n
-        total, _ = raw_value.split('\n')
-        return int(total)
+    def get_race_cases_df(self, soup):
+        return self._parse_aa_df(soup, re.compile(r'total cases by race', re.I))
 
-    def get_aa_deaths(self, soup):
-        df = self._parse_aa_df(soup, re.compile(r'deaths by race', re.I))
-        assert 'State of Delaware' in df.columns, 'Unable to parse Total AA deaths for Delaware'
-        raw_value = df.loc['Non-Hispanic Black', 'State of Delaware']
-        # the raw value consists of total and pct seperated by a \n
-        total, _ = raw_value.split('\n')
-        return int(total)
+    def get_race_deaths_df(self, soup):
+        return self._parse_aa_df(soup, re.compile(r'total deaths by race', re.I))
 
     def _scrape(self, **kwargs):
-        soup = url_to_soup(self.DATA_URL)
+        runner = WebdriverRunner()
+        results = runner.run(
+            WebdriverSteps()
+            .go_to_url(self.DATA_URL)
+            .find_element_by_xpath("//a[@data-chart-id='count-charts']")
+            .click_on_last_element_found()
+            .wait_for_presence_of_elements((By.XPATH, "//*[contains(text(), 'Total Cases by Race/Ethnicity & County')]"))
+            .get_page_source()
+        )
+        soup = results.page_source
 
         date = self.get_last_updated_date(soup)
         _logger.info(f'Processing data for {date}')
 
         cases = self.get_total_cases(soup)
         deaths = self.get_total_deaths(soup)
-        aa_cases = self.get_aa_cases(soup)
-        aa_deaths = self.get_aa_deaths(soup)
-        pct_aa_cases = to_percentage(aa_cases, cases)
-        pct_aa_deaths = to_percentage(aa_deaths, deaths)
+
+        cases_df = self.get_race_cases_df(soup)
+        aa_cases = cases_df.loc['Non-Hispanic Black']['State of Delaware']
+        known_race_cases = cases - cases_df.loc['Unknown']['State of Delaware']
+
+        deaths_df = self.get_race_deaths_df(soup)
+        aa_deaths = deaths_df.loc['Non-Hispanic Black']['State of Delaware']
+        known_race_deaths = deaths - deaths_df.loc['Unknown']['State of Delaware']
+
+        pct_aa_cases = to_percentage(aa_cases, known_race_cases)
+        pct_aa_deaths = to_percentage(aa_deaths, known_race_deaths)
 
         return [self._make_series(
             date=self.get_last_updated_date(soup),
@@ -92,6 +102,8 @@ class Delaware(ScraperBase):
             aa_deaths=aa_deaths,
             pct_aa_cases=pct_aa_cases,
             pct_aa_deaths=pct_aa_deaths,
-            pct_includes_unknown_race=True,
+            pct_includes_unknown_race=False,
             pct_includes_hispanic_black=False,
+            known_race_cases=known_race_cases,
+            known_race_deaths=known_race_deaths
         )]
