@@ -41,6 +41,7 @@ class WebdriverRunner(object):
 
     def _get_default_driver(self, headless):
         options = webdriver.ChromeOptions()
+        options.add_argument('window-size=1920,1080')
         if headless is True:
             options.add_argument('--disable-extensions')
             options.add_argument('--headless')
