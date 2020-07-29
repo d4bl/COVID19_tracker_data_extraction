@@ -1,4 +1,5 @@
 import pydash
+import pandas as pd
 
 from covid19_scrapers.utils.tableau.response_handler import get_response_handler
 
@@ -75,6 +76,9 @@ class TableauParser(object):
             alias_indices = aliased_value.get('aliasIndices')
             data[meta['fieldCaption']] = self._try_to_unalias(alias_indices, meta)
         return data
+
+    def get_dataframe_from_key(self, key):
+        return pd.DataFrame.from_dict(self.extract_data_from_key(key))
 
     def _try_to_unalias(self, alias_indices, meta):
         try:
