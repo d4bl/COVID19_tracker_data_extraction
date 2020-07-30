@@ -1,9 +1,8 @@
 import logging
-import pandas as pd
 from selenium.webdriver.common.by import By
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.webdriver import WebdriverSteps, WebdriverRunner
-from re import search
+import re
 
 _logger = logging.getLogger(__name__)
 
@@ -14,22 +13,26 @@ class Oklahoma(ScraperBase):
     The COVID-19 datasets are at
     https://coronavirus.health.ok.gov/
     """
+    OVERALL_DASHBOARD = 'https://looker-dashboards.ok.gov/embed/dashboards-next/40'
     CASES_DASHBOARD_OK = 'https://looker-dashboards.ok.gov/embed/dashboards/75'
     DEATH_DASHBOARD_OK = 'https://looker-dashboards.ok.gov/embed/dashboards/76'
-    CASES_CSV_URL = 'https://storage.googleapis.com/ok-covid-gcs-public-download/oklahoma_cases_city.csv'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def _scrape(self, **kwargs):
-        # For statewide totals, sum the latest city figures.
-        total_df = pd.read_csv(
-            self.CASES_CSV_URL,
-            parse_dates=True
-        ).groupby('ReportDate').sum().sort_index(ascending=False)
-        total_cases = int(total_df.iloc[0]['Cases'])
-        total_deaths = int(total_df.iloc[0]['Deaths'])
-        date = total_df.iloc[0]['ReportDate']
+
+        # Pulling date, total cases, and deaths.
+        runner = WebdriverRunner()
+        cases_results_dashboard = runner.run(
+            WebdriverSteps()
+            .go_to_url(self.DASHBOARD_40)
+            .wait_for_presence_of_elements([(By.XPATH, "//a[@target='_self']")])
+            .get_page_source())
+
+        date = cases_results_dashboard.page_source.find(text='OK Summary').findNext('a').text
+        total_cases = int(cases_results_dashboard.page_source.find(text='OK Cases').findNext('a').text.replace(',', ''))
+        total_deaths = int(cases_results_dashboard.page_source.find(text='OK Deaths').findNext('a').text.replace(',', ''))
 
         # OK demographic breakdowns have to be obtained through WebdriverRunner
         # and by scraping the Looker dashboard
@@ -49,24 +52,25 @@ class Oklahoma(ScraperBase):
 
         # Once we have the page source for both dashboard, I'm extracting the "tspan"
         # tags which include the percentages for black lives
-        cases_results_list = [values.text.strip().replace('%', '') for values in cases_results.page_source.find_all('tspan')]
-        death_results_list = [values.text.strip().replace('%', '') for values in death_results.page_source.find_all('tspan')]
+        def _get_demographic_data(page):
+            by_race_title = page.find(text=re.compile(r'by race', re.I))
+            by_race_svg = by_race_title.find_next('svg')
+            legend = by_race_svg.find('g', class_='highcharts-legend')
+            pct_re = re.compile(r'([0-9.]+)%')
+            for legend_item in legend.find_all('g', class_='highcharts-legend-item'):
+                text = ' '.join((tspan.text.strip() for tspan in legend_item.find_all('tspan')))
+                if text.find('Unknown') >= 0:
+                    match = pct_re.search(text)
+                    assert match is not None, 'Unable to find value for label "Unknown"'
+                    unknown_pct = float(match.group(1))
+                elif text.find('African') >= 0:
+                    match = pct_re.search(text)
+                    assert match is not None, 'Unable to find value for label "African"'
+                    aa_pct = float(match.group(1))
+            return (unknown_pct, aa_pct)
 
-        for i in cases_results_list:
-            if search('Unknown', i):
-                string_index = cases_results_list.index(i)
-                percentage_unkown_cases = float(cases_results_list[string_index + 1])
-            elif search('African', i):
-                string_index = cases_results_list.index(i)
-                aa_cases_pct = float(cases_results_list[string_index + 2])
-
-        for i in death_results_list:
-            if search('Unknown', i):
-                string_index = death_results_list.index(i)
-                percentage_unkown_deaths = death_results_list[string_index + 1]
-            elif search('African', i):
-                string_index = death_results_list.index(i)
-                aa_deaths_pct = death_results_list[string_index + 2]
+        percentage_unkown_cases, aa_cases_pct = _get_demographic_data(cases_results.page_source)
+        percentage_unkown_deaths, aa_deaths_pct = _get_demographic_data(death_results.page_source)
 
         aa_cases = (aa_cases_pct / 100) * total_cases
         aa_deaths = (aa_deaths_pct / 100) * total_deaths
