@@ -81,17 +81,19 @@ class Kentucky(ScraperBase):
         _logger.info(f'Processing data for {date}')
 
         # Extract totals data
-        totals = read_pdf(
+        totals_list = as_list(read_pdf(
             'report.pdf',
             multiple_tables=False, pages=1,
             lattice=True,
-            pandas_options={'header': None})
-        totals[0] = (totals[0]
-                     .str.replace('*', '', regex=False)
-                     .str.replace('\r', ' ', regex=False))
-        totals.set_index(0, inplace=True)
-        total_cases = raw_string_to_int(totals.loc['Total Cases', 1])
-        total_deaths = raw_string_to_int(totals.loc['Total Deaths', 1])
+            pandas_options={'header': None}))
+        for totals in totals_list:
+            totals[0] = (totals[0]
+                         .str.replace('*', '', regex=False)
+                         .str.replace('\r', ' ', regex=False))
+            totals.set_index(0, inplace=True)
+            total_cases = raw_string_to_int(totals.loc['Total Cases', 1])
+            total_deaths = raw_string_to_int(totals.loc['Total Deaths', 1])
+            break
 
         # Clean demographic data tables and extract data
         raw_tables = as_list(read_pdf(
