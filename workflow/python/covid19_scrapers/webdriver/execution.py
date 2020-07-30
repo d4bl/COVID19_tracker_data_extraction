@@ -68,6 +68,12 @@ class WebdriverSteps(object):
     def clear_request_history(self):
         return self.add_step(ClearRequests())
 
+    def switch_to_default_content(self):
+        return self.add_step(SwitchTo(Frame.DEAFULT))
+
+    def switch_to_iframe(self, index=0):
+        return self.add_step(SwitchTo(Frame.IFRAME, index=index))
+
 
 class ExecutionStepException(Exception):
     pass
@@ -311,3 +317,36 @@ class ClearRequests(ExecutionStep):
 
     def __repr__(self):
         return 'ClearRequests()'
+
+
+class Frame(enum.Enum):
+    DEAFULT = 'default'
+    IFRAME = 'iframe'
+
+
+class SwitchTo(ExecutionStep):
+    """On pages that have embedded frames, it might be necessary to switch between them to
+    interact with the different elements
+
+    Params:
+        frame: either DEFAULT or IFRAME
+        index: if IFRAME is selected as the `frame`, this number targets which iframe
+            on the page the webdriver should switch to.
+    """
+
+    def __init__(self, frame, index=0):
+        self.frame = frame
+        self.index = index
+
+    def execute(self, driver, context):
+        if self.frame == Frame.DEAFULT:
+            driver.switch_to_default_content()
+        elif self.frame == Frame.IFRAME:
+            iframes = driver.find_elements_by_tag_name('iframe')
+            assert len(iframes) > self.index, 'Not a valid index. There are less iframes on the page than the index'
+            driver.switch_to.frame(iframes[self.index])
+        else:
+            raise ExecutionStepException(f'{self.frame} is not a valid `frame` parameter.')
+
+    def __repr__(self):
+        return f'SwitchTo(frame={self.frame}, index={self.index})'
