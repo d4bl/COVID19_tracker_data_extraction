@@ -13,6 +13,7 @@ class Oklahoma(ScraperBase):
     The COVID-19 datasets are at
     https://coronavirus.health.ok.gov/
     """
+
     OVERALL_DASHBOARD = 'https://looker-dashboards.ok.gov/embed/dashboards-next/40'
     CASES_DASHBOARD_OK = 'https://looker-dashboards.ok.gov/embed/dashboards/75'
     DEATH_DASHBOARD_OK = 'https://looker-dashboards.ok.gov/embed/dashboards/76'
@@ -26,7 +27,7 @@ class Oklahoma(ScraperBase):
         runner = WebdriverRunner()
         cases_results_dashboard = runner.run(
             WebdriverSteps()
-            .go_to_url(self.DASHBOARD_40)
+            .go_to_url(self.OVERALL_DASHBOARD)
             .wait_for_presence_of_elements([(By.XPATH, "//a[@target='_self']")])
             .get_page_source())
 
