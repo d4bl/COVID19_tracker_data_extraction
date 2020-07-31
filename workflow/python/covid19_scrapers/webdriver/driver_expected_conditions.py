@@ -1,3 +1,4 @@
+import pydash
 from selenium.common.exceptions import InvalidArgumentException
 
 
@@ -17,3 +18,12 @@ class NumberOfElementsIsGreaterOrEqualTo(object):
             return len(elements) >= self.number
         except InvalidArgumentException:
             raise DriverExpectedConditionsException('`locator` %s is invalid' % self.locator)
+
+
+class WaitForResponseFromRequest(object):
+    def __init__(self, find_by):
+        self.find_by = find_by
+
+    def __call__(self, driver):
+        found_request = pydash.find(driver.requests, self.find_by)
+        return found_request and found_request.response

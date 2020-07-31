@@ -1,16 +1,17 @@
 import abc
 import enum
-from copy import deepcopy
 import logging
+from copy import deepcopy
 
 import pydash
 from bs4 import BeautifulSoup
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException
 
-from covid19_scrapers.webdriver.driver_expected_conditions import NumberOfElementsIsGreaterOrEqualTo
-
+from covid19_scrapers.webdriver.driver_expected_conditions import (
+    NumberOfElementsIsGreaterOrEqualTo, WaitForResponseFromRequest)
+from covid19_scrapers.utils.misc import as_list
 
 _logger = logging.getLogger(__name__)
 
@@ -141,22 +142,23 @@ class Condition(enum.Enum):
     VISIBILITY = 'visibility'
 
 
+def wait_for_conditions_on_webdriver(driver, conditions, timeout):
+    try:
+        for c in as_list(conditions):
+            WebDriverWait(driver, timeout).until(c)
+    except TimeoutException:
+        _logger.error('Waiting timed out in %s seconds' % timeout)
+        raise
+
+
 class WaitFor(ExecutionStep):
     """Tells the driver to wait for the given conditions before proceeding to the next steps
     """
 
-    def wait_for_conditions_on_webdriver(self, driver, conditions, timeout):
-        try:
-            for c in conditions:
-                WebDriverWait(driver, timeout).until(c)
-        except TimeoutException:
-            _logger.error('Waiting timed out in %s seconds' % timeout)
-            raise
-
     def __init__(self, element_locators, condition=Condition.PRESENCE, number_of_elements=None, timeout=60):
         if condition not in Condition:
             raise ExecutionStepException('Invalid condition, check the `Conditions` enum for valid conditions')
-        self.locators = self._listify(element_locators)
+        self.locators = as_list(element_locators)
         self.condition = condition
         self.timeout = timeout
         self.number_of_elements = number_of_elements
@@ -175,12 +177,7 @@ class WaitFor(ExecutionStep):
                                   for locator in self.locators]
         else:
             raise ExecutionStepException('Invalid condition, check the `Conditions` enum for valid conditions')
-        self.wait_for_conditions_on_webdriver(driver, applied_conditions, self.timeout)
-
-    def _listify(self, obj):
-        if not isinstance(obj, list):
-            return [obj]
-        return obj
+        wait_for_conditions_on_webdriver(driver, applied_conditions, self.timeout)
 
     def __repr__(self):
         return (
@@ -289,12 +286,14 @@ class FindRequest(ExecutionStep):
             the function returns truthy for will be saved.
     """
 
-    def __init__(self, key, find_by):
+    def __init__(self, key, find_by, wait_duration=60):
         self.key = key
         self.find_by = find_by
+        self.wait_duration = wait_duration
 
     def execute(self, driver, context):
         current = context.get('requests')
+        wait_for_conditions_on_webdriver(driver, WaitForResponseFromRequest(self.find_by), timeout=self.wait_duration)
         found_request = pydash.find(driver.requests, self.find_by)
 
         # HACK: Response bodys are lazily loaded so it must get called before adding to context
