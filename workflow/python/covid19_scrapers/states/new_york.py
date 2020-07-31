@@ -71,11 +71,11 @@ class NewYork(ScraperBase):
         cases = cases_df.loc['%all%']['Measure Values']
 
         parser = tableau.TableauParser(request=results.requests['deaths'])
-        deaths_df = self.get_deaths_df(parser.extract_data_from_key('Fatalaties by County (tablet)'))
+        deaths_df = self.get_deaths_df(parser.extract_data_from_key('Fatalaties by County'))
         deaths = deaths_df.loc['%all%']['Measure Values']
 
         parser = tableau.TableauParser(request=results.requests['race_deaths'])
-        nys_race_deaths_df = self.get_nys_race_deaths_df(parser.extract_data_from_key('Race/Ethnicity Table (tablet) (2)'))
+        nys_race_deaths_df = self.get_nys_race_deaths_df(parser.extract_data_from_key('Race/Ethnicity Table (2)'))
         nyc_race_deaths_df = pd.read_csv(self.NYC_RACE_DEATHS_URL).set_index('RACE_GROUP')
         aa_deaths = (nys_race_deaths_df.loc['Black']['Measure Values']
                      + nyc_race_deaths_df.loc['Black/African-American']['DEATH_COUNT'])
