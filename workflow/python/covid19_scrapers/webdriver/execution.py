@@ -356,6 +356,11 @@ class SwitchTo(ExecutionStep):
 
 
 class SetRequestCaptureScope(ExecutionStep):
+    """When there is a large set of requests, sometimes it helps to scope the requests that recorded by the webdriver
+
+    The scope takes a list of regex strings, that match to the URL path. Only matches will be recorded by the webdriver.
+    """
+
     def __init__(self, scope):
         self.scope = scope
 
