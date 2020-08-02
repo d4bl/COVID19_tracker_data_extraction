@@ -286,14 +286,16 @@ class FindRequest(ExecutionStep):
             the function returns truthy for will be saved.
     """
 
-    def __init__(self, key, find_by, wait_duration=60):
+    def __init__(self, key, find_by, wait_for_response_body=True, wait_duration=60):
         self.key = key
         self.find_by = find_by
+        self.wait_for_response_body = wait_for_response_body
         self.wait_duration = wait_duration
 
     def execute(self, driver, context):
         current = context.get('requests')
-        wait_for_conditions_on_webdriver(driver, WaitForResponseFromRequest(self.find_by), timeout=self.wait_duration)
+        wait_for_conditions_on_webdriver(
+            driver, WaitForResponseFromRequest(self.find_by, self.wait_for_response_body), timeout=self.wait_duration)
         found_request = pydash.find(driver.requests, self.find_by)
 
         # HACK: Response bodys are lazily loaded so it must get called before adding to context
