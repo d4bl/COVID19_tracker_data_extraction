@@ -1,0 +1,59 @@
+Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
+Illinois,2020-08-04,184712.0,7545.0,30340.0,2064.0,16.43,27.36,True,False,,,1824125,14.23,Success!
+Louisiana,2020-07-29,124461.0,3937.0,41962.0,1884.0,44.38,50.36,False,True,94556.0,3741.0,1502916,32.23,Success!
+Washington,2020-08-04,59379.0,1619.0,2239.0,52.0,5.6,3.29,False,False,39990.0,1580.0,269854,3.7,Success!
+North Carolina,2020-08-04,128161.0,2010.0,22386.0,606.0,24.08,31.37,False,True,92978.0,1932.0,2179622,21.46,Success!
+Wyoming,,,,,,,,False,False,,,5540,0.95,An error occurred. ... JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+NewYork,2020-08-03,417589.0,25175.0,,6377.0,,26.91,False,False,,23699.0,,,Success!
+New York -- New York,2020-08-04,222840,18933,34568.0,5282.0,29.73,30.45,False,True,116284.0,17347.0,2049418,24.27,Success!
+Wisconsin,2020-08-04,56056,961,8278.0,209.0,16.32,22.12,False,True,50711.0,945.0,368744,6.38,Success!
+Wisconsin -- Milwaukee,2020-08-04,20024,388,5585.0,149.0,29.94,38.4,False,False,18654.0,388.0,252321,26.44,Success!
+Oregon,2020-08-04,19699,333,704.0,9.0,4.08,3.04,False,True,17253.0,296.0,77789,1.91,Success!
+Rhode Island,2020-07-03,16491,960,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
+SouthCarolina,2020-08-04,94190,1847,32086.0,748.0,38.67,42.99,False,True,82978.0,1740.0,,,Success!
+Tennessee,2020-08-04,112441,1117,20847.0,372.0,18.54,33.3,True,True,,,1117489,16.8,Success!
+Maine,2020-08-04,3975,123,885.0,,24.64,,False,True,3591.0,,17881,1.34,Success!
+Maryland,2020-08-04,91854,3396,28253.0,1389.0,36.66,41.09,False,False,77061.0,3380.0,1788090,29.78,Success!
+Alabama,2020-08-04,90890,1611,25055.0,668.0,42.65,42.93,False,False,58747.0,1556.0,1293186,26.58,Success!
+Arkansas,2020-08-04,45381,490,9629.0,129.0,24.57,26.27,False,True,39186.0,491.0,460970,15.41,Success!
+Ohio,,,,,,,,False,False,,,1438271,12.35,An error occurred. ... JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+Connecticut,2020-08-03,48142,3555,6558.0,656.0,13.62,18.45,True,False,,,378262,10.56,Success!
+Michigan,2020-08-04,83966,6140,22578.0,2440.0,26.89,39.74,True,False,,,1375424,13.81,Success!
+Hawaii,2020-08-04,2591,27,16.0,,1.18,,False,True,1352.0,,26266,1.85,Success!
+Oklahoma,2020-08-04,39463,566,2715.0544,34.0166,6.88,6.01,False,False,31152.0922,536.002,287959,7.35,Success!
+Montana,2020-08-04,4314,64,22.0,,0.51,,True,True,,,4630,0.44,Success!
+Kansas,2020-08-03,28876,365,2130.0,66.0,8.94,18.59,False,True,23819.0,355.0,169801,5.84,Success!
+Alaska,2020-08-04,2033.0,25.0,103.0,0.0,5.54,0.0,False,True,1860.0,25.0,24129,3.27,Success!
+NorthDakota,2020-08-04,6933,107,,,,,False,False,,,,,Success!
+Massachusetts,2020-08-04,119203,8657,11088.0,712.0,9.3,8.22,True,False,,,510558,7.48,Success!
+Florida -- Miami-Dade County,2020-08-04,124759,1724,11082.0,,16.57,,False,True,66887.0,,481976,17.75,Success!
+Florida -- Orange County,2020-08-04,30140,241,3947.0,,24.59,,False,True,16051.0,,277193,20.98,Success!
+Iowa,2020-08-04,46095,888,3512.0,40.0,7.62,4.5,True,True,,,109911,3.51,Success!
+Missouri,2020-08-04,54080,1266,10908.0,415.0,26.87,34.1,False,True,40590.0,1217.0,704896,11.57,Success!
+Utah,2020-08-04,41907,321,1017,6,2.4,1.87,True,False,,,35862,1.18,Success!
+Mississippi,2020-08-03,62199,1753,26476,868,42.57,49.52,True,True,,,1125834,37.67,Success!
+Texas -- Bexar County,2020-08-04,41274,380,464,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
+Minnesota,2020-08-04,57162,1620,11815,156,20.67,9.63,True,True,,,342186,6.19,Success!
+Nevada,,,,,,,,False,False,,,261123,8.93,"An error occurred. ... TimeoutException('', None, None)"
+Texas,2020-08-04,36963,7261,5128,949,13.87,13.07,True,False,,,3365783,12.07,Success!
+Delaware,2020-08-04,15137,587,3820,150,27.71,26.74,False,False,13784.0,561.0,209892,22.11,Success!
+Nebraska,2020-08-04,27178,332,1666,24,7.88,7.64,False,True,21153.0,314.0,90860,4.77,Success!
+California,2020-08-03 00:00:00,519427,9501,14265,764,4.25,8.34,False,False,335399.0,9162.0,2267875,5.79,Success!
+SouthDakota,2020-08-04,9079,136,1032,,11.37,,False,False,9079.0,,,,Success!
+Vermont,2020-08-04,1431,57,164,0,11.76,0.0,False,True,1394.0,57.0,8058,1.29,Success!
+New Mexico,2020-08-04,21340,658,396,,1.86,,True,False,,,43006,2.06,Success!
+Florida,2020-08-04,491773,7402,60389,1365,12.28,18.44,True,False,,,3316376,16.1,Success!
+"Washington, DC",2020-08-04,12398,587,6137,434,49.5,73.94,True,True,,,321317,46.94,Success!
+California - San Francisco,2020-08-01,6989,61,405,6,6.72,10.17,False,False,6026.0,59.0,,,Success!
+Colorado,2020-08-04,48394,1849,2454,124,5.94,6.82,False,False,41328.0,1817.0,227938,4.12,Success!
+California - San Diego,2020-08-04,30516,568,1167,23,4.71,4.09,False,False,24759.0,562.0,166412,5.04,Success!
+Idaho,2020-08-04,22234,208,252,3,1.13,1.44,False,True,,,11536,0.68,Success!
+Pennsylvania,2020-08-04,111780,7232,15782,1522,29.35,21.17,False,True,53778.0,7189.0,1423319,11.13,Success!
+Arizona,2020-08-04,180505,3845,4231.0,119.0,4.42,3.63,False,False,95640.0,3278.0,305259,4.39,Success!
+Georgia,2020-08-04,197948,3921,50528,1753,25.53,44.71,True,True,,,3239300,31.46,Success!
+Virginia,2020-07-21,79371,2048,12922,483,16.28,23.58,True,True,,,1613285,19.17,Success!
+WestVirginia,2020-07-26,5960,103,453,,7.6,,True,False,,,,,Success!
+Indiana,2020-08-04,69255,2794,7917,393,11.43,14.07,True,True,,,619472,9.33,Success!
+New Hampshire,2020-08-04,6693,418,341,9,5.87,2.18,False,False,5808.0,412.0,20516,1.53,Success!
+Kentucky,2020-08-04,32197,751,2573,102,12.08,14.88,False,True,21301.0,691.0,354112,7.98,Success!
+California - Los Angeles,,,,,,,,False,False,,,823987,8.16,"An error occurred. ... KeyError(""['Under Investigation'] not found in axis"")"
