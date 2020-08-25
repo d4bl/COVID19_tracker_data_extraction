@@ -1,0 +1,59 @@
+Date Run,Date/Time Run,Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Alabama,2020-08-10,99390.0,1733.0,26798.0,718.0,42.48,42.97,False,False,63085.0,1671.0,1293186.0,26.58,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Alaska,2020-08-10,2268.0,26.0,117.0,0.0,5.64,0.0,False,True,2076.0,26.0,24129.0,3.27,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Arizona,2020-08-10,187523.0,4154.0,4569.0,127.0,4.46,3.58,False,False,102440.0,3552.0,305259.0,4.39,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Arkansas,2020-08-10,50028.0,555.0,10682.0,147.0,24.54,26.53,False,True,43522.0,554.0,460970.0,15.41,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,California,2020-08-09 00:00:00,561911.0,10359.0,15622.0,835.0,4.26,8.28,False,False,367114.0,10080.0,2267875.0,5.79,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,California - Los Angeles,,,,,,,,False,False,,,823987.0,8.16,"An error occurred. ... KeyError(""['Under Investigation'] not found in axis"")"
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,California - San Diego,2020-08-10,32975.0,594.0,1243.0,25.0,4.65,4.22,False,False,26745.0,592.0,166412.0,5.04,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,California - San Francisco,2020-08-07,7623.0,67.0,455.0,7.0,6.91,11.11,False,False,6584.0,63.0,,,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Colorado,2020-08-10,51039.0,1863.0,2521.0,124.0,5.8,6.78,False,False,43460.0,1830.0,227938.0,4.12,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Connecticut,2020-08-09,48577.0,3560.0,6616.0,657.0,13.62,18.46,True,False,,,378262.0,10.56,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Delaware,2020-08-10,15634.0,591.0,3980.0,150.0,27.92,26.55,False,False,14255.0,565.0,209892.0,22.11,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Florida,2020-08-10,531217.0,8277.0,66930.0,1527.0,12.6,18.45,True,False,,,3316376.0,16.1,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Florida -- Miami-Dade County,2020-08-10,133623.0,1874.0,11748.0,,15.86,,False,True,74095.0,,481976.0,17.75,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Florida -- Orange County,2020-08-10,31851.0,298.0,4256.0,,24.44,,False,True,17413.0,,277193.0,20.98,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Georgia,2020-08-10,219025.0,4229.0,55281.0,1873.0,25.24,44.29,True,True,,,3239300.0,31.46,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Hawaii,2020-08-10,3638.0,34.0,24.0,,1.39,,False,True,1725.0,,26266.0,1.85,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Idaho,,,,,,,,False,False,,,11536.0,0.68,"An error occurred. ... TimeoutException('', None, None)"
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Illinois,2020-08-10,195399.0,7637.0,31579.0,2081.0,16.16,27.25,True,False,,,1824125.0,14.23,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Indiana,2020-08-10,74992.0,2838.0,8551.0,398.0,11.4,14.02,True,True,,,619472.0,9.33,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Iowa,2020-08-10,49091.0,935.0,3622.0,42.0,7.38,4.49,True,True,,,109911.0,3.51,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Kansas,2020-08-10,31730.0,387.0,2350.0,67.0,8.96,17.87,False,True,26241.0,375.0,169801.0,5.84,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Kentucky,,,,,,,,False,False,,,354112.0,7.98,"An error occurred. ... CSVParseError(""Error failed to create DataFrame with different column tables.\nTry to set `multiple_tables=True`or set `names` option for `pandas_options`. \n, caused by ParserError('Error tokenizing data. C error: Expected 2 fields in line 9, saw 3\\n')"")"
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Louisiana,2020-08-05,131961.0,4169.0,41962.0,1960.0,44.38,49.63,False,True,94556.0,3949.0,1502916.0,32.23,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Maine,2020-08-10,4049.0,125.0,891.0,,24.33,,False,True,3662.0,,17881.0,1.34,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Maryland,2020-08-10,96258.0,3454.0,29964.0,1417.0,37.14,41.2,False,False,80670.0,3439.0,1788090.0,29.78,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Massachusetts,2020-08-10,121315.0,8741.0,11270.0,722.0,9.29,8.26,True,False,,,510558.0,7.48,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Michigan,2020-08-10,87879.0,6181.0,22919.0,2445.0,26.08,39.56,True,False,,,1375424.0,13.81,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Minnesota,2020-08-10,61516.0,1660.0,12768.0,162.0,20.76,9.76,True,True,,,342186.0,6.19,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Mississippi,2020-08-09,67649.0,1912.0,28390.0,929.0,41.97,48.59,True,True,,,1125834.0,37.67,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Missouri,2020-08-10,59938.0,1307.0,11578.0,427.0,26.47,33.92,False,True,43740.0,1259.0,704896.0,11.57,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Montana,2020-08-10,5017.0,75.0,24.0,,0.48,,True,True,,,4630.0,0.44,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Nebraska,2020-08-10,28696.0,348.0,1794.0,24.0,7.93,7.25,False,True,22616.0,331.0,90860.0,4.77,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Nevada,2020-08-10,56972.0,963.0,2949.0,82.0,8.14,12.52,False,False,36249.0,655.0,261123.0,8.93,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,New Hampshire,2020-08-10,6840.0,419.0,343.0,9.0,5.74,2.17,False,False,5978.0,414.0,20516.0,1.53,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,New Mexico,2020-08-10,22444.0,690.0,412.0,,1.84,,True,False,,,43006.0,2.06,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,New York -- New York,2020-08-10,224684.0,18960.0,35590.0,5288.0,29.24,30.43,False,True,121719.0,17375.0,2049418.0,24.27,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,NewYork,2020-08-09,421336.0,25204.0,,6384.0,,26.9,False,False,,23735.0,,,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,North Carolina,2020-08-10,136844.0,2172.0,24125.0,653.0,24.09,31.5,False,True,100138.0,2073.0,2179622.0,21.46,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,NorthDakota,2020-08-10,7713.0,113.0,,,,,False,False,,,,,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Ohio,,,,,,,,False,False,,,1438271.0,12.35,An error occurred. ... JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Oklahoma,2020-08-10,43963.0,605.0,3007.0692,37.99400000000001,6.84,6.28,False,False,34396.6512,572.0275,287959.0,7.35,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Oregon,2020-08-10,21488.0,357.0,757.0,9.0,4.03,2.88,False,True,18800.0,312.0,77789.0,1.91,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Pennsylvania,2020-08-10,116098.0,7317.0,16336.0,1545.0,28.98,21.17,False,True,56375.0,7297.0,1423319.0,11.13,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Rhode Island,2020-07-03,16491.0,960.0,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254.0,6.55,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,SouthCarolina,2020-08-07,98262.0,1962.0,33643.0,784.0,38.87,42.36,False,True,86544.0,1851.0,,,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,SouthDakota,2020-08-10,9663.0,146.0,1042.0,,10.78,,False,False,9663.0,,,,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Tennessee,2020-08-10,123914.0,1233.0,23239.0,410.0,18.75,33.25,True,True,,,1117489.0,16.8,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Texas,2020-08-10,40812.0,8490.0,6179.0,1086.0,0.15,0.13,True,False,,,3365783.0,12.07,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Texas -- Bexar County,2020-08-10,42959.0,455.0,464.0,17.0,6.81,15.32,False,False,6812.0,111.0,146703.0,7.62,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Utah,2020-08-10,44390.0,345.0,1058.0,6.0,2.4,1.74,True,False,,,35862.0,1.18,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Vermont,2020-08-10,1462.0,58.0,166.0,0.0,11.67,0.0,False,True,1423.0,57.0,8058.0,1.29,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Virginia,2020-07-21,79371.0,2048.0,12922.0,483.0,16.28,23.58,True,True,,,1613285.0,19.17,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Washington,2020-08-10,63647.0,1697.0,2397.0,57.0,5.73,3.47,False,False,41836.0,1644.0,269854.0,3.7,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,"Washington, DC",2020-08-10,12807.0,591.0,6360.0,437.0,49.66,73.94,True,True,,,321317.0,46.94,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,WestVirginia,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Wisconsin,2020-08-10,61061.0,998.0,8697.0,212.0,15.76,21.61,False,True,55195.0,981.0,368744.0,6.38,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Wisconsin -- Milwaukee,2020-08-10,21129.0,392.0,5866.0,149.0,29.74,38.01,False,False,19722.0,392.0,252321.0,26.44,Success!
+2020-08-10,2020/08/10 22:07:50America/Los Angeles TZ,Wyoming,2020-08-10,3042.0,28.0,31.0,0.0,1.06,0.0,False,False,2928.0,27.0,5540.0,0.95,Success!
