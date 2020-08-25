@@ -1,0 +1,48 @@
+Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
+Illinois,2020-07-23,166925,7367,27933.0,2027.0,16.73,27.51,True,False,,,1824125,14.23,Success!
+Louisiana,2020-07-22,101650,3574,36693.0,1803.0,45.36,51.05,False,True,80885.0,3532.0,1502916,32.23,Success!
+Washington,2020-07-23,50009,1482,1766.0,49.0,5.46,3.39,False,False,32323.0,1446.0,269854,3.7,Success!
+North Carolina,2020-07-23,106893,1726,17818.0,542.0,24.01,32.55,False,True,74222.0,1665.0,2179622,21.46,Success!
+New York -- New York,2020-07-23,219489,18839,33830.0,5244.0,30.06,30.42,False,True,112527.0,17236.0,2049418,24.27,Success!
+Wisconsin,2020-07-23,45899,878,7222.0,198.0,17.43,22.97,False,True,41432.0,862.0,368744,6.38,Success!
+Wisconsin -- Milwaukee,2020-07-23,17162,374,4842.0,147.0,30.44,39.3,False,False,15909.0,374.0,252321,26.44,Success!
+Rhode Island,2020-07-03,16491,960,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
+Tennessee,2020-07-23,86987,925,17171.0,325.0,19.74,35.14,True,True,,,1117489,16.8,Success!
+Maine,2020-07-23,3736,118,850.0,,25.3,,False,True,3360.0,,17881,1.34,Success!
+Maryland,2020-07-23,80836,3281,23905.0,1340.0,35.6,40.95,False,False,67144.0,3272.0,1788090,29.78,Success!
+Alabama,2020-07-23,72696,1357,21260.0,575.0,43.53,44.44,False,False,48842.0,1294.0,1293186,26.58,Success!
+Arkansas,2020-07-23,36259,386,7710.0,102.0,24.54,26.36,False,True,31419.0,387.0,460970,15.41,Success!
+Connecticut,2020-07-22,46213,3530,6382.0,653.0,13.81,18.5,True,False,,,378262,10.56,Success!
+Michigan,2020-07-23,75868,6065,21684.0,2418.0,28.58,39.87,True,False,,,1375424,13.81,Success!
+Montana,2020-07-23,2910,43,17.0,,0.58,,True,True,,,4630,0.44,Success!
+Kansas,2020-07-22,24104,308,1780.0,64.0,9.03,21.33,False,True,19703.0,300.0,169801,5.84,Success!
+Alaska,2020-07-23,2192.0,19.0,52.0,0.0,3.82,0.0,False,True,1361.0,19.0,24129,3.27,Success!
+Massachusetts,2020-07-23,114647,8484,10759.0,696.0,9.38,8.2,True,False,,,510558,7.48,Success!
+Florida -- Miami-Dade County,2020-07-23,95068,1354,9136.0,,19.38,,False,True,47152.0,,481976,17.75,Success!
+Florida -- Orange County,2020-07-23,25254,156,3205.0,,25.12,,False,True,12758.0,,277193,20.98,Success!
+Iowa,2020-07-23,40770,820,3317.0,38.0,8.14,4.63,True,True,,,109911,3.51,Success!
+Missouri,2020-07-23,37699,1179,8374.0,391.0,29.24,34.79,False,True,28639.0,1124.0,704896,11.57,Success!
+Utah,2020-07-23,36099,267,902,5,2.5,1.87,True,False,,,35862,1.18,Success!
+Mississippi,2020-07-22,48053,1436,21106,722,43.92,50.28,True,True,,,1125834,37.67,Success!
+Texas -- Bexar County,2020-07-23,34633,298,464,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
+Minnesota,2020-07-23,48721,1561,9990,150,20.5,9.61,True,True,,,342186,6.19,Success!
+Texas,2020-07-23,30343,774,3644,96,0.12,0.12,True,False,,,3365783,12.07,Success!
+Delaware,,,,,,,,False,False,,,209892,22.11,"An error occurred. ... AttributeError(""'numpy.float64' object has no attribute 'split'"")"
+Nebraska,2020-07-23,23818,316,1414,23,7.69,7.72,False,True,18381.0,298.0,90860,4.77,Success!
+California,2020-07-22 00:00:00,425616,8027,11717,672,4.31,8.6,False,False,271707.0,7816.0,2267875,5.79,Success!
+Vermont,2020-07-23,1377,56,159,0,11.9,0.0,False,True,1336.0,56.0,8058,1.29,Success!
+New Mexico,2020-07-23,18163,596,328,,1.81,,True,False,,,43006,2.06,Success!
+Florida,2020-07-23,385091,5518,46054,1055,11.96,19.12,True,False,,,3316376,16.1,Success!
+"Washington, DC",2020-07-23,11571,581,5681,429,49.1,73.84,True,True,,,321317,46.94,Success!
+California - San Francisco,2020-07-22,5564,55,312,5,6.53,9.62,False,False,4777.0,52.0,,,Success!
+Colorado,2020-07-23,42314,1786,2048,119,6.16,6.9,False,False,33225.0,1725.0,227938,4.12,Success!
+California - San Diego,2020-07-23,25608,512,942,19,4.7,3.81,False,False,20033.0,499.0,166412,5.04,Success!
+Idaho,2020-07-23,16736,136,211,3,1.26,2.21,False,True,,,11536,0.68,Success!
+Pennsylvania,2020-07-23,101408,7079,14220,1484,30.01,21.22,False,True,47386.0,6992.0,1423319,11.13,Success!
+Arizona,2020-07-23,152944,3063,3303.0,90.0,4.32,3.53,False,False,76501.0,2552.0,305259,4.39,Success!
+Georgia,2020-07-23,156588,3360,40774,1548,26.04,46.07,True,True,,,3239300,31.46,Success!
+Virginia,2020-07-21,79371,2048,12922,483,16.28,23.58,True,True,,,1613285,19.17,Success!
+Indiana,2020-07-23,59602,2683,6758,378,11.34,14.09,True,True,,,619472,9.33,Success!
+New Hampshire,2020-07-23,6318,405,327,9,6.03,2.23,False,False,5426.0,403.0,20516,1.53,Success!
+Kentucky,,,,,,,,False,False,,,354112,7.98,"An error occurred. ... UnboundLocalError(""local variable 'aa_deaths_pct' referenced before assignment"")"
+California - Los Angeles,2020-07-22,166848,4262,4451,424,4.64,10.66,False,False,95952.0,3976.0,823987,8.16,Success!

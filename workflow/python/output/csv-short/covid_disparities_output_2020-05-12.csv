@@ -1,0 +1,12 @@
+,Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Status code
+Massachusetts,Massachusetts,5/9/2020,76743,4840,6288,252,8.19,5.21,Success!
+Virginia,Virginia,5/12/2020,25800,891,4226,195,16.38,21.89,Success!
+Washington DC,"Washington, DC",5/8/2020,5899,304,2793,241,47.35,79.28,Success!
+Georgia,Georgia,5/12/2020,34848,1494,12370,732,35.5,49.0,Success!
+Michigan,Michigan,5/12/2020,48021,4674,15367,1916,32,41,Success!
+Minnesota,Minnesota,5/12/2020,12494,614,2249,31,18,5,Success!
+North Carolina,North Carolina,5/12/2020,577,15346,202,5525,35,36,Success!
+Texas -- Bexar County,Texas -- Bexar County,5/12/2020,1805,54,173,14,9.58,25.93,Success!
+Wisconsin -- Milwaukee,Wisconsin -- Milwaukee,5/12/2020,4193,222,1614,109,38.49,49.1,Success!
+San Diego,California - San Diego,5/11/2020,5161,190,171,4,3.31,2.11,Success!
+Florida,Florida,,,,,,,,"An error occured. ... NameError(""name 'Path' is not defined"")"

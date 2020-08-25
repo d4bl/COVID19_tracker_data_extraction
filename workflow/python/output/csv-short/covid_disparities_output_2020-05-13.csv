@@ -1,0 +1,12 @@
+,Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Status code
+Massachusetts,Massachusetts,5/9/2020,76743,4840,6288,252,8.19,5.21,Success!
+Virginia,Virginia,5/13/2020,26746,927,4337,201,16.22,21.68,Success!
+Washington DC,"Washington, DC",5/8/2020,5899,304,2793,241,47.35,79.28,Success!
+Georgia,Georgia,5/13/2020,35332,1505,12428,736,35.17,48.9,Success!
+Michigan,Michigan,5/13/2020,48391,4714,15485,1933,32,41,Success!
+Minnesota,Minnesota,,,,,,,,"An error occured. ... ValueError(""time data 'ay 13, 2020' does not match format '%B %d, %Y'"")"
+North Carolina,North Carolina,5/13/2020,597,15816,203,5536,34,35,Success!
+Texas -- Bexar County,Texas -- Bexar County,5/12/2020,1805,54,173,14,9.58,25.93,Success!
+Wisconsin -- Milwaukee,Wisconsin -- Milwaukee,5/13/2020,4336,227,1629,109,37.57,48.02,Success!
+San Diego,California - San Diego,5/12/2020,5161,190,171,4,3.31,2.11,Success!
+Florida,Florida,,,,,,,,"An error occured. ... NameError(""name 'fl_daily_url' is not defined"")"
