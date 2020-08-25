@@ -1,0 +1,51 @@
+Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
+Illinois,2020-07-26,171424,7398,28568.0,2033.0,16.67,27.48,True,False,,,1824125,14.23,Success!
+Louisiana,2020-07-22,107574,3651,36693.0,1803.0,45.36,51.05,False,True,80885.0,3532.0,1502916,32.23,Success!
+Washington,2020-07-26,52635,1501,1903.0,49.0,5.44,3.35,False,False,34993.0,1464.0,269854,3.7,Success!
+North Carolina,2020-07-26,112713,1785,19045.0,558.0,23.99,32.39,False,True,79387.0,1723.0,2179622,21.46,Success!
+NewYork,2020-07-25,411736,25106,,6349.0,,26.9,False,False,,23598.0,,,Success!
+New York -- New York,2020-07-26,220266,18862,34101.0,5256.0,29.92,30.44,False,True,113983.0,17268.0,2049418,24.27,Success!
+Wisconsin,2020-07-26,48827,892,7558.0,201.0,17.16,22.95,False,True,44055.0,876.0,368744,6.38,Success!
+Wisconsin -- Milwaukee,2020-07-24,17655,374,4964.0,147.0,30.36,39.3,False,False,16352.0,374.0,252321,26.44,Success!
+Rhode Island,2020-07-03,16491,960,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254,6.55,Success!
+SouthCarolina,2020-07-24,78607,1385,26288.0,573.0,37.88,43.74,False,True,69406.0,1310.0,,,Success!
+Tennessee,2020-07-26,93936,967,18149.0,336.0,19.32,34.75,True,True,,,1117489,16.8,Success!
+Maine,2020-07-26,3814,119,859.0,,25.0,,False,True,3436.0,,17881,1.34,Success!
+Maryland,2020-07-26,83748,3309,25116.0,1354.0,36.03,41.08,False,False,69718.0,3296.0,1788090,29.78,Success!
+Alabama,2020-07-26,77351,1428,22273.0,599.0,43.2,43.66,False,False,51553.0,1372.0,1293186,26.58,Success!
+Arkansas,2020-07-26,38623,401,8161.0,106.0,24.46,26.3,False,True,33370.0,403.0,460970,15.41,Success!
+Ohio,,,,,,,,False,False,,,1438271,12.35,An error occurred. ... JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+Connecticut,2020-07-23,46806,3531,6376.0,653.0,13.62,18.49,True,False,,,378262,10.56,Success!
+Michigan,2020-07-26,77930,6071,21877.0,2420.0,28.07,39.86,True,False,,,1375424,13.81,Success!
+Montana,2020-07-26,3342,46,20.0,,0.6,,True,True,,,4630,0.44,Success!
+Kansas,2020-07-24,25109,326,1844.0,63.0,8.95,19.87,False,True,20609.0,317.0,169801,5.84,Success!
+Alaska,2020-07-26,1597.0,19.0,70.0,0.0,4.77,0.0,False,True,1468.0,19.0,24129,3.27,Success!
+Massachusetts,2020-07-26,115637,8529,10824.0,699.0,9.36,8.2,True,False,,,510558,7.48,Success!
+Florida -- Miami-Dade County,2020-07-26,104755,1388,9771.0,,18.4,,False,True,53093.0,,481976,17.75,Success!
+Florida -- Orange County,2020-07-26,26980,173,3468.0,,25.18,,False,True,13773.0,,277193,20.98,Success!
+Iowa,2020-07-26,42205,828,3367.0,38.0,7.98,4.59,True,True,,,109911,3.51,Success!
+Missouri,2020-07-26,41925,1197,9113.0,391.0,28.55,34.24,False,True,31924.0,1142.0,704896,11.57,Success!
+Utah,2020-07-26,37973,274,941,5,2.5,1.82,True,False,,,35862,1.18,Success!
+Mississippi,2020-07-25,52304,1495,22670,748,43.34,50.03,True,True,,,1125834,37.67,Success!
+Texas -- Bexar County,2020-07-26,36083,323,464,17.0,6.81,15.32,False,False,6812.0,111.0,146703,7.62,Success!
+Minnesota,2020-07-26,51153,1574,10500,149,20.53,9.47,True,True,,,342186,6.19,Success!
+Texas,2020-07-26,32202,787,4059,99,12.6,12.58,True,False,,,3365783,12.07,Success!
+Delaware,,,,,,,,False,False,,,209892,22.11,An error occurred. ... HTTPError('504 Server Error: Gateway Time-out for url: https://myhealthycommunity.dhss.delaware.gov/locations/state/')
+Nebraska,2020-07-26,24618,316,1493,24,7.79,7.92,False,True,19165.0,303.0,90860,4.77,Success!
+California,2020-07-25 00:00:00,453659,8416,12503,697,4.3,8.5,False,False,290599.0,8197.0,2267875,5.79,Success!
+Vermont,2020-07-26,1400,56,159,0,11.7,0.0,False,True,1359.0,56.0,8058,1.29,Success!
+New Mexico,2020-07-26,19042,614,341,,1.79,,True,False,,,43006,2.06,Success!
+Florida,2020-07-26,418844,5854,49983,1134,11.93,19.37,True,False,,,3316376,16.1,Success!
+"Washington, DC",2020-07-26,11780,581,5802,429,49.25,73.84,True,True,,,321317,46.94,Success!
+California - San Francisco,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+Colorado,2020-07-26,44336,1794,2088,119,6.08,6.87,False,False,34320.0,1732.0,227938,4.12,Success!
+California - San Diego,2020-07-26,26984,533,991,20,4.7,3.86,False,False,21068.0,518.0,166412,5.04,Success!
+Idaho,2020-07-26,18177,141,223,3,1.23,2.13,False,True,,,11536,0.68,Success!
+Pennsylvania,2020-07-26,104401,7118,14631,1484,29.77,21.22,False,True,49149.0,6992.0,1423319,11.13,Success!
+Arizona,2020-07-26,162014,3305,3457.0,97.0,4.31,3.54,False,False,80134.0,2738.0,305259,4.39,Success!
+Georgia,2020-07-26,167953,3498,43532,1597,25.92,45.65,True,True,,,3239300,31.46,Success!
+Virginia,2020-07-21,79371,2048,12922,483,16.28,23.58,True,True,,,1613285,19.17,Success!
+Indiana,2020-07-26,62372,2706,6966,382,11.17,14.12,True,True,,,619472,9.33,Success!
+New Hampshire,2020-07-26,6436,409,335,9,6.01,2.22,False,False,5577.0,406.0,20516,1.53,Success!
+Kentucky,,,,,,,,False,False,,,354112,7.98,"An error occurred. ... AttributeError(""'DataFrame' object has no attribute 'str'"")"
+California - Los Angeles,2020-07-25,173995,4360,4687,438,4.64,10.76,False,False,101022.0,4069.0,823987,8.16,Success!

@@ -1,0 +1,12 @@
+Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Status code
+North Carolina,,,,,,,,An error occurred. ... ValueError('Unable to extract date from table header.')
+Wisconsin -- Milwaukee,2020-06-08,8925.0,300.0,2547.0,129.0,28.54,1.45,Success!
+Michigan,,,,,,,,"An error occurred. ... UnboundLocalError(""local variable 'date_published' referenced before assignment"")"
+Massachusetts,2020-06-08 00:00:00,103626.0,7353.0,9617.0,611.0,9.28,8.31,Success!
+Texas -- Bexar County,2020-06-08,1805.0,54.0,273.0,17.0,15.12,31.48,Success!
+Minnesota,2020-06-08,28224.0,1197.0,6207.0,76.0,21.99,6.35,Success!
+Florida,06/08/2020,63378.0,2712.0,11690.0,544.0,18.44,20.06,Success!
+"Washington, DC",2020-06-08 00:00:00,9389.0,491.0,4313.0,367.0,45.94,74.75,Success!
+California - San Diego,2020-06-08 06:45:28.769909,8619.0,296.0,257.0,8.0,2.98,2.7,Success!
+Georgia,2020-06-08,52497.0,2208.0,16538.0,1077.0,31.5,48.78,Success!
+Virginia,2020-06-08 00:00:00,51251.0,1477.0,7043.0,300.0,13.74,20.31,Success!
