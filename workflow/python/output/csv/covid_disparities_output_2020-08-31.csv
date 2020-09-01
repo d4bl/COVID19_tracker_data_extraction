@@ -1,0 +1,59 @@
+Date Run,Date/Time Run,Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Alabama,2020-08-31,117152.0,2083.0,30682.0,840.0,40.13,41.92,False,False,76457.0,2004.0,1293186.0,26.58,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Alaska,,,,,,,,False,False,,,24129.0,3.27,An error occurred. ... Exception('Cannot perform query. Invalid query parameters.\nUnable to perform query. Please check your parameters.\n(Error Code: 400)')
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Arizona,,,,,,,,False,False,,,305259.0,4.39,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Arkansas,2020-08-31,61224.0,797.0,13582.0,191.0,24.3,24.09,False,True,55898.0,793.0,460970.0,15.41,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,California,2020-08-30 00:00:00,704085.0,12933.0,19978.0,975.0,4.26,7.76,False,False,468879.0,12564.0,2267875.0,5.79,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,California - Los Angeles,,,,,,,,False,False,,,823987.0,8.16,"An error occurred. ... KeyError(""['Under Investigation'] not found in axis"")"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,California - San Diego,2020-08-31,38604.0,682.0,1446.0,29.0,4.57,4.28,False,False,31607.0,678.0,166412.0,5.04,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,California - San Francisco,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Colorado,2020-08-31,57424.0,1945.0,2716.0,127.0,5.61,6.65,False,False,48449.0,1910.0,227938.0,4.12,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Connecticut,2020-08-30,50753.0,3580.0,7003.0,659.0,13.8,18.41,True,False,,,378262.0,10.56,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Delaware,,,,,,,,False,False,,,209892.0,22.11,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Florida,2020-08-31,616629.0,11187.0,82197.0,2010.0,13.33,17.97,True,False,,,3316376.0,16.1,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Florida -- Miami-Dade County,2020-08-31,156910.0,2437.0,13801.0,,14.59,,False,True,94592.0,,481976.0,17.75,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Florida -- Orange County,2020-08-31,35902.0,377.0,4938.0,,24.09,,False,True,20502.0,,277193.0,20.98,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Georgia,2020-08-31,270471.0,5633.0,70071.0,2394.0,25.91,42.5,True,True,,,3239300.0,31.46,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Hawaii,,,,,,,,False,False,,,26266.0,1.85,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Idaho,,,,,,,,False,False,,,11536.0,0.68,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Illinois,2020-08-31,235023.0,8026.0,35214.0,2148.0,14.98,26.76,True,False,,,1824125.0,14.23,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Indiana,2020-08-31,94196.0,3077.0,9830.0,427.0,10.44,13.88,True,True,,,619472.0,9.33,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Iowa,,,,,,,,False,False,,,109911.0,3.51,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Kansas,,,,,,,,False,False,,,169801.0,5.84,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Kentucky,,,,,,,,False,False,,,354112.0,7.98,"An error occurred. ... CSVParseError(""Error failed to create DataFrame with different column tables.\nTry to set `multiple_tables=True`or set `names` option for `pandas_options`. \n, caused by ParserError('Error tokenizing data. C error: Expected 3 fields in line 9, saw 4\\n')"")"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Louisiana,2020-08-26,148193.0,4787.0,53969.0,2226.0,42.04,47.64,False,True,128380.0,4673.0,1502916.0,32.23,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Maine,2020-08-31,4526.0,132.0,934.0,,22.76,,False,True,4104.0,,17881.0,1.34,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Maryland,,,,,,,,False,False,,,1788090.0,29.78,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Massachusetts,2020-08-31,128533.0,9060.0,11748.0,747.0,9.14,8.25,True,False,,,510558.0,7.48,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Michigan,2020-08-31,102394.0,6405.0,24346.0,2488.0,23.78,38.84,True,False,,,1375424.0,13.81,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Minnesota,,,,,,,,False,False,,,342186.0,6.19,An error occurred. ... ValueError('Unable to locate Black/AA data')
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Mississippi,2020-08-30,82950.0,2473.0,33777.0,1173.0,40.72,47.43,True,True,,,1125834.0,37.67,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Missouri,2020-08-31,84682.0,1530.0,11612.0,460.0,26.36,32.28,False,True,44054.0,1425.0,704896.0,11.57,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Montana,2020-08-31,7421.0,104.0,43.0,,0.58,,True,True,,,4630.0,0.44,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Nebraska,,,,,,,,False,False,,,90860.0,4.77,An error occurred. ... ValueError('Unable to find layer covid19_hot_accumulative_lab_dt in flc URL https://gis.ne.gov/enterprise/rest/services/Covid19MapV5/MapServer')
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Nevada,,,,,,,,False,False,,,261123.0,8.93,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,New Hampshire,,,,,,,,False,False,,,20516.0,1.53,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,New Mexico,2020-08-31,25352.0,779.0,448.0,,1.77,,True,False,,,43006.0,2.06,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,New York -- New York,2020-08-31,230205.0,19055.0,36350.0,5326.0,28.83,30.48,False,True,126076.0,17471.0,2049418.0,24.27,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,NewYork,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,North Carolina,,,,,,,,False,False,,,2179622.0,21.46,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,NorthDakota,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Ohio,,,,,,,,False,False,,,1438271.0,12.35,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Oklahoma,,,,,,,,False,False,,,287959.0,7.35,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Oregon,,,,,,,,False,False,,,77789.0,1.91,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Pennsylvania,2020-08-31,130211.0,7673.0,18304.0,1608.0,27.59,21.01,False,True,66344.0,7655.0,1423319.0,11.13,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Rhode Island,2020-07-03,16491.0,960.0,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254.0,6.55,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,SouthCarolina,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,SouthDakota,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Tennessee,2020-08-31,154933.0,1754.0,29496.0,531.0,19.04,30.27,True,True,,,1117489.0,16.8,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Texas,2020-08-31,47814.0,12536.0,7656.0,1465.0,0.16,0.12,True,False,,,3365783.0,12.07,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Texas -- Bexar County,2020-08-23,45255.0,721.0,464.0,17.0,6.81,15.32,False,False,6812.0,111.0,146703.0,7.62,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Utah,2020-08-31,52107.0,406.0,1195.0,7.0,2.3,1.72,True,False,,,35862.0,1.18,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Vermont,2020-08-31,1624.0,58.0,174.0,0.0,11.06,0.0,False,True,1573.0,58.0,8058.0,1.29,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Virginia,2020-07-21,79371.0,2048.0,12922.0,483.0,16.28,23.58,True,True,,,1613285.0,19.17,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Washington,2020-08-31,74635.0,1915.0,3099.0,63.0,5.95,3.34,False,False,52076.0,1887.0,269854.0,3.7,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,"Washington, DC",2020-08-31,13992.0,607.0,7202.0,452.0,51.47,74.46,True,True,,,321317.0,46.94,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,WestVirginia,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Wisconsin,2020-08-31,75603.0,1122.0,9705.0,222.0,14.17,20.07,False,True,68501.0,1106.0,368744.0,6.38,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Wisconsin -- Milwaukee,2020-08-31,24016.0,409.0,6397.0,152.0,28.46,37.16,False,False,22474.0,409.0,252321.0,26.44,Success!
+2020-08-31,2020/08/31 20:21:02America/Los Angeles TZ,Wyoming,,,,,,,,False,False,,,5540.0,0.95,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
