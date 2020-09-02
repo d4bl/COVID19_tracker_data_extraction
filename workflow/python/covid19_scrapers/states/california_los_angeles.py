@@ -41,9 +41,9 @@ class CaliforniaLosAngeles(ScraperBase):
     @staticmethod
     def _extract_by_race_table(header_tr):
         data = []
-        for tr in header_tr.find_next_siblings('tr'):
-            td = tr.find('td')
-            if not td.text.startswith('-'):
+        for tr in header_tr.find_all_next('tr'):
+            td = tr.td
+            if not td or not td.text:
                 break
             data.append([td.text.strip()[1:].strip(),
                          raw_string_to_int(td.next_sibling.text)])
@@ -78,6 +78,9 @@ class CaliforniaLosAngeles(ScraperBase):
         # Extract the Black/AA counts
         cases = self._extract_by_race_table(soup.find(id='race'))
         deaths = self._extract_by_race_table(soup.find(id='race-d'))
+
+        _logger.debug(f'cases: {cases}')
+        _logger.debug(f'deaths: {deaths}')
 
         known_cases = cases.drop('Under Investigation')['count'].sum()
         known_deaths = deaths.drop('Under Investigation')['count'].sum()
