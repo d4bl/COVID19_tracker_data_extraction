@@ -22,7 +22,7 @@ class Alaska(ScraperBase):
             'Demographic',
             'All_Cases as Cases',
             'All_Cases_Percentage as Cases_Pct',
-            'Deceased_Cases as Deaths',
+            'Deaths',
             'Deaths_Percentage as Deaths_Pct',
         ],
     )
