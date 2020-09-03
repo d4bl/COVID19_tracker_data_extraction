@@ -44,15 +44,21 @@ class Minnesota(ScraperBase):
         _logger.debug(f'Number Deaths: {num_deaths}')
 
         # find number of Black/AA cases and deaths
-        table = soup.find('div', attrs={'id': 'raceeth'})
-        th = table.find('th', string='Black')
+        table = soup.find('table', attrs={'id': 'raceethtable'})
+        if not table:
+            raise ValueError('Unable to locate race/ethnicity table')
+        th = table.find(lambda elt: elt.name == 'th'
+                        and elt.text.find('Black') >= 0)
         if not th:
-            raise ValueError('Unable to locate Black/AA data')
+            raise ValueError('Unable to locate Black/AA data row')
         tds = th.find_next_siblings('td')
         cnt_aa_cases = int(tds[0].text.strip().replace(',', ''))
         cnt_aa_deaths = int(tds[1].text.strip().replace(',', ''))
         pct_aa_cases = to_percentage(cnt_aa_cases, num_cases)
         pct_aa_deaths = to_percentage(cnt_aa_deaths, num_deaths)
+
+        _logger.debug(f'Number Black/AA Cases: {cnt_aa_cases}')
+        _logger.debug(f'Number Black/AA Deaths: {cnt_aa_deaths}')
 
         return [self._make_series(
             date=date_obj,
