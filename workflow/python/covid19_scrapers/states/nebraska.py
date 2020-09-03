@@ -22,7 +22,7 @@ class Nebraska(ScraperBase):
     """
     DATE = dict(
         flc_url=_NE_SERVER_URL,
-        layer_name='covid19_hot_accumulative_lab_dt',
+        layer_name='DHHS_GIS.dhhs.covid19_hot_accumulative_lab_dt',
         out_fields=['LAB_REPORT_DATE'],
         order_by='LAB_REPORT_DATE desc',
         limit=1
