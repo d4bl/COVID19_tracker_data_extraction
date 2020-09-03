@@ -83,17 +83,19 @@ class Kentucky(ScraperBase):
         # Extract totals data
         totals_list = as_list(read_pdf(
             'report.pdf',
-            multiple_tables=False, pages=1,
+            multiple_tables=True, pages=1,
             lattice=True,
             pandas_options={'header': None}))
-        for totals in totals_list:
-            totals[0] = (totals[0]
-                         .str.replace('*', '', regex=False)
-                         .str.replace('\r', ' ', regex=False))
-            totals.set_index(0, inplace=True)
-            total_cases = raw_string_to_int(totals.loc['Total Cases', 1])
-            total_deaths = raw_string_to_int(totals.loc['Total Deaths', 1])
-            break
+
+        _logger.debug(f'First table is {totals_list[0]}')
+
+        totals = totals_list[0]
+        totals[0] = (totals[0]
+                     .str.replace('*', '', regex=False)
+                     .str.replace('\r', ' ', regex=False))
+        totals.set_index(0, inplace=True)
+        total_cases = raw_string_to_int(totals.loc['Total Cases', 1])
+        total_deaths = raw_string_to_int(totals.loc['Total Deaths', 1])
 
         # Clean demographic data tables and extract data
         raw_tables = as_list(read_pdf(
@@ -102,7 +104,11 @@ class Kentucky(ScraperBase):
             multiple_tables=True, pages=[2],
             pandas_options={'header': None}))
         seen = set()
-        for table in raw_tables:
+        _logger.debug(f'got {len(raw_tables)} tables: ')
+        for idx, table in enumerate(raw_tables):
+            _logger.debug(f'table #{idx+1}: {table}')
+            if len(table) == 0:
+                continue
             table.iloc[:, 0] = (table.iloc[:, 0]
                                 .str.replace('*', '', regex=False)
                                 .str.replace('\r', ' ', regex=False))
