@@ -85,11 +85,19 @@ class Delaware(ScraperBase):
 
         cases_df = self.get_race_cases_df(soup)
         aa_cases = cases_df.loc['Non-Hispanic Black']['State of Delaware']
-        known_race_cases = cases - cases_df.loc['Unknown']['State of Delaware']
+        try:
+            unknown_race_cases = cases_df.loc['Unknown']['State of Delaware']
+        except KeyError:
+            unknown_race_cases = 0
+        known_race_cases = cases - unknown_race_cases
 
         deaths_df = self.get_race_deaths_df(soup)
         aa_deaths = deaths_df.loc['Non-Hispanic Black']['State of Delaware']
-        known_race_deaths = deaths - deaths_df.loc['Unknown']['State of Delaware']
+        try:
+            unknown_race_deaths = deaths_df.loc['Unknown']['State of Delaware']
+        except KeyError:
+            unknown_race_deaths = 0
+        known_race_deaths = deaths - unknown_race_deaths
 
         pct_aa_cases = to_percentage(aa_cases, known_race_cases)
         pct_aa_deaths = to_percentage(aa_deaths, known_race_deaths)
