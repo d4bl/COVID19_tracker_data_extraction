@@ -65,7 +65,7 @@ class CaliforniaSanDiego(ScraperBase):
         _logger.info(f'Processing data for {date}')
 
         _logger.debug('Loading cases')
-        cases_raw = as_list(read_pdf('cases.pdf'))[0]
+        cases_raw = as_list(read_pdf('cases.pdf', pages=1))[0]
 
         # Scan the rows to find where the header ends.
         for idx in cases_raw.index:
@@ -92,7 +92,7 @@ class CaliforniaSanDiego(ScraperBase):
         _logger.debug(f'Pct AA cases: {aa_cases_pct}')
 
         _logger.debug('Loading deaths')
-        deaths_raw = as_list(read_pdf('deaths.pdf'))[0]
+        deaths_raw = as_list(read_pdf('deaths.pdf', pages=1))[0]
 
         # Scan the rows to find where the header ends.
         for idx in deaths_raw.index:
