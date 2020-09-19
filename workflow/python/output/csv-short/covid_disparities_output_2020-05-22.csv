@@ -1,0 +1,12 @@
+Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Status code
+North Carolina,,,,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'tr'"")"
+Wisconsin -- Milwaukee,2020-05-21,5631.0,246.0,1891.0,115.0,33.58,2.04,Success!
+Michigan,2020-05-21,53510.0,5129.0,16588.0,2052.0,31.0,40.0,Success!
+Massachusetts,2020-05-21 00:00:00,90084.0,6148.0,7892.0,313.0,8.76,5.09,Success!
+Texas -- Bexar County,2020-05-21,1805.0,54.0,209.0,15.0,11.58,27.78,Success!
+Minnesota,<built-in method date of datetime.datetime object at 0x11e2ab210>,18200.0,809.0,4142.0,43.0,22.76,5.32,Success!
+Florida,,,,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'group'"")"
+"Washington, DC",2020-05-21 00:00:00,7788.0,412.0,3570.0,316.0,45.84,76.7,Success!
+California - San Diego,2020-05-21 03:15:28.537258,6315.0,241.0,194.0,5.0,3.07,2.07,Success!
+Georgia,,,,,,,,An error occurred. ... KeyError('AFRICAN-AMERICAN')
+Virginia,2020-05-21 00:00:00,34137.0,1099.0,5209.0,231.0,15.26,21.02,Success!
