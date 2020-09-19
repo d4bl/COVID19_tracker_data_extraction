@@ -3,24 +3,29 @@
 
 # Import packages
 import os
-import glob
 import pandas as pd
 import shutil
 import numpy as np
-import datetime
+from datetime import datetime
+import re
 
 # SET THIS PATH.  Should contain only the CSVs you want to merge
-path = '../csv-short'
+path_input = './output/csv'
+path_output = './output/master-table'
 
-# Get a list of all file names in path
-allFiles = glob.glob(path + "/*.csv")
+# Get a list of all file names in path_input
+allFiles = os.listdir(path_input)
 allFiles.sort() # Necessary step
+
+r = re.compile("covid_disparities_output_\d\d\d\d-\d\d-\d\d\.csv")
+allFiles = list(filter(r.match, allFiles))
+
 
 # Create csvList
 csvList = [] # Initiate
 for f in allFiles:
     # Get dataframe of current file
-    dfCurr = pd.read_csv(f)
+    dfCurr = pd.read_csv("{}/{}".format(path_input, f))
     
     # Set Date Run, if not already set, from file name
     if not 'Date Run' in dfCurr.keys():
@@ -43,8 +48,11 @@ for f in allFiles:
 dfCombined = pd.concat(csvList, ignore_index=True)
 
 # Combined csv name
-date_object = datetime.datetime.now()
+date_object = datetime.now()
+date_object = datetime.strftime(date_object, '%Y-%m-%d %H:%M:%S')
 print(date_object)
 
 # Export to csv
-dfCombined.to_csv("combinedData{}.csv".format(date_object), index=True)
+dfCombined.to_csv("{}/combinedData{}.csv".format(path_output, date_object), index=True)
+
+print('\nSuccess! Master table available in {}\n'.format(path_output))
