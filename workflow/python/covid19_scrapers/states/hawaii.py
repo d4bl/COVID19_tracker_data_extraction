@@ -32,8 +32,8 @@ class Hawaii(ScraperBase):
         super().__init__(**kwargs)
 
     def get_date(self, soup):
-        span = soup.find('span', text=re.compile('Updated daily'))
-        match = re.search(r'\w+ \d{1,2}, \d{2,4}', span.text)
+        elt = soup.find(string=re.compile('Updated daily')).parent
+        match = re.search(r'\w+ \d{1,2}, \d{2,4}', elt.text)
         return datetime.strptime(match.group(), '%B %d, %Y').date()
 
     def _scrape(self, **kwargs):
