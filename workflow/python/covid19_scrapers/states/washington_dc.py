@@ -75,7 +75,12 @@ class WashingtonDC(ScraperBase):
         if validation:
             max_case_ts = pd.Timestamp('2020-04-08 00:00:00')
         else:
-            max_case_ts = max(pd.to_datetime(df_cases_raw['index']))
+            try:
+                max_case_ts = max(pd.to_datetime(df_cases_raw['index'],
+                                                 errors='coerce'))
+            except Exception as e:
+                _logger.error(e)
+                raise
             _logger.debug(f'Max case timestamp: {max_case_ts}')
 
         _logger.debug(
