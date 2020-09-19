@@ -74,7 +74,7 @@ class TableauParser(object):
             if 'fieldCaption' not in meta:
                 continue
             alias_indices = aliased_value.get('aliasIndices')
-            data[meta['fieldCaption']] = self._try_to_unalias(alias_indices, meta)
+            data[meta['fieldCaption'].strip()] = self._try_to_unalias(alias_indices, meta)
         return data
 
     def get_dataframe_from_key(self, key):
