@@ -1,5 +1,6 @@
 import re
 from datetime import datetime
+import logging
 
 from selenium.webdriver.common.by import By
 
@@ -8,6 +9,9 @@ from covid19_scrapers.utils import tableau
 from covid19_scrapers.utils.misc import to_percentage
 from covid19_scrapers.utils.parse import raw_string_to_int
 from covid19_scrapers.webdriver import WebdriverRunner, WebdriverSteps
+
+
+_logger = logging.getLogger(__name__)
 
 
 class Oregon(ScraperBase):
@@ -34,18 +38,19 @@ class Oregon(ScraperBase):
         date = datetime.strptime(match.group(), '%m/%d/%Y').date()
 
         cases_df = parser.get_dataframe_from_key('Demographic Data - Hospitalizaton Status')
-        cases_df = cases_df[(cases_df['Status Value'] == '%all%') & (cases_df['Demographic'] == 'Race')].set_index('Categories')
+        cases_df = cases_df.set_index(['Status Value', 'Demographic', 'Categories']).sort_index().loc[('%all%', 'Race')]
         cases_df['SUM(Count)'] = cases_df['SUM(Count)'].apply(raw_string_to_int)
-        cases = cases_df.loc['%all%', 'SUM(Count)']
+        cases = cases_df.loc['All', 'SUM(Count)']
         aa_cases = cases_df.loc['Black', 'SUM(Count)']
-        known_race_cases = cases - cases_df.loc['Unknown', 'SUM(Count)'] - cases_df.loc['Refused', 'SUM(Count)']
+        known_race_cases = cases - cases_df.loc['Refused/Unknown', 'SUM(Count)']
 
         deaths_df = parser.get_dataframe_from_key('Demographic Data - Survival Outcomes')
-        deaths_df = deaths_df[(deaths_df['Status Value'] == 'Died') & (deaths_df['Demographic'] == 'Race')].set_index('Categories')
+        deaths_df = deaths_df.set_index(['Status Value', 'Demographic', 'Categories']).sort_index().loc[('Died', 'Race')]
         deaths_df['SUM(Count)'] = deaths_df['SUM(Count)'].apply(raw_string_to_int)
-        deaths = deaths_df.loc['%all%', 'SUM(Count)']
+
+        deaths = deaths_df.loc['All', 'SUM(Count)']
         aa_deaths = deaths_df.loc['Black', 'SUM(Count)']
-        known_race_deaths = deaths - deaths_df.loc['Unknown', 'SUM(Count)']
+        known_race_deaths = deaths - deaths_df.loc['Refused/Unknown', 'SUM(Count)']
 
         pct_aa_cases = to_percentage(aa_cases, known_race_cases)
         pct_aa_deaths = to_percentage(aa_deaths, known_race_deaths)
