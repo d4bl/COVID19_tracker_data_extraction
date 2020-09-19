@@ -23,7 +23,7 @@ class Washington(ScraperBase):
     the report HTML source, and extract the desired data from that.
     """
 
-    DATA_URL = 'https://www.doh.wa.gov/Emergencies/Coronavirus'
+    DATA_URL = 'https://www.doh.wa.gov/Emergencies/COVID19/DataDashboard'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -46,7 +46,7 @@ class Washington(ScraperBase):
             int,
             re.search(
                 r'(\d\d)/(\d\d)/(\d\d\d\d)',
-                last_updated_text.find_next('strong').string
+                last_updated_text.parent.text
             ).groups())
         date = datetime.date(year, month, day)
         _logger.info(f'Processing data for {date}')
