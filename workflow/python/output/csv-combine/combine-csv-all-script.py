@@ -49,7 +49,7 @@ dfCombined = pd.concat(csvList, ignore_index=True)
 
 # Combined csv name
 date_object = datetime.now()
-date_object = datetime.strftime(date_object, '%Y-%m-%d %H:%M:%S')
+date_object = datetime.strftime(date_object, '%Y-%m-%d %H.%M.%S')
 print(date_object)
 
 # Export to csv
