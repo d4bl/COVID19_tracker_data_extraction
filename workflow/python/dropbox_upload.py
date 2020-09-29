@@ -80,7 +80,7 @@ def add_date_field(df_orig, today, now_fmt, operation = 'Run'):
     
     df.insert(0, "Date " + operation, [today] * df.shape[0], True)
     df.insert(1, "Date/Time " + operation, [now_fmt + 'America/Los Angeles TZ'] * df.shape[0], True)
-
+    
     return df
 
 
@@ -129,10 +129,10 @@ dropbox_d4bl_upload(latest_file_indiv, 'd4bl_covid19', now_fmt)
 dropbox_d4bl_upload(latest_file_comb, 'd4bl_combined_output', now_fmt)
 
 ### Latest single-day output (copy of single-day file above, but with static file name)
-dropbox_d4bl_upload('output/latest-single-day-output.csv', 'd4bl_latest', now_fmt)
+dropbox_d4bl_upload('output/latest-single-day-output.csv', 'd4bl_latest', '')
 
 ### Lateat combined output (static file name)
-dropbox_d4bl_upload('output/latest-combined-output.csv', 'd4bl_latest', now_fmt)
+dropbox_d4bl_upload('output/latest-combined-output.csv', 'd4bl_latest', '')
 
 print('Success!')
 
