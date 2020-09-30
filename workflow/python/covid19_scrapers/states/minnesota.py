@@ -5,6 +5,7 @@ import re
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils.html import url_to_soup
 from covid19_scrapers.utils.misc import to_percentage
+from covid19_scrapers.utils.parse import raw_string_to_int
 
 
 _logger = logging.getLogger(__name__)
@@ -31,12 +32,12 @@ class Minnesota(ScraperBase):
 
         # find total number of confirmed cases
         strong = soup.find('strong',
-                           string=re.compile('Total positive( cases)?:'))
-        num_cases = int(str(strong.next_sibling).strip().replace(',', ''))
+                           string=re.compile(r'Total positive( cases)?:'))
+        num_cases = raw_string_to_int(str(strong.next_sibling))
 
         # find total number of deaths
-        strong = soup.find('strong', string=re.compile('Deaths:'))
-        num_deaths = int(strong.next_sibling.strip().replace(',', ''))
+        strong = soup.find('strong', string=re.compile('(Total )?[Dd]eaths:'))
+        num_deaths = raw_string_to_int(strong.next_sibling)
 
         date_obj = datetime.datetime.strptime(date_text, '%B %d, %Y').date()
         _logger.info(f'Processing data for {date_obj}')
@@ -52,8 +53,8 @@ class Minnesota(ScraperBase):
         if not th:
             raise ValueError('Unable to locate Black/AA data row')
         tds = th.find_next_siblings('td')
-        cnt_aa_cases = int(tds[0].text.strip().replace(',', ''))
-        cnt_aa_deaths = int(tds[1].text.strip().replace(',', ''))
+        cnt_aa_cases = raw_string_to_int(tds[0].text)
+        cnt_aa_deaths = raw_string_to_int(tds[1].text)
         pct_aa_cases = to_percentage(cnt_aa_cases, num_cases)
         pct_aa_deaths = to_percentage(cnt_aa_deaths, num_deaths)
 

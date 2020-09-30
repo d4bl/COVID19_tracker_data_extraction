@@ -100,13 +100,13 @@ class NorthCarolina(ScraperBase):
         return datetime.strptime(date_string, '%B %d, %Y').date()
 
     def get_total_cases(self, soup):
-        text = soup.find(text='Laboratory-Confirmed Cases')
-        assert text, 'Text not found'
+        text = soup.find(text='Total Cases')
+        assert text, 'Unable to find total cases'
         return raw_string_to_int(text.previous_element)
 
     def get_total_deaths(self, soup):
         text = soup.find(text='Deaths')
-        assert text, 'Text not found'
+        assert text, 'Unable to find total deaths'
         return raw_string_to_int(text.previous_element)
 
     def get_missing_cases(self, df):
