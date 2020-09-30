@@ -104,7 +104,7 @@ class WashingtonDC(ScraperBase):
         max_date = (
             max_case_ts + datetime.timedelta(days=1)
         ).date()
-        _logger.info('Processing report for {date}')
+        _logger.info(f'Processing report for {max_date}')
 
         # Intermediate calculations
 

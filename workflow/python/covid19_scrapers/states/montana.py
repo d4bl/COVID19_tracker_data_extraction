@@ -7,6 +7,7 @@ import pytz
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils.html import url_to_soup
 from covid19_scrapers.utils.misc import to_percentage
+from covid19_scrapers.utils.parse import raw_string_to_int
 
 
 _logger = logging.getLogger(__name__)
@@ -42,7 +43,7 @@ class Montana(ScraperBase):
         _logger.info(f'Processing data for {date}')
 
         # Find the summary table and extract the death count
-        total_deaths = int(soup.find(
+        total_deaths = raw_string_to_int(soup.find(
             'td', string=re.compile('Number of Deaths')
         ).find_next_sibling('td').text.strip())
 
@@ -50,10 +51,10 @@ class Montana(ScraperBase):
         table = soup.find(
             'th', string=re.compile('Race and Ethnicity')
         ).find_parent('table')
-        aa_cases = int(table.find(
+        aa_cases = raw_string_to_int(table.find(
             'td', string=re.compile('Black or African American')
         ).find_next_sibling('td').text.strip().split(' ')[0])
-        total_cases = int(table.find(
+        total_cases = raw_string_to_int(table.find(
             'td', string=re.compile('Total')
         ).find_next_sibling('td').text.strip().split(' ')[0])
         aa_cases_pct = to_percentage(aa_cases, total_cases)
