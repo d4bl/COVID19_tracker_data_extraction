@@ -15,7 +15,7 @@ class Arkansas(ScraperBase):
     We call the underlying FeatureServer to populate our data.
     """
     DEMOG = dict(
-        flc_url='https://services.arcgis.com/PwY9ZuZRDiI5nXUB/arcgis/rest/services/ADH_COVID19_State_Case_Metrics/FeatureServer',
+        flc_url='https://services.arcgis.com/PwY9ZuZRDiI5nXUB/arcgis/rest/services/UPDATED_ADH_COVID19_STATE_METRICS/FeatureServer',
         layer_name='ADH_COVID19_TESTING_STATS_ST',
     )
 
