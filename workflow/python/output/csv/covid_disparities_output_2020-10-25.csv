@@ -1,59 +1,59 @@
 Date Run,Date/Time Run,Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Alabama,2020-10-25,157881.0,2680.0,37064.0,1020.0,33.96,39.26,False,False,109126.0,2598.0,1293186.0,26.58,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Alaska,2020-10-25,10246.0,66.0,480.0,3.0,4.84,4.55,False,True,9912.0,66.0,24129.0,3.27,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Arizona,,,,,,,,False,False,,,305259.0,4.39,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Arkansas,2020-10-25,106115.0,1812.0,21445.0,338.0,22.53,20.34,False,True,95169.0,1662.0,460970.0,15.41,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,California,2020-10-24 00:00:00,898029.0,17345.0,26820.0,1278.0,4.22,7.46,False,False,635287.0,17128.0,2267875.0,5.79,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,California - Los Angeles,2020-10-24,299760.0,6993.0,8656.0,630.0,4.8,9.57,False,False,180464.0,6586.0,823987.0,8.16,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,California - San Diego,2020-10-25,54583.0,870.0,1940.0,36.0,4.28,4.15,False,False,45314.0,867.0,166412.0,5.04,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,California - San Francisco,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Colorado,2020-10-25,95089.0,2223.0,3518.0,133.0,4.37,6.1,False,False,80578.0,2181.0,227938.0,4.12,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Connecticut,2020-10-22,63376.0,3674.0,7983.0,670.0,12.6,18.24,True,False,,,378262.0,10.56,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Delaware,,,,,,,,False,False,,,209892.0,22.11,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Florida,2020-10-25,768653.0,16429.0,101766.0,2847.0,13.24,17.33,True,False,,,3316376.0,16.1,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Florida -- Miami-Dade County,2020-10-25,181942.0,3612.0,15768.0,,13.34,,False,True,118199.0,,481976.0,17.75,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Florida -- Orange County,2020-10-25,45042.0,546.0,7111.0,,21.85,,False,True,32549.0,,277193.0,20.98,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Georgia,,,,,,,,False,False,,,3239300.0,31.46,"An error occurred. ... KeyError(""There is no item named 'demographics.csv' in the archive"")"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Hawaii,,,,,,,,False,False,,,26266.0,1.85,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Idaho,,,,,,,,False,False,,,11536.0,0.68,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Illinois,2020-10-25,374256.0,9505.0,46459.0,2309.0,12.41,24.29,True,False,,,1824125.0,14.23,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Indiana,2020-10-25,162607.0,3894.0,13718.0,469.0,8.44,12.04,True,True,,,619472.0,9.33,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Iowa,,,,,,,,False,False,,,109911.0,3.51,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Kansas,,,,,,,,False,False,,,169801.0,5.84,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Kentucky,2020-10-25,96942.0,1407.0,8577.0,156.0,11.44,11.9,False,True,74974.0,1311.0,354112.0,7.98,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Louisiana,2020-10-21,179842.0,5631.0,63549.0,2535.0,39.61,45.44,False,True,160424.0,5579.0,1502916.0,32.23,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Maine,,,,,,,,False,False,,,17881.0,1.34,"An error occurred. ... TypeError(""'NoneType' object is not subscriptable"")"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Maryland,,,,,,,,False,False,,,1788090.0,29.78,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Massachusetts,,,,,,,,False,False,,,510558.0,7.48,"An error occurred. ... TypeError(""'>' not supported between instances of 'float' and 'str'"")"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Michigan,2020-10-24,157951.0,7113.0,28610.0,2590.0,18.11,36.41,True,False,,,1375424.0,13.81,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Minnesota,,,,,,,,False,False,,,342186.0,6.19,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'next_sibling'"")"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Mississippi,,,,,,,,False,False,,,1125834.0,37.67,An error occurred. ... ValueError('Cannot convert non-finite values (NA or inf) to integer')
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Missouri,,,,,,,,False,False,,,704896.0,11.57,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Montana,2020-10-25,27880.0,297.0,108.0,,0.39,,True,True,,,4630.0,0.44,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Nebraska,2020-10-25,63797.0,596.0,2815.0,41.0,6.08,7.41,False,True,46297.0,553.0,90860.0,4.77,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Nevada,,,,,,,,False,False,,,261123.0,8.93,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,New Hampshire,,,,,,,,False,False,,,20516.0,1.53,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,New Mexico,2020-10-25,41863.0,967.0,711.0,,1.7,,True,False,,,43006.0,2.06,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,New York -- New York,2020-10-25,252281.0,19314.0,38599.0,5348.0,27.07,30.28,False,True,142609.0,17662.0,2049418.0,24.27,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,NewYork,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,North Carolina,,,,,,,,False,False,,,2179622.0,21.46,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,NorthDakota,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Ohio,,,,,,,,False,False,,,1438271.0,12.35,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Oklahoma,,,,,,,,False,False,,,287959.0,7.35,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Oregon,,,,,,,,False,False,,,77789.0,1.91,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Pennsylvania,,,,,,,,False,False,,,1423319.0,11.13,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Rhode Island,2020-07-03,16491.0,960.0,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254.0,6.55,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,SouthCarolina,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,SouthDakota,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Tennessee,,,,,,,,False,False,,,1117489.0,16.8,An error occurred. ... IndexError('single positional indexer is out-of-bounds')
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Texas,2020-10-23,56712.0,17375.0,9392.0,1908.0,0.17,0.11,True,False,,,3365783.0,12.07,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Texas -- Bexar County,2020-08-23,45255.0,721.0,1506.0,58.0,5.13,6.98,False,False,29364.0,831.0,146703.0,7.62,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Utah,2020-10-25,104883.0,572.0,1822.0,8.0,1.7,1.4,True,False,,,35862.0,1.18,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Vermont,2020-10-25,2073.0,58.0,201.0,0.0,10.15,0.0,False,True,1981.0,58.0,8058.0,1.29,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Virginia,2020-10-25 00:00:00,173346.0,3579.0,34071.0,960.0,19.65,26.82,True,False,,,1613285.0,19.17,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Washington,2020-10-25,102913.0,2296.0,3994.0,71.0,5.81,3.13,False,False,68716.0,2265.0,269854.0,3.7,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,"Washington, DC",2020-10-25,16767.0,642.0,8319.0,480.0,49.62,74.77,True,True,,,321317.0,46.94,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,WestVirginia,,,,,,,,False,False,,,,,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Wisconsin,2020-09-16,91304.0,1220.0,10190.0,229.0,12.28,19.07,False,True,82991.0,1201.0,368744.0,6.38,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Wisconsin -- Milwaukee,2020-10-23,37760.0,465.0,8819.0,162.0,24.85,34.84,False,False,35488.0,465.0,252321.0,26.44,Success!
-2020-10-25,2020/10/25 22:55:01America/Los Angeles TZ,Wyoming,,,,,,,,False,False,,,5540.0,0.95,"An error occurred. ... SessionNotCreatedException('session not created: This version of ChromeDriver only supports Chrome version 83', None, None)"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Alabama,2020-10-25,157881.0,2680.0,37064.0,1020.0,33.96,39.26,False,False,109126.0,2598.0,1293186.0,26.58,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Alaska,2020-10-25,10246.0,66.0,480.0,3.0,4.84,4.55,False,True,9912.0,66.0,24129.0,3.27,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Arizona,2020-10-25,238163.0,5874.0,7371.0,181.0,4.39,3.46,False,False,167906.0,5235.0,305259.0,4.39,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Arkansas,2020-10-25,106115.0,1812.0,21445.0,338.0,22.53,20.34,False,True,95169.0,1662.0,460970.0,15.41,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,California,2020-10-24 00:00:00,898029.0,17345.0,26820.0,1278.0,4.22,7.46,False,False,635287.0,17128.0,2267875.0,5.79,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,California - Los Angeles,2020-10-24,299760.0,6993.0,8656.0,630.0,4.8,9.57,False,False,180464.0,6586.0,823987.0,8.16,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,California - San Diego,2020-10-25,54583.0,870.0,1940.0,36.0,4.28,4.15,False,False,45314.0,867.0,166412.0,5.04,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,California - San Francisco,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Colorado,2020-10-25,95089.0,2223.0,3518.0,133.0,4.37,6.1,False,False,80578.0,2181.0,227938.0,4.12,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Connecticut,2020-10-22,63376.0,3674.0,7983.0,670.0,12.6,18.24,True,False,,,378262.0,10.56,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Delaware,,,,,,,,False,False,,,209892.0,22.11,"An error occurred. ... NoSuchElementException('no such element: Unable to locate element: {""method"":""xpath"",""selector"":""//a[@data-chart-id=\'count-charts\']""}\n  (Session info: headless chrome=86.0.4240.111)', None, None)"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Florida,2020-10-25,768653.0,16429.0,101766.0,2847.0,13.24,17.33,True,False,,,3316376.0,16.1,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Florida -- Miami-Dade County,2020-10-25,181942.0,3612.0,15768.0,,13.34,,False,True,118199.0,,481976.0,17.75,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Florida -- Orange County,2020-10-25,45042.0,546.0,7111.0,,21.85,,False,True,32549.0,,277193.0,20.98,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Georgia,,,,,,,,False,False,,,3239300.0,31.46,"An error occurred. ... KeyError(""There is no item named 'demographics.csv' in the archive"")"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Hawaii,,,,,,,,False,False,,,26266.0,1.85,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Idaho,,,,,,,,False,False,,,11536.0,0.68,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Illinois,2020-10-25,374256.0,9505.0,46459.0,2309.0,12.41,24.29,True,False,,,1824125.0,14.23,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Indiana,2020-10-25,162607.0,3894.0,13718.0,469.0,8.44,12.04,True,True,,,619472.0,9.33,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Iowa,2020-10-26,116238.0,1635.0,5488.0,57.0,4.72,3.49,True,True,,,109911.0,3.51,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Kansas,,,,,,,,False,False,,,169801.0,5.84,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Kentucky,2020-10-25,96942.0,1407.0,8577.0,156.0,11.44,11.9,False,True,74974.0,1311.0,354112.0,7.98,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Louisiana,2020-10-21,179842.0,5631.0,63549.0,2535.0,39.61,45.44,False,True,160424.0,5579.0,1502916.0,32.23,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Maine,,,,,,,,False,False,,,17881.0,1.34,"An error occurred. ... TypeError(""'NoneType' object is not subscriptable"")"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Maryland,2020-10-25,140279.0,3950.0,43513.0,1606.0,36.45,40.78,False,False,119377.0,3938.0,1788090.0,29.78,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Massachusetts,,,,,,,,False,False,,,510558.0,7.48,"An error occurred. ... TypeError(""'>' not supported between instances of 'float' and 'str'"")"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Michigan,2020-10-24,157951.0,7113.0,28610.0,2590.0,18.11,36.41,True,False,,,1375424.0,13.81,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Minnesota,,,,,,,,False,False,,,342186.0,6.19,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'next_sibling'"")"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Mississippi,,,,,,,,False,False,,,1125834.0,37.67,An error occurred. ... ValueError('Cannot convert non-finite values (NA or inf) to integer')
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Missouri,,,,,,,,False,False,,,704896.0,11.57,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Montana,2020-10-25,27880.0,297.0,108.0,,0.39,,True,True,,,4630.0,0.44,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Nebraska,2020-10-25,63797.0,596.0,2815.0,41.0,6.08,7.41,False,True,46297.0,553.0,90860.0,4.77,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Nevada,,,,,,,,False,False,,,261123.0,8.93,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,New Hampshire,2020-10-25,10328.0,473.0,408.0,9.0,4.55,1.99,False,False,8964.0,452.0,20516.0,1.53,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,New Mexico,2020-10-25,41863.0,967.0,711.0,,1.7,,True,False,,,43006.0,2.06,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,New York -- New York,2020-10-25,252281.0,19314.0,38599.0,5348.0,27.07,30.28,False,True,142609.0,17662.0,2049418.0,24.27,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,NewYork,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,North Carolina,2020-10-25,260099.0,4157.0,47548.0,1184.0,22.74,29.94,False,True,209101.0,3954.0,2179622.0,21.46,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,NorthDakota,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Ohio,,,,,,,,False,False,,,1438271.0,12.35,An error occurred. ... JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Oklahoma,2020-10-25,116736.0,1249.0,8031.4368,80.0609,6.88,6.41,False,False,95151.5136,1157.9479,287959.0,7.35,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Oregon,,,,,,,,False,False,,,77789.0,1.91,"An error occurred. ... KeyError(""None of ['Categories'] are in the columns"")"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Pennsylvania,,,,,,,,False,False,,,1423319.0,11.13,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Rhode Island,2020-07-03,16491.0,960.0,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254.0,6.55,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,SouthCarolina,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,SouthDakota,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Tennessee,,,,,,,,False,False,,,1117489.0,16.8,An error occurred. ... IndexError('single positional indexer is out-of-bounds')
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Texas,2020-10-23,56712.0,17375.0,9392.0,1908.0,0.17,0.11,True,False,,,3365783.0,12.07,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Texas -- Bexar County,2020-08-23,45255.0,721.0,1506.0,58.0,5.13,6.98,False,False,29364.0,831.0,146703.0,7.62,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Utah,2020-10-25,104883.0,572.0,1822.0,8.0,1.7,1.4,True,False,,,35862.0,1.18,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Vermont,2020-10-25,2073.0,58.0,201.0,0.0,10.15,0.0,False,True,1981.0,58.0,8058.0,1.29,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Virginia,2020-10-25 00:00:00,173346.0,3579.0,34071.0,960.0,19.65,26.82,True,False,,,1613285.0,19.17,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Washington,2020-10-25,102913.0,2296.0,3994.0,71.0,5.81,3.13,False,False,68716.0,2265.0,269854.0,3.7,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,"Washington, DC",2020-10-25,16767.0,642.0,8319.0,480.0,49.62,74.77,True,True,,,321317.0,46.94,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,WestVirginia,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Wisconsin,2020-09-16,91304.0,1220.0,10190.0,229.0,12.28,19.07,False,True,82991.0,1201.0,368744.0,6.38,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Wisconsin -- Milwaukee,2020-10-23,37760.0,465.0,8819.0,162.0,24.85,34.84,False,False,35488.0,465.0,252321.0,26.44,Success!
+2020-10-25,2020/10/25 23:17:34America/Los Angeles TZ,Wyoming,,,,,,,,False,False,,,5540.0,0.95,An error occurred. ... KeyError('SUM(# probable)')
