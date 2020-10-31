@@ -1,0 +1,59 @@
+Date Run,Date/Time Run,Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Alabama,2020-10-29,161537.0,2718.0,37656.0,1031.0,33.59,39.11,False,False,112110.0,2636.0,1293186.0,26.58,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Alaska,2020-10-29,11071.0,73.0,502.0,3.0,4.68,4.11,False,True,10729.0,73.0,24129.0,3.27,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Arizona,2020-10-29,242480.0,5918.0,7461.0,184.0,4.37,3.49,False,False,170671.0,5278.0,305259.0,4.39,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Arkansas,2020-10-29,109712.0,1894.0,22143.0,344.0,22.38,19.67,False,True,98954.0,1749.0,460970.0,15.41,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,California,2020-10-28 00:00:00,912904.0,17541.0,27247.0,1292.0,4.21,7.45,False,False,646485.0,17350.0,2267875.0,5.79,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,California - Los Angeles,2020-10-28,305070.0,7044.0,8837.0,636.0,4.79,9.59,False,False,184631.0,6635.0,823987.0,8.16,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,California - San Diego,2020-10-29,55898.0,885.0,1972.0,36.0,4.25,4.08,False,False,46398.0,882.0,166412.0,5.04,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,California - San Francisco,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Colorado,2020-10-29,102014.0,2268.0,3652.0,135.0,4.32,6.07,False,False,84549.0,2223.0,227938.0,4.12,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Connecticut,2020-10-28,66896.0,3702.0,8278.0,674.0,12.37,18.21,True,False,,,378262.0,10.56,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Delaware,,,,,,,,False,False,,,209892.0,22.11,"An error occurred. ... NoSuchElementException('no such element: Unable to locate element: {""method"":""xpath"",""selector"":""//a[@data-chart-id=\'count-charts\']""}\n  (Session info: headless chrome=86.0.4240.111)', None, None)"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Florida,2020-10-29,784331.0,16648.0,103226.0,2886.0,13.16,17.34,True,False,,,3316376.0,16.1,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Florida -- Miami-Dade County,2020-10-29,184669.0,3634.0,15937.0,,13.18,,False,True,120946.0,,481976.0,17.75,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Florida -- Orange County,2020-10-29,45941.0,559.0,7291.0,,21.65,,False,True,33680.0,,277193.0,20.98,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Georgia,,,,,,,,False,False,,,3239300.0,31.46,"An error occurred. ... KeyError(""There is no item named 'demographics.csv' in the archive"")"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Hawaii,,,,,,,,False,False,,,26266.0,1.85,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Idaho,,,,,,,,False,False,,,11536.0,0.68,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Illinois,2020-10-29,395458.0,9675.0,48114.0,2326.0,12.17,24.04,True,False,,,1824125.0,14.23,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Indiana,2020-10-29,172730.0,4024.0,14280.0,477.0,8.27,11.85,True,True,,,619472.0,9.33,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Iowa,2020-10-30,123232.0,1705.0,5688.0,58.0,4.62,3.4,True,True,,,109911.0,3.51,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Kansas,,,,,,,,False,False,,,169801.0,5.84,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Kentucky,2020-10-29,103305.0,1461.0,8949.0,161.0,11.06,11.91,False,True,80918.0,1360.0,354112.0,7.98,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Louisiana,2020-10-21,181837.0,5694.0,63549.0,2535.0,39.61,45.44,False,True,160424.0,5579.0,1502916.0,32.23,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Maine,,,,,,,,False,False,,,17881.0,1.34,"An error occurred. ... TypeError(""'NoneType' object is not subscriptable"")"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Maryland,2020-10-29,143387.0,3980.0,44289.0,1617.0,36.28,40.77,False,False,122086.0,3966.0,1788090.0,29.78,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Massachusetts,2020-10-29,155564.0,9951.0,13756.0,785.0,8.84,7.89,True,False,,,510558.0,7.48,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Michigan,2020-10-29,171137.0,7228.0,29503.0,2596.0,17.24,35.92,True,False,,,1375424.0,13.81,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Minnesota,,,,,,,,False,False,,,342186.0,6.19,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'next_sibling'"")"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Mississippi,,,,,,,,False,False,,,1125834.0,37.67,An error occurred. ... ValueError('Cannot convert non-finite values (NA or inf) to integer')
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Missouri,,,,,,,,False,False,,,704896.0,11.57,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Montana,2020-10-29,30853.0,337.0,111.0,,0.36,,True,True,,,4630.0,0.44,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Nebraska,2020-10-29,68150.0,637.0,2870.0,41.0,5.91,7.01,False,True,48529.0,585.0,90860.0,4.77,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Nevada,,,,,,,,False,False,,,261123.0,8.93,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,New Hampshire,2020-10-29,10768.0,482.0,414.0,9.0,4.46,1.97,False,False,9291.0,456.0,20516.0,1.53,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,New Mexico,2020-10-29,44904.0,994.0,732.0,,1.63,,True,False,,,43006.0,2.06,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,New York -- New York,2020-10-29,254091.0,19336.0,38829.0,5353.0,26.95,30.28,False,True,144084.0,17679.0,2049418.0,24.27,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,NewYork,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,North Carolina,2020-10-29,269021.0,4283.0,49227.0,1214.0,22.67,29.79,False,True,217116.0,4075.0,2179622.0,21.46,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,NorthDakota,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Ohio,,,,,,,,False,False,,,1438271.0,12.35,An error occurred. ... JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Oklahoma,2020-10-29,120193.0,1306.0,8197.1626,80.0578,6.82,6.13,False,False,97897.1985,1208.9642,287959.0,7.35,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Oregon,,,,,,,,False,False,,,77789.0,1.91,"An error occurred. ... KeyError(""None of ['Categories'] are in the columns"")"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Pennsylvania,,,,,,,,False,False,,,1423319.0,11.13,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Rhode Island,2020-07-03,16491.0,960.0,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254.0,6.55,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,SouthCarolina,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,SouthDakota,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Tennessee,2020-10-29,256880.0,3263.0,42536.0,792.0,16.56,24.27,True,True,,,1117489.0,16.8,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Texas,2020-10-23,56712.0,17375.0,9392.0,1908.0,0.17,0.11,True,False,,,3365783.0,12.07,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Texas -- Bexar County,2020-08-23,45255.0,721.0,1506.0,58.0,5.13,6.98,False,False,29364.0,831.0,146703.0,7.62,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Utah,2020-10-29,110640.0,598.0,1898.0,8.0,1.7,1.34,True,False,,,35862.0,1.18,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Vermont,2020-10-29,2141.0,58.0,203.0,0.0,9.91,0.0,False,True,2048.0,58.0,8058.0,1.29,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Virginia,2020-10-29 00:00:00,178158.0,3636.0,34901.0,970.0,19.59,26.68,True,False,,,1613285.0,19.17,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Washington,2020-10-29,105557.0,2359.0,4082.0,71.0,5.78,3.05,False,False,70671.0,2327.0,269854.0,3.7,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,"Washington, DC",2020-10-29,17074.0,645.0,8446.0,483.0,49.47,74.88,True,True,,,321317.0,46.94,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,WestVirginia,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Wisconsin,2020-09-16,91304.0,1220.0,10190.0,229.0,12.28,19.07,False,True,82991.0,1201.0,368744.0,6.38,Success!
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Wisconsin -- Milwaukee,,,,,,,,False,False,,,252321.0,26.44,"An error occurred. ... KeyError(""None of ['Race_Eth'] are in the columns"")"
+2020-10-30,2020/10/30 00:38:22America/Los Angeles TZ,Wyoming,,,,,,,,False,False,,,5540.0,0.95,An error occurred. ... KeyError('SUM(# probable)')
