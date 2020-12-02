@@ -29,6 +29,10 @@ class CaliforniaSanDiego(ScraperBase):
 
     def name(self):
         return 'California - San Diego'
+    
+    @classmethod
+    def is_beta(cls):
+        return getattr(cls, 'BETA_SCRAPER', True)
 
     def _get_aa_pop_stats(self):
         return get_aa_pop_stats(self.census_api, 'California',

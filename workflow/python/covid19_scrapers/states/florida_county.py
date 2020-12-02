@@ -65,6 +65,11 @@ def _make_florida_county_scraper(
 
         def name(self):
             return f'Florida -- {census_name} County'
+        
+        @classmethod
+        def is_beta(cls):
+            return getattr(cls, 'BETA_SCRAPER', True)
+    
 
         def _get_aa_pop_stats(self):
             return get_aa_pop_stats(self.census_api, 'Florida',
