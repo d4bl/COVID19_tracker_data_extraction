@@ -21,6 +21,10 @@ class CaliforniaSanFrancisco(ScraperBase):
 
     def name(self):
         return 'California - San Francisco'
+    
+    @classmethod
+    def is_beta(cls):
+        return getattr(cls, 'BETA_SCRAPER', True)
 
     def parse_date(self, date_string):
         pattern = re.compile(r'\d+\/\d+\/\d+')

@@ -37,6 +37,10 @@ class TexasBexar(ScraperBase):
 
     def name(self):
         return 'Texas -- Bexar County'
+    
+    @classmethod
+    def is_beta(cls):
+        return getattr(cls, 'BETA_SCRAPER', True)
 
     def _get_aa_pop_stats(self):
         return get_aa_pop_stats(self.census_api, 'Texas',
