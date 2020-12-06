@@ -1,51 +1,51 @@
 Date Run,Date/Time Run,Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Alabama,2020-12-05,221804.0,3454.0,47357.0,1185.0,30.31,36.04,False,False,156251.0,3288.0,1293186.0,26.58,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Alaska,2020-12-04,27196.0,133.0,930.0,6.0,3.47,4.51,False,True,26779.0,133.0,24129.0,3.27,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Arizona,2020-12-05,358900.0,6925.0,10375.0,202.0,4.01,3.25,False,False,258522.0,6207.0,305259.0,4.39,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Arkansas,2020-12-04,167137.0,2586.0,29666.0,424.0,20.06,17.43,False,True,147873.0,2432.0,460970.0,15.41,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,California,2020-12-03 00:00:00,1286557.0,19582.0,38137.0,1414.0,4.1,7.26,False,False,929184.0,19481.0,2267875.0,5.79,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Colorado,2020-12-04,252222.0,3338.0,6104.0,150.0,3.55,4.78,False,False,172041.0,3140.0,227938.0,4.12,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Connecticut,2020-12-03,119584.0,4143.0,11267.0,727.0,9.42,17.55,True,False,,,378262.0,10.56,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Delaware,,,,,,,,False,False,,,209892.0,22.11,"An error occurred. ... NoSuchElementException('no such element: Unable to locate element: {""method"":""xpath"",""selector"":""//a[@data-chart-id=\'count-charts\']""}\n  (Session info: headless chrome=87.0.4280.88)', None, None)"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Florida,,,,,,,,False,False,,,3316376.0,16.1,"An error occurred. ... CalledProcessError(1, ['java', '-Djava.awt.headless=true', '-Dfile.encoding=UTF8', '-jar', '/Users/poisson/Documents/GitHub/COVID19_tracker_data_extraction/covid19_data_test_003/lib/python3.7/site-packages/tabula/tabula-1.0.3-jar-with-dependencies.jar', '--pages', '3', '--area', '626.8578491210938,80.14600372314453,961.4368286132812,941.5399780273438', '--stream', '/var/folders/cn/4q_jgh710l170_p6btg_ym880000gn/T/a194c8db-c530-48e2-b03e-fdc6ee882021.pdf'])"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Georgia,,,,,,,,False,False,,,3239300.0,31.46,"An error occurred. ... KeyError(""There is no item named 'demographics.csv' in the archive"")"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Hawaii,,,,,,,,False,False,,,26266.0,1.85,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Idaho,,,,,,,,False,False,,,11536.0,0.68,"An error occurred. ... TimeoutException('', None, None)"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Illinois,2020-12-04,770088.0,12974.0,72012.0,2659.0,9.35,20.49,True,False,,,1824125.0,14.23,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Indiana,2020-12-04,367329.0,5832.0,24789.0,565.0,6.75,9.69,True,True,,,619472.0,9.33,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Iowa,2020-12-05,242062.0,2665.0,8149.0,72.0,3.37,2.7,True,True,,,109911.0,3.51,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Kansas,,,,,,,,False,False,,,169801.0,5.84,"An error occurred. ... TimeoutException('', None, None)"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Kentucky,,,,,,,,False,False,,,354112.0,7.98,"An error occurred. ... CalledProcessError(1, ['java', '-Djava.awt.headless=true', '-Dfile.encoding=UTF8', '-jar', '/Users/poisson/Documents/GitHub/COVID19_tracker_data_extraction/covid19_data_test_003/lib/python3.7/site-packages/tabula/tabula-1.0.3-jar-with-dependencies.jar', '--pages', '1', '--lattice', '--guess', '--format', 'JSON', 'report.pdf'])"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Louisiana,,,,,,,,False,False,,,1502916.0,32.23,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Maine,,,,,,,,False,False,,,17881.0,1.34,"An error occurred. ... TypeError(""'NoneType' object is not subscriptable"")"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Maryland,2020-12-05,212384.0,4659.0,63046.0,1806.0,34.71,39.12,False,False,181640.0,4616.0,1788090.0,29.78,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Massachusetts,,,,,,,,False,False,,,510558.0,7.48,"An error occurred. ... KeyError(""There is no item named 'RaceEthnicity.csv' in the archive"")"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Michigan,2020-12-04,388961.0,9606.0,44878.0,2768.0,11.54,28.82,True,False,,,1375424.0,13.81,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Minnesota,,,,,,,,False,False,,,342186.0,6.19,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'next_sibling'"")"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Mississippi,,,,,,,,False,False,,,1125834.0,37.67,"An error occurred. ... CalledProcessError(1, ['java', '-Djava.awt.headless=true', '-Dfile.encoding=UTF8', '-jar', '/Users/poisson/Documents/GitHub/COVID19_tracker_data_extraction/covid19_data_test_003/lib/python3.7/site-packages/tabula/tabula-1.0.3-jar-with-dependencies.jar', '--pages', '1,2', '--guess', '--format', 'JSON', 'ms_cases_and_deaths.pdf'])"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Missouri,,,,,,,,False,False,,,704896.0,11.57,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Montana,,,,,,,,False,False,,,4630.0,0.44,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'find_parent'"")"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Nebraska,2020-12-04,136325.0,1186.0,3462.0,48.0,4.77,6.0,False,True,72558.0,800.0,90860.0,4.77,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Nevada,,,,,,,,False,False,,,261123.0,8.93,"An error occurred. ... TimeoutException('', None, None)"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,New Hampshire,,,,,,,,False,False,,,20516.0,1.53,"An error occurred. ... TimeoutException('', None, None)"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,New Mexico,2020-12-04,104935.0,1706.0,1294.0,,1.23,,True,False,,,43006.0,2.06,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,NewYork,,,,,,,,False,False,,,,,An error occurred. ... <HTTPError 404: 'Not Found'>
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,North Carolina,2020-12-04,382534.0,5467.0,68514.0,1466.0,21.76,28.11,False,True,314914.0,5216.0,2179622.0,21.46,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,NorthDakota,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Ohio,,,,,,,,False,False,,,1438271.0,12.35,An error occurred. ... JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Oklahoma,2020-12-04,208875.0,1860.0,12574.275,111.042,6.02,5.97,False,False,163361.1375,1702.086,287959.0,7.35,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Oregon,,,,,,,,False,False,,,77789.0,1.91,"An error occurred. ... KeyError(""None of ['Categories'] are in the columns"")"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Pennsylvania,,,,,,,,False,False,,,1423319.0,11.13,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Rhode Island,2020-07-03,16491.0,960.0,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254.0,6.55,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,SouthCarolina,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,SouthDakota,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Tennessee,2020-12-04,392608.0,4876.0,55816.0,1013.0,14.22,20.78,True,True,,,1117489.0,16.8,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Texas,2020-11-27,63495.0,22255.0,10443.0,2316.0,0.16,0.1,True,False,,,3365783.0,12.07,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Utah,2020-12-04,209170.0,925.0,3032.0,11.0,1.4,1.19,True,False,,,35862.0,1.18,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Vermont,2020-12-05,4894.0,79.0,237.0,0.0,5.27,0.0,False,True,4496.0,78.0,8058.0,1.29,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Virginia,2020-12-05 00:00:00,251111.0,4197.0,45094.0,1050.0,17.96,25.02,True,False,,,1613285.0,19.17,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Washington,2020-12-04,174290.0,2925.0,6183.0,88.0,5.89,3.07,False,False,104967.0,2862.0,269854.0,3.7,Success!
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,"Washington, DC",,,,,,,,False,False,,,321317.0,46.94,"An error occurred. ... ValueError(""time data 'Nov-1-2020' does not match format '%B-%d-%Y'"")"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,WestVirginia,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Wisconsin,,,,,,,,False,False,,,368744.0,6.38,An error occurred. ... ValueError('Unable to find layer COVID19_WI_HIST in content ID c38e9379b1c240bdaafa6195719c037d')
-2020-12-05,2020/12/05 10:20:59America/Los Angeles TZ,Wyoming,,,,,,,,False,False,,,5540.0,0.95,An error occurred. ... KeyError('ATTR(Date Updated)')
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Alabama,2020-12-05,221804.0,3454.0,47357.0,1185.0,30.31,36.04,False,False,156251.0,3288.0,1293186.0,26.58,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Alaska,2020-12-05,27861.0,141.0,943.0,6.0,3.44,4.26,False,True,27429.0,141.0,24129.0,3.27,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Arizona,2020-12-05,358900.0,6925.0,10375.0,202.0,4.01,3.25,False,False,258522.0,6207.0,305259.0,4.39,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Arkansas,2020-12-05,169382.0,2620.0,29954.0,428.0,20.03,17.4,False,True,149579.0,2460.0,460970.0,15.41,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,California,2020-12-04 00:00:00,1311625.0,19791.0,38841.0,1418.0,4.1,7.23,False,False,947773.0,19602.0,2267875.0,5.79,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Colorado,2020-12-05,257347.0,3357.0,6202.0,150.0,3.54,4.75,False,False,175279.0,3157.0,227938.0,4.12,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Connecticut,2020-12-03,119584.0,4143.0,11267.0,727.0,9.42,17.55,True,False,,,378262.0,10.56,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Delaware,,,,,,,,False,False,,,209892.0,22.11,"An error occurred. ... NoSuchElementException('no such element: Unable to locate element: {""method"":""xpath"",""selector"":""//a[@data-chart-id=\'count-charts\']""}\n  (Session info: headless chrome=87.0.4280.88)', None, None)"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Florida,,,,,,,,False,False,,,3316376.0,16.1,"An error occurred. ... CalledProcessError(1, ['java', '-Djava.awt.headless=true', '-Dfile.encoding=UTF8', '-jar', '/Users/poisson/Documents/GitHub/COVID19_tracker_data_extraction/covid19_data_test_003/lib/python3.7/site-packages/tabula/tabula-1.0.3-jar-with-dependencies.jar', '--pages', '3', '--area', '626.8578491210938,80.14600372314453,961.4368286132812,941.5399780273438', '--stream', '/var/folders/cn/4q_jgh710l170_p6btg_ym880000gn/T/a79b4226-8bf5-4467-b1e6-407a997a8bdd.pdf'])"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Georgia,,,,,,,,False,False,,,3239300.0,31.46,"An error occurred. ... KeyError(""There is no item named 'demographics.csv' in the archive"")"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Hawaii,,,,,,,,False,False,,,26266.0,1.85,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Idaho,,,,,,,,False,False,,,11536.0,0.68,"An error occurred. ... TimeoutException('', None, None)"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Illinois,2020-12-05,779975.0,13179.0,72772.0,2687.0,9.33,20.39,True,False,,,1824125.0,14.23,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Indiana,2020-12-05,375019.0,5910.0,25137.0,569.0,6.7,9.63,True,True,,,619472.0,9.33,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Iowa,2020-12-05,243384.0,2666.0,8162.0,72.0,3.35,2.7,True,True,,,109911.0,3.51,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Kansas,,,,,,,,False,False,,,169801.0,5.84,"An error occurred. ... TimeoutException('', None, None)"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Kentucky,,,,,,,,False,False,,,354112.0,7.98,"An error occurred. ... CalledProcessError(1, ['java', '-Djava.awt.headless=true', '-Dfile.encoding=UTF8', '-jar', '/Users/poisson/Documents/GitHub/COVID19_tracker_data_extraction/covid19_data_test_003/lib/python3.7/site-packages/tabula/tabula-1.0.3-jar-with-dependencies.jar', '--pages', '1', '--lattice', '--guess', '--format', 'JSON', 'report.pdf'])"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Louisiana,,,,,,,,False,False,,,1502916.0,32.23,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Maine,,,,,,,,False,False,,,17881.0,1.34,"An error occurred. ... TypeError(""'NoneType' object is not subscriptable"")"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Maryland,2020-12-05,212384.0,4659.0,63046.0,1806.0,34.71,39.12,False,False,181640.0,4616.0,1788090.0,29.78,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Massachusetts,,,,,,,,False,False,,,510558.0,7.48,"An error occurred. ... KeyError(""There is no item named 'RaceEthnicity.csv' in the archive"")"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Michigan,2020-12-05,394976.0,9797.0,45609.0,2780.0,11.55,28.38,True,False,,,1375424.0,13.81,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Minnesota,,,,,,,,False,False,,,342186.0,6.19,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'next_sibling'"")"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Mississippi,,,,,,,,False,False,,,1125834.0,37.67,"An error occurred. ... CalledProcessError(1, ['java', '-Djava.awt.headless=true', '-Dfile.encoding=UTF8', '-jar', '/Users/poisson/Documents/GitHub/COVID19_tracker_data_extraction/covid19_data_test_003/lib/python3.7/site-packages/tabula/tabula-1.0.3-jar-with-dependencies.jar', '--pages', '1,2', '--guess', '--format', 'JSON', 'ms_cases_and_deaths.pdf'])"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Missouri,,,,,,,,False,False,,,704896.0,11.57,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Montana,,,,,,,,False,False,,,4630.0,0.44,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'find_parent'"")"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Nebraska,2020-12-05,138568.0,1194.0,3462.0,48.0,4.77,6.0,False,True,72558.0,800.0,90860.0,4.77,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Nevada,,,,,,,,False,False,,,261123.0,8.93,"An error occurred. ... TimeoutException('', None, None)"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,New Hampshire,,,,,,,,False,False,,,20516.0,1.53,"An error occurred. ... TimeoutException('', None, None)"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,New Mexico,2020-12-05,106856.0,1738.0,1312.0,,1.23,,True,False,,,43006.0,2.06,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,NewYork,,,,,,,,False,False,,,,,An error occurred. ... <HTTPError 404: 'Not Found'>
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,North Carolina,2020-12-05,388552.0,5516.0,69499.0,1476.0,21.72,28.03,False,True,320018.0,5266.0,2179622.0,21.46,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,NorthDakota,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Ohio,,,,,,,,False,False,,,1438271.0,12.35,An error occurred. ... JSONDecodeError('Expecting value: line 1 column 1 (char 0)')
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Oklahoma,2020-12-05,213245.0,1874.0,12773.3755,113.0022,5.99,6.03,False,False,166331.1,1716.0218,287959.0,7.35,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Oregon,,,,,,,,False,False,,,77789.0,1.91,"An error occurred. ... KeyError(""None of ['Categories'] are in the columns"")"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Pennsylvania,,,,,,,,False,False,,,1423319.0,11.13,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Rhode Island,2020-07-03,16491.0,960.0,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254.0,6.55,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,SouthCarolina,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,SouthDakota,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Tennessee,2020-12-05,397522.0,4905.0,56328.0,1017.0,14.17,20.73,True,True,,,1117489.0,16.8,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Texas,2020-11-27,63495.0,22255.0,10443.0,2316.0,0.16,0.1,True,False,,,3365783.0,12.07,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Utah,2020-12-05,212844.0,939.0,3078.0,11.0,1.4,1.17,True,False,,,35862.0,1.18,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Vermont,2020-12-05,4894.0,79.0,237.0,0.0,5.27,0.0,False,True,4496.0,78.0,8058.0,1.29,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Virginia,2020-12-05 00:00:00,251111.0,4197.0,45094.0,1050.0,17.96,25.02,True,False,,,1613285.0,19.17,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Washington,2020-12-04,175793.0,2925.0,6253.0,89.0,5.84,3.1,False,False,106997.0,2875.0,269854.0,3.7,Success!
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,"Washington, DC",,,,,,,,False,False,,,321317.0,46.94,"An error occurred. ... ValueError(""time data 'Nov-1-2020' does not match format '%B-%d-%Y'"")"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,WestVirginia,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Wisconsin,,,,,,,,False,False,,,368744.0,6.38,An error occurred. ... ValueError('Unable to find layer COVID19_WI_HIST in content ID c38e9379b1c240bdaafa6195719c037d')
+2020-12-05,2020/12/05 22:02:35America/Los Angeles TZ,Wyoming,,,,,,,,False,False,,,5540.0,0.95,An error occurred. ... KeyError('ATTR(Date Updated)')
