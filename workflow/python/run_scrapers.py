@@ -164,6 +164,17 @@ def main():
                           github_access_token=opts.github_access_token),
         registry_args=dict(enable_beta_scrapers=opts.enable_beta_scrapers),
     )
+
+    # Fix up start and end dates
+    if opts.start_date:
+        # Set to initial hour/minute/second
+        opts.start_date = pd.Timestamp(opts.start_date.date())
+    # Set to final hour/minute/second
+    opts.end_date = pd.Timestamp(year=opts.end_date.year,
+                                 month=opts.end_date.month,
+                                 day=opts.end_date.day, hour=23,
+                                 minute=59, second=59,
+                                 microsecond=999999)
     if not opts.scrapers:
         logging.info('Running all scrapers')
         df = scraper_registry.run_all_scrapers(start_date=opts.start_date,

@@ -56,12 +56,30 @@ class ScraperBase(object):
                                     **kwargs)
             except Exception as e:
                 rows = self._handle_error(e)
-        return pd.DataFrame(rows)
+        ret = pd.DataFrame(rows)
+
+        # Get location demographics if there were not errors:
+        aa_pop = None
+        pct_aa_pop = None
+        good_rows = (ret['Status code'] == SUCCESS)
+        if good_rows.any():
+            aa_pop, _, pct_aa_pop = self._get_aa_pop_stats()
+            ret.loc[good_rows, 'Black/AA Population'] = aa_pop
+            ret.loc[good_rows, 'Pct Black/AA Population'] = pct_aa_pop
+
+        # Warn if there were errors.
+        for (_, row) in ret[~good_rows].iterrows():
+            if pd.notnull(row['Date Published']):
+                _logger.warning(f'{row["Date Published"]}: {row["Status code"]}')
+            else:
+                _logger.warning(row['Status code'])
+        return ret
 
     @classmethod
     def is_beta(cls):
         return getattr(cls, 'BETA_SCRAPER', False)
 
+    # TODO: support multi-geography scrapers (state and county, eg)
     def _get_aa_pop_stats(self):
         """This default will retrieve AA population stats for state
         scrapers. For city/county scrapers, you will need to override
@@ -91,17 +109,7 @@ class ScraperBase(object):
         """Returns a pandas.Series with the common scraping fields set to the
         specified values.
 
-        Census data on Black/AA population count (ACS-5 vintage 2018)
-        and percentage are added directly in this routine. Override
-        `_get_aa_pop_stats` to change what gets stored for these.
-
         """
-        # Warn if there were errors.
-        if status != SUCCESS:
-            _logger.warning(status)
-
-        aa_pop, _, pct_aa_pop = self._get_aa_pop_stats()
-
         return pd.Series({
             'Location': location or self.name(),
             'Date Published': date,
@@ -115,12 +123,37 @@ class ScraperBase(object):
             'Pct Includes Hispanic Black': pct_includes_hispanic_black,
             'Count Cases Known Race': known_race_cases,
             'Count Deaths Known Race': known_race_deaths,
-            'Black/AA Population': aa_pop,
-            'Pct Black/AA Population': pct_aa_pop,
             'Status code': status,
         })
 
-    def _handle_error(self, e):
+    def _make_dataframe(self, *, location=None, cases, deaths,
+                        aa_cases, aa_deaths, pct_aa_cases,
+                        pct_aa_deaths, pct_includes_unknown_race,
+                        pct_includes_hispanic_black, known_race_cases,
+                        known_race_deaths, status):
+        """Returns a pandas.DataFrame with the common scraping fields set to
+        the specified pandas.Series values.  The series must all be
+        indexed with pandas.DatetimeIndexes.
+
+        """
+        ret = pd.DataFrame({
+            'Location': location or self.name(),
+            'Total Cases': cases,
+            'Total Deaths': deaths,
+            'Count Cases Black/AA': aa_cases,
+            'Count Deaths Black/AA': aa_deaths,
+            'Pct Cases Black/AA': pct_aa_cases,
+            'Pct Deaths Black/AA': pct_aa_deaths,
+            'Pct Includes Unknown Race': pct_includes_unknown_race,
+            'Pct Includes Hispanic Black': pct_includes_hispanic_black,
+            'Count Cases Known Race': known_race_cases,
+            'Count Deaths Known Race': known_race_deaths,
+            'Status code': status,
+        })
+        ret.index.name = 'Date Published'
+        return ret.reset_index()
+
+    def _handle_error(self, e, date=None):
         """Returns a row indicating that an exception occurred, and log a
         traceback.
 
@@ -128,7 +161,7 @@ class ScraperBase(object):
         specialized error handling.
         """
         _logger.exception(e)
-        return [self._make_series(status=self._format_error(e))]
+        return [self._make_series(date=date, status=self._format_error(e))]
 
     def _format_error(self, e):
         """Generate a descriptive string for an exception.

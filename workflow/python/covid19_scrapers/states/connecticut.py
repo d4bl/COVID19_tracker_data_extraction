@@ -1,10 +1,10 @@
 import logging
-import pydash
-from datetime import datetime
 
-from covid19_scrapers.scraper import ScraperBase
-from covid19_scrapers.utils.misc import to_percentage
-from covid19_scrapers.utils.http import get_json
+import pandas as pd
+
+from covid19_scrapers.scraper import ScraperBase, SUCCESS
+from covid19_scrapers.utils.http import get_content_as_file
+from covid19_scrapers.utils.misc import slice_dataframe, to_percentage
 
 _logger = logging.getLogger(__name__)
 
@@ -32,53 +32,73 @@ class Connecticut(ScraperBase):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        print('running connecticut')
 
-    def _scrape(self, refresh=False, **kwargs):
+    def _scrape(self, start_date, end_date, **kwargs):
         _logger.debug('Get case totals data')
-        totals_json = get_json(self.CASE_DATA_URL)
-        assert totals_json, 'Error finding total cases and deaths'
-
-        most_recent_totals = totals_json[0]
-        # dict.get sets value to None if key not availale
-        report_date = datetime.strptime(most_recent_totals.get('date'), '%Y-%m-%dT%H:%M:%S.%f').date()
-        total_cases = most_recent_totals.get('confirmedcases')
-        total_deaths = most_recent_totals.get('confirmeddeaths')
-
-        assert total_cases, 'Error finding total cases'
-        assert total_deaths, 'Error finding total deaths'
-
-        # convert from string to int
-        total_cases = int(total_cases)
-        total_deaths = int(total_deaths)
+        totals_df = pd.read_json(
+            get_content_as_file(self.CASE_DATA_URL),
+            convert_dates=['date'],
+            orient='records',
+            dtype={'confirmedcases': float, 'confirmeddeaths': float}
+        ).set_index(
+            'date'
+        ).sort_index(
+            ascending=False
+        )
+        totals_df = slice_dataframe(totals_df, start_date, end_date)
+        report_dates = totals_df.index
+        if len(report_dates) > 1:
+            _logger.info('Processing data for '
+                         f'{report_dates.min()} - {report_dates.max()}')
+        elif len(report_dates) == 1:
+            _logger.info(f'Processing data for {report_dates.min()}')
+        else:
+            _logger.warn('No summary data')
+            return
+        total_cases = totals_df['confirmedcases'].dropna().astype(int)
+        total_deaths = totals_df['confirmeddeaths'].dropna().astype(int)
 
         _logger.debug('Get race data')
-        race_json = get_json(self.RACE_DATA_URL)
-        assert race_json, 'Error getting race cases and deaths json'
+        race_df = pd.read_json(
+            get_content_as_file(self.RACE_DATA_URL),
+            convert_dates=['dateupdated'],
+            orient='records',
+            dtype={'case_tot': float, 'deaths': float}
+        ).set_index(
+            'dateupdated'
+        )
+        race_df = slice_dataframe(
+            race_df, start_date, end_date
+        ).reset_index().set_index(['hisp_race', 'dateupdated'])
+        aa_cases = race_df.loc[('NH Black',), 'case_tot'].dropna().astype(int)
+        aa_deaths = race_df.loc[('NH Black',), 'deaths'].dropna().astype(int)
+        unknown_cases = race_df.loc[('Unknown',),
+                                    'case_tot'].dropna().astype(int)
+        unknown_deaths = race_df.loc[('Unknown',),
+                                     'deaths'].dropna().astype(int)
 
-        most_recent_nh_black_data = pydash.find(race_json, lambda data: data['hisp_race'] == 'NH Black')
-        assert most_recent_nh_black_data, 'Error finding total NH Black entry'
-        aa_cases = most_recent_nh_black_data.get('case_tot')
-        aa_deaths = most_recent_nh_black_data.get('deaths')
+        # Compute denominators.
+        #
+        # Arithmetic on Series from DFs with different indices will
+        # have the union of the indices, with the values for the
+        # symmetric difference set to NaN.
+        known_cases = total_cases - unknown_cases
+        known_deaths = total_deaths - unknown_deaths
 
-        assert aa_cases, 'Error finding total NH Black cases'
-        assert aa_deaths, 'Error finding total NH Black deaths'
+        # Compute the AA case/death percentages.
+        pct_aa_cases = to_percentage(aa_cases, known_cases)
+        pct_aa_deaths = to_percentage(aa_deaths, known_deaths)
 
-        # convert from string to int
-        aa_cases = int(aa_cases)
-        aa_deaths = int(aa_deaths)
-
-        pct_aa_cases = to_percentage(aa_cases, total_cases)
-        pct_aa_deaths = to_percentage(aa_deaths, total_deaths)
-
-        return [self._make_series(
-            date=report_date,
+        return self._make_dataframe(
             cases=total_cases,
             deaths=total_deaths,
             aa_cases=aa_cases,
             aa_deaths=aa_deaths,
             pct_aa_cases=pct_aa_cases,
             pct_aa_deaths=pct_aa_deaths,
-            pct_includes_unknown_race=True,
-            pct_includes_hispanic_black=False
-        )]
+            known_race_cases=known_cases,
+            known_race_deaths=known_deaths,
+            pct_includes_unknown_race=False,
+            pct_includes_hispanic_black=False,
+            status=SUCCESS
+        )
