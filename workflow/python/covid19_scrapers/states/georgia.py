@@ -26,20 +26,20 @@ class Georgia(ScraperBase):
 
         _logger.debug(
             'Get the last update of the demographics.csv file in archive')
-        date = get_zip_member_update_date(z, 'demographics.csv')
+        date = get_zip_member_update_date(z, 'demographics_sum.csv')
         _logger.info(f'Processing data for {date}')
 
-        _logger.debug('Load demographics CSV')
-        data = pd.read_csv(get_zip_member_as_file(z, 'demographics.csv'))
-        by_race = data[['race', 'Confirmed_Cases', 'Deaths']
+        _logger.debug('Load demographics_sum CSV')
+        data = pd.read_csv(get_zip_member_as_file(z, 'demographics_sum.csv'))
+        by_race = data[['race', 'cases', 'Deaths']
                        ].groupby('race').sum()
         totals = by_race.sum(axis=0)
-        total_cases = totals['Confirmed_Cases']
+        total_cases = totals['cases']
         total_deaths = totals['Deaths']
         _logger.debug('African American cases and deaths')
         aa_key = next(filter(lambda x: x.startswith('African-American'),
                              by_race.index))
-        aa_cases = by_race.loc[aa_key, 'Confirmed_Cases']
+        aa_cases = by_race.loc[aa_key, 'cases']
         aa_cases_pct = to_percentage(aa_cases, total_cases)
         aa_deaths = by_race.loc[aa_key, 'Deaths']
         aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
