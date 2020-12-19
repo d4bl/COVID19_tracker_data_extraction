@@ -31,13 +31,26 @@ class Minnesota(ScraperBase):
                               strong.text).group()
 
         # find total number of confirmed cases
-        strong = soup.find('strong',
-                           string=re.compile(r'Total positive( cases)?:'))
-        num_cases = raw_string_to_int(str(strong.next_sibling))
+        table = soup.find('table', attrs={'id': 'casetotal'})
+        if not table:
+            raise ValueError('Unable to locate case total table')
+        th = table.find(lambda elt: elt.name == 'th'
+                        and elt.text.find('Total positive cases (cumulative)') >= 0)
+        if not th:
+            raise ValueError('Unable to locate total cases header row')
+        td = th.find_next_siblings('td')
+        num_cases = raw_string_to_int(td[0].text)
 
         # find total number of deaths
-        strong = soup.find('strong', string=re.compile('(Total )?[Dd]eaths:'))
-        num_deaths = raw_string_to_int(strong.next_sibling)
+        table = soup.find('table', attrs={'id': 'deathtotal'})
+        if not table:
+            raise ValueError('Unable to locate death total table')
+        th = table.find(lambda elt: elt.name == 'th'
+                        and elt.text.find('Total deaths (cumulative)') >= 0)
+        if not th:
+            raise ValueError('Unable to locate total deaths header row')
+        td = th.find_next_siblings('td')
+        num_deaths = raw_string_to_int(td[0].text)
 
         date_obj = datetime.datetime.strptime(date_text, '%B %d, %Y').date()
         _logger.info(f'Processing data for {date_obj}')
