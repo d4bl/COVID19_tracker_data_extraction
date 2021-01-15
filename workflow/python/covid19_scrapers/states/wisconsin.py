@@ -19,8 +19,8 @@ class Wisconsin(ScraperBase):
 
     # Service is at https://services1.arcgis.com/ISZ89Z51ft1G16OK
     DATA = dict(
-        flc_id='c38e9379b1c240bdaafa6195719c037d',
-        layer_name='COVID19_WI_HIST',
+        flc_url='https://dhsgis.wi.gov/server/rest/services/DHS_COVID19/COVID19_WI/MapServer/',
+        layer_name='COVID19_WI_HIST_ST',
         where="GEO='State'",
         out_fields=['DATE',
                     'POSITIVE', 'DEATHS',
@@ -34,7 +34,9 @@ class Wisconsin(ScraperBase):
         super().__init__(**kwargs)
 
     def _scrape(self, **kwargs):
-        date, data = query_geoservice(**self.DATA)
+        _, data = query_geoservice(**self.DATA)
+
+        date = data.loc[0, 'DATE'].date()
         _logger.info(f'Processing data for {date}')
 
         total_cases = data.loc[0, 'POSITIVE']
