@@ -28,8 +28,13 @@ class Kansas(ScraperBase):
         super().__init__(**kwargs)
 
     def get_date(self, soup):
-        last_updated_text = soup.find(text='Last updated:')
-        date_str = last_updated_text.find_next('span').text
+        # the date string is represented by 3 different <span> elements
+        current_element = soup.find(text='Last updated')
+        date_str = ''
+        for _ in range(3):
+            current_element = current_element.find_next('span')
+            date_str += current_element.text
+
         pattern = re.compile(r'(\d{2}\/\d{2}\/\d{4})')
         matches = pattern.search(date_str)
         assert matches, 'Date not found.'
@@ -50,7 +55,7 @@ class Kansas(ScraperBase):
         cases_results = runner.run(
             WebdriverSteps()
             .go_to_url(self.SUMMARY_URL)
-            .wait_for_presence_of_elements((By.XPATH, "//span[contains(text(),'Last updated:')]"))
+            .wait_for_presence_of_elements((By.XPATH, "//span[contains(text(),'Last updated')]"))
             .get_page_source())
 
         date = self.get_date(cases_results.page_source)
