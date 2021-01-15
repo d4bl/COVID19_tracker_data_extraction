@@ -38,19 +38,19 @@ class Oregon(ScraperBase):
         date = datetime.strptime(match.group(), '%m/%d/%Y').date()
 
         cases_df = parser.get_dataframe_from_key('Demographic Data - Hospitalizaton Status')
-        cases_df = cases_df.set_index(['Status Value', 'Demographic', 'Categories']).sort_index().loc[('%all%', 'Race')]
+        cases_df = cases_df.set_index(['Demographic', 'Categories (group)']).loc['Race']
         cases_df['SUM(Count)'] = cases_df['SUM(Count)'].apply(raw_string_to_int)
-        cases = cases_df.loc['All', 'SUM(Count)']
-        aa_cases = cases_df.loc['Black', 'SUM(Count)']
-        known_race_cases = cases - cases_df.loc['Refused/Unknown', 'SUM(Count)']
+        cases = cases_df['SUM(Count)'].sum()
+        aa_cases = cases_df.loc['Black']['SUM(Count)'].sum()
+        known_race_cases = cases - cases_df.loc['Refused/Unknown ']['SUM(Count)'].sum()
 
-        deaths_df = parser.get_dataframe_from_key('Demographic Data - Survival Outcomes')
-        deaths_df = deaths_df.set_index(['Status Value', 'Demographic', 'Categories']).sort_index().loc[('Died', 'Race')]
+        deaths_df = parser.get_dataframe_from_key('Demographic Data - Death Status')
+        deaths_df = deaths_df.set_index(['Status Value', 'Demographic', 'Categories (group) 2']).sort_index().loc[('Died', 'Race')]
         deaths_df['SUM(Count)'] = deaths_df['SUM(Count)'].apply(raw_string_to_int)
 
         deaths = deaths_df.loc['All', 'SUM(Count)']
         aa_deaths = deaths_df.loc['Black', 'SUM(Count)']
-        known_race_deaths = deaths - deaths_df.loc['Refused/Unknown', 'SUM(Count)']
+        known_race_deaths = deaths - deaths_df.loc['Refused/Unknown ', 'SUM(Count)']
 
         pct_aa_cases = to_percentage(aa_cases, known_race_cases)
         pct_aa_deaths = to_percentage(aa_deaths, known_race_deaths)
