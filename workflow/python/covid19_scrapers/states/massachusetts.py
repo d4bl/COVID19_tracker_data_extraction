@@ -4,22 +4,24 @@ import logging
 import pandas as pd
 
 from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils.http import get_content_as_file
 from covid19_scrapers.utils.html import find_all_links
 from covid19_scrapers.utils.misc import to_percentage
-from covid19_scrapers.utils.zip import get_zip, get_zip_member_as_file
-
 
 _logger = logging.getLogger(__name__)
 
 
 class Massachusetts(ScraperBase):
-    """Massachusetts publishes ZIP files containing CSV files of COVID-19
-    statistics. A new file is uploaded daily. We scrape the main
-    reporting page to find the latest ZIP file link.
+    """Massachusetts publishes a xlsx file containin COVID-19
+    statistics. A new file is uploaded daily though race/ethnicity
+    data is only uploaded every two weeks. We scrape the main
+    reporting page to find the latest xlsx download link.
     """
 
     REPORTING_URL = 'https://www.mass.gov/info-details/covid-19-response-reporting'
     DOWNLOAD_URL_TEMPLATE = 'https://www.mass.gov/doc/{}/download'
+
+    ETHNICITY_SHEET_NAME = 'RaceEthnicityLast2Weeks'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -34,11 +36,10 @@ class Massachusetts(ScraperBase):
         _logger.debug(f'Current COVID-19 data: {url}')
 
         # Cumulative number of cases / deaths
-        ma_zip = get_zip(url)
-
         _logger.debug('Get the race/ethnicity breakdown')
-        df_raw = pd.read_csv(
-            get_zip_member_as_file(ma_zip, 'RaceEthnicity.csv'),
+        df_raw = pd.read_excel(
+            get_content_as_file(url),
+            sheet_name=self.ETHNICITY_SHEET_NAME,
             parse_dates=['Date']
         )
 
@@ -59,12 +60,12 @@ class Massachusetts(ScraperBase):
         total_deaths = df_mass['Deaths'].sum()
         aa_cases = df_mass[
             df_mass['Race/Ethnicity']
-            == 'Non-Hispanic Black/African American'
+            == 'Black or African American, non-Hispanic'
         ]['All Cases'].tolist()[0]
         aa_cases_pct = to_percentage(aa_cases, total_cases)
         aa_deaths = df_mass[
             df_mass['Race/Ethnicity']
-            == 'Non-Hispanic Black/African American'
+            == 'Black or African American, non-Hispanic'
         ]['Deaths'].tolist()[0]
         aa_deaths_pct = to_percentage(aa_deaths, total_deaths)
         return [self._make_series(
