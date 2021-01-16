@@ -26,7 +26,7 @@ class NewYorkCity(ScraperBase):
 
     def name(self):
         return 'New York -- New York'
-    
+
     @classmethod
     def is_beta(cls):
         return getattr(cls, 'BETA_SCRAPER', True)
@@ -48,7 +48,7 @@ class NewYorkCity(ScraperBase):
 
         _logger.debug('Fetching latest summary data')
         latest_cases = pd.read_csv(
-            BytesIO(repo.get_contents('summary.csv').decoded_content),
+            BytesIO(repo.get_contents('totals/summary.csv').decoded_content),
             header=None,
             names=['key', 'value'],
             index_col=0)
@@ -93,7 +93,7 @@ class NewYorkCity(ScraperBase):
 
         _logger.debug(f'Fetching demographic data for {max_date}')
         latest_demog = pd.read_csv(
-            BytesIO(repo.get_contents('by-race.csv', ref=sha).decoded_content),
+            BytesIO(repo.get_contents('totals/by-race.csv', ref=sha).decoded_content),
             index_col='RACE_GROUP'
         )
         aa_cases = latest_demog.loc['Black/African-American', 'CASE_COUNT']

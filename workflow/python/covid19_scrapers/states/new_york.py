@@ -20,7 +20,7 @@ class NewYork(ScraperBase):
     SUMMARY_URL = 'https://covid19tracker.health.ny.gov/views/NYS-COVID19-Tracker/NYSDOHCOVID-19Tracker-TableView?%3Aembed=yes&%3Atoolbar=no&%3Atabs=n'
     DEATHS_URL = 'https://covid19tracker.health.ny.gov/views/NYS-COVID19-Tracker/NYSDOHCOVID-19Tracker-Fatalities?%3Aembed=yes&%3Atoolbar=no&%3Atabs=n'
     NYS_RACE_DEATHS_URL = 'https://covid19tracker.health.ny.gov/views/NYS-COVID19-Tracker/NYSDOHCOVID-19Tracker-FatalityDetail?%3Aembed=yes&%3Atoolbar=no&%3Atabs=n'
-    NYC_RACE_DEATHS_URL = 'https://raw.githubusercontent.com/nychealth/coronavirus-data/master/by-race.csv'
+    NYC_RACE_DEATHS_URL = 'https://raw.githubusercontent.com/nychealth/coronavirus-data/master/totals/by-race.csv'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
