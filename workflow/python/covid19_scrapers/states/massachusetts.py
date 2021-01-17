@@ -12,7 +12,7 @@ _logger = logging.getLogger(__name__)
 
 
 class Massachusetts(ScraperBase):
-    """Massachusetts publishes a xlsx file containin COVID-19
+    """Massachusetts publishes a xlsx file containing COVID-19
     statistics. A new file is uploaded daily though race/ethnicity
     data is only uploaded every two weeks. We scrape the main
     reporting page to find the latest xlsx download link.
