@@ -14,7 +14,14 @@ _logger = logging.getLogger(__name__)
 
 
 class Delaware(ScraperBase):
-    DATA_URL = 'https://myhealthycommunity.dhss.delaware.gov/locations/state'
+    '''
+    The Delaware dashboard page has an acceptable use agreement, prohibiting attempting to reidentify individuals,
+    which must be submitted before the dashboards can be accessed. This code does not attempt to that.
+    After submitting the acceptable use agreement, the browser will redirect to:
+    'https://myhealthycommunity.dhss.delaware.gov/locations/state' which is where the dashboard lives.
+    '''
+
+    ACCEPTABLE_USE_URL = 'https://myhealthycommunity.dhss.delaware.gov/about/acceptable-use'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -69,7 +76,12 @@ class Delaware(ScraperBase):
         runner = WebdriverRunner()
         results = runner.run(
             WebdriverSteps()
-            .go_to_url(self.DATA_URL)
+            .go_to_url(self.ACCEPTABLE_USE_URL)
+            .find_element_by_xpath("//input[@class='form-check-input']")
+            .click_on_last_element_found()
+            .find_element_by_xpath('//form/button')
+            .click_on_last_element_found()
+            .wait_for_presence_of_elements((By.XPATH, "//a[@data-chart-id='count-charts']"))
             .find_element_by_xpath("//a[@data-chart-id='count-charts']")
             .click_on_last_element_found()
             .wait_for_presence_of_elements((By.XPATH, "//*[contains(text(), 'Total Cases by Race/Ethnicity & County')]"))
