@@ -30,27 +30,23 @@ class Wyoming(ScraperBase):
             .find_request('cases', find_by=tableau.find_tableau_request)
             .clear_request_history()
             .go_to_url(self.DEATHS_URL)
-            .wait_for_number_of_elements((By.XPATH, '//canvas'), 29)
+            .wait_for_number_of_elements((By.XPATH, '//canvas'), 41)
             .find_request('deaths', find_by=tableau.find_tableau_request))
 
         parser = tableau.TableauParser(request=results.requests['cases'])
+        raw_date_str = pydash.head(parser.extract_data_from_key('cases')['ATTR(dateupdated)'])
+        date = datetime.strptime(raw_date_str, '%m/%d/%Y').date()
 
-        raw_date_str = pydash.head(parser.extract_data_from_key('cases')['ATTR(Date Updated)'])
-        date = datetime.strptime(raw_date_str, '%A, %B %d, %Y').date()
-
-        confirmed_cases = pydash.head(parser.extract_data_from_key('cases')['SUM(# Lab Confirmed Cases)'])
-        probable_cases = pydash.head(parser.extract_data_from_key('probable cases')['SUM(# probable)'])
-        cases = confirmed_cases + probable_cases
-        cases_df = pd.DataFrame.from_dict(parser.extract_data_from_key('raceth')).set_index('sub-category')
+        cases = pydash.head(parser.extract_data_from_key('cases')['SUM(Laboratory Confirmed Cases)'])
+        cases_df = pd.DataFrame.from_dict(parser.extract_data_from_key('raceth')).set_index('subcategory')
         aa_cases = cases_df.loc['Black']['SUM(count)']
-        known_race_cases = cases - cases_df.loc['unknown']['SUM(count)']
+        known_race_cases = cases - cases_df.loc['Unknown']['SUM(count)']
 
         parser = tableau.TableauParser(request=results.requests['deaths'])
-        deaths = pydash.head(parser.extract_data_from_key('death (2)')['SUM(# lab confirmed deaths)'])
-        deaths_df = pd.DataFrame.from_dict(parser.extract_data_from_key('raceth (death)')).set_index('sub-category')
-        deaths_df = deaths_df.assign(Count=[round(v * deaths) for v in deaths_df['SUM(% of deaths)'].values])
-        aa_deaths = deaths_df.loc['Black']['Count']
-        known_race_deaths = deaths - deaths_df.loc['unknown']['Count']
+        deaths = pydash.head(parser.extract_data_from_key('death (2)')['SUM(Deaths)'])
+        deaths_df = pd.DataFrame.from_dict(parser.extract_data_from_key('raceth (death)')).set_index('subcategory')
+        aa_deaths = deaths_df.loc['Black']['SUM(count)']
+        known_race_deaths = deaths - deaths_df.loc['Unknown']['SUM(count)']
 
         pct_aa_cases = misc.to_percentage(aa_cases, known_race_cases)
         pct_aa_deaths = misc.to_percentage(aa_deaths, known_race_deaths)
