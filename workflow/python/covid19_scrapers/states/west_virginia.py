@@ -1,7 +1,5 @@
 from datetime import datetime
 
-from selenium.webdriver.common.by import By
-
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import misc, powerbi
 from covid19_scrapers.webdriver import WebdriverRunner, WebdriverSteps
@@ -13,7 +11,7 @@ class WestVirginia(ScraperBase):
 
     At the time of writing this, deaths by race seems unavailable.
     """
-    URL = 'https://app.powerbigov.us/view?r=eyJrIjoiYmE2MGRlZTAtNWNmMi00NDY5LTg2MWUtYzgwYjZlZjZkM2MxIiwidCI6IjhhMjZjZjAyLTQzNGEtNDMxZS04Y2FkLTdlYWVmOTdlZjQ4NCJ9'
+    URL = 'https://app.powerbigov.us/view?r=eyJrIjoiNGNjNzRjNWEtMzViYi00ZmEwLWI3NzItZmEyYzc1MDQ0MmYyIiwidCI6IjhhMjZjZjAyLTQzNGEtNDMxZS04Y2FkLTdlYWVmOTdlZjQ4NCJ9'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -24,15 +22,12 @@ class WestVirginia(ScraperBase):
             WebdriverSteps()
             .set_request_capture_scope(['.*querydata?synchronous=true'])
             .go_to_url(self.URL)
-            .wait_for_visibility_of_elements((By.XPATH, "//span[contains(text(), 'Cumulative Summary')]/parent::*"))
-            .wait_for_number_of_elements((By.XPATH, "//*[name()='svg']/*[name()='g']/*[name()='text']/*[name()='title']"), 7)
             .find_request('summary', find_by=powerbi.filter_requests(entity='factCase Data', selects=['Case Data.Total Cases']))
             .find_request('deaths', find_by=powerbi.filter_requests(entity='factCase Data', selects=['Sum(Case Data.Death)']))
             .find_request('last_updated', find_by=powerbi.filter_requests(entity='Today Dates', selects=['Min(Today Dates.Today)']))
             .find_element_by_xpath("//span[contains(text(), 'Cumulative Summary')]/parent::*")
             .clear_request_history()
             .click_on_last_element_found()
-            .wait_for_number_of_elements((By.XPATH, "//*[name()='svg']/*[name()='g']/*[name()='text']/*[name()='title']"), 25)
             .find_request('race_cases', find_by=powerbi.filter_requests(selects=['Case Data.Race Group']))
         )
 
