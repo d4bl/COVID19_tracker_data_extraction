@@ -28,15 +28,15 @@ class Kansas(ScraperBase):
         super().__init__(**kwargs)
 
     def get_date(self, soup):
-        # the date string is represented by 3 different <span> elements
-        current_element = soup.find(text='Last updated')
-        date_str = ''
-        for _ in range(3):
-            current_element = current_element.find_next('span')
-            date_str += current_element.text
-
+        # the date string is represented by 3 different <span> elements.
+        # so, get the parent for the spans and extract the text from the
+        # parent element.
+        raw_string = (
+            soup.find('span', string=re.compile('Last updated'))
+            .find_parent('div')
+            .get_text())
         pattern = re.compile(r'(\d{2}\/\d{2}\/\d{4})')
-        matches = pattern.search(date_str)
+        matches = pattern.search(raw_string)
         assert matches, 'Date not found.'
         return datetime.strptime(matches.group(), '%m/%d/%Y').date()
 
