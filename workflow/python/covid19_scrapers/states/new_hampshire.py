@@ -2,11 +2,10 @@ from datetime import datetime
 import re
 
 import pandas as pd
-from selenium.webdriver.common.by import By
 
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import misc, parse
-from covid19_scrapers.utils.tableau import TableauParser
+from covid19_scrapers.utils.tableau import TableauParser, find_tableau_request
 from covid19_scrapers.webdriver import WebdriverRunner, WebdriverSteps
 
 
@@ -38,8 +37,7 @@ class NewHampshire(ScraperBase):
         results = runner.run(
             WebdriverSteps()
             .go_to_url(self.URL)
-            .wait_for_presence_of_elements((By.XPATH, "//span[contains(text(), 'Race/Ethnicity is known for ')]"))
-            .find_request(key='results', find_by=lambda r: 'bootstrapSession' in r.path)
+            .find_request(key='results', find_by=find_tableau_request)
             .get_page_source())
 
         date = self.get_date(results.page_source)

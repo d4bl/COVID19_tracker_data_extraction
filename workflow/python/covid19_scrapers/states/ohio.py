@@ -1,7 +1,6 @@
 from datetime import datetime
 
 import pydash
-from selenium.webdriver.common.by import By
 import pandas as pd
 
 from covid19_scrapers.scraper import ScraperBase
@@ -27,11 +26,9 @@ class Ohio(ScraperBase):
         results = runner.run(
             WebdriverSteps()
             .go_to_url(self.CASES_URL)
-            .wait_for_number_of_elements((By.XPATH, '//canvas'), 38)
             .find_request('cases', find_by=tableau.find_tableau_request)
             .clear_request_history()
             .go_to_url(self.DEATHS_URL)
-            .wait_for_number_of_elements((By.XPATH, '//canvas'), 20)
             .find_request('deaths', find_by=tableau.find_tableau_request))
 
         parser = tableau.TableauParser(request=results.requests['cases'])

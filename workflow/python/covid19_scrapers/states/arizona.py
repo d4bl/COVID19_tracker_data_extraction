@@ -2,11 +2,10 @@ from datetime import datetime
 
 import pydash
 import pandas as pd
-from selenium.webdriver.common.by import By
 
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import misc
-from covid19_scrapers.utils.tableau import TableauParser
+from covid19_scrapers.utils.tableau import TableauParser, find_tableau_request
 from covid19_scrapers.webdriver import WebdriverRunner, WebdriverSteps
 
 
@@ -30,14 +29,12 @@ class Arizona(ScraperBase):
         cases_results = runner.run(
             WebdriverSteps()
             .go_to_url(self.CASES_URL)
-            .wait_for_presence_of_elements((By.XPATH, "//span[contains(text(), 'COVID-19 Cases by Race/Ethnicity')]"))
-            .find_request(key='cases', find_by=lambda r: 'bootstrapSession' in r.path))
+            .find_request(key='cases', find_by=find_tableau_request))
 
         deaths_results = runner.run(
             WebdriverSteps()
             .go_to_url(self.DEATHS_URL)
-            .wait_for_presence_of_elements((By.XPATH, "//span[contains(text(), 'COVID-19 Deaths by Race/Ethnicity')]"))
-            .find_request(key='deaths', find_by=lambda r: 'bootstrapSession' in r.path))
+            .find_request(key='deaths', find_by=find_tableau_request))
 
         assert cases_results.requests['cases'], 'No results found for `cases`'
         resp_body = cases_results.requests['cases'].response.body.decode('utf8')
