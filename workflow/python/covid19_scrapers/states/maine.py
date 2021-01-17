@@ -1,8 +1,8 @@
-import datetime
 import logging
 import pandas as pd
 
 from covid19_scrapers.scraper import ScraperBase
+from covid19_scrapers.utils.http import get_content_as_file
 from covid19_scrapers.utils.misc import to_percentage
 
 
@@ -27,10 +27,14 @@ class Maine(ScraperBase):
         counties = pd.read_csv(self.CASES_BY_COUNTY_URL)
         total_deaths = counties['DEATHS'].sum()
 
-        table = pd.read_csv(self.CASES_BY_RACE_URL, index_col=0)
+        table = pd.read_csv(
+            get_content_as_file(self.CASES_BY_RACE_URL),
+            index_col=0,
+            parse_dates=['DATA_REFRESH_DT'])
+
         total_cases = table['CASES'].sum()
         known_cases = table['CASES'].drop('Not disclosed').sum()
-        date = datetime.datetime.strptime(table['DATA_REFRESH_DT'][0], '%Y-%m-%d').date()
+        date = table['DATA_REFRESH_DT'][0].date()
         _logger.info(f'Processing data for {date}')
         aa_cases_cnt = table.loc['Black or African American', 'CASES']
         aa_cases_pct = to_percentage(aa_cases_cnt, known_cases)
