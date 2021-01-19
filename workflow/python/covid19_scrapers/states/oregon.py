@@ -2,8 +2,6 @@ import re
 from datetime import datetime
 import logging
 
-from selenium.webdriver.common.by import By
-
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import tableau
 from covid19_scrapers.utils.misc import to_percentage
@@ -29,7 +27,6 @@ class Oregon(ScraperBase):
         results = runner.run(
             WebdriverSteps()
             .go_to_url(self.URL)
-            .wait_for_number_of_elements((By.XPATH, '//canvas'), 12)
             .find_request('summary', find_by=tableau.find_tableau_request))
 
         parser = tableau.TableauParser(request=results.requests['summary'])

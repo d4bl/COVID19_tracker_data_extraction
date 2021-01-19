@@ -3,7 +3,6 @@ from functools import partial
 
 import pandas as pd
 import pydash
-from selenium.webdriver.common.by import By
 
 from covid19_scrapers.scraper import ScraperBase
 from covid19_scrapers.utils import misc, parse, tableau
@@ -51,15 +50,12 @@ class NewYork(ScraperBase):
         results = runner.run(
             WebdriverSteps()
             .go_to_url(self.SUMMARY_URL)
-            .wait_for_number_of_elements((By.XPATH, '//canvas'), 12)
             .find_request('summary', find_by=tableau.find_tableau_request)
             .clear_request_history()
             .go_to_url(self.DEATHS_URL)
-            .wait_for_number_of_elements((By.XPATH, '//canvas'), 31)
             .find_request('deaths', find_by=tableau.find_tableau_request)
             .clear_request_history()
             .go_to_url(self.NYS_RACE_DEATHS_URL)
-            .wait_for_number_of_elements((By.XPATH, '//canvas'), 20)
             .find_request('race_deaths', find_by=tableau.find_tableau_request))
 
         parser = tableau.TableauParser(request=results.requests['summary'])
