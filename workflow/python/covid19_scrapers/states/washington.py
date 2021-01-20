@@ -45,7 +45,7 @@ class Washington(ScraperBase):
         month, day, year = map(
             int,
             re.search(
-                r'(\d\d)/(\d\d)/(\d\d\d\d)',
+                r'(\d)/(\d\d)/(\d\d\d\d)',
                 last_updated_text.parent.text
             ).groups())
         date = datetime.date(year, month, day)
