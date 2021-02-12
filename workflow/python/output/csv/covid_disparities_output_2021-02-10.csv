@@ -1,51 +1,51 @@
 Date Run,Date/Time Run,Location,Date Published,Total Cases,Total Deaths,Count Cases Black/AA,Count Deaths Black/AA,Pct Cases Black/AA,Pct Deaths Black/AA,Pct Includes Unknown Race,Pct Includes Hispanic Black,Count Cases Known Race,Count Deaths Known Race,Black/AA Population,Pct Black/AA Population,Status code
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Alabama,2021-02-10,373601.0,6990.0,78508.0,1964.0,29.15,30.82,False,False,269310.0,6373.0,1293186.0,26.58,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Alaska,2021-02-10,44549.0,277.0,1342.0,9.0,3.05,3.25,False,True,44030.0,277.0,24129.0,3.27,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Arizona,2021-02-10,789245.0,14462.0,24127.0,375.0,3.77,2.8,False,False,639781.0,13415.0,305259.0,4.39,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Arkansas,2021-02-10,309940.0,5174.0,48886.0,725.0,18.03,15.0,False,True,271159.0,4833.0,460970.0,15.41,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,California,2021-02-09 00:00:00,3362981.0,44995.0,103870.0,2749.0,4.04,6.33,False,False,2573063.0,43457.0,2267875.0,5.79,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Colorado,2021-02-10,407961.0,5770.0,11790.0,188.0,3.81,3.48,False,False,309479.0,5404.0,227938.0,4.12,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Connecticut,2021-02-09,249245.0,5999.0,18189.0,881.0,7.3,14.69,True,False,,,378262.0,10.56,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Delaware,2021-02-10,81461.0,1245.0,18468.0,283.0,23.87,22.77,False,False,77364.0,1243.0,209892.0,22.11,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Florida,2021-02-10,1765659.0,28208.0,198826.0,4180.0,11.26,14.82,True,False,,,3316376.0,16.1,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Georgia,2021-02-10,780494.0,13599.0,201961.0,4675.0,25.88,34.38,True,True,,,3239300.0,31.46,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Hawaii,,,,,,,,False,False,,,26266.0,1.85,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Idaho,,,,,,,,False,False,,,11536.0,0.68,"An error occurred. ... TimeoutException('', None, None)"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Illinois,2021-01-29,1120528.0,19138.0,101720.0,3428.0,9.08,17.91,True,False,,,1824125.0,14.23,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Indiana,2021-02-10,643305.0,11578.0,42798.0,889.0,6.65,7.68,True,True,,,619472.0,9.33,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Iowa,,,,,,,,False,False,,,109911.0,3.51,"An error occurred. ... TimeoutException('', None, None)"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Kansas,,,,,,,,False,False,,,169801.0,5.84,An error occurred. ... AssertionError('Date not found.')
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Kentucky,,,,,,,,False,False,,,354112.0,7.98,"An error occurred. ... SSLError(MaxRetryError(""HTTPSConnectionPool(host='chfs.ky.gov', port=443): Max retries exceeded with url: /agencies/dph/covid19/COVID19DailyReport.pdf (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1123)')))""))"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Louisiana,,,,,,,,False,False,,,1502916.0,32.23,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Maine,,,,,,,,False,False,,,17881.0,1.34,An error occurred. ... KeyError('DEATHS')
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Maryland,2021-02-10,366666.0,7267.0,104313.0,2510.0,33.1,34.79,False,False,315181.0,7214.0,1788090.0,29.78,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Massachusetts,2021-02-10,548946.0,15207.0,33334.0,1025.0,6.07,6.74,True,False,,,510558.0,7.48,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Michigan,2021-02-10,570847.0,14907.0,66677.0,3365.0,11.68,22.57,True,False,,,1375424.0,13.81,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Minnesota,2021-02-10,469905.0,6319.0,37655.0,307.0,8.01,4.86,True,True,,,342186.0,6.19,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Mississippi,,,,,,,,False,False,,,1125834.0,37.67,An error occurred. ... ValueError('Cannot convert non-finite values (NA or inf) to integer')
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Missouri,,,,,,,,False,False,,,704896.0,11.57,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Montana,,,,,,,,False,False,,,4630.0,0.44,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'find_parent'"")"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Nebraska,2021-02-10,194632.0,1986.0,5056.0,56.0,4.38,3.97,False,True,115373.0,1409.0,90860.0,4.77,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Nevada,,,,,,,,False,False,,,261123.0,8.93,"An error occurred. ... TimeoutException('', None, None)"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,New Hampshire,,,,,,,,False,False,,,20516.0,1.53,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'find_next'"")"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,New Mexico,2021-02-09,178280.0,3430.0,2169.0,,1.22,,True,False,,,43006.0,2.06,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,NewYork,2021-02-09,1494187.0,36619.0,,7559.0,,23.1,False,False,,32730.0,,,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,North Carolina,,,,,,,,False,False,,,2179622.0,21.46,An error occurred. ... AssertionError('No date found')
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,NorthDakota,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Ohio,2021-02-10,928631.0,11856.0,96827.0,1390.0,13.29,12.55,False,True,728365.0,11073.0,1438271.0,12.35,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Oklahoma,,,,,,,,False,False,,,287959.0,7.35,"An error occurred. ... TimeoutException('', None, None)"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Oregon,2021-02-09,147932.0,2031.0,3570.0,44.0,2.96,2.57,False,True,120677.0,1714.0,77789.0,1.91,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Pennsylvania,,,,,,,,False,False,,,1423319.0,11.13,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Rhode Island,2020-07-03,16491.0,960.0,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254.0,6.55,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,SouthCarolina,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,SouthDakota,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Tennessee,2021-02-10,750409.0,10731.0,95163.0,1840.0,12.68,17.15,True,True,,,1117489.0,16.8,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Texas,2021-02-05,71768.0,38128.0,12018.0,3629.0,0.17,0.1,True,False,,,3365783.0,12.07,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Utah,2021-02-10,357339.0,1765.0,4768.0,17.0,1.3,0.96,True,False,,,35862.0,1.18,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Vermont,2021-02-10,13122.0,187.0,550.0,0.0,4.63,0.0,False,True,11889.0,175.0,8058.0,1.29,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Virginia,2021-02-10 00:00:00,537204.0,6930.0,89047.0,1599.0,16.58,23.07,True,False,,,1613285.0,19.17,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Washington,,,,,,,,False,False,,,269854.0,3.7,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'groups'"")"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,"Washington, DC",,,,,,,,False,False,,,321317.0,46.94,"An error occurred. ... ValueError(""time data 'Jan-13-2021' does not match format '%B-%d-%Y'"")"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,WestVirginia,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Wisconsin,2021-02-10,551871.0,6129.0,36445.0,431.0,7.17,7.24,False,True,508447.0,5957.0,368744.0,6.38,Success!
-2021-02-10,2021/02/10 14:51:36America/Los Angeles TZ,Wyoming,2021-02-10,45068.0,647.0,408.0,2.0,1.27,0.31,False,False,32148.0,636.0,5540.0,0.95,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Alabama,2021-02-10,373601.0,6990.0,78508.0,1964.0,29.15,30.82,False,False,269310.0,6373.0,1293186.0,26.58,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Alaska,2021-02-10,44549.0,277.0,1342.0,9.0,3.05,3.25,False,True,44030.0,277.0,24129.0,3.27,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Arizona,2021-02-10,789245.0,14462.0,24127.0,375.0,3.77,2.8,False,False,639781.0,13415.0,305259.0,4.39,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Arkansas,2021-02-10,309940.0,5174.0,48886.0,725.0,18.03,15.0,False,True,271159.0,4833.0,460970.0,15.41,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,California,2021-02-09 00:00:00,3362981.0,44995.0,103870.0,2749.0,4.04,6.33,False,False,2573063.0,43457.0,2267875.0,5.79,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Colorado,2021-02-10,407961.0,5770.0,11790.0,188.0,3.81,3.48,False,False,309479.0,5404.0,227938.0,4.12,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Connecticut,2021-02-09,249245.0,5999.0,18189.0,881.0,7.3,14.69,True,False,,,378262.0,10.56,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Delaware,2021-02-10,81461.0,1245.0,18468.0,283.0,23.87,22.77,False,False,77364.0,1243.0,209892.0,22.11,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Florida,2021-02-10,1765659.0,28208.0,198826.0,4180.0,11.26,14.82,True,False,,,3316376.0,16.1,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Georgia,2021-02-10,780494.0,13599.0,201961.0,4675.0,25.88,34.38,True,True,,,3239300.0,31.46,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Hawaii,,,,,,,,False,False,,,26266.0,1.85,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Idaho,2021-02-10,112993.0,1791.0,973.0,9.0,0.86,0.5,False,True,,,11536.0,0.68,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Illinois,2021-01-29,1120528.0,19138.0,101720.0,3428.0,9.08,17.91,True,False,,,1824125.0,14.23,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Indiana,2021-02-10,643305.0,11578.0,42798.0,889.0,6.65,7.68,True,True,,,619472.0,9.33,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Iowa,,,,,,,,False,False,,,109911.0,3.51,"An error occurred. ... TimeoutException('', None, None)"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Kansas,,,,,,,,False,False,,,169801.0,5.84,An error occurred. ... AssertionError('Date not found.')
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Kentucky,,,,,,,,False,False,,,354112.0,7.98,"An error occurred. ... SSLError(MaxRetryError(""HTTPSConnectionPool(host='chfs.ky.gov', port=443): Max retries exceeded with url: /agencies/dph/covid19/COVID19DailyReport.pdf (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1123)')))""))"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Louisiana,,,,,,,,False,False,,,1502916.0,32.23,An error occurred. ... Exception('You do not have permissions to access this resource or perform this operation.\n(Error Code: 403)')
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Maine,,,,,,,,False,False,,,17881.0,1.34,An error occurred. ... KeyError('DEATHS')
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Maryland,2021-02-10,366666.0,7267.0,104313.0,2510.0,33.1,34.79,False,False,315181.0,7214.0,1788090.0,29.78,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Massachusetts,2021-02-10,548946.0,15207.0,33334.0,1025.0,6.07,6.74,True,False,,,510558.0,7.48,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Michigan,2021-02-10,570847.0,14907.0,66677.0,3365.0,11.68,22.57,True,False,,,1375424.0,13.81,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Minnesota,2021-02-10,469905.0,6319.0,37655.0,307.0,8.01,4.86,True,True,,,342186.0,6.19,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Mississippi,,,,,,,,False,False,,,1125834.0,37.67,An error occurred. ... ValueError('Cannot convert non-finite values (NA or inf) to integer')
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Missouri,,,,,,,,False,False,,,704896.0,11.57,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Montana,,,,,,,,False,False,,,4630.0,0.44,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'find_parent'"")"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Nebraska,2021-02-10,194632.0,1986.0,5056.0,56.0,4.38,3.97,False,True,115373.0,1409.0,90860.0,4.77,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Nevada,,,,,,,,False,False,,,261123.0,8.93,"An error occurred. ... TimeoutException('', None, None)"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,New Hampshire,,,,,,,,False,False,,,20516.0,1.53,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'find_next'"")"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,New Mexico,2021-02-09,178280.0,3430.0,2169.0,,1.22,,True,False,,,43006.0,2.06,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,NewYork,2021-02-09,1494187.0,36619.0,,7559.0,,23.1,False,False,,32730.0,,,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,North Carolina,,,,,,,,False,False,,,2179622.0,21.46,An error occurred. ... AssertionError('No date found')
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,NorthDakota,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Ohio,2021-02-10,928631.0,11856.0,96827.0,1390.0,13.29,12.55,False,True,728365.0,11073.0,1438271.0,12.35,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Oklahoma,,,,,,,,False,False,,,287959.0,7.35,"An error occurred. ... TimeoutException('', None, None)"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Oregon,2021-02-10,148475.0,2044.0,3586.0,44.0,2.96,2.55,False,True,121163.0,1723.0,77789.0,1.91,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Pennsylvania,,,,,,,,False,False,,,1423319.0,11.13,An error occurred. ... Exception('Token Required\nToken Required\n(Error Code: 499)')
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Rhode Island,2020-07-03,16491.0,960.0,1592.0,48.0,12.29,6.14,False,False,12950.0,782.0,69254.0,6.55,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,SouthCarolina,,,,,,,,False,False,,,,,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'text'"")"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,SouthDakota,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Tennessee,2021-02-10,750409.0,10731.0,95163.0,1840.0,12.68,17.15,True,True,,,1117489.0,16.8,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Texas,2021-02-05,71768.0,38128.0,12018.0,3629.0,0.17,0.1,True,False,,,3365783.0,12.07,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Utah,2021-02-10,357339.0,1765.0,4768.0,17.0,1.3,0.96,True,False,,,35862.0,1.18,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Vermont,2021-02-10,13122.0,187.0,550.0,0.0,4.63,0.0,False,True,11889.0,175.0,8058.0,1.29,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Virginia,2021-02-10 00:00:00,537204.0,6930.0,89047.0,1599.0,16.58,23.07,True,False,,,1613285.0,19.17,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Washington,,,,,,,,False,False,,,269854.0,3.7,"An error occurred. ... AttributeError(""'NoneType' object has no attribute 'groups'"")"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,"Washington, DC",,,,,,,,False,False,,,321317.0,46.94,"An error occurred. ... ValueError(""time data 'Jan-13-2021' does not match format '%B-%d-%Y'"")"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,WestVirginia,,,,,,,,False,False,,,,,"An error occurred. ... TimeoutException('', None, None)"
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Wisconsin,2021-02-10,551871.0,6129.0,36445.0,431.0,7.17,7.24,False,True,508447.0,5957.0,368744.0,6.38,Success!
+2021-02-10,2021/02/10 17:27:13America/Los Angeles TZ,Wyoming,2021-02-10,45068.0,647.0,408.0,2.0,1.27,0.31,False,False,32148.0,636.0,5540.0,0.95,Success!
