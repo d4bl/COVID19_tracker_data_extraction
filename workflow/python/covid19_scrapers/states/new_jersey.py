@@ -18,7 +18,6 @@ class NewJersey(ScraperBase):
     available in a Tableau dashboard.
     """
 
-    BETA_SCRAPER = True
     # ArcGIS service is at https://services7.arcgis.com/Z0rixLlManVefxqY
     TOTALS = dict(
         flc_id='24f4fcf164ad4b4280f08c8939dd5dc7',
