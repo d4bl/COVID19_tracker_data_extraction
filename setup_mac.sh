@@ -2,5 +2,5 @@
 set -e
 
 brew install tesseract
-brew cask install chromedriver
+brew install --cask chromedriver
 brew install openssl
